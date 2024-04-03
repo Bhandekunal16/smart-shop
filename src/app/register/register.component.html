@@ -13,18 +13,33 @@
     </div>
     <div class="register-container-form-input">
       <label>First name </label>
+      <div *ngIf="myForm.get('firstName')?.errors?.['pattern']">
+        Enter valid first name
+      </div>
       <input type="text" placeholder="firstName" formControlName="firstName" />
 
       <label>last name </label>
+      <div *ngIf="myForm.get('lastName')?.errors?.['pattern']">
+        Enter valid last name
+      </div>
       <input type="text" placeholder="lastName" formControlName="lastName" />
 
       <label>Email id </label>
+      <div *ngIf="myForm.get('gmail')?.errors?.['pattern']">
+        Enter valid email
+      </div>
       <input type="text" placeholder="gmail" formControlName="gmail" />
 
       <label>Mobile No</label>
+      <div *ngIf="myForm.get('mobileNo')?.errors?.['pattern']">
+        Enter valid mobile number
+      </div>
       <input type="number" placeholder="mobileNo" formControlName="mobileNo" />
 
       <label>Password </label>
+      <div *ngIf="myForm.get('Password')?.errors?.['pattern']">
+        Enter valid Password
+      </div>
       <input type="text" placeholder="Password" formControlName="Password" />
     </div>
 
