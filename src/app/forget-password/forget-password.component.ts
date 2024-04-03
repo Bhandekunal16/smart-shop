@@ -36,6 +36,7 @@ export class ForgetPasswordComponent {
         },
       ];
     } else {
+      this.verifyOtp();
       this.msg = [
         {
           severity: 'success',
@@ -44,5 +45,9 @@ export class ForgetPasswordComponent {
         },
       ];
     }
+  }
+
+  verifyOtp(): void {
+    this.router.navigate(['/verify-otp']);
   }
 }
