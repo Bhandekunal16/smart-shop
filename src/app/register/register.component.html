@@ -1,1 +1,48 @@
-<p>register works!</p>
+<div class="register-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
+
+  <form class="register-container-form" [formGroup]="myForm">
+    <div class="register-container-form-top">
+      <h1>Register</h1>
+    </div>
+    <div class="register-container-form-input">
+      <label>First name </label>
+      <input type="text" placeholder="firstName" formControlName="firstName" />
+
+      <label>last name </label>
+      <input type="text" placeholder="lastName" formControlName="lastName" />
+
+      <label>Email id </label>
+      <input type="text" placeholder="gmail" formControlName="gmail" />
+
+      <label>Mobile No</label>
+      <input type="number" placeholder="mobileNo" formControlName="mobileNo" />
+
+      <label>Password </label>
+      <input type="text" placeholder="Password" formControlName="Password" />
+    </div>
+
+    <div class="register-container-form-button">
+      <button
+        pButton
+        pRipple
+        label="Submit"
+        class="p-button-success"
+        (click)="submitForm()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="login"
+        class="p-button-success"
+        (click)="login()"
+      ></button>
+    </div>
+  </form>
+</div>

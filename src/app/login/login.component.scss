@@ -3,6 +3,7 @@
   width: 100%;
   height: 97vh;
   background-color: #f5f5f5;
+  color: #1e5d4a;
 }
 
 .login-container-form {
@@ -59,6 +60,26 @@
   transition: box-shadow 0.3s, transform 0.3s;
 }
 
+.login-container-form p {
+  text-align: left;
+  color: #1e5d4a;
+}
+
+.login-container-form-p {
+  width: 90%;
+  margin-top: 2%;
+  border-top: dotted #1e5d4a 1px;
+}
+
+.message-card {
+  width: fit-content;
+  height: 10vh;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
 
 @media (max-width: 600px) {
   .login-container-form {

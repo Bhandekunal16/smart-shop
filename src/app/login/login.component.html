@@ -1,4 +1,12 @@
 <div class="login-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
+
   <form class="login-container-form" [formGroup]="myForm">
     <div class="login-container-form-top">
       <h1>Login</h1>
@@ -24,6 +32,10 @@
         class="p-button-success"
         (click)="register()"
       ></button>
+    </div>
+
+    <div class="login-container-form-p">
+      <p (click)="forgetPassword()">Forget Password!</p>
     </div>
   </form>
 </div>
