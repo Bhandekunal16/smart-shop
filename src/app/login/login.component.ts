@@ -39,7 +39,7 @@ export class LoginComponent {
 
     if (
       (Username === '8779143048' && Password === 'Rowdy@1720') ||
-      (Username === 'bhandekunal16@gmail.com' && Password === '172000')
+      (Username === 'bhandekunal16@gmail.com' && Password === 'Rowdy@1720')
     ) {
       console.log(`login true`);
       this.msg = [
