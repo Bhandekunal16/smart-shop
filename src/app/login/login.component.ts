@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class LoginComponent {
   public myForm: FormGroup;
 
-  constructor() {
+  constructor(private router: Router) {
     this.myForm = new FormGroup({
       Username: new FormControl(''),
       Password: new FormControl(''),
@@ -22,6 +23,7 @@ export class LoginComponent {
   }
 
   submitForm() {
+    console.log('hi')
     const Username: string = this.myForm.value.Username;
     const Password: string = this.myForm.value.Password;
 
@@ -35,5 +37,9 @@ export class LoginComponent {
     } else {
       console.log(false);
     }
+  }
+
+  register(): void {
+    this.router.navigate(['/register']);
   }
 }
