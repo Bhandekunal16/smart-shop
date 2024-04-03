@@ -49,7 +49,7 @@ export class RegisterComponent {
     const firstName: string = this.myForm.value.firstName;
     const lastName: string = this.myForm.value.lastName;
     const gmail: string = this.myForm.value.gmail;
-    const mobileNo: string = this.myForm.value.mobileNo;
+    const mobileNo: number = this.myForm.value.mobileNo;
     const Password: string = this.myForm.value.Password;
 
     console.log(firstName, lastName, gmail, mobileNo, Password);
