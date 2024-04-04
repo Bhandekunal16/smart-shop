@@ -6,12 +6,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../api.service';
+
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpHeaders,
+} from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MessagesModule, ReactiveFormsModule, ButtonModule, CommonModule],
+  imports: [
+    MessagesModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    CommonModule,
+    HttpClientModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -19,7 +31,7 @@ export class RegisterComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
 
-  constructor(private router: Router, private api: ApiService) {
+  constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
       firstName: new FormControl('', [
         Validators.required,
@@ -55,32 +67,32 @@ export class RegisterComponent {
 
     console.log(firstName, lastName, email, mobileNo, password);
 
-    const create: any = await this.api.register({
+    const create: any = this.register({
       firstName,
       lastName,
       email,
       mobileNo,
       password,
+    }).subscribe((data) => {
+      if (data.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'Success',
+            detail: 'register successfully !',
+          },
+        ];
+        this.dashboard();
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: 'please fill all fields',
+          },
+        ];
+      }
     });
-
-    if (create.data.status) {
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'Success',
-          detail: 'register successfully !',
-        },
-      ];
-      this.dashboard();
-    } else {
-      this.msg = [
-        {
-          severity: 'warn',
-          summary: 'warn',
-          detail: 'please fill all fields',
-        },
-      ];
-    }
   }
 
   login() {
@@ -89,5 +101,19 @@ export class RegisterComponent {
 
   dashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  register(body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<any>('http://localhost:3003/auth/register', body, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 }
