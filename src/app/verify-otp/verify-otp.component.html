@@ -26,6 +26,7 @@
         label="Submit"
         class="p-button-success"
         (click)="submitForm()"
+        [disabled]="myForm.invalid"
       ></button>
     </div>
   </form>

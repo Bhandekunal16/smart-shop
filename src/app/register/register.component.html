@@ -49,6 +49,7 @@
         pRipple
         label="Submit"
         class="p-button-success"
+        [disabled]="myForm.invalid"
         (click)="submitForm()"
       ></button>
       <button
