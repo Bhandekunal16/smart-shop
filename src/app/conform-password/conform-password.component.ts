@@ -6,6 +6,7 @@ import { Message } from 'primeng/api';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { SettlerService } from '../common/settler.service';
 
 @Component({
   selector: 'app-conform-password',
@@ -18,7 +19,7 @@ export class ConformPasswordComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private settler: SettlerService) {
     this.myForm = new FormGroup({
       Password: new FormControl('', [
         Validators.required,
@@ -31,8 +32,9 @@ export class ConformPasswordComponent {
 
   submitForm() {
     const password = this.myForm.value.password;
+    const email = this.settler.emailObj;
 
-    if (password !== '') {
+    if (password !== '' && email == 'bhandekunal16@gmail.com') {
       this.msg = [
         {
           severity: 'success',
