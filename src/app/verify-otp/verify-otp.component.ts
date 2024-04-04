@@ -37,6 +37,7 @@ export class VerifyOtpComponent {
           detail: 'otp-verified',
         },
       ];
+      this.conformPassword()
     } else {
       this.msg = [
         {
@@ -46,5 +47,9 @@ export class VerifyOtpComponent {
         },
       ];
     }
+  }
+
+  conformPassword(): void {
+    this.router.navigate(['/conform-password']);
   }
 }
