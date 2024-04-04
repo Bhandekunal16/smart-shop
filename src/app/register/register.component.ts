@@ -65,8 +65,6 @@ export class RegisterComponent {
     const mobileNo: number = this.myForm.value.mobileNo;
     const password: string = this.myForm.value.Password;
 
-    console.log(firstName, lastName, email, mobileNo, password);
-
     const create: any = this.register({
       firstName,
       lastName,
