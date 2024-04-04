@@ -64,3 +64,16 @@
   right: 0;
   z-index: 999;
 }
+
+
+@media (max-width: 600px) {
+  .verifyOtp-container-form {
+    width: 80vw;
+    height: 50vh;
+  }
+
+  .verifyOtp-form-input input {
+    height: 5vh;
+    width: 70vw;
+  }
+}
