@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,7 @@ export class RegisterComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private api: ApiService) {
     this.myForm = new FormGroup({
       firstName: new FormControl('', [
         Validators.required,
@@ -45,16 +46,24 @@ export class RegisterComponent {
     });
   }
 
-  submitForm() {
+  async submitForm() {
     const firstName: string = this.myForm.value.firstName;
     const lastName: string = this.myForm.value.lastName;
-    const gmail: string = this.myForm.value.gmail;
+    const email: string = this.myForm.value.gmail;
     const mobileNo: number = this.myForm.value.mobileNo;
-    const Password: string = this.myForm.value.Password;
+    const password: string = this.myForm.value.Password;
 
-    console.log(firstName, lastName, gmail, mobileNo, Password);
+    console.log(firstName, lastName, email, mobileNo, password);
 
-    if (firstName && lastName && gmail && mobileNo && Password !== '') {
+    const create: any = await this.api.register({
+      firstName,
+      lastName,
+      email,
+      mobileNo,
+      password,
+    });
+
+    if (create.data.status) {
       this.msg = [
         {
           severity: 'success',
