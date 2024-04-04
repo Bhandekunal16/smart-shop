@@ -15,6 +15,9 @@
       <label>Username </label>
       <input type="text" placeholder="username" formControlName="Username" />
       <label>Password </label>
+      <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
+        Enter valid Password
+      </div>
       <input type="text" placeholder="Password" formControlName="Password" />
     </div>
     <div class="login-container-form-button">
@@ -23,6 +26,7 @@
         pRipple
         label="Submit"
         class="p-button-success"
+        [disabled]="myForm.invalid"
         (click)="submitForm()"
       ></button>
       <button

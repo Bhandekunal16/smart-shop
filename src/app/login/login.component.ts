@@ -1,22 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    ButtonModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MessagesModule,
-  ],
+  imports: [ButtonModule, CommonModule, ReactiveFormsModule, MessagesModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -27,7 +21,12 @@ export class LoginComponent {
   constructor(private router: Router) {
     this.myForm = new FormGroup({
       Username: new FormControl(''),
-      Password: new FormControl(''),
+      Password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+        ),
+      ]),
     });
   }
 
