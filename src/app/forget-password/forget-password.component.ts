@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { FormGroup, FormControl } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MessagesModule } from 'primeng/messages';
-import { Message } from 'primeng/api';
-import { SettlerService } from '../common/settler.service';
-import { Observable, catchError, throwError } from 'rxjs';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   HttpClient,
   HttpClientModule,
   HttpHeaders,
 } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
+import { SettlerService } from '../common/settler.service';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-forget-password',
