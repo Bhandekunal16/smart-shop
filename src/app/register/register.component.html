@@ -16,35 +16,47 @@
       <div *ngIf="myForm.get('firstName')?.errors?.['pattern']" class="error">
         Enter valid first name
       </div>
-      <input type="text" placeholder="firstName" formControlName="firstName" />
+      <input type="text" placeholder="First Name" formControlName="firstName" />
 
-      <label>last name </label>
+      <label>Last name </label>
       <div *ngIf="myForm.get('lastName')?.errors?.['pattern']" class="error">
         Enter valid last name
       </div>
-      <input type="text" placeholder="lastName" formControlName="lastName" />
+      <input type="text" placeholder="Last Name" formControlName="lastName" />
 
       <label>Email id </label>
       <div *ngIf="myForm.get('gmail')?.errors?.['pattern']" class="error">
         Enter valid email
       </div>
-      <input type="text" placeholder="gmail" formControlName="gmail" />
+      <input type="text" placeholder="Email" formControlName="gmail" />
 
       <label>Mobile No</label>
       <div *ngIf="myForm.get('mobileNo')?.errors?.['pattern']" class="error">
         Enter valid mobile number
       </div>
-      <input type="number" placeholder="mobileNo" formControlName="mobileNo" />
+      <input type="text" placeholder="Mobile No" formControlName="mobileNo" />
+
+      <label>type</label>
+      <select formControlName="userType">
+        <option *ngFor="let option of options" [value]="option">
+          {{ option }}
+        </option>
+      </select>
 
       <label>Password </label>
       <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
         Enter valid Password
       </div>
-      <input type="text" placeholder="Password" formControlName="Password" />
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="Password"
+      />
     </div>
 
     <div class="register-container-form-button">
       <button
+        type="button"
         pButton
         pRipple
         label="Submit"
@@ -53,9 +65,10 @@
         (click)="submitForm()"
       ></button>
       <button
+        type="button"
         pButton
         pRipple
-        label="login"
+        label="Login"
         class="p-button-success"
         (click)="login()"
       ></button>

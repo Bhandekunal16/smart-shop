@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   HttpClient,
@@ -30,10 +30,11 @@ import { Observable, catchError, throwError } from 'rxjs';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
-  public myForm: FormGroup;
+export class RegisterComponent implements OnInit {
+  public myForm: FormGroup | any;
   public msg: Message[] | any;
   private selectedOption: any;
+  public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
 
   constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
@@ -59,8 +60,11 @@ export class RegisterComponent {
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
         ),
       ]),
+      userType: new FormControl('', Validators.required),
     });
   }
+
+  ngOnInit() {}
 
   async submitForm(): Promise<void> {
     const firstName: string = this.myForm.value.firstName;
@@ -68,13 +72,15 @@ export class RegisterComponent {
     const email: string = this.myForm.value.gmail;
     const mobileNo: number = this.myForm.value.mobileNo;
     const password: string = this.myForm.value.Password;
-
+    const userType: string = this.myForm.value.userType;
+    
     this.register({
       firstName,
       lastName,
       email,
       mobileNo,
       password,
+      userType,
     }).subscribe((data) => {
       if (data.status) {
         this.msg = [
@@ -118,9 +124,4 @@ export class RegisterComponent {
         })
       );
   }
-
-  options = [
-    'CUSTOMER',
-    'SHOPKEEPER'
-  ];
 }
