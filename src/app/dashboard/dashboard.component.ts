@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,8 @@ import { MenuItem } from 'primeng/api';
 })
 export class DashboardComponent {
   items: MenuItem[] | undefined;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.items = [
@@ -102,7 +105,14 @@ export class DashboardComponent {
       {
         label: 'Quit',
         icon: 'pi pi-fw pi-power-off',
+        command: () => {
+          this.login();
+        },
       },
     ];
+  }
+
+  login(): void {
+    this.router.navigate(['']);
   }
 }
