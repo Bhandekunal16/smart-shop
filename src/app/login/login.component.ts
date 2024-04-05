@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessagesModule } from 'primeng/messages';
-import { Message } from 'primeng/api';
 import {
   HttpClient,
   HttpClientModule,
   HttpHeaders,
 } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
