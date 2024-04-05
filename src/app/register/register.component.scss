@@ -82,7 +82,7 @@
 @media (max-width: 600px) {
   .register-container-form {
     width: 80vw;
-    height: 50vh;
+    height: fit-content;
   }
 
   .register-container-form-input input {
