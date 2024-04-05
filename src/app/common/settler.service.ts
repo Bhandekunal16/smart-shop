@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class SettlerService {
   constructor() {}
-
   private email: string = '';
 
   get emailObj(): string {
