@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { SettlerService } from '../common/settler.service';
-
 import { Observable, catchError, throwError } from 'rxjs';
 import {
   HttpClient,

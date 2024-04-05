@@ -5,13 +5,25 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { SettlerService } from '../common/settler.service';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpHeaders,
+} from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-conform-password',
   standalone: true,
-  imports: [CommonModule, ButtonModule, MessagesModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    MessagesModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   templateUrl: './conform-password.component.html',
   styleUrl: './conform-password.component.scss',
 })
@@ -19,7 +31,11 @@ export class ConformPasswordComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
 
-  constructor(private router: Router, private settler: SettlerService) {
+  constructor(
+    private router: Router,
+    private settler: SettlerService,
+    private http: HttpClient
+  ) {
     this.myForm = new FormGroup({
       Password: new FormControl('', [
         Validators.required,
@@ -31,31 +47,47 @@ export class ConformPasswordComponent {
   }
 
   submitForm() {
-    const password = this.myForm.value.password;
+    const password = this.myForm.value.Password;
     const email = this.settler.emailObj;
 
-    if (password !== '' && email == 'bhandekunal16@gmail.com') {
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'success',
-          detail: 'password changed successfully.',
-        },
-      ];
+    this.conformPassword({ password, email }).subscribe((data) => {
+      if (data.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'success',
+            detail: 'password changed successfully.',
+          },
+        ];
 
-      this.dashboard();
-    } else {
-      this.msg = [
-        {
-          severity: 'warn',
-          summary: 'warn',
-          detail: 'something went wrong',
-        },
-      ];
-    }
+        this.dashboard();
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: 'something went wrong',
+          },
+        ];
+      }
+    });
   }
 
   dashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  conformPassword(body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<any>('http://localhost:3003/auth/reset/password', body, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 }
