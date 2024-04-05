@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { MessagesModule } from 'primeng/messages';
-import { Message } from 'primeng/api';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SettlerService } from '../common/settler.service';
 import {
   HttpClient,
   HttpClientModule,
   HttpHeaders,
 } from '@angular/common/http';
+import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
+import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
@@ -47,8 +47,8 @@ export class ConformPasswordComponent {
   }
 
   submitForm() {
-    const password = this.myForm.value.Password;
-    const email = this.settler.emailObj;
+    const password: string = this.myForm.value.Password;
+    const email: string = this.settler.emailObj;
 
     this.conformPassword({ password, email }).subscribe((data) => {
       if (data.status) {
