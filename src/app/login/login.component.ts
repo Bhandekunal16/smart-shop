@@ -60,7 +60,12 @@ export class LoginComponent {
             detail: 'login successfully !',
           },
         ];
-        this.dashboard();
+
+        if (data.data.userType == 'MERCHANT') {
+          this.dashboard();
+        } else {
+          this.customerDashboard();
+        }
       } else {
         this.msg = [
           {
@@ -80,6 +85,10 @@ export class LoginComponent {
 
   dashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  customerDashboard(): void {
+    this.router.navigate(['customer-dashboard']);
   }
 
   forgetPassword(): void {

@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { ConformPasswordComponent } from './conform-password/conform-password.component';
+import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'verify-otp', component: VerifyOtpComponent },
   { path: 'conform-password', component: ConformPasswordComponent },
+  { path: 'customer-dashboard', component: CustomerDashboardComponent },
 ];
