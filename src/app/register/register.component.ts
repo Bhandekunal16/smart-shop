@@ -61,7 +61,7 @@ export class RegisterComponent {
     });
   }
 
-  async submitForm() {
+  async submitForm(): Promise<void> {
     const firstName: string = this.myForm.value.firstName;
     const lastName: string = this.myForm.value.lastName;
     const email: string = this.myForm.value.gmail;
