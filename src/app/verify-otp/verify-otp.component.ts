@@ -65,7 +65,7 @@ export class VerifyOtpComponent {
           {
             severity: 'warn',
             summary: 'warn',
-            detail: 'check again',
+            detail: `${data.msg}`,
           },
         ];
       }
