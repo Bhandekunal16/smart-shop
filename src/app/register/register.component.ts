@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
-import { MessagesModule } from 'primeng/messages';
-import { Message } from 'primeng/api';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   HttpClient,
   HttpClientModule,
   HttpHeaders,
 } from '@angular/common/http';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
@@ -64,7 +68,7 @@ export class RegisterComponent {
     const mobileNo: number = this.myForm.value.mobileNo;
     const password: string = this.myForm.value.Password;
 
-    const create: any = this.register({
+    this.register({
       firstName,
       lastName,
       email,
@@ -92,7 +96,7 @@ export class RegisterComponent {
     });
   }
 
-  login() {
+  login(): void {
     this.router.navigate(['']);
   }
 
