@@ -89,7 +89,7 @@ export class RegisterComponent {
           {
             severity: 'warn',
             summary: 'warn',
-            detail: 'please fill all fields',
+            detail: `${data.msg}`,
           },
         ];
       }
