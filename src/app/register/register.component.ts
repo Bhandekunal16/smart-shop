@@ -33,6 +33,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class RegisterComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
+  private selectedOption: any;
 
   constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
@@ -117,4 +118,9 @@ export class RegisterComponent {
         })
       );
   }
+
+  options = [
+    'CUSTOMER',
+    'SHOPKEEPER'
+  ];
 }
