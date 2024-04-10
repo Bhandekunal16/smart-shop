@@ -33,6 +33,7 @@ export class DashboardComponent {
               {
                 label: 'View',
                 icon: 'pi pi-fw pi-video',
+                command: () => this.viewShop(),
               },
             ],
           },
@@ -129,6 +130,10 @@ export class DashboardComponent {
 
   addUser(): void {
     this.router.navigate(['dashboard/addUser']);
+  }
+
+  viewShop(): void {
+    this.router.navigate(['dashboard/viewShop']);
   }
 
   deleteUser(): void {
