@@ -21,36 +21,64 @@
     <li>Pin Code: Postal code of the shop location.</li>
   </ul>
 
-  <form class="add-shop-container-form">
+  <form class="add-shop-container-form" [formGroup]="myForm">
     <div class="add-shop-container-form-top">
       <h1>Add Shop</h1>
     </div>
     <div class="add-shop-container-form-input">
       <label>Shop name </label>
+      <div *ngIf="myForm.get('ShopName')?.errors?.['pattern']" class="error">
+        Enter valid shop name
+      </div>
       <input type="text" placeholder="Shop Name" formControlName="ShopName" />
       <label>Address </label>
+      <div *ngIf="myForm.get('Address')?.errors?.['pattern']" class="error">
+        Enter valid Address
+      </div>
       <input type="text" placeholder="Shop Address" formControlName="Address" />
       <label>official email </label>
+      <div
+        *ngIf="myForm.get('officialEmail')?.errors?.['pattern']"
+        class="error"
+      >
+        Enter valid official Email
+      </div>
       <input
         type="text"
         placeholder="official email"
         formControlName="officialEmail"
       />
       <label>official contact Number </label>
+      <div
+        *ngIf="myForm.get('officialContactNo')?.errors?.['pattern']"
+        class="error"
+      >
+        Enter valid official contactNo
+      </div>
       <input
         type="text"
         placeholder="official contactNo"
         formControlName="officialContactNo"
       />
       <label>shop gst</label>
+      <div *ngIf="myForm.get('shopGst')?.errors?.['pattern']" class="error">
+        Enter valid shopGst
+      </div>
       <input type="text" placeholder="shop gst" formControlName="shopGst" />
       <label>Pan card</label>
+      <div *ngIf="myForm.get('panNo')?.errors?.['pattern']" class="error">
+        Enter valid Pan-card number
+      </div>
       <input
         type="text"
         placeholder="Pan-card number"
         formControlName="panNo"
       />
+
       <label>pin-code</label>
+      <div *ngIf="myForm.get('pinCode')?.errors?.['pattern']" class="error">
+        Enter valid pin-code number
+      </div>
       <input
         type="text"
         placeholder="pin-code number"
