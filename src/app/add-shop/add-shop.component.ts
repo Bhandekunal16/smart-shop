@@ -30,7 +30,7 @@ export class AddShopComponent {
         Validators.required,
         Validators.pattern('[0-9]{10}'),
       ]),
-      shopGst: new FormControl('', Validators.pattern('[0-9]{15}')),
+      shopGst: new FormControl('', Validators.pattern('[0-9][A-Z]{15}')),
       panNo: new FormControl(
         '',
         Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')
@@ -42,5 +42,23 @@ export class AddShopComponent {
     });
   }
 
-  submitForm() {}
+  submitForm() {
+    const shopName = this.myForm.value.ShopName;
+    const address = this.myForm.value.Address;
+    const officialEmail = this.myForm.value.officialEmail;
+    const officialContactNo = this.myForm.value.officialContactNo;
+    const shopGst = this.myForm.value.shopGst;
+    const panNo = this.myForm.value.panNo;
+    const pinCode = this.myForm.value.pinCode;
+
+    console.log(
+      shopName,
+      address,
+      officialEmail,
+      officialContactNo,
+      shopGst,
+      panNo,
+      pinCode
+    );
+  }
 }
