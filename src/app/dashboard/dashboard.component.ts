@@ -36,6 +36,11 @@ export class DashboardComponent {
               },
             ],
           },
+          {
+            label: 'Add',
+            icon: 'pi pi-fw pi-video',
+            command: () => this.addShop(),
+          },
         ],
       },
       {
@@ -45,10 +50,16 @@ export class DashboardComponent {
           {
             label: 'New',
             icon: 'pi pi-fw pi-user-plus',
+            command: () => {
+              this.addUser();
+            },
           },
           {
             label: 'Delete',
             icon: 'pi pi-fw pi-user-minus',
+            command: () => {
+              this.deleteUser();
+            },
           },
           {
             label: 'Search',
@@ -114,5 +125,17 @@ export class DashboardComponent {
 
   login(): void {
     this.router.navigate(['']);
+  }
+
+  addUser(): void {
+    this.router.navigate(['dashboard/addUser']);
+  }
+
+  deleteUser(): void {
+    this.router.navigate(['dashboard/deleteUser']);
+  }
+
+  addShop(): void {
+    this.router.navigate(['dashboard/addShop']);
   }
 }

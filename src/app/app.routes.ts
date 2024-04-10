@@ -7,6 +7,8 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { ConformPasswordComponent } from './conform-password/conform-password.component';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
+import { AddShopComponent } from './add-shop/add-shop.component';
+import { DeleteCustomerComponent } from './delete-customer/delete-customer.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -14,7 +16,11 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    children: [{ path: '', component: AddCustomerComponent }],
+    children: [
+      { path: 'addUser', component: AddCustomerComponent },
+      { path: 'deleteUser', component: DeleteCustomerComponent },
+      { path: 'addShop', component: AddShopComponent },
+    ],
   },
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'verify-otp', component: VerifyOtpComponent },
