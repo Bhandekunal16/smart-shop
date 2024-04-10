@@ -75,9 +75,10 @@ export class AddShopComponent {
       panNo,
       shopGst,
       pinCode,
+      id: localStorage.getItem('id'),
     };
 
-    console.log(body)
+    console.log(body);
 
     if (body.officialEmail == 'bhandekunal16@gmail.com') {
       this.msg = [

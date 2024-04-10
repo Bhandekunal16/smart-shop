@@ -61,6 +61,9 @@ export class LoginComponent {
           },
         ];
 
+        const id = data.data.id;
+        localStorage.setItem('id', id);
+
         if (data.data.userType == 'MERCHANT') {
           this.dashboard();
         } else {
