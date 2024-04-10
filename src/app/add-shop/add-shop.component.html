@@ -1,13 +1,71 @@
 <div class="add-shop-container">
   <h1>Add a new shop</h1>
+  <p>Quick tips</p>
+  <p>
+    To add shop details to your dashboard, you will need the following
+    information.
+  </p>
+  <ul class="add-shop-container-tip">
+    <li>Shop Name: Name of the shop.</li>
+    <li>Address: Full address of the shop excluding the pin number.</li>
+    <li>
+      Official Email: Email address designated for official communications
+      related to the shop.
+    </li>
+    <li>
+      Official Contact Number: Contact number designated for official
+      communications related to the shop.
+    </li>
+    <li>Shop GST: GST number assigned to the shop.</li>
+    <li>PAN Card: PAN card number of the shop owner or the shop itself.</li>
+    <li>Pin Code: Postal code of the shop location.</li>
+  </ul>
 
   <form class="add-shop-container-form">
     <div class="add-shop-container-form-top">
       <h1>Add Shop</h1>
     </div>
     <div class="add-shop-container-form-input">
-        <label>Shop name </label>
-        <input type="text" placeholder="Shop Name" formControlName="ShopName" />
+      <label>Shop name </label>
+      <input type="text" placeholder="Shop Name" formControlName="ShopName" />
+      <label>Address </label>
+      <input type="text" placeholder="Shop Address" formControlName="Address" />
+      <label>official email </label>
+      <input
+        type="text"
+        placeholder="official email"
+        formControlName="officialEmail"
+      />
+      <label>official contact Number </label>
+      <input
+        type="text"
+        placeholder="official contactNo"
+        formControlName="officialContactNo"
+      />
+      <label>shop gst</label>
+      <input type="text" placeholder="shop gst" formControlName="shopGst" />
+      <label>Pan card</label>
+      <input
+        type="text"
+        placeholder="Pan-card number"
+        formControlName="panNo"
+      />
+      <label>pin-code</label>
+      <input
+        type="text"
+        placeholder="pin-code number"
+        formControlName="pinCode"
+      />
+    </div>
+    <div class="add-shop-container-form-button">
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Submit"
+        class="p-button-success"
+        (click)="submitForm()"
+      ></button>
     </div>
   </form>
 </div>
