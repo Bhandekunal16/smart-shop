@@ -6,14 +6,26 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpHeaders,
+} from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-add-shop',
   standalone: true,
-  imports: [ButtonModule, ReactiveFormsModule, CommonModule, MessagesModule],
+  imports: [
+    ButtonModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MessagesModule,
+    HttpClientModule,
+  ],
   templateUrl: './add-shop.component.html',
   styleUrl: './add-shop.component.scss',
 })
@@ -22,7 +34,7 @@ export class AddShopComponent {
   public msg: Message[] | any;
   public selectedImage: File | any = null;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.myForm = new FormGroup({
       ShopName: new FormControl('', Validators.required),
       Address: new FormControl('', Validators.required),
@@ -80,23 +92,29 @@ export class AddShopComponent {
 
     console.log(body);
 
-    if (body.officialEmail == 'bhandekunal16@gmail.com') {
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'success',
-          detail: 'shop added successfully.',
-        },
-      ];
-    } else {
-      this.msg = [
-        {
-          severity: 'warn',
-          summary: 'warn',
-          detail: 'some addition failed.',
-        },
-      ];
-    }
+    this.create(body).subscribe((data) => {
+      console.log(data.data);
+
+      if (data.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'success',
+            detail: 'shop added successfully.',
+          },
+        ];
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: 'some addition failed.',
+          },
+        ];
+      }
+    });
+
+    this.myForm.reset();
   }
 
   getBase64(file: any) {
@@ -125,5 +143,20 @@ export class AddShopComponent {
         resolve(null);
       }
     });
+  }
+
+  create(body: any): Observable<any> {
+    console.log(body);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<any>('http://localhost:3003/shop/create', body, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 }
