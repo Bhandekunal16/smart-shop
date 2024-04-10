@@ -20,6 +20,7 @@ import { Message } from 'primeng/api';
 export class AddShopComponent {
   public myForm: FormGroup | any;
   public msg: Message[] | any;
+  public selectedImage: File | any = null;
 
   constructor() {
     this.myForm = new FormGroup({
@@ -45,6 +46,16 @@ export class AddShopComponent {
     });
   }
 
+  async onImageSelected(event: any) {
+    const file = event.target.files[0];
+    try {
+      this.selectedImage = await this.uploadFile(file);
+      console.log('Image uploaded successfully:', this.selectedImage);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  }
+
   submitForm() {
     const shopName = this.myForm.value.ShopName;
     const address = this.myForm.value.Address;
@@ -53,22 +64,26 @@ export class AddShopComponent {
     const shopGst = this.myForm.value.shopGst;
     const panNo = this.myForm.value.panNo;
     const pinCode = this.myForm.value.pinCode;
+    const logo = this.selectedImage;
 
-    console.log(
+    const body = {
+      logo,
       shopName,
       address,
-      officialEmail,
       officialContactNo,
-      shopGst,
+      officialEmail,
       panNo,
-      pinCode
-    );
+      shopGst,
+      pinCode,
+    };
 
-    if (officialEmail == 'bhandekunal16@gmail.com') {
+    console.log(body)
+
+    if (body.officialEmail == 'bhandekunal16@gmail.com') {
       this.msg = [
         {
           severity: 'success',
-          summary: 'Success',
+          summary: 'success',
           detail: 'shop added successfully.',
         },
       ];
@@ -81,5 +96,33 @@ export class AddShopComponent {
         },
       ];
     }
+  }
+
+  getBase64(file: any) {
+    console.log(file);
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
+  uploadFile(event: any): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      let file = event;
+      if (event) {
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.getBase64(file)
+            .then((res: any) => resolve(res))
+            .catch((err) => reject(err));
+        };
+        reader.onerror = (error) => reject(error);
+      } else {
+        resolve(null);
+      }
+    });
   }
 }

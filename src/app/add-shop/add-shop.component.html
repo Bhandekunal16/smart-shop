@@ -91,6 +91,8 @@
         placeholder="pin-code number"
         formControlName="pinCode"
       />
+      <label>Shop Image</label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
     </div>
     <div class="add-shop-container-form-button">
       <button
