@@ -7,16 +7,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-add-shop',
   standalone: true,
-  imports: [ButtonModule, ReactiveFormsModule, CommonModule],
+  imports: [ButtonModule, ReactiveFormsModule, CommonModule, MessagesModule],
   templateUrl: './add-shop.component.html',
   styleUrl: './add-shop.component.scss',
 })
 export class AddShopComponent {
   public myForm: FormGroup | any;
+  public msg: Message[] | any;
 
   constructor() {
     this.myForm = new FormGroup({
@@ -30,7 +33,7 @@ export class AddShopComponent {
         Validators.required,
         Validators.pattern('[0-9]{10}'),
       ]),
-      shopGst: new FormControl('', Validators.pattern('[0-9][A-Z]{15}')),
+      shopGst: new FormControl('', Validators.required),
       panNo: new FormControl(
         '',
         Validators.pattern('[A-Z]{5}[0-9]{4}[A-Z]{1}')
@@ -60,5 +63,23 @@ export class AddShopComponent {
       panNo,
       pinCode
     );
+
+    if (officialEmail == 'bhandekunal16@gmail.com') {
+      this.msg = [
+        {
+          severity: 'success',
+          summary: 'Success',
+          detail: 'shop added successfully.',
+        },
+      ];
+    } else {
+      this.msg = [
+        {
+          severity: 'warn',
+          summary: 'warn',
+          detail: 'some addition failed.',
+        },
+      ];
+    }
   }
 }
