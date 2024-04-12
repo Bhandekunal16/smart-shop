@@ -42,7 +42,7 @@ export class AddShopComponent {
       Address: new FormControl('', Validators.required),
       officialEmail: new FormControl('', [
         Validators.required,
-        Validators.email,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
       ]),
       officialContactNo: new FormControl('', [
         Validators.required,
@@ -120,8 +120,23 @@ export class AddShopComponent {
   }
 
   getBase64(file: any) {
-    console.log(file);
     return new Promise((resolve, reject) => {
+      if (file.size > 100 * 1024) {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail:
+              'File size exceeds 100KB. Please upload an image smaller than 100KB.',
+          },
+        ];
+
+        reject(
+          'File size exceeds 100KB. Please upload an image smaller than 100KB.'
+        );
+        return;
+      }
+
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
