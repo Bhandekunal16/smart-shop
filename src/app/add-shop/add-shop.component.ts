@@ -96,11 +96,7 @@ export class AddShopComponent {
       id: localStorage.getItem('id'),
     };
 
-    console.log(body);
-
     this.create(body).subscribe((data) => {
-      console.log(data.data);
-
       if (data.status) {
         this.msg = [
           {
