@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-shop',
@@ -35,7 +36,7 @@ export class AddShopComponent {
   public selectedImage: File | any = null;
   public flag: boolean = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
       ShopName: new FormControl('', Validators.required),
       Address: new FormControl('', Validators.required),
@@ -185,5 +186,9 @@ export class AddShopComponent {
           return throwError(error);
         })
       );
+  }
+
+  viewShop(): void {
+    this.router.navigate(['dashboard/viewShop']);
   }
 }

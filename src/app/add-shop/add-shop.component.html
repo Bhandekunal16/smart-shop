@@ -6,21 +6,27 @@
       [enableService]="false"
     ></p-messages>
   </div>
-  <h1>Add a new shop</h1>
-  <p>Quick tips</p>
-  <p>
+  <h1 *ngIf="!flag">Add a new shop</h1>
+  <p *ngIf="!flag">Quick tips</p>
+  <p *ngIf="!flag">
     To add shop details to your dashboard, you will need the following
     information.
   </p>
+  <p *ngIf="flag">You currently have a shop associated with this account.</p>
+  <p *ngIf="flag">Click here to view your current shop details.</p>
+  <p *ngIf="flag">Explore your shop details by clicking here.</p>
+  <p *ngIf="flag">Check out your shop's information by clicking below.</p>
+  <p *ngIf="flag">Want to see what's happening in your shop? Click here.</p>
   <button
     *ngIf="flag"
     type="button"
     pButton
     pRipple
-    label="Submit"
+    label="Current Shop"
+    (click)="viewShop()"
     class="p-button-success"
   ></button>
-  <ul class="add-shop-container-tip">
+  <ul class="add-shop-container-tip" *ngIf="!flag">
     <li>Shop Name: Name of the shop.</li>
     <li>Address: Full address of the shop excluding the pin number.</li>
     <li>
@@ -36,7 +42,7 @@
     <li>Pin Code: Postal code of the shop location.</li>
   </ul>
 
-  <form class="add-shop-container-form" [formGroup]="myForm">
+  <form class="add-shop-container-form" [formGroup]="myForm" *ngIf="!flag">
     <div class="add-shop-container-form-top">
       <h1>Add Shop</h1>
     </div>
