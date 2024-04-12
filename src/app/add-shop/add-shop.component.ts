@@ -33,6 +33,7 @@ export class AddShopComponent {
   public myForm: FormGroup | any;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
+  public flag: boolean = false;
 
   constructor(private http: HttpClient) {
     this.myForm = new FormGroup({
@@ -56,6 +57,10 @@ export class AddShopComponent {
         Validators.pattern('[0-9]{6}'),
       ]),
     });
+  }
+
+  ngOnInit(): void {
+    this.details();
   }
 
   async onImageSelected(event: any) {
@@ -145,6 +150,14 @@ export class AddShopComponent {
     });
   }
 
+  details() {
+    const id = localStorage.getItem('id');
+
+    this.shopDetails({ id }).subscribe((ele) => {
+      this.flag = true;
+    });
+  }
+
   create(body: any): Observable<any> {
     console.log(body);
     const headers = new HttpHeaders({
@@ -153,6 +166,20 @@ export class AddShopComponent {
 
     return this.http
       .post<any>('http://localhost:3003/shop/create', body, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  shopDetails(body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<any>('http://localhost:3003/shop/search', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

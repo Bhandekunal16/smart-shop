@@ -12,6 +12,14 @@
     To add shop details to your dashboard, you will need the following
     information.
   </p>
+  <button
+    *ngIf="flag"
+    type="button"
+    pButton
+    pRipple
+    label="Submit"
+    class="p-button-success"
+  ></button>
   <ul class="add-shop-container-tip">
     <li>Shop Name: Name of the shop.</li>
     <li>Address: Full address of the shop excluding the pin number.</li>
