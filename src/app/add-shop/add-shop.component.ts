@@ -152,15 +152,17 @@ export class AddShopComponent {
   }
 
   details() {
-    const id = localStorage.getItem('id');
-
-    this.shopDetails({ id }).subscribe((ele) => {
-      this.flag = true;
-    });
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const id = localStorage.getItem('id');
+      this.shopDetails({ id }).subscribe((ele) => {
+        ele.status ? (this.flag = true) : (this.flag = false);
+      });
+    } else {
+      console.error('LocalStorage is not available in this environment.');
+    }
   }
 
   create(body: any): Observable<any> {
-    console.log(body);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
