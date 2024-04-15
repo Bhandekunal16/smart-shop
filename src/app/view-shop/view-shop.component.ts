@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
+import { ImageModule } from 'primeng/image';
 import {
   HttpClient,
   HttpClientModule,
@@ -11,7 +12,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 @Component({
   selector: 'app-view-shop',
   standalone: true,
-  imports: [CardModule, HttpClientModule, CommonModule],
+  imports: [CardModule, HttpClientModule, CommonModule, ImageModule],
   templateUrl: './view-shop.component.html',
   styleUrl: './view-shop.component.scss',
 })
@@ -23,6 +24,7 @@ export class ViewShopComponent implements OnInit {
   public mobileNumber: string | undefined;
   public email: string | undefined;
   public status: string | undefined;
+  public logo: string | undefined;
 
   ngOnInit(): void {
     this.details();
@@ -37,6 +39,7 @@ export class ViewShopComponent implements OnInit {
       this.shopAddress = ele.data.address;
       this.mobileNumber = ele.data.officialContactNo;
       this.email = ele.data.officialEmail;
+      this.logo = ele.data.logo;
 
       ele.data.disable == false
         ? (this.status = 'Active')
