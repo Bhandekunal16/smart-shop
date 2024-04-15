@@ -22,6 +22,7 @@ export class ViewShopComponent implements OnInit {
   public shopAddress: string | undefined;
   public mobileNumber: string | undefined;
   public email: string | undefined;
+  public status: string | undefined;
 
   ngOnInit(): void {
     this.details();
@@ -36,6 +37,11 @@ export class ViewShopComponent implements OnInit {
       this.shopAddress = ele.data.address;
       this.mobileNumber = ele.data.officialContactNo;
       this.email = ele.data.officialEmail;
+
+      ele.data.disable == false
+        ? (this.status = 'Activate')
+        : (this.status = 'Deactivate');
+
       console.log(this.shopName);
     });
   }

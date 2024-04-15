@@ -1,0 +1,49 @@
+<div class="disable-shop-container">
+  <h1>Activation & Deactivation</h1>
+  <div class="disable-shop-container-button">
+    <button
+      type="button"
+      pButton
+      pRipple
+      label="Activation"
+      class="p-button-success"
+    ></button>
+    <button
+      type="button"
+      pButton
+      pRipple
+      label="Deactivation"
+      class="p-button-success"
+    ></button>
+  </div>
+
+  <div class="circle-form_two">
+    <table className="circle-form_two">
+      <thead>
+        <tr>
+          <th>Shop Name</th>
+          <th>address</th>
+          <th>Contact number</th>
+          <th>Official Email</th>
+          <th>Shop status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="products.length > 0; else noData">
+          <tr *ngFor="let project of products">
+            <td>{{ project.shopName }}</td>
+            <td>{{ project.address }}</td>
+            <td>{{ project.officialContactNo }}</td>
+            <td>{{ project.officialEmail }}</td>
+            <td>{{ project.disable == false ? "Active" : "Deactivated" }}</td>
+          </tr>
+        </ng-container>
+        <ng-template #noData>
+          <tr>
+            <td colspan="8">No data available</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>

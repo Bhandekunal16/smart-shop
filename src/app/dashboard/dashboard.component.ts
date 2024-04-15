@@ -36,6 +36,11 @@ export class DashboardComponent {
                 icon: 'pi pi-fw pi-video',
                 command: () => this.viewShop(),
               },
+              {
+                label: 'Disable',
+                icon: 'pi pi-fw pi-video',
+                command: () => this.DisableShop(),
+              },
             ],
           },
           {
@@ -147,5 +152,9 @@ export class DashboardComponent {
 
   addShop(): void {
     this.router.navigate(['dashboard/addShop']);
+  }
+
+  DisableShop(): void {
+    this.router.navigate(['dashboard/disableShop']);
   }
 }
