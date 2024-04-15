@@ -96,7 +96,7 @@ export class RegisterComponent implements OnInit {
           {
             severity: 'warn',
             summary: 'warn',
-            detail: `${data.msg}`,
+            detail: `${data.response}`,
           },
         ];
       }
