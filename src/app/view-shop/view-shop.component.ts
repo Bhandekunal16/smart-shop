@@ -39,8 +39,8 @@ export class ViewShopComponent implements OnInit {
       this.email = ele.data.officialEmail;
 
       ele.data.disable == false
-        ? (this.status = 'Activate')
-        : (this.status = 'Deactivate');
+        ? (this.status = 'Active')
+        : (this.status = 'Deactivated');
 
       console.log(this.shopName);
     });
