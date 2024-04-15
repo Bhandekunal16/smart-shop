@@ -1,0 +1,35 @@
+<div class="edit-shop-container">
+  <form class="edit-shop-container-form" [formGroup]="myForm">
+    <div class="edit-shop-container-form-top">
+      <h1>Edit Shop</h1>
+    </div>
+    <div class="edit-shop-container-form-input">
+      <label>Shop name </label>
+      <input type="text" placeholder="Shop Name" formControlName="shopName" />
+      <label>Address </label>
+      <input type="text" placeholder="Shop Address" formControlName="address" />
+      <label>official email </label>
+      <input
+        type="text"
+        placeholder="official email"
+        formControlName="officialEmail"
+      />
+      <label>official contact Number </label>
+      <input
+        type="text"
+        placeholder="official contactNo"
+        formControlName="officialContactNo"
+      />
+    </div>
+    <div class="edit-shop-container-form-button">
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Submit"
+        class="p-button-success"
+        (click)="submitForm()"
+      ></button>
+    </div>
+  </form>
+</div>

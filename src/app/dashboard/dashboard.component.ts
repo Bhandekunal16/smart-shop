@@ -29,6 +29,7 @@ export class DashboardComponent {
               {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-bookmark',
+                command: () => this.editShop(),
               },
               {
                 label: 'View',
@@ -134,6 +135,10 @@ export class DashboardComponent {
 
   viewShop(): void {
     this.router.navigate(['dashboard/viewShop']);
+  }
+
+  editShop(): void {
+    this.router.navigate(['dashboard/editShop']);
   }
 
   deleteUser(): void {
