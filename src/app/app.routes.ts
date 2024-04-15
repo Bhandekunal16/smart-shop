@@ -15,6 +15,9 @@ import { EditShopComponent } from './edit-shop/edit-shop.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'forget-password', component: ForgetPasswordComponent },
+  { path: 'verify-otp', component: VerifyOtpComponent },
+  { path: 'conform-password', component: ConformPasswordComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -26,9 +29,6 @@ export const routes: Routes = [
       { path: 'editShop', component: EditShopComponent },
     ],
   },
-  { path: 'forget-password', component: ForgetPasswordComponent },
-  { path: 'verify-otp', component: VerifyOtpComponent },
-  { path: 'conform-password', component: ConformPasswordComponent },
   {
     path: 'customer-dashboard',
     component: CustomerDashboardComponent,
