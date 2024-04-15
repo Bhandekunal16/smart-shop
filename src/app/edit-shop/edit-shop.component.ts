@@ -35,6 +35,7 @@ export class EditShopComponent {
   public myForm: FormGroup | any;
   public obj: any;
   public msg: Message[] | any;
+  public selectedImage: File | any = null;
 
   constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
@@ -68,6 +69,7 @@ export class EditShopComponent {
       shopName: this.myForm.value.shopName,
       officialEmail: this.myForm.value.officialEmail,
       officialContactNo: this.myForm.value.officialContactNo,
+      logo: this.selectedImage,
     };
 
     this.editShopDetails(payload).subscribe((ele) => {
@@ -124,5 +126,42 @@ export class EditShopComponent {
           return throwError(error);
         })
       );
+  }
+
+  async onImageSelected(event: any) {
+    const file = event.target.files[0];
+    try {
+      this.selectedImage = await this.uploadFile(file);
+      console.log('Image uploaded successfully:', this.selectedImage);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  }
+
+  getBase64(file: any) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
+  uploadFile(event: any): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      let file = event;
+      if (event) {
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.getBase64(file)
+            .then((res: any) => resolve(res))
+            .catch((err) => reject(err));
+        };
+        reader.onerror = (error) => reject(error);
+      } else {
+        resolve(null);
+      }
+    });
   }
 }

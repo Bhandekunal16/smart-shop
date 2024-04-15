@@ -25,6 +25,7 @@ export class ViewShopComponent implements OnInit {
   public email: string | undefined;
   public status: string | undefined;
   public logo: string | undefined;
+ 
 
   ngOnInit(): void {
     this.details();

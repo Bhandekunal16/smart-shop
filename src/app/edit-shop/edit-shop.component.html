@@ -6,7 +6,7 @@
       [enableService]="false"
     ></p-messages>
   </div>
-  
+
   <form class="edit-shop-container-form" [formGroup]="myForm">
     <div class="edit-shop-container-form-top">
       <h1>Edit Shop</h1>
@@ -28,6 +28,8 @@
         placeholder="official contactNo"
         formControlName="officialContactNo"
       />
+      <label>Shop Image</label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
     </div>
     <div class="edit-shop-container-form-button">
       <button
