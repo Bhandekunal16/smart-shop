@@ -15,17 +15,26 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-shop',
   standalone: true,
-  imports: [ButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [
+    ButtonModule,
+    ReactiveFormsModule,
+    CommonModule,
+    HttpClientModule,
+    MessagesModule,
+  ],
   templateUrl: './edit-shop.component.html',
   styleUrl: './edit-shop.component.scss',
 })
 export class EditShopComponent {
   public myForm: FormGroup | any;
   public obj: any;
+  public msg: Message[] | any;
 
   constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
@@ -61,10 +70,18 @@ export class EditShopComponent {
       officialContactNo: this.myForm.value.officialContactNo,
     };
 
-    console.log(payload);
-
     this.editShopDetails(payload).subscribe((ele) => {
-      console.log(ele);
+      this.msg = [
+        {
+          severity: 'success',
+          summary: 'Success',
+          detail: 'shop edited successfully!',
+        },
+      ];
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     });
   }
 

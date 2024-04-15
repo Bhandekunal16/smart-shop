@@ -1,4 +1,12 @@
 <div class="edit-shop-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
+  
   <form class="edit-shop-container-form" [formGroup]="myForm">
     <div class="edit-shop-container-form-top">
       <h1>Edit Shop</h1>
