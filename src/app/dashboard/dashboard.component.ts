@@ -115,6 +115,9 @@ export class DashboardComponent {
               {
                 label: 'New',
                 icon: 'pi pi-fw pi-calendar-minus',
+                command: () => {
+                  this.addProduct();
+                },
               },
             ],
           },
@@ -156,5 +159,9 @@ export class DashboardComponent {
 
   DisableShop(): void {
     this.router.navigate(['dashboard/disableShop']);
+  }
+
+  addProduct(): void {
+    this.router.navigate(['dashboard/addProduct']);
   }
 }
