@@ -7,11 +7,12 @@ import {
 import { Observable, catchError, throwError } from 'rxjs';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-view-product',
   standalone: true,
-  imports: [HttpClientModule, CardModule, CommonModule],
+  imports: [HttpClientModule, CardModule, CommonModule, ButtonModule],
   templateUrl: './view-product.component.html',
   styleUrl: './view-product.component.scss',
 })
@@ -39,4 +40,6 @@ export class ViewProductComponent implements OnInit {
         })
       );
   }
+
+  updateProduct() {}
 }
