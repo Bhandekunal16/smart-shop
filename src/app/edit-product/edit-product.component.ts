@@ -139,6 +139,10 @@ export class EditProductComponent {
     this.editShopDetails(payload).subscribe((response) => {
       console.log(response);
     });
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
   editShopDetails(body: any): Observable<any> {

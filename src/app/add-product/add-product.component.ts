@@ -107,6 +107,7 @@ export class AddProductComponent {
     };
 
     this.create(body).subscribe((ele) => console.log(ele));
+    this.myForm.reset();
   }
 
   ngOnInit(): void {
