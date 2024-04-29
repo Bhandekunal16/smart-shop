@@ -101,6 +101,9 @@ export class DashboardComponent {
               {
                 label: 'Edit',
                 icon: 'pi pi-fw pi-calendar-plus',
+                command: () => {
+                  this.editProduct();
+                },
               },
               {
                 label: 'Delete',
@@ -174,5 +177,9 @@ export class DashboardComponent {
 
   viewProduct(): void {
     this.router.navigate(['dashboard/viewProduct']);
+  }
+
+  editProduct(): void {
+    this.router.navigate(['dashboard/editProduct']);
   }
 }
