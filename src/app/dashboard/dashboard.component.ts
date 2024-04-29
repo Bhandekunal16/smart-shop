@@ -106,6 +106,13 @@ export class DashboardComponent {
                 label: 'Delete',
                 icon: 'pi pi-fw pi-calendar-minus',
               },
+              {
+                label: 'View',
+                icon: 'pi pi-fw pi-calendar-minus',
+                command: () => {
+                  this.viewProduct();
+                },
+              },
             ],
           },
           {
@@ -163,5 +170,9 @@ export class DashboardComponent {
 
   addProduct(): void {
     this.router.navigate(['dashboard/addProduct']);
+  }
+
+  viewProduct(): void {
+    this.router.navigate(['dashboard/viewProduct']);
   }
 }

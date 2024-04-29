@@ -1,1 +1,45 @@
-<p>add-product works!</p>
+<div class="add-product-container">
+  <h1>Add a new Product</h1>
+
+  <form class="add-product-container-form" [formGroup]="myForm">
+    <div class="add-product-container-form-top">
+      <h1>Add Product</h1>
+    </div>
+
+    <div class="add-product-container-form-input">
+      <label>Product Name </label>
+      <input
+        type="text"
+        placeholder="Product Name"
+        formControlName="ProductDescription"
+      />
+      <label>Product Description </label>
+      <input
+        type="text"
+        placeholder="Product Name"
+        formControlName="ProductName"
+      />
+
+      <label>product Type</label>
+      <select formControlName="productType">
+        <option *ngFor="let option of options" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+
+      <label>Product Image</label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+
+      <div class="add-product-container-form-button">
+        <button
+          type="button"
+          pButton
+          pRipple
+          label="Submit"
+          class="p-button-success"
+          (click)="submitForm()"
+        ></button>
+      </div>
+    </div>
+  </form>
+</div>
