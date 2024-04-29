@@ -8,7 +8,12 @@
         *ngFor="let item of data"
         header="{{ item.ProductName }}"
         subheader="{{ item.ProductDescription }}"
-        [style]="{ width: '300px', margin: '1%' }"
+        [style]="{
+          width: '800px',
+          margin: '1%',
+          display: 'flex',
+          'justify-content': 'space-between'
+        }"
       >
         <ng-template pTemplate="header">
           <img alt="Card" [src]="item.productImage" height="300px" />
