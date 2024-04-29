@@ -2,16 +2,16 @@
   <div class="view-product-card">
     <ng-container
       *ngIf="data.length > 0; else loading"
-      class="view-product-card-container"
+      [style]="{ width: '300px', margin: '1%' }"
     >
       <p-card
         *ngFor="let item of data"
         header="{{ item.ProductName }}"
         subheader="{{ item.ProductDescription }}"
-        [style]="{ width: '360px' }"
+        [style]="{ width: '300px', margin: '1%' }"
       >
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="item.productImage" height="300px"/>
+          <img alt="Card" [src]="item.productImage" height="300px" />
         </ng-template>
         <p>
           Created On: {{ item.createdOn.low * 1000 | date : "medium" }}
