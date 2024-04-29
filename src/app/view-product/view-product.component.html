@@ -1,1 +1,21 @@
-<p>view-product works!</p>
+<div class="view-product-container">
+  <div class="card flex justify-content-center">
+    <p-card
+      *ngIf="data.length > 0"
+      header="{{ data[0].ProductName }}"
+      subheader="{{ data[0].ProductDescription }}"
+      [style]="{ width: '360px' }"
+    >
+      <ng-template pTemplate="header">
+        <img alt="Card" [src]="data[0].productImage" />
+      </ng-template>
+      <p>
+        Created On: {{ data[0].createdOn.low * 1000 | date : "medium" }}
+
+        <br />
+        Product Type: {{ data[0].productType }}
+      </p>
+    </p-card>
+    <div *ngIf="data.length === 0">Loading...</div>
+  </div>
+</div>
