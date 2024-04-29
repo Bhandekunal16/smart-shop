@@ -35,10 +35,15 @@ img {
 
 @media (max-width: 600px) {
   p-card {
-    background-color: red;
     width: 95vw;
     display: flex;
     flex-direction: column;
+  }
+
+  img {
+    width: 95vw;
+    height: 40vh;
+    object-fit: cover;
   }
 }
 
