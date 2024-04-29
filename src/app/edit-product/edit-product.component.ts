@@ -7,7 +7,6 @@ import {
 import { Component } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -28,8 +27,8 @@ export class EditProductComponent {
   public obj: any;
   public selectedImage: File | any = null;
   public flag: boolean = false;
-  products: any[] = [];
-  currentIndex = 0;
+  public products: any[] = [];
+  public currentIndex = 0;
   public options: string[] | any = [
     'Grocery',
     'Clothing',
@@ -70,7 +69,6 @@ export class EditProductComponent {
 
   populateForm(index: number) {
     const product = this.products[index];
-    console.log(product);
     if (product) {
       this.myForm.patchValue({
         ProductDescription: product.ProductDescription,
@@ -124,6 +122,7 @@ export class EditProductComponent {
       }
     });
   }
+
   submitForm() {
     const product = this.products[this.currentIndex];
     if (!product) return;
