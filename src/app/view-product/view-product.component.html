@@ -7,7 +7,7 @@
         subheader="{{ item.ProductDescription }}"
       >
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="item.productImage" height="300px" />
+          <img alt="Card" [src]="item.productImage" />
         </ng-template>
         <p>
           Created On: {{ item.createdOn.low * 1000 | date : "medium" }}

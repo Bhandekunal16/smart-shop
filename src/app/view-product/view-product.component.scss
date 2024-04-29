@@ -17,16 +17,20 @@
 }
 
 p-card {
-  width: 60vw;
+  width: 95vw;
   margin: 1%;
-  display: flex;
-  justify-content: space-between;
   background-color: #f0f0f0;
 }
 
 ng-container {
   width: 300px;
   margin: 1%;
+}
+
+img {
+  width: 40vw;
+  height: 40vh;
+  object-fit: cover;
 }
 
 @media (max-width: 600px) {
