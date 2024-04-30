@@ -113,12 +113,6 @@ export class DashboardComponent {
                   this.viewProduct();
                 },
               },
-            ],
-          },
-          {
-            label: 'Upload',
-            icon: 'pi pi-fw pi-calendar-times',
-            items: [
               {
                 label: 'New',
                 icon: 'pi pi-fw pi-calendar-minus',
