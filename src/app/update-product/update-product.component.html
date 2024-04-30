@@ -1,5 +1,14 @@
 <div class="update-product-container">
   <h1>Update Product</h1>
+  <p>
+    Welcome to the Update Product page! Here, you can update an existing product
+    in your shop. Simply make the necessary changes to the product details and
+    click the "Update" button to save your changes. If you wish to remove the
+    product, you can click the "Remove" button to delete it from your inventory.
+    If you have any questions or need further assistance, please feel free to
+    contact our support team. <br />
+    <b>Thank you!</b>
+  </p>
 
   <form class="update-product-container-form" [formGroup]="myForm">
     <div class="update-product-container-form-top">
@@ -35,18 +44,18 @@
           type="button"
           pButton
           pRipple
-          label="Submit"
+          label="Update"
           class="p-button-success"
           (click)="submitForm()"
         ></button>
         <button
-        type="button"
-        pButton
-        pRipple
-        label="delete"
-        class="p-button-success"
-        (click)="remove()"
-      ></button>
+          type="button"
+          pButton
+          pRipple
+          label="Remove"
+          class="p-button-success"
+          (click)="remove()"
+        ></button>
       </div>
     </div>
   </form>
