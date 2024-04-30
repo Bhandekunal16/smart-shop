@@ -105,10 +105,7 @@ export class DashboardComponent {
                   this.editProduct();
                 },
               },
-              {
-                label: 'Delete',
-                icon: 'pi pi-fw pi-calendar-minus',
-              },
+
               {
                 label: 'View',
                 icon: 'pi pi-fw pi-calendar-minus',
