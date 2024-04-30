@@ -50,6 +50,7 @@ export class AddProductComponent {
       ProductDescription: new FormControl('', Validators.required),
       productType: new FormControl('', Validators.required),
       productCost: new FormControl('', Validators.required),
+      units: new FormControl('', Validators.required),
     });
   }
 
@@ -95,6 +96,7 @@ export class AddProductComponent {
     const ProductDescription = this.myForm.value.ProductDescription;
     const productType = this.myForm.value.productType;
     const productCost = this.myForm.value.productCost;
+    const units = this.myForm.value.units;
     const productImage = this.selectedImage;
     const id = localStorage.getItem('shopId');
 
@@ -104,6 +106,7 @@ export class AddProductComponent {
       productType,
       productImage,
       productCost,
+      units,
       id
     );
 
@@ -114,6 +117,7 @@ export class AddProductComponent {
       productImage,
       id,
       productCost,
+      units,
     };
 
     this.create(body).subscribe((ele) => console.log(ele));
