@@ -57,6 +57,7 @@ export class EditProductComponent {
       ProductDescription: ['', Validators.required],
       productType: ['', Validators.required],
       productImage: ['', Validators.required],
+      productCost: ['', Validators.required],
     });
   }
 
@@ -75,6 +76,7 @@ export class EditProductComponent {
         ProductName: product.ProductName,
         productType: product.productType,
         productImage: product.productImage,
+        productCost: product.productCost
       });
     }
   }
@@ -133,6 +135,7 @@ export class EditProductComponent {
       ProductDescription: this.myForm.value.ProductDescription,
       productType: this.myForm.value.productType,
       productImage: this.selectedImage,
+      productCost: product.productCost
     };
 
     this.editShopDetails(payload).subscribe((response) => {

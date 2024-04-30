@@ -10,9 +10,11 @@
           <img alt="Card" [src]="item.productImage" />
         </ng-template>
         <p>
-          Created On: {{ item.createdOn.low * 1000 | date : "medium" }}
+          Uploaded On: {{ item.createdOn.low * 1000 | date : "medium" }}
           <br />
           Product Type: {{ item.productType }}
+          <br />
+          Price: {{ item.productCost }} ₹
         </p>
         <div class="card flex justify-content-center">
           <button

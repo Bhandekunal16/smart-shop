@@ -49,6 +49,7 @@ export class AddProductComponent {
       ProductName: new FormControl('', Validators.required),
       ProductDescription: new FormControl('', Validators.required),
       productType: new FormControl('', Validators.required),
+      productCost: new FormControl('', Validators.required),
     });
   }
 
@@ -93,10 +94,18 @@ export class AddProductComponent {
     const ProductName = this.myForm.value.ProductName;
     const ProductDescription = this.myForm.value.ProductDescription;
     const productType = this.myForm.value.productType;
+    const productCost = this.myForm.value.productCost;
     const productImage = this.selectedImage;
     const id = localStorage.getItem('shopId');
 
-    console.log(ProductName, ProductDescription, productType, productImage, id);
+    console.log(
+      ProductName,
+      ProductDescription,
+      productType,
+      productImage,
+      productCost,
+      id
+    );
 
     const body = {
       ProductName,
@@ -104,6 +113,7 @@ export class AddProductComponent {
       productType,
       productImage,
       id,
+      productCost,
     };
 
     this.create(body).subscribe((ele) => console.log(ele));

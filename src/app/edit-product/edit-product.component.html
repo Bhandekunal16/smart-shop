@@ -35,6 +35,13 @@
         </option>
       </select>
 
+      <label>Product Cost </label>
+      <input
+        type="number"
+        placeholder="Product Cost"
+        formControlName="productCost"
+      />
+
       <label>Product Image</label>
       <input type="file" (change)="onImageSelected($event)" accept="image/*" />
 

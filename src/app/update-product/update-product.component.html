@@ -29,6 +29,13 @@
         formControlName="ProductName"
       />
 
+      <label>Product Cost </label>
+      <input
+        type="number"
+        placeholder="Product Cost"
+        formControlName="productCost"
+      />
+
       <label>product Type</label>
       <select formControlName="productType">
         <option *ngFor="let option of options" [value]="option">
