@@ -62,3 +62,21 @@
   background-color: #ffffff;
   border: solid #f0f0f0 0.2px;
 }
+
+@media (max-width: 600px) {
+  .add-product-container-form {
+    width: 95vw;
+    height: fit-content;
+    margin-left: -1%;
+  }
+
+  .add-product-container-form-input input {
+    height: 5vh;
+    width: 70vw;
+  }
+
+  .add-product-container-form-input select {
+    height: 5vh;
+    width: 70vw;
+  }
+}
