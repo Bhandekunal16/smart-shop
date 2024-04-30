@@ -146,6 +146,18 @@ export class UpdateProductComponent {
     }, 2000);
   }
 
+  back(): void {
+    this.router.navigate(['dashboard/viewProduct']);
+  }
+
+  remove() {
+    console.log('i am removeing');
+    this.delete().subscribe((response) => {
+      console.log(response);
+      this.back();
+    });
+  }
+
   editShopDetails(body: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -168,6 +180,21 @@ export class UpdateProductComponent {
     });
     return this.http
       .get<any>(`http://localhost:3003/product/get/${id}`, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  delete(): Observable<any> {
+    const id = localStorage.getItem('currentObjectId');
+    console.log(id, 'i am hitting');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .get<any>(`http://localhost:3003/product/delete/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
