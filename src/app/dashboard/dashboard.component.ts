@@ -62,26 +62,6 @@ export class DashboardComponent {
               this.deleteUser();
             },
           },
-          {
-            label: 'Search',
-            icon: 'pi pi-fw pi-users',
-            items: [
-              {
-                label: 'Filter',
-                icon: 'pi pi-fw pi-filter',
-                items: [
-                  {
-                    label: 'Print',
-                    icon: 'pi pi-fw pi-print',
-                  },
-                ],
-              },
-              {
-                icon: 'pi pi-fw pi-bars',
-                label: 'List',
-              },
-            ],
-          },
         ],
       },
       {
