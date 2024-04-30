@@ -23,25 +23,19 @@ export class DashboardComponent {
         icon: 'pi pi-fw pi-file',
         items: [
           {
-            label: 'Information',
-            icon: 'pi pi-fw pi-plus',
-            items: [
-              {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-bookmark',
-                command: () => this.editShop(),
-              },
-              {
-                label: 'View',
-                icon: 'pi pi-fw pi-video',
-                command: () => this.viewShop(),
-              },
-              {
-                label: 'Disable',
-                icon: 'pi pi-fw pi-video',
-                command: () => this.DisableShop(),
-              },
-            ],
+            label: 'Edit',
+            icon: 'pi pi-fw pi-bookmark',
+            command: () => this.editShop(),
+          },
+          {
+            label: 'View',
+            icon: 'pi pi-fw pi-video',
+            command: () => this.viewShop(),
+          },
+          {
+            label: 'Disable/Enable',
+            icon: 'pi pi-fw pi-video',
+            command: () => this.DisableShop(),
           },
           {
             label: 'Add',
@@ -95,32 +89,26 @@ export class DashboardComponent {
         icon: 'pi pi-fw pi-calendar',
         items: [
           {
-            label: 'Operation',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-              {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-calendar-plus',
-                command: () => {
-                  this.editProduct();
-                },
-              },
+            label: 'Edit',
+            icon: 'pi pi-fw pi-calendar-plus',
+            command: () => {
+              this.editProduct();
+            },
+          },
 
-              {
-                label: 'View',
-                icon: 'pi pi-fw pi-calendar-minus',
-                command: () => {
-                  this.viewProduct();
-                },
-              },
-              {
-                label: 'New',
-                icon: 'pi pi-fw pi-calendar-minus',
-                command: () => {
-                  this.addProduct();
-                },
-              },
-            ],
+          {
+            label: 'View',
+            icon: 'pi pi-fw pi-calendar-minus',
+            command: () => {
+              this.viewProduct();
+            },
+          },
+          {
+            label: 'New',
+            icon: 'pi pi-fw pi-calendar-minus',
+            command: () => {
+              this.addProduct();
+            },
           },
         ],
       },
