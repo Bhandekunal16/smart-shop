@@ -15,6 +15,7 @@ import { DisableShopComponent } from './disable-shop/disable-shop.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -35,6 +36,7 @@ export const routes: Routes = [
       { path: 'addProduct', component: AddProductComponent },
       { path: 'viewProduct', component: ViewProductComponent },
       { path: 'editProduct', component: EditProductComponent },
+      { path: 'updateProduct', component: UpdateProductComponent },
     ],
   },
   {

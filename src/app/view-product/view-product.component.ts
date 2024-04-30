@@ -8,6 +8,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-product',
@@ -18,12 +19,22 @@ import { ButtonModule } from 'primeng/button';
 })
 export class ViewProductComponent implements OnInit {
   public data: any[] = [];
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   ngOnInit(): void {
     this.shopDetails().subscribe((ele) => {
       this.data = ele.data;
       console.log(this.data);
     });
+  }
+
+  setCurrentObjectId(id: string) {
+    console.log(id);
+    localStorage.setItem('currentObjectId', id);
+    this.edit()
+  }
+
+  edit(): void {
+    this.router.navigate(['dashboard/updateProduct']);
   }
 
   shopDetails(): Observable<any> {
