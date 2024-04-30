@@ -99,6 +99,13 @@ export class DashboardComponent {
           this.login();
         },
       },
+      {
+        label: 'Dashboard',
+        icon: 'pi pi-fw pi-power-off',
+        command: () => {
+          this.initial();
+        },
+      },
     ];
   }
 
@@ -140,5 +147,9 @@ export class DashboardComponent {
 
   editProduct(): void {
     this.router.navigate(['dashboard/editProduct']);
+  }
+
+  initial() {
+    this.router.navigate(['dashboard']);
   }
 }

@@ -16,6 +16,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
+import { ChartProductComponent } from './chart-product/chart-product.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -37,6 +38,7 @@ export const routes: Routes = [
       { path: 'viewProduct', component: ViewProductComponent },
       { path: 'editProduct', component: EditProductComponent },
       { path: 'updateProduct', component: UpdateProductComponent },
+      { path: '', component: ChartProductComponent },
     ],
   },
   {
