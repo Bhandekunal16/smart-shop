@@ -36,7 +36,6 @@ export class ViewShopComponent implements OnInit {
 
     this.shopDetails({ id }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      console.log(res);
       this.shopName = res.data.shopName;
       this.shopAddress = res.data.address;
       this.mobileNumber = res.data.officialContactNo;
