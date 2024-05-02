@@ -12,6 +12,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-forget-password',
@@ -33,7 +34,8 @@ export class ForgetPasswordComponent {
   constructor(
     private router: Router,
     private settler: SettlerService,
-    private http: HttpClient
+    private http: HttpClient,
+    private decrypt: DecryptService
   ) {
     this.myForm = new FormGroup({
       email: new FormControl(''),
@@ -45,7 +47,8 @@ export class ForgetPasswordComponent {
     this.settler.emailObj = email;
 
     this.sendOtp({ email }).subscribe((data) => {
-      if (!data.status) {
+      const res = this.decrypt.decrypt(data.response);
+      if (!res.status) {
         this.msg = [
           {
             severity: 'warn',

@@ -16,6 +16,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-add-shop',
@@ -36,7 +37,11 @@ export class AddShopComponent {
   public selectedImage: File | any = null;
   public flag: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private decrypt: DecryptService
+  ) {
     this.myForm = new FormGroup({
       ShopName: new FormControl('', Validators.required),
       Address: new FormControl('', Validators.required),
@@ -97,7 +102,8 @@ export class AddShopComponent {
     };
 
     this.create(body).subscribe((data) => {
-      if (data.status) {
+      const res = this.decrypt.decrypt(data.response);
+      if (res.status) {
         this.msg = [
           {
             severity: 'success',
@@ -150,7 +156,8 @@ export class AddShopComponent {
     if (typeof window !== 'undefined' && window.localStorage) {
       const id = localStorage.getItem('id');
       this.shopDetails({ id }).subscribe((ele) => {
-        ele.status ? (this.flag = true) : (this.flag = false);
+        const res = this.decrypt.decrypt(ele.response);
+        res.status ? (this.flag = true) : (this.flag = false);
       });
     } else {
       console.error('LocalStorage is not available in this environment.');

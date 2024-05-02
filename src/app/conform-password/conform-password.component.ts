@@ -13,6 +13,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-conform-password',
@@ -34,7 +35,8 @@ export class ConformPasswordComponent {
   constructor(
     private router: Router,
     private settler: SettlerService,
-    private http: HttpClient
+    private http: HttpClient,
+    private decrypt: DecryptService
   ) {
     this.myForm = new FormGroup({
       Password: new FormControl('', [
@@ -51,7 +53,8 @@ export class ConformPasswordComponent {
     const email: string = this.settler.emailObj;
 
     this.conformPassword({ password, email }).subscribe((data) => {
-      if (data.status) {
+      const res = this.decrypt.decrypt(data.response);
+      if (res.status) {
         this.msg = [
           {
             severity: 'success',

@@ -14,6 +14,7 @@ import {
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-update-product',
@@ -50,7 +51,8 @@ export class UpdateProductComponent {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private decrypt: DecryptService
   ) {
     this.myForm = this.fb.group({
       ProductName: ['', Validators.required],
@@ -63,8 +65,9 @@ export class UpdateProductComponent {
 
   ngOnInit(): void {
     this.Details().subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
       const array = [];
-      array.push(ele.data);
+      array.push(res.data);
       this.products = array;
       this.populateForm(this.currentIndex);
     });

@@ -17,6 +17,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-edit-shop',
@@ -37,7 +38,11 @@ export class EditShopComponent {
   public msg: Message[] | any;
   public selectedImage: File | any = null;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private decrypt: DecryptService
+  ) {
     this.myForm = new FormGroup({
       shopName: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
@@ -95,8 +100,9 @@ export class EditShopComponent {
     const id = localStorage.getItem('id');
 
     this.shopDetails({ id }).subscribe((ele) => {
-      this.myForm.patchValue(ele.data);
-      this.obj = ele.data;
+      const res = this.decrypt.decrypt(ele.response);
+      this.myForm.patchValue(res.data);
+      this.obj = res.data;
     });
   }
 

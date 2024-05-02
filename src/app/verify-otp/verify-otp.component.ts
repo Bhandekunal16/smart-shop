@@ -17,6 +17,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-verify-otp',
@@ -39,7 +40,8 @@ export class VerifyOtpComponent {
     private router: Router,
     private formBuilder: FormBuilder,
     private settler: SettlerService,
-    private http: HttpClient
+    private http: HttpClient,
+    private decrypt: DecryptService
   ) {
     this.myForm = this.formBuilder.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
@@ -51,7 +53,8 @@ export class VerifyOtpComponent {
     const email: string = this.settler.emailObj;
 
     this.verifyOtp({ otp, email }).subscribe((data) => {
-      if (data.status) {
+      const res = this.decrypt.decrypt(data.response);
+      if (res.status) {
         this.msg = [
           {
             severity: 'success',
@@ -65,7 +68,7 @@ export class VerifyOtpComponent {
           {
             severity: 'warn',
             summary: 'warn',
-            detail: `${data.msg}`,
+            detail: `${res.msg}`,
           },
         ];
       }

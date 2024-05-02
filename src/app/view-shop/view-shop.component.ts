@@ -8,6 +8,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-view-shop',
@@ -17,7 +18,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   styleUrl: './view-shop.component.scss',
 })
 export class ViewShopComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
   public shopName: string | undefined;
   public shopAddress: string | undefined;
@@ -25,7 +26,6 @@ export class ViewShopComponent implements OnInit {
   public email: string | undefined;
   public status: string | undefined;
   public logo: string | undefined;
- 
 
   ngOnInit(): void {
     this.details();
@@ -35,14 +35,15 @@ export class ViewShopComponent implements OnInit {
     const id = localStorage.getItem('id');
 
     this.shopDetails({ id }).subscribe((ele) => {
-      console.log(ele);
-      this.shopName = ele.data.shopName;
-      this.shopAddress = ele.data.address;
-      this.mobileNumber = ele.data.officialContactNo;
-      this.email = ele.data.officialEmail;
-      this.logo = ele.data.logo;
+      const res = this.decrypt.decrypt(ele.response);
+      console.log(res);
+      this.shopName = res.data.shopName;
+      this.shopAddress = res.data.address;
+      this.mobileNumber = res.data.officialContactNo;
+      this.email = res.data.officialEmail;
+      this.logo = res.data.logo;
 
-      ele.data.disable == false
+      res.data.disable == false
         ? (this.status = 'Active')
         : (this.status = 'Deactivated');
 

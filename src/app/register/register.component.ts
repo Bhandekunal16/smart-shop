@@ -16,6 +16,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +37,11 @@ export class RegisterComponent implements OnInit {
   private selectedOption: any;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private decrypt: DecryptService
+  ) {
     this.myForm = new FormGroup({
       firstName: new FormControl('', [
         Validators.required,
@@ -73,7 +78,7 @@ export class RegisterComponent implements OnInit {
     const mobileNo: number = this.myForm.value.mobileNo;
     const password: string = this.myForm.value.Password;
     const userType: string = this.myForm.value.userType;
-    
+
     this.register({
       firstName,
       lastName,
@@ -82,7 +87,8 @@ export class RegisterComponent implements OnInit {
       password,
       userType,
     }).subscribe((data) => {
-      if (data.status) {
+      const res = this.decrypt.decrypt(data.response);
+      if (res.status) {
         this.msg = [
           {
             severity: 'success',
@@ -96,7 +102,7 @@ export class RegisterComponent implements OnInit {
           {
             severity: 'warn',
             summary: 'warn',
-            detail: `${data.response}`,
+            detail: `${res.response}`,
           },
         ];
       }

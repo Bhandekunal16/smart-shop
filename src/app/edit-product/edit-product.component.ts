@@ -14,6 +14,7 @@ import {
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -50,7 +51,8 @@ export class EditProductComponent {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private decrypt: DecryptService
   ) {
     this.myForm = this.fb.group({
       ProductName: ['', Validators.required],
@@ -63,7 +65,9 @@ export class EditProductComponent {
 
   ngOnInit(): void {
     this.Details().subscribe((ele) => {
-      this.products = ele.data;
+      const res = this.decrypt.decrypt(ele.response);
+      this.products = res.data;
+
       this.populateForm(this.currentIndex);
     });
   }
@@ -76,7 +80,7 @@ export class EditProductComponent {
         ProductName: product.ProductName,
         productType: product.productType,
         productImage: product.productImage,
-        productCost: product.productCost
+        productCost: product.productCost,
       });
     }
   }
@@ -135,7 +139,7 @@ export class EditProductComponent {
       ProductDescription: this.myForm.value.ProductDescription,
       productType: this.myForm.value.productType,
       productImage: this.selectedImage,
-      productCost: product.productCost
+      productCost: product.productCost,
     };
 
     this.editShopDetails(payload).subscribe((response) => {

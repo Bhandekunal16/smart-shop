@@ -9,6 +9,7 @@ import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-view-product',
@@ -19,10 +20,15 @@ import { Router } from '@angular/router';
 })
 export class ViewProductComponent implements OnInit {
   public data: any[] = [];
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private decrypt: DecryptService
+  ) {}
   ngOnInit(): void {
     this.shopDetails().subscribe((ele) => {
-      this.data = ele.data;
+      const res = this.decrypt.decrypt(ele.response);
+      this.data = res.data;
       console.log(this.data);
     });
   }
@@ -30,7 +36,7 @@ export class ViewProductComponent implements OnInit {
   setCurrentObjectId(id: string) {
     console.log(id);
     localStorage.setItem('currentObjectId', id);
-    this.edit()
+    this.edit();
   }
 
   edit(): void {
