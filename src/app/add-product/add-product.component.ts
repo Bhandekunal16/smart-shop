@@ -14,6 +14,7 @@ import {
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-add-product',
@@ -44,7 +45,11 @@ export class AddProductComponent {
   ];
   public myForm: FormGroup | any;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private decrypt: DecryptService
+  ) {
     this.myForm = new FormGroup({
       ProductName: new FormControl('', Validators.required),
       ProductDescription: new FormControl('', Validators.required),
@@ -134,7 +139,8 @@ export class AddProductComponent {
 
       this.shopDetails({ id }).subscribe((ele) => {
         console.log(ele);
-        localStorage.setItem('shopId', ele.data.id);
+        const res = this.decrypt.decrypt(ele.response);
+        localStorage.setItem('shopId', res.data.id);
       });
       return this.shopId;
     } else {
