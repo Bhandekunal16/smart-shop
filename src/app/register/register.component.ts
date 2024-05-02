@@ -96,7 +96,11 @@ export class RegisterComponent implements OnInit {
             detail: 'register successfully !',
           },
         ];
-        this.dashboard();
+
+        res.data.userType == 'MERCHANT'
+          ? this.dashboard()
+          : this.customerDashboard();
+  
       } else {
         this.msg = [
           {
@@ -115,6 +119,10 @@ export class RegisterComponent implements OnInit {
 
   dashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  customerDashboard(): void {
+    this.router.navigate(['/customer-dashboard']);
   }
 
   register(body: any): Observable<any> {
