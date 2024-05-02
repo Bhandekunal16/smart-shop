@@ -62,6 +62,13 @@ export class DashboardComponent {
               this.deleteUser();
             },
           },
+          {
+            label: 'customer-list',
+            icon: 'pi pi-fw pi-user-plus',
+            command: () => {
+              this.ViewUser();
+            },
+          },
         ],
       },
       {
@@ -151,5 +158,9 @@ export class DashboardComponent {
 
   initial() {
     this.router.navigate(['dashboard']);
+  }
+
+  ViewUser() {
+    this.router.navigate(['dashboard/userList']);
   }
 }

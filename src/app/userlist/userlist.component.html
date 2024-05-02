@@ -12,7 +12,6 @@
         <th>firstName</th>
         <th>lastName</th>
         <th>userType</th>
-        <th>Edit</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
@@ -20,15 +19,6 @@
         <td>{{ product.firstName }}</td>
         <td>{{ product.lastName }}</td>
         <td>{{ product.userType }}</td>
-        <td>
-          <button
-            pButton
-            pRipple
-            label="Add"
-            class="p-button-success"
-            (click)="edit(product.id)"
-          ></button>
-        </td>
       </tr>
     </ng-template>
   </p-table>
