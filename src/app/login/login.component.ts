@@ -17,7 +17,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import * as CryptoJS from 'crypto-js';
+
 
 @Component({
   selector: 'app-login',
@@ -58,8 +58,6 @@ export class LoginComponent {
 
     this.login({ username, password }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
-
-      console.log(res);
 
       if (res.status) {
         console.log(`login true`);

@@ -7,6 +7,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-chart-product',
@@ -23,7 +24,7 @@ export class ChartProductComponent implements OnInit {
   public Value: any[] = [];
   public array: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
   ngOnInit() {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -35,7 +36,8 @@ export class ChartProductComponent implements OnInit {
 
     this.shopDetails().subscribe(
       (ele) => {
-        this.array = ele.data;
+        const res = this.decrypt.decrypt(ele.response);
+        this.array = res.data;
         console.log(this.array);
         let value = [];
         let name = [];
