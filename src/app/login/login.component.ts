@@ -16,6 +16,8 @@ import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +36,11 @@ export class LoginComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private decrypt: DecryptService
+  ) {
     this.myForm = new FormGroup({
       Username: new FormControl(''),
       Password: new FormControl('', [
@@ -51,7 +57,11 @@ export class LoginComponent {
     const password: string = this.myForm.value.Password;
 
     this.login({ username, password }).subscribe((data) => {
-      if (data.status) {
+      const res = this.decrypt.decrypt(data.response);
+
+      console.log(res);
+
+      if (res.status) {
         console.log(`login true`);
         this.msg = [
           {
@@ -61,10 +71,10 @@ export class LoginComponent {
           },
         ];
 
-        const id = data.data.id;
+        const id = res.data.id;
         localStorage.setItem('id', id);
 
-        if (data.data.userType == 'MERCHANT') {
+        if (res.data.userType == 'MERCHANT') {
           this.dashboard();
         } else {
           this.customerDashboard();
