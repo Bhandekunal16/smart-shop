@@ -15,11 +15,19 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-product',
   standalone: true,
-  imports: [ButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [
+    ButtonModule,
+    ReactiveFormsModule,
+    CommonModule,
+    HttpClientModule,
+    MessagesModule,
+  ],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.scss',
 })
@@ -30,6 +38,7 @@ export class EditProductComponent {
   public flag: boolean = false;
   public products: any[] = [];
   public currentIndex = 0;
+  public msg: Message[] | any;
   public options: string[] | any = [
     'Grocery',
     'Clothing',
@@ -143,12 +152,28 @@ export class EditProductComponent {
     };
 
     this.editShopDetails(payload).subscribe((response) => {
-      console.log(response);
+      const res = this.decrypt.decrypt(response.response);
+      res.status
+        ? (this.msg = [
+            {
+              severity: 'success',
+              summary: 'success',
+              detail: `product edited successfully`,
+            },
+          ])
+        : (this.msg = [
+            {
+              severity: 'warn',
+              summary: 'warn',
+              detail: `Shop edition failed`,
+            },
+          ]);
     });
+    ;
 
     setTimeout(() => {
       window.location.reload();
-    }, 2000);
+    }, 3000);
   }
 
   editShopDetails(body: any): Observable<any> {

@@ -80,3 +80,12 @@
     width: 70vw;
   }
 }
+.message-card {
+  width: fit-content;
+  height: 10vh;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
