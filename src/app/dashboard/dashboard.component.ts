@@ -55,13 +55,7 @@ export class DashboardComponent {
               this.addUser();
             },
           },
-          {
-            label: 'Delete',
-            icon: 'pi pi-fw pi-user-minus',
-            command: () => {
-              this.deleteUser();
-            },
-          },
+
           {
             label: 'customer-list',
             icon: 'pi pi-fw pi-user-plus',
