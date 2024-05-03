@@ -18,6 +18,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { ChartProductComponent } from './chart-product/chart-product.component';
 import { UserlistComponent } from './userlist/userlist.component';
+import { CustomerViewProductComponent } from './customer-view-product/customer-view-product.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -46,5 +47,6 @@ export const routes: Routes = [
   {
     path: 'customer-dashboard',
     component: CustomerDashboardComponent,
+    children: [{ path: '', component: CustomerViewProductComponent }],
   },
 ];
