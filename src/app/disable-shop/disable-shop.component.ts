@@ -9,6 +9,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-disable-shop',
@@ -20,7 +21,10 @@ import { Message } from 'primeng/api';
 export class DisableShopComponent implements OnInit {
   public products: any[] = [];
   public msg: Message[] | any;
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private decryptService: DecryptService
+  ) {}
 
   ngOnInit(): void {
     this.details();
@@ -29,7 +33,8 @@ export class DisableShopComponent implements OnInit {
   details() {
     const id = localStorage.getItem('id');
     this.shopDetails({ id }).subscribe((ele) => {
-      this.products.push(ele.data);
+      const data = this.decryptService.decrypt(ele.response);
+      this.products.push(data.data);
     });
   }
 
