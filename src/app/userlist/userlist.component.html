@@ -19,7 +19,7 @@
         <th>firstName</th>
         <th>lastName</th>
         <th>userType</th>
-        <th>unsubscribe</th>
+        <th>remove</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
@@ -27,13 +27,15 @@
         <td>{{ product.firstName }}</td>
         <td>{{ product.lastName }}</td>
         <td>{{ product.userType }}</td>
-        <button
-          pButton
-          pRipple
-          label="unsubscribe"
-          (click)="unsubscribe(product.id)"
-          class="p-button-success"
-        ></button>
+        <td>
+          <button
+            pButton
+            pRipple
+            label="remove"
+            (click)="unsubscribe(product.id)"
+            class="p-button-success"
+          ></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>
