@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userlist',
@@ -28,7 +29,7 @@ import { Message } from 'primeng/api';
 export class UserlistComponent implements OnInit {
   products!: any[];
   public msg: Message[] | any;
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(private http: HttpClient, private decrypt: DecryptService, private route : Router) {}
 
   ngOnInit(): void {
     this.customerSubscribed().subscribe((ele) => {
@@ -39,7 +40,6 @@ export class UserlistComponent implements OnInit {
 
   unsubscribe(id: any) {
     this.customerUnsubscribed(id).subscribe((ele) => {
-      console.log(ele);
       const data = this.decrypt.decrypt(ele.response);
 
       if (data.status) {
