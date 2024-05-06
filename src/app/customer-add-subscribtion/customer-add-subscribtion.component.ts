@@ -125,10 +125,8 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   }
 
   unSubscribe(id: any): void {
-    console.log(id);
     this.unsubscribe(id).subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
-      console.log(data.data);
 
       if (data.status) {
         this.msg = [
