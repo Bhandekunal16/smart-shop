@@ -21,6 +21,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { CustomerViewProductComponent } from './customer-view-product/customer-view-product.component';
 import { CustomerAddSubscriptionComponent as CustomerAddSubscriptionComponent } from './customer-add-subscribtion/customer-add-subscribtion.component';
 import { CustomerViewSubscriptionComponent as CustomerViewSubscriptionComponent } from './customer-view-subscribtion/customer-view-subscribtion.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -55,6 +56,10 @@ export const routes: Routes = [
       {
         path: 'viewSubscription',
         component: CustomerViewSubscriptionComponent,
+      },
+      {
+        path: 'feedback',
+        component: FeedbackComponent,
       },
     ],
   },

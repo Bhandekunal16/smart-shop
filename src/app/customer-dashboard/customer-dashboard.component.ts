@@ -48,6 +48,9 @@ export class CustomerDashboardComponent implements OnInit {
           {
             label: 'Feedback',
             icon: 'pi pi-fw pi-align-justify',
+            command: () => {
+              this.feedback();
+            },
           },
         ],
       },
@@ -96,5 +99,9 @@ export class CustomerDashboardComponent implements OnInit {
 
   viewSubscriptionRoute() {
     this.router.navigate(['customer-dashboard/viewSubscription']);
+  }
+
+  feedback() {
+    this.router.navigate(['customer-dashboard/feedback']);
   }
 }
