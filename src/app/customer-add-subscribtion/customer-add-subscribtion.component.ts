@@ -39,13 +39,30 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     this.added().subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
       this.Add = data.data;
-      subscribedShop.push(...data.data);
+
+      console.log(data.data);
+      data.data
+        ? subscribedShop.push(...data.data)
+        : subscribedShop.push(...[]);
     });
 
     this.shopDetails().subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
       const firstArray = data.data;
-      this.newKey(subscribedShop, firstArray);
+
+      console.log(subscribedShop);
+      if (subscribedShop.length > 0) {
+        this.newKey(subscribedShop, firstArray);
+      } else {
+        let newArray = [];
+
+        for (let index = 0; index < data.data.length; index++) {
+          data.data[index].isSubscribed = false;
+          newArray.push(data.data[index]);
+        }
+
+        this.products = newArray;
+      }
     });
   }
 
@@ -83,6 +100,18 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     });
   }
 
+  unSubscribe(id: any): void {
+    console.log(id);
+    this.unsubscribe(id).subscribe((ele: ApiResponse<any>) => {
+      const data = this.decrypt.decrypt(ele.response);
+      console.log(data.data);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    });
+  }
+
   viewSubscriptionRoute(): void {
     this.router.navigate(['customer-dashboard/viewSubscription']);
   }
@@ -93,6 +122,17 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     const body = { id, customerId: CustomerId };
     return this.http.post<ApiResponse<any>>(
       'http://localhost:3003/auth/customer/subscribe',
+      body,
+      { headers }
+    );
+  }
+
+  unsubscribe(id: any): Observable<ApiResponse<any>> {
+    const headers = this.getHeaders();
+    const CustomerId = localStorage.getItem('id');
+    const body = { shopId: id, id: CustomerId };
+    return this.http.post<ApiResponse<any>>(
+      'http://localhost:3003/auth/customer/unsubscribe',
       body,
       { headers }
     );

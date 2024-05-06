@@ -24,12 +24,12 @@
           ></button>
 
           <button
-            *ngIf="product.isSubscribed"
             pButton
             pRipple
+            *ngIf="product.isSubscribed"
             label="un-subscribe"
             class="p-button-success"
-            (click)="subscribe(product.id)"
+            (click)="unSubscribe(product.id)"
           ></button>
         </td>
       </tr>
