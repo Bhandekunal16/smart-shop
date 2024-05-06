@@ -23,6 +23,9 @@ export class CustomerDashboardComponent implements OnInit {
           {
             label: 'View',
             icon: 'pi pi-fw pi-video',
+            command: () => {
+              this.initial();
+            },
           },
         ],
       },
@@ -56,6 +59,16 @@ export class CustomerDashboardComponent implements OnInit {
           {
             label: 'View',
             icon: 'pi pi-fw pi-pencil',
+            command: () => {
+              this.viewSubscriptionRoute();
+            },
+          },
+          {
+            label: 'Add',
+            icon: 'pi pi-fw pi-pencil',
+            command: () => {
+              this.addSubscription();
+            },
           },
         ],
       },
@@ -71,5 +84,17 @@ export class CustomerDashboardComponent implements OnInit {
 
   login(): void {
     this.router.navigate(['']);
+  }
+
+  addSubscription(): void {
+    this.router.navigate(['customer-dashboard/addSubscription']);
+  }
+
+  initial() {
+    this.router.navigate(['customer-dashboard']);
+  }
+
+  viewSubscriptionRoute() {
+    this.router.navigate(['customer-dashboard/viewSubscription']);
   }
 }

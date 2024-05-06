@@ -1,0 +1,28 @@
+<div class="card">
+  <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>shopName</th>
+        <th>address</th>
+        <th>officialEmail</th>
+        <th>Subscribe</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.shopName }}</td>
+        <td>{{ product.address }}</td>
+        <td>{{ product.officialEmail }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            label="Subscribe"
+            class="p-button-success"
+            (click)="subscribe(product.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

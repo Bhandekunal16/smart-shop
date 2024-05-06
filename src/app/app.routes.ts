@@ -19,6 +19,8 @@ import { UpdateProductComponent } from './update-product/update-product.componen
 import { ChartProductComponent } from './chart-product/chart-product.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { CustomerViewProductComponent } from './customer-view-product/customer-view-product.component';
+import { CustomerAddSubscriptionComponent as CustomerAddSubscriptionComponent } from './customer-add-subscribtion/customer-add-subscribtion.component';
+import { CustomerViewSubscriptionComponent as CustomerViewSubscriptionComponent } from './customer-view-subscribtion/customer-view-subscribtion.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -47,6 +49,13 @@ export const routes: Routes = [
   {
     path: 'customer-dashboard',
     component: CustomerDashboardComponent,
-    children: [{ path: '', component: CustomerViewProductComponent }],
+    children: [
+      { path: '', component: CustomerViewProductComponent },
+      { path: 'addSubscription', component: CustomerAddSubscriptionComponent },
+      {
+        path: 'viewSubscription',
+        component: CustomerViewSubscriptionComponent,
+      },
+    ],
   },
 ];
