@@ -2,10 +2,10 @@
   <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
-        <th>shopName</th>
-        <th>address</th>
-        <th>officialEmail</th>
-        <th>Subscribe</th>
+        <th>Shop Name</th>
+        <th>Address</th>
+        <th>Official Email</th>
+        <th >Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
@@ -15,9 +15,19 @@
         <td>{{ product.officialEmail }}</td>
         <td>
           <button
+            *ngIf="!product.isSubscribed"
             pButton
             pRipple
             label="Subscribe"
+            class="p-button-success"
+            (click)="subscribe(product.id)"
+          ></button>
+
+          <button
+            *ngIf="product.isSubscribed"
+            pButton
+            pRipple
+            label="un-subscribe"
             class="p-button-success"
             (click)="subscribe(product.id)"
           ></button>

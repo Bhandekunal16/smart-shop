@@ -1,1 +1,18 @@
-<p>customer-view-subscribtion works!</p>
+<div class="card">
+  <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>shopName</th>
+        <th>address</th>
+        <th>officialEmail</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.shopName }}</td>
+        <td>{{ product.address }}</td>
+        <td>{{ product.officialEmail }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
