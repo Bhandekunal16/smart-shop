@@ -10,6 +10,8 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 interface ApiResponse<T> {
   status: boolean;
@@ -19,13 +21,20 @@ interface ApiResponse<T> {
 @Component({
   selector: 'app-customer-add-subscribtion',
   standalone: true,
-  imports: [HttpClientModule, TableModule, ButtonModule, CommonModule],
+  imports: [
+    HttpClientModule,
+    TableModule,
+    ButtonModule,
+    CommonModule,
+    MessagesModule,
+  ],
   templateUrl: './customer-add-subscribtion.component.html',
   styleUrl: './customer-add-subscribtion.component.scss',
 })
 export class CustomerAddSubscriptionComponent implements OnInit {
   products!: any[];
   Add: any[] = [];
+  public msg: Message[] | any;
 
   constructor(
     private http: HttpClient,
@@ -92,6 +101,25 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   subscribe(id: any): void {
     this.Subscribe(id).subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
+
+      if (data.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'success',
+            detail: `${data.data}`,
+          },
+        ];
+      } else {
+        this.msg = [
+          {
+            severity: 'error',
+            summary: 'error',
+            detail: `${data.data}`,
+          },
+        ];
+      }
+
       data.status ? this.viewSubscriptionRoute() : console.log('nothing');
     });
   }
@@ -101,6 +129,24 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     this.unsubscribe(id).subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
       console.log(data.data);
+
+      if (data.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'success',
+            detail: `${data.data}`,
+          },
+        ];
+      } else {
+        this.msg = [
+          {
+            severity: 'error',
+            summary: 'error',
+            detail: `${data.data}`,
+          },
+        ];
+      }
 
       setTimeout(() => {
         window.location.reload();
