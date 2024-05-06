@@ -112,6 +112,7 @@ export class DashboardComponent {
 
   login(): void {
     this.router.navigate(['']);
+    localStorage.clear()
   }
 
   addUser(): void {

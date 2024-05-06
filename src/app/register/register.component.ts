@@ -88,6 +88,7 @@ export class RegisterComponent implements OnInit {
       userType,
     }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
+      const id = localStorage.setItem('id', res.data.id);
       if (res.status) {
         this.msg = [
           {
@@ -100,7 +101,6 @@ export class RegisterComponent implements OnInit {
         res.data.userType == 'MERCHANT'
           ? this.dashboard()
           : this.customerDashboard();
-  
       } else {
         this.msg = [
           {
