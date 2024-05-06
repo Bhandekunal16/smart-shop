@@ -54,6 +54,9 @@ export class ConformPasswordComponent {
 
     this.conformPassword({ password, email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
+
+      const id = localStorage.setItem('id', res.data.id);
+      
       if (res.status) {
         this.msg = [
           {
@@ -63,7 +66,9 @@ export class ConformPasswordComponent {
           },
         ];
 
-        this.dashboard();
+        res.data.userType == 'MERCHANT'
+          ? this.dashboard()
+          : this.customerDashboard();
       } else {
         this.msg = [
           {
@@ -78,6 +83,10 @@ export class ConformPasswordComponent {
 
   dashboard(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  customerDashboard(): void {
+    this.router.navigate(['/customer-dashboard']);
   }
 
   conformPassword(body: any): Observable<any> {
