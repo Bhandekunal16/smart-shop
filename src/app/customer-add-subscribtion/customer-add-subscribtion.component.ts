@@ -39,8 +39,6 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     this.added().subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
       this.Add = data.data;
-
-      console.log(data.data);
       data.data
         ? subscribedShop.push(...data.data)
         : subscribedShop.push(...[]);
@@ -49,8 +47,6 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     this.shopDetails().subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
       const firstArray = data.data;
-
-      console.log(subscribedShop);
       if (subscribedShop.length > 0) {
         this.newKey(subscribedShop, firstArray);
       } else {
