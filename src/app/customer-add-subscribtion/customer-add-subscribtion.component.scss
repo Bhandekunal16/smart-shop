@@ -1,0 +1,23 @@
+.add-customer-table-container {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  background-color: #f5f5f5;
+  color: #1e5d4a;
+  margin-top: 1%;
+}
+
+.add-customer-table-container th {
+  background-color: #1e5d4a;
+  color: black;
+}
+
+.message-card {
+  width: fit-content;
+  height: 10vh;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
