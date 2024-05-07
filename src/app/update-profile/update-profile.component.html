@@ -1,1 +1,72 @@
-<p>update-profile works!</p>
+<div class="register-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
+
+  <form class="register-container-form" [formGroup]="myForm">
+    <div class="register-container-form-top">
+      <h1>Register</h1>
+    </div>
+    <div class="register-container-form-input">
+      <label>First name </label>
+      <div *ngIf="myForm.get('firstName')?.errors?.['pattern']" class="error">
+        Enter valid first name
+      </div>
+      <input type="text" placeholder="First Name" formControlName="firstName" />
+
+      <label>Last name </label>
+      <div *ngIf="myForm.get('lastName')?.errors?.['pattern']" class="error">
+        Enter valid last name
+      </div>
+      <input type="text" placeholder="Last Name" formControlName="lastName" />
+
+      <label>Email id </label>
+      <div *ngIf="myForm.get('email')?.errors?.['pattern']" class="error">
+        Enter valid email
+      </div>
+      <input type="text" placeholder="Email" formControlName="email" />
+
+      <label>Mobile No</label>
+      <div *ngIf="myForm.get('mobileNo')?.errors?.['pattern']" class="error">
+        Enter valid mobile number
+      </div>
+      <input type="text" placeholder="Mobile No" formControlName="mobileNo" />
+
+      <label>type</label>
+      <select formControlName="userType">
+        <option *ngFor="let option of options" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+
+      <label>profile image</label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+
+      <label>Password </label>
+      <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
+        Enter valid Password
+      </div>
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="Password"
+      />
+    </div>
+
+    <div class="register-container-form-button">
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Submit"
+        class="p-button-success"
+        [disabled]="myForm.invalid"
+        (click)="submitForm()"
+      ></button>
+    </div>
+  </form>
+</div>

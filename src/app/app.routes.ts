@@ -23,6 +23,7 @@ import { CustomerAddSubscriptionComponent as CustomerAddSubscriptionComponent } 
 import { CustomerViewSubscriptionComponent as CustomerViewSubscriptionComponent } from './customer-view-subscribtion/customer-view-subscribtion.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -65,6 +66,10 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'updateProfile',
+        component: UpdateProfileComponent,
       },
     ],
   },

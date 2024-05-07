@@ -10,6 +10,7 @@ import {
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { ButtonModule } from 'primeng/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -32,7 +33,11 @@ export class ProfileComponent implements OnInit {
   public userType: string | undefined;
   public profileImage: string | undefined;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(
+    private http: HttpClient,
+    private decrypt: DecryptService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.getDetails();
   }
@@ -50,6 +55,14 @@ export class ProfileComponent implements OnInit {
       this.userType = data.data.userType;
       this.profileImage = data.data.profileImage;
     });
+  }
+
+  edit() {
+    this.update();
+  }
+
+  update(): void {
+    this.router.navigate(['/customer-dashboard/updateProfile']);
   }
 
   shopDetails(id: any): Observable<any> {
