@@ -5,6 +5,9 @@
 .add-product-container {
   padding: 1%;
   margin: 1%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .add-product-container-form {
@@ -16,7 +19,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 25%;
   padding-bottom: 1%;
 }
 
@@ -27,6 +29,11 @@
   border-radius: 8px 8px 0px 0px;
 }
 
+.add-product-container-text {
+  width: 40vw;
+  height: fit-content;
+  margin-top: -22%;
+}
 .add-product-container-form-top h1 {
   color: #f0f0f0;
   text-align: center;
@@ -70,6 +77,14 @@
     margin-left: -1%;
   }
 
+  .add-product-container {
+    padding: 1%;
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .add-product-container-form-input input {
     height: 5vh;
     width: 70vw;
@@ -78,6 +93,12 @@
   .add-product-container-form-input select {
     height: 5vh;
     width: 70vw;
+  }
+
+  .add-product-container-text {
+    width: 95vw;
+    height: fit-content;
+    margin-top: 0;
   }
 }
 .message-card {
