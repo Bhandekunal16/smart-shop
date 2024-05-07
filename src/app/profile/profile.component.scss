@@ -1,0 +1,61 @@
+.profile-container {
+  height: fit-content;
+  width: 97vw;
+  margin-top: 1%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.profile-container p-card {
+  width: 50vw;
+  height: fit-content;
+  margin-top: 1%;
+}
+
+.profile-container img {
+  width: 50vw;
+  height: 60vh;
+  object-fit: cover;
+}
+
+.faq-container {
+  max-width: 600px;
+  margin-top: -14%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+.faq-container h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.faq-container p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .profile-container p-card {
+    width: 97vw;
+    height: fit-content;
+    margin-top: 1%;
+  }
+
+  .profile-container img {
+    width: 97vw;
+    height: 60vh;
+    object-fit: cover;
+  }
+
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .faq-container{
+    margin-top: 1%;
+  }
+}

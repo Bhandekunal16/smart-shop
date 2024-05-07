@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   public lastName: string | undefined;
   public mobileNo: string | undefined;
   public userType: string | undefined;
+  public profileImage: string | undefined;
 
   constructor(private http: HttpClient, private decrypt: DecryptService) {}
   ngOnInit(): void {
@@ -34,12 +35,13 @@ export class ProfileComponent implements OnInit {
 
     this.shopDetails(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-  
+
       this.email = data.data.email;
       this.firstName = data.data.firstName;
       this.lastName = data.data.lastName;
       this.mobileNo = data.data.mobileNo;
       this.userType = data.data.userType;
+      this.profileImage = data.data.profileImage;
     });
   }
 
