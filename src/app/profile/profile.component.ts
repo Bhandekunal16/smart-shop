@@ -9,11 +9,18 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CardModule, CommonModule, ImageModule, HttpClientModule],
+  imports: [
+    CardModule,
+    CommonModule,
+    ImageModule,
+    HttpClientModule,
+    ButtonModule,
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

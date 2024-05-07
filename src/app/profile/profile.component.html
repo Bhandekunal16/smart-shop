@@ -8,6 +8,16 @@
     <p>lastName : {{ lastName }}</p>
     <p>mobileNo: {{ mobileNo }}</p>
     <p>userType: {{ userType }}</p>
+    <ng-template pTemplate="footer">
+      <div class="flex gap-3 mt-1">
+        <button
+          pButton
+          pRipple
+          label="Update"
+          class="p-button-success"
+        ></button>
+      </div>
+    </ng-template>
   </p-card>
   <div class="faq-container">
     <h3>FAQs</h3>
