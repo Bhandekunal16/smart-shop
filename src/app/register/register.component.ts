@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
   public myForm: FormGroup | any;
   public msg: Message[] | any;
   private selectedOption: any;
+  public selectedImage: File | any = null;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
 
   constructor(
@@ -78,6 +79,7 @@ export class RegisterComponent implements OnInit {
     const mobileNo: number = this.myForm.value.mobileNo;
     const password: string = this.myForm.value.Password;
     const userType: string = this.myForm.value.userType;
+    const profileImage = this.selectedImage;
 
     this.register({
       firstName,
@@ -86,6 +88,7 @@ export class RegisterComponent implements OnInit {
       mobileNo,
       password,
       userType,
+      profileImage,
     }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
       const id = localStorage.setItem('id', res.data.id);
@@ -110,6 +113,43 @@ export class RegisterComponent implements OnInit {
           },
         ];
       }
+    });
+  }
+
+  async onImageSelected(event: any) {
+    const file = event.target.files[0];
+    try {
+      this.selectedImage = await this.uploadFile(file);
+      console.log('Image uploaded successfully:', this.selectedImage);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  }
+
+  uploadFile(event: any): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      let file = event;
+      if (event) {
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.getBase64(file)
+            .then((res: any) => resolve(res))
+            .catch((err) => reject(err));
+        };
+        reader.onerror = (error) => reject(error);
+      } else {
+        resolve(null);
+      }
+    });
+  }
+
+  getBase64(file: any) {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
     });
   }
 

@@ -43,6 +43,9 @@
         </option>
       </select>
 
+      <label>profile image</label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+
       <label>Password </label>
       <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
         Enter valid Password
