@@ -24,7 +24,7 @@ export class CustomerDashboardComponent implements OnInit {
             label: 'View',
             icon: 'pi pi-fw pi-video',
             command: () => {
-              this.initial();
+              this.profile();
             },
           },
         ],
@@ -95,6 +95,10 @@ export class CustomerDashboardComponent implements OnInit {
 
   initial() {
     this.router.navigate(['customer-dashboard']);
+  }
+
+  profile() {
+    this.router.navigate(['customer-dashboard/profile']);
   }
 
   viewSubscriptionRoute() {

@@ -22,6 +22,7 @@ import { CustomerViewProductComponent } from './customer-view-product/customer-v
 import { CustomerAddSubscriptionComponent as CustomerAddSubscriptionComponent } from './customer-add-subscribtion/customer-add-subscribtion.component';
 import { CustomerViewSubscriptionComponent as CustomerViewSubscriptionComponent } from './customer-view-subscribtion/customer-view-subscribtion.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -60,6 +61,10 @@ export const routes: Routes = [
       {
         path: 'feedback',
         component: FeedbackComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
       },
     ],
   },
