@@ -44,8 +44,6 @@ export class ViewProductComponent implements OnInit {
       for (let index = 0; index < res.data.length; index++) {
         this.value = res.data[index].rating.low;
       }
-      
-      console.log(this.data);
     });
   }
 
