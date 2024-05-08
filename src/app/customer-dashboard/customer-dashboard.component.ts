@@ -36,6 +36,9 @@ export class CustomerDashboardComponent implements OnInit {
           {
             label: 'ProductList',
             icon: 'pi pi-fw pi-align-left',
+            command: () => {
+              this.initial();
+            },
           },
           {
             label: 'Wishlist',
