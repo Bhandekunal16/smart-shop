@@ -25,6 +25,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { UpdateRatingComponent } from './update-rating/update-rating.component';
+import { UserAddWishlistComponent } from './user-add-wishlist/user-add-wishlist.component';
+import { UserViewWishlistComponent } from './user-view-wishlist/user-view-wishlist.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -74,6 +76,8 @@ export const routes: Routes = [
         component: UpdateProfileComponent,
       },
       { path: 'updateRating', component: UpdateRatingComponent },
+      { path: 'userAddWishList', component: UserAddWishlistComponent },
+      { path: 'userViewWishList', component: UserViewWishlistComponent },
     ],
   },
 ];

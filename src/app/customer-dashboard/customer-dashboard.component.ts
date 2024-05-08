@@ -43,6 +43,9 @@ export class CustomerDashboardComponent implements OnInit {
           {
             label: 'Wishlist',
             icon: 'pi pi-fw pi-align-right',
+            command: () => {
+              this.WishList();
+            },
           },
           {
             label: 'Purchases',
@@ -98,6 +101,10 @@ export class CustomerDashboardComponent implements OnInit {
 
   initial() {
     this.router.navigate(['customer-dashboard']);
+  }
+
+  WishList() {
+    this.router.navigate(['customer-dashboard/userViewWishList']);
   }
 
   profile() {
