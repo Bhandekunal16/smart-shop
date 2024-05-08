@@ -106,13 +106,27 @@ export class DashboardComponent {
         command: () => {
           this.initial();
         },
+        items: [
+          {
+            label: 'Feedback',
+            icon: 'pi pi-fw pi-power-off',
+            command: () => {
+              this.Feedback();
+            },
+          },
+        ],
       },
     ];
   }
 
   login(): void {
     this.router.navigate(['']);
-    localStorage.clear()
+    localStorage.clear();
+  }
+
+  Feedback(): void {
+    this.router.navigate(['dashboard/feedback']);
+    localStorage.clear();
   }
 
   addUser(): void {

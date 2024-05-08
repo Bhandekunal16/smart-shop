@@ -47,6 +47,7 @@ export const routes: Routes = [
       { path: 'updateProduct', component: UpdateProductComponent },
       { path: '', component: ChartProductComponent },
       { path: 'userList', component: UserlistComponent },
+      { path: 'feedback', component: FeedbackComponent },
     ],
   },
   {
