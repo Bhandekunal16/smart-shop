@@ -10,17 +10,26 @@ import { DecryptService } from '../../global/decrypt.service';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { clearScreenDown } from 'readline';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
   selector: 'app-customer-view-product',
   standalone: true,
-  imports: [HttpClientModule, CardModule, CommonModule, ButtonModule],
+  imports: [
+    HttpClientModule,
+    CardModule,
+    CommonModule,
+    ButtonModule,
+    RatingModule,
+    FormsModule,
+  ],
   templateUrl: './customer-view-product.component.html',
   styleUrl: './customer-view-product.component.scss',
 })
 export class CustomerViewProductComponent implements OnInit {
   public data: any[] = [];
+  public value!: number;
 
   constructor(
     private http: HttpClient,
@@ -54,7 +63,7 @@ export class CustomerViewProductComponent implements OnInit {
       }
 
       const data = array.reduce((acc, arr) => [...acc, ...arr], []);
-      console.log(data);
+      // console.log(data);
 
       this.data = data;
     });
@@ -63,6 +72,10 @@ export class CustomerViewProductComponent implements OnInit {
   setCurrentObjectId(id: string) {
     console.log(id);
     localStorage.setItem('currentObjectId', id);
+  }
+
+  getStatusText(isPurchased: boolean): string {
+    return isPurchased ? 'Sold' : 'Unsold';
   }
 
   shopDetails(): Observable<any> {
