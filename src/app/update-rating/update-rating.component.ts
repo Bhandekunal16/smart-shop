@@ -59,7 +59,22 @@ export class UpdateRatingComponent implements OnInit {
       let array = [];
       array.push(res.data);
       this.data = array;
-      const rating = this.data[0].rating;
+
+      console.log(typeof this.myForm.value.rating == 'string');
+      console.log(typeof this.myForm.value.rating == 'number');
+
+      let rating;
+      if (typeof this.myForm.value.rating == 'string') {
+        rating = this.data[0].rating;
+      } else if (typeof this.myForm.value.rating == 'number') {
+        rating = this.data[0].rating;
+      } else {
+        rating = this.data[0].rating.low;
+      }
+
+      console.log(rating);
+
+      // const rating = this.data[0].rating;
       this.myForm.patchValue({ rating: rating });
     });
   }
@@ -71,7 +86,21 @@ export class UpdateRatingComponent implements OnInit {
   submitForm() {
     this.Details().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      const rate = this.myForm.value.rating;
+
+      console.log(typeof this.myForm.value.rating == 'string');
+      console.log(this.myForm.value.rating, typeof this.myForm.value.rating);
+
+      let rate;
+      if (typeof this.myForm.value.rating == 'string') {
+        rate = this.myForm.value.rating;
+      } else if (typeof this.myForm.value.rating == 'number') {
+        rate = this.myForm.value.rating;
+      } else {
+        rate = this.myForm.value.rating.low;
+      }
+
+      console.log(rate);
+
       const userId = localStorage.getItem('id');
 
       const id = res.data.id;
