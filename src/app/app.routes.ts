@@ -24,6 +24,7 @@ import { CustomerViewSubscriptionComponent as CustomerViewSubscriptionComponent 
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { UpdateRatingComponent } from './update-rating/update-rating.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -72,6 +73,7 @@ export const routes: Routes = [
         path: 'updateProfile',
         component: UpdateProfileComponent,
       },
+      { path: 'updateRating', component: UpdateRatingComponent },
     ],
   },
 ];

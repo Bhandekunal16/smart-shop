@@ -69,9 +69,14 @@ export class CustomerViewProductComponent implements OnInit {
     });
   }
 
+  edit(): void {
+    this.router.navigate(['customer-dashboard/updateRating']);
+  }
+
   setCurrentObjectId(id: string) {
     console.log(id);
     localStorage.setItem('currentObjectId', id);
+    this.edit();
   }
 
   getStatusText(isPurchased: boolean): string {
