@@ -15,6 +15,10 @@
           Product Type: {{ item.productType }}
           <br />
           Price: {{ item.productCost }} ₹
+          <br />
+          Status: {{ getStatusText(item.IsPurchased) }}
+          <br />
+          <p-rating [(ngModel)]="value" [cancel]="false" />
         </p>
         <div class="card flex justify-content-center">
           <button

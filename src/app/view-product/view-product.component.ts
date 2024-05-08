@@ -10,25 +10,41 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-product',
   standalone: true,
-  imports: [HttpClientModule, CardModule, CommonModule, ButtonModule],
+  imports: [
+    HttpClientModule,
+    CardModule,
+    CommonModule,
+    ButtonModule,
+    RatingModule,
+    FormsModule,
+  ],
   templateUrl: './view-product.component.html',
   styleUrl: './view-product.component.scss',
 })
 export class ViewProductComponent implements OnInit {
   public data: any[] = [];
+  public value!: number;
   constructor(
     private http: HttpClient,
     private router: Router,
     private decrypt: DecryptService
   ) {}
+
   ngOnInit(): void {
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       this.data = res.data;
+
+      for (let index = 0; index < res.data.length; index++) {
+        this.value = res.data[index].rating.low;
+      }
+      
       console.log(this.data);
     });
   }
@@ -41,6 +57,10 @@ export class ViewProductComponent implements OnInit {
 
   edit(): void {
     this.router.navigate(['dashboard/updateProduct']);
+  }
+
+  getStatusText(isPurchased: boolean): string {
+    return isPurchased ? 'Sold' : 'Unsold';
   }
 
   shopDetails(): Observable<any> {
