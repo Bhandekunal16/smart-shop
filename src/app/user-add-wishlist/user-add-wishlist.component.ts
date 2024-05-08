@@ -69,7 +69,6 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   setCurrentObjectId(id: string) {
-    console.log(id);
     const userId = localStorage.getItem('id');
     const body = {
       userId: userId,
@@ -78,7 +77,6 @@ export class UserAddWishlistComponent implements OnInit {
     // localStorage.setItem('currentObjectId', id);
     this.Add(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      console.log(res);
     });
   }
 
