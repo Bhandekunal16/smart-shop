@@ -1,1 +1,32 @@
-<p>user-view-wishlist works!</p>
+<div class="view-wishlist-container">
+  <div class="view-wishlist-container-header">
+    <button
+      pButton
+      pRipple
+      label="Add"
+      class="p-button-success"
+      (click)="submit()"
+    ></button>
+  </div>
+
+  <div class="view-wishlist-container-body">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Product Name</th>
+          <th>Product Description</th>
+          <th>Cost</th>
+          <th>product Type</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.ProductName }}</td>
+          <td>{{ product.ProductDescription }}</td>
+          <td>{{ product.productCost }}</td>
+          <td>{{ product.productType }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
