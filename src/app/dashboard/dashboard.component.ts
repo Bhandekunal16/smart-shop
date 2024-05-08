@@ -93,28 +93,27 @@ export class DashboardComponent {
           },
         ],
       },
-      {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off',
-        command: () => {
-          this.login();
-        },
-      },
+
       {
         label: 'Dashboard',
         icon: 'pi pi-fw pi-power-off',
         command: () => {
           this.initial();
         },
-        items: [
-          {
-            label: 'Feedback',
-            icon: 'pi pi-fw pi-power-off',
-            command: () => {
-              this.Feedback();
-            },
-          },
-        ],
+      },
+      {
+        label: 'Feedback',
+        icon: 'pi pi-fw pi-power-off',
+        command: () => {
+          this.Feedback();
+        },
+      },
+      {
+        label: 'Quit',
+        icon: 'pi pi-fw pi-power-off',
+        command: () => {
+          this.login();
+        },
       },
     ];
   }
@@ -126,7 +125,6 @@ export class DashboardComponent {
 
   Feedback(): void {
     this.router.navigate(['dashboard/feedback']);
-    localStorage.clear();
   }
 
   addUser(): void {
