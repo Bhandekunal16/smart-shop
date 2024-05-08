@@ -32,6 +32,12 @@ img {
   height: 40vh;
   object-fit: cover;
 }
+.update-rating-submit {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30vw;
+}
 
 @media (max-width: 600px) {
   p-card {
@@ -45,17 +51,17 @@ img {
     height: 40vh;
     object-fit: cover;
   }
+
+  .update-rating-submit {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+  }
 }
 
 .view-product-card-data {
   background-color: rebeccapurple;
-}
-
-.update-rating-submit {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 30vw;
 }
 
 .message-card {
