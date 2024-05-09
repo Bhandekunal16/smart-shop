@@ -17,6 +17,7 @@
           <th>Product Description</th>
           <th>Cost</th>
           <th>product Type</th>
+          <th *ngIf="product.ProductName == undefined">Remove</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-product>
@@ -25,8 +26,17 @@
           <td>{{ product.ProductDescription }}</td>
           <td>{{ product.productCost }}</td>
           <td>{{ product.productType }}</td>
+          <td>
+            <button
+              pButton
+              pRipple
+              label="Remove"
+              class="p-button-success"
+              (click)="remove(product.id)"
+            ></button>
+          </td>
         </tr>
-      </ng-template>
+      </ng-template>  
     </p-table>
   </div>
 </div>

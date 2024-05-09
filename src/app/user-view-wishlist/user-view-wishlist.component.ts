@@ -40,6 +40,19 @@ export class UserViewWishlistComponent {
     });
   }
 
+  remove(id: any) {
+    console.log(id);
+    const userId = localStorage.getItem('id');
+    const body = {
+      userId: userId,
+      productId: id,
+    };
+    this.Remove(body).subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
+      console.log(res);
+    });
+  }
+
   submit() {
     this.add();
   }
@@ -55,6 +68,19 @@ export class UserViewWishlistComponent {
 
     return this.http
       .get<any>(`http://localhost:3003/product/get/wishlist/${id}`, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  Remove(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .post<any>(`http://localhost:3003/product/wishlist/remove`, id, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

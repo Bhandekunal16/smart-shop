@@ -68,15 +68,20 @@ export class UserAddWishlistComponent implements OnInit {
     });
   }
 
+  view(): void {
+    this.router.navigate(['customer-dashboard/userViewWishList']);
+  }
+
   setCurrentObjectId(id: string) {
     const userId = localStorage.getItem('id');
     const body = {
       userId: userId,
       productId: id,
     };
-    // localStorage.setItem('currentObjectId', id);
+
     this.Add(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
+      this.view();
     });
   }
 
