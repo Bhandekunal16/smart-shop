@@ -33,6 +33,13 @@ img {
   object-fit: cover;
 }
 
+.button-grid {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30vw;
+}
+
 @media (max-width: 600px) {
   p-card {
     width: 95vw;
@@ -44,6 +51,10 @@ img {
     width: 95vw;
     height: 40vh;
     object-fit: cover;
+  }
+
+  .button-grid {
+    width: 80vw;
   }
 }
 

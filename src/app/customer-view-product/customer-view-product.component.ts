@@ -73,6 +73,10 @@ export class CustomerViewProductComponent implements OnInit {
     this.router.navigate(['customer-dashboard/updateRating']);
   }
 
+  view(): void {
+    this.router.navigate(['customer-dashboard/userViewWishList']);
+  }
+
   setCurrentObjectId(id: string) {
     console.log(id);
     localStorage.setItem('currentObjectId', id);
@@ -89,6 +93,32 @@ export class CustomerViewProductComponent implements OnInit {
     });
     return this.http
       .get<any>(`http://localhost:3003/product/customer/get`, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  WishList(id: string) {
+    const userId = localStorage.getItem('id');
+    const body = {
+      userId: userId,
+      productId: id,
+    };
+
+    this.Add(body).subscribe((ele) => {
+      console.log(ele);
+      this.view();
+    });
+  }
+
+  Add(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .post<any>(`http://localhost:3003/product/wishlist`, id, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

@@ -18,13 +18,21 @@
           <br />
           Status: {{ getStatusText(item.IsPurchased) }}
         </p>
-        <div class="card flex justify-content-center">
+        <div class="button-grid">
           <button
             pButton
             pRipple
             label="Rate Product"
             class="p-button-success"
             (click)="setCurrentObjectId(item.id)"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            label="Add TO Wishlist"
+            class="p-button-success"
+            (click)="WishList(item.id)"
           ></button>
         </div>
       </p-card>
