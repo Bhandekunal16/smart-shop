@@ -87,6 +87,11 @@ export class CustomerViewProductComponent implements OnInit {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
+  paymentRoute(id: string) {
+    localStorage.setItem('currentObjectId', id);
+    this.router.navigate(['customer-dashboard/payment']);
+  }
+
   shopDetails(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

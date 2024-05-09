@@ -34,6 +34,14 @@
             class="p-button-success"
             (click)="WishList(item.id)"
           ></button>
+
+          <button
+            pButton
+            pRipple
+            label="Purchase"
+            class="p-button-success"
+            (click)="paymentRoute(item.id)"
+          ></button>
         </div>
       </p-card>
     </ng-container>
