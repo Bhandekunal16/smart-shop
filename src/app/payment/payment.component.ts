@@ -56,22 +56,6 @@ export class PaymentComponent implements OnInit {
     this.view();
   }
 
-  onProductCostInput() {
-    if (this.myForm.get('productCost')?.value) {
-      this.myForm.get('discount')?.disable();
-    } else {
-      this.myForm.get('discount')?.enable();
-    }
-  }
-
-  onDiscountInput() {
-    if (this.myForm.get('discount')?.value) {
-      this.myForm.get('productCost')?.disable();
-    } else {
-      this.myForm.get('productCost')?.enable();
-    }
-  }
-
   view() {
     let array = [];
     this.Details().subscribe((ele) => {
@@ -87,41 +71,18 @@ export class PaymentComponent implements OnInit {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  async adjust(originalPrice: any) {
-    console.log(originalPrice);
-    const cost = this.myForm.get('productCost')?.value == originalPrice ? 0 : this.myForm.get('productCost')?.value
-    const discount = this.myForm.get('discount')?.value;
+  purchaseProduct(id: any) {
+    console.log(id);
+    const userId = localStorage.getItem('id');
+    let payload = {
+      userId: userId,
+      productId: id,
+    };
 
-
-
-    console.log(discount)
-
-    if (cost > 0) {
-      this.myForm.patchValue({ productCost: cost });
-      let payload = {
-        id: localStorage.getItem('currentObjectId'),
-        productCost: this.myForm.value.productCost,
-      };
-      this.editShopDetails(payload).subscribe((response) => {
-        const data = this.decrypt.decrypt(response.response);
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      });
-    } else if (discount) {
-      const productCost = originalPrice - (originalPrice * discount) / 100;
-      await this.myForm.patchValue({ productCost: productCost });
-      let payload = {
-        id: localStorage.getItem('currentObjectId'),
-        productCost: productCost,
-      };
-       this.editShopDetails(payload).subscribe((response) => {
-        const data = this.decrypt.decrypt(response.response);
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
-      });
-    }
+    this.add(payload).subscribe((ele) => {
+      let data = this.decrypt.decrypt(ele.response);
+      console.log(data);
+    });
   }
 
   Details(): Observable<any> {
@@ -139,13 +100,12 @@ export class PaymentComponent implements OnInit {
       );
   }
 
-  editShopDetails(body: any): Observable<any> {
+  add(request: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-
     return this.http
-      .post<any>('http://localhost:3003/product/adjust/rate', body, { headers })
+      .post<any>(`http://localhost:3003/payment/request`, request, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
