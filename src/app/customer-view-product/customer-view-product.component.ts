@@ -114,6 +114,8 @@ export class CustomerViewProductComponent implements OnInit {
 
     this.Add(body).subscribe((ele) => {
       console.log(ele);
+      let res = this.decrypt.decrypt(ele.response);
+      console.log(res);
       this.view();
     });
   }
