@@ -82,7 +82,15 @@ export class PaymentComponent implements OnInit {
     this.add(payload).subscribe((ele) => {
       let data = this.decrypt.decrypt(ele.response);
       console.log(data);
+
+      if (data.status) {
+        this.list();
+      }
     });
+  }
+
+  list() {
+    this.router.navigate(['customer-dashboard/purchasedList']);
   }
 
   Details(): Observable<any> {
