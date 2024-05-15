@@ -50,6 +50,9 @@ export class CustomerDashboardComponent implements OnInit {
           {
             label: 'Purchases',
             icon: 'pi pi-fw pi-align-center',
+            command: () => {
+              this.list();
+            },
           },
           {
             label: 'Feedback',
@@ -117,5 +120,9 @@ export class CustomerDashboardComponent implements OnInit {
 
   feedback() {
     this.router.navigate(['customer-dashboard/feedback']);
+  }
+
+  list() {
+    this.router.navigate(['customer-dashboard/purchasedList']);
   }
 }
