@@ -17,7 +17,7 @@
           <td>{{ product.productCost }}</td>
           <td>{{ product.productType }}</td>
           <td [ngClass]="getStatusInfo(product.isPurchased).class">
-            {{ getStatusInfo(product.IsPurchased).text }}
+            {{ getStatusInfo(product.isPurchased).text }}
           </td>
         </tr>
       </ng-template>
