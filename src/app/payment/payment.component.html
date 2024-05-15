@@ -1,1 +1,42 @@
-<p>payment works!</p>
+<div class="view-product-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
+  <div class="view-product-card">
+    <ng-container *ngIf="data.length > 0; else loading">
+      <p-card
+        *ngFor="let item of data"
+        header="{{ item.ProductName }}"
+        subheader="{{ item.ProductDescription }}"
+      >
+        <ng-template pTemplate="header">
+          <img alt="Card" [src]="item.productImage" />
+        </ng-template>
+        <p>
+          Uploaded On: {{ item.createdOn.low * 1000 | date : "medium" }}
+          <br />
+          Product Type: {{ item.productType }}
+          <br />
+          Price: {{ item.productCost }} ₹
+          <br />
+          Status: {{ getStatusText(item.IsPurchased) }} <br />
+        </p>
+
+
+        <div class="card flex justify-content-center">
+          <button
+            pButton
+            pRipple
+            label="Cash Purchase"
+            class="p-button-success"
+          ></button>
+        </div>
+      </p-card>
+    </ng-container>
+    <ng-template #loading>Loading...</ng-template>
+  </div>
+</div>

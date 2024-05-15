@@ -29,13 +29,6 @@
         formControlName="ProductDescription"
       />
 
-      <label>Product Cost </label>
-      <input
-        type="number"
-        placeholder="Product Cost"
-        formControlName="productCost"
-      />
-
       <label>product Type</label>
       <select formControlName="productType">
         <option *ngFor="let option of options" [value]="option">
@@ -45,6 +38,33 @@
 
       <label>Product Image</label>
       <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+
+      <div class="payment-form">
+        <label>Adjust product Cost</label>
+        <input
+          type="text"
+          placeholder="Product Cost"
+          formControlName="productCost"
+          (input)="onProductCostInput()"
+        />
+
+        <label>Add Discount</label>
+        <input
+          type="text"
+          placeholder="Discount"
+          formControlName="discount"
+          (input)="onDiscountInput()"
+        />
+        <div class="card flex justify-content-center">
+          <button
+            pButton
+            pRipple
+            label="calculate"
+            class="p-button-success"
+            (click)="adjust()"
+          ></button>
+        </div>
+      </div>
 
       <div class="update-product-container-form-button">
         <button

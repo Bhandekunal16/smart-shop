@@ -60,6 +60,7 @@ export class UpdateProductComponent {
       productType: ['', Validators.required],
       productImage: ['', Validators.required],
       productCost: ['', Validators.required],
+      discount: ['', Validators.required]
     });
   }
 
@@ -140,7 +141,7 @@ export class UpdateProductComponent {
       ProductDescription: this.myForm.value.ProductDescription,
       productType: this.myForm.value.productType,
       productImage: this.selectedImage,
-      productCost: this.myForm.value.productCost
+      productCost: this.myForm.value.productCost,
     };
 
     this.editShopDetails(payload).subscribe((response) => {
@@ -164,6 +165,63 @@ export class UpdateProductComponent {
     });
   }
 
+  onProductCostInput() {
+    if (this.myForm.get('productCost')?.value) {
+      this.myForm.get('discount')?.disable();
+    } else {
+      this.myForm.get('discount')?.enable();
+    }
+  }
+
+  onDiscountInput() {
+    if (this.myForm.get('discount')?.value) {
+      this.myForm.get('productCost')?.disable();
+    } else {
+      this.myForm.get('productCost')?.enable();
+    }
+  }
+
+  async adjust() {
+    let originalPrice = this.products[this.currentIndex].productCost
+    console.log(originalPrice);
+    const cost =
+      this.myForm.get('productCost')?.value == originalPrice
+        ? 0
+        : this.myForm.get('productCost')?.value;
+    const discount = this.myForm.get('discount')?.value;
+
+    console.log(discount, cost);
+
+    if (cost > 0) {
+      console.log(' i am here')
+      this.myForm.patchValue({ productCost: cost });
+      let payload = {
+        id: localStorage.getItem('currentObjectId'),
+        productCost: cost,
+      };
+      this.adjustRate(payload).subscribe((response) => {
+        const data = this.decrypt.decrypt(response.response);
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+      });
+    } else if (discount) {
+      console.log('i am in else')
+      const productCost = originalPrice - (originalPrice * discount) / 100;
+      await this.myForm.patchValue({ productCost: productCost });
+      let payload = {
+        id: localStorage.getItem('currentObjectId'),
+        productCost: productCost,
+      };
+      this.adjustRate(payload).subscribe((response) => {
+        const data = this.decrypt.decrypt(response.response);
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+      });
+    }
+  }
+
   editShopDetails(body: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -171,6 +229,20 @@ export class UpdateProductComponent {
 
     return this.http
       .post<any>('http://localhost:3003/product/edit', body, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  adjustRate(body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<any>('http://localhost:3003/product/adjust/rate', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
