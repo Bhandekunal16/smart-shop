@@ -1,4 +1,11 @@
 <div class="view-product-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
   <div class="view-product-card">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
@@ -25,6 +32,15 @@
             label="Add TO Wishlist"
             class="p-button-success"
             (click)="setCurrentObjectId(item.id)"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            *ngIf="showButton"
+            label="remove"
+            class="p-button-success"
+            (click)="remove(item.id)"
           ></button>
         </div>
       </p-card>

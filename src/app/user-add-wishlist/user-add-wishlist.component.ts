@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-user-add-wishlist',
@@ -23,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     RatingModule,
     FormsModule,
+    MessagesModule,
   ],
   templateUrl: './user-add-wishlist.component.html',
   styleUrl: './user-add-wishlist.component.scss',
@@ -30,6 +33,8 @@ import { FormsModule } from '@angular/forms';
 export class UserAddWishlistComponent implements OnInit {
   public data: any[] = [];
   public value!: number;
+  public msg: Message[] | any;
+  showButton: boolean = false;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -81,12 +86,46 @@ export class UserAddWishlistComponent implements OnInit {
 
     this.Add(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      this.view();
+      console.log(res);
+
+      if (res.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'Success',
+            detail: 'add to wish list',
+          },
+        ];
+        this.view();
+        this.showButton = false;
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: res.response,
+          },
+        ];
+        this.showButton = true;
+      }
     });
   }
 
   getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
+  }
+
+  remove(id: any) {
+    console.log(id);
+    const userId = localStorage.getItem('id');
+    const body = {
+      userId: userId,
+      productId: id,
+    };
+    this.Remove(body).subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
+      console.log(res);
+    });
   }
 
   shopDetails(): Observable<any> {
@@ -108,6 +147,21 @@ export class UserAddWishlistComponent implements OnInit {
     });
     return this.http
       .post<any>(`http://localhost:3003/product/wishlist`, id, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  Remove(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .post<any>(`http://localhost:3003/product/wishlist/remove`, id, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
