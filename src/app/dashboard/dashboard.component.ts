@@ -91,6 +91,13 @@ export class DashboardComponent {
               this.addProduct();
             },
           },
+          {
+            label: 'Buy request',
+            icon: 'pi pi-fw pi-power-off',
+            command: () => {
+              this.purchaseReq();
+            },
+          },
         ],
       },
 
@@ -169,5 +176,9 @@ export class DashboardComponent {
 
   ViewUser() {
     this.router.navigate(['dashboard/userList']);
+  }
+
+  purchaseReq() {
+    this.router.navigate(['dashboard/buyRequest']);
   }
 }

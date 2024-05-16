@@ -29,6 +29,7 @@ import { UserAddWishlistComponent } from './user-add-wishlist/user-add-wishlist.
 import { UserViewWishlistComponent } from './user-view-wishlist/user-view-wishlist.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PurchaseListComponent } from './purchase-list/purchase-list.component';
+import { BuyRequestComponent } from './buyrequest/buyrequest.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -53,6 +54,7 @@ export const routes: Routes = [
       { path: '', component: ChartProductComponent },
       { path: 'userList', component: UserlistComponent },
       { path: 'feedback', component: FeedbackComponent },
+      { path: 'buyRequest', component: BuyRequestComponent },
     ],
   },
   {
