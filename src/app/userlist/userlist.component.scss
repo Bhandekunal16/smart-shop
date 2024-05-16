@@ -30,7 +30,7 @@
 .add-customer-table-container-outer {
   display: flex;
   justify-content: space-evenly;
-  padding: 1%;
+  // padding: 1%;
 }
 
 .add-customer-table-container-text {
@@ -42,6 +42,10 @@
 @media (max-width: 600px) {
   .add-customer-table-container {
     width: 100%;
+  }
+  .add-customer-table-container-outer {
+    display: flex;
+    flex-direction: column;
   }
 
   .add-customer-table-container-text {
