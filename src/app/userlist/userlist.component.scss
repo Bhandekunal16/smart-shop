@@ -22,3 +22,9 @@
   right: 0;
   z-index: 999;
 }
+
+@media (max-width: 600px) {
+  .add-customer-table-container {
+    width: 100%;
+  }
+}
