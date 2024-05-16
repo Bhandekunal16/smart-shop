@@ -28,13 +28,11 @@
         <td>{{ product.lastName }}</td>
         <td>{{ product.userType }}</td>
         <td>
-          <button
-            pButton
-            pRipple
+          <p-button
             label="remove"
             (click)="unsubscribe(product.id)"
-            class="p-button-success"
-          ></button>
+            severity="danger"
+          ></p-button>
         </td>
       </tr>
     </ng-template>

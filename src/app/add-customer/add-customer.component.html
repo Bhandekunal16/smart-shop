@@ -19,7 +19,7 @@
         <th>firstName</th>
         <th>lastName</th>
         <th>userType</th>
-        <th>Edit</th>
+        <th>Action</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
@@ -27,7 +27,7 @@
         <td>{{ product.firstName }}</td>
         <td>{{ product.lastName }}</td>
         <td>{{ product.userType }}</td>
-        <td>
+        <td class="add-customer-table-container-button-grid">
           <button
             pButton
             pRipple
@@ -35,6 +35,12 @@
             class="p-button-success"
             (click)="edit(product.id)"
           ></button>
+          <p-button
+            label="remove"
+            *ngIf="!showButton"
+            severity="danger"
+            (click)="unsubscribe(product.id)"
+          ></p-button>
         </td>
       </tr>
     </ng-template>

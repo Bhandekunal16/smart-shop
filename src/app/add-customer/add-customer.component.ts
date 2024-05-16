@@ -29,6 +29,7 @@ import { Message } from 'primeng/api';
 export class AddCustomerComponent implements OnInit {
   products!: any[];
   public msg: Message[] | any;
+  showButton: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -46,16 +47,19 @@ export class AddCustomerComponent implements OnInit {
     console.log(id);
     this.Subscribe(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-      console.log(data);
-      data.status
-        ? this.userList()
-        : (this.msg = [
-            {
-              severity: 'warn',
-              summary: 'warn',
-              detail: data.response,
-            },
-          ]);
+      if (data.status) {
+        this.userList();
+        this.showButton = true;
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: data.response,
+          },
+        ];
+        this.showButton = false;
+      }
     });
   }
 
@@ -98,5 +102,47 @@ export class AddCustomerComponent implements OnInit {
 
   userList(): void {
     this.router.navigate(['/dashboard/userList']);
+  }
+
+  unsubscribe(id: any) {
+    this.customerUnsubscribed(id).subscribe((ele) => {
+      const data = this.decrypt.decrypt(ele.response);
+
+      if (data.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'success',
+            detail: `${data.data}`,
+          },
+        ];
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: 'some addition failed.',
+          },
+        ];
+      }
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    });
+  }
+
+  customerUnsubscribed(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .get<any>(`http://localhost:3003/auth/unsubscribe/${id}`, { headers })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 }
