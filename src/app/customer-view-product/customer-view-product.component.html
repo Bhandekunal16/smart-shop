@@ -31,7 +31,7 @@
             pRipple
             label="Rate Product"
             icon="pi pi-star-fill"
-            class="p-button-success"
+            class="p-button-secondary"
             (click)="setCurrentObjectId(item.id)"
           ></button>
 
@@ -39,7 +39,7 @@
             pButton
             pRipple
             label="WishList"
-            class="p-button-success"
+            class="p-button-secondary"
             icon="pi pi-heart-fill"
             (click)="WishList(item.id)"
           ></button>
@@ -48,7 +48,7 @@
             pButton
             pRipple
             label="Purchase"
-            class="p-button-success"
+            class="p-button-secondary"
             icon="pi pi-receipt"
             (click)="paymentRoute(item.id)"
           ></button>
@@ -58,7 +58,7 @@
             pRipple
             *ngIf="showButton"
             label="remove"
-            class="p-button-success"
+            class="p-button-secondary"
             icon="pi pi-trash"
             (click)="remove(item.id)"
           ></button>
