@@ -20,26 +20,26 @@ export class DashboardComponent {
     this.items = [
       {
         label: 'Shop',
-        icon: 'pi pi-fw pi-file',
+        icon: 'pi pi-fw pi-shop',
         items: [
           {
             label: 'Edit',
-            icon: 'pi pi-fw pi-bookmark',
+            icon: 'pi pi-fw pi-user-edit',
             command: () => this.editShop(),
           },
           {
             label: 'View',
-            icon: 'pi pi-fw pi-video',
+            icon: 'pi pi-fw pi-eye',
             command: () => this.viewShop(),
           },
           {
             label: 'Disable/Enable',
-            icon: 'pi pi-fw pi-video',
+            icon: 'pi pi-fw pi-play',
             command: () => this.DisableShop(),
           },
           {
             label: 'Add',
-            icon: 'pi pi-fw pi-video',
+            icon: 'pi pi-fw pi-cart-plus',
             command: () => this.addShop(),
           },
         ],
@@ -58,7 +58,7 @@ export class DashboardComponent {
 
           {
             label: 'customer-list',
-            icon: 'pi pi-fw pi-user-plus',
+            icon: 'pi pi-fw pi-list',
             command: () => {
               this.ViewUser();
             },
@@ -71,7 +71,7 @@ export class DashboardComponent {
         items: [
           {
             label: 'Edit',
-            icon: 'pi pi-fw pi-calendar-plus',
+            icon: 'pi pi-fw pi-pencil',
             command: () => {
               this.editProduct();
             },
@@ -79,21 +79,21 @@ export class DashboardComponent {
 
           {
             label: 'View',
-            icon: 'pi pi-fw pi-calendar-minus',
+            icon: 'pi pi-fw pi-eye',
             command: () => {
               this.viewProduct();
             },
           },
           {
             label: 'New',
-            icon: 'pi pi-fw pi-calendar-minus',
+            icon: 'pi pi-fw pi-plus',
             command: () => {
               this.addProduct();
             },
           },
           {
             label: 'Buy request',
-            icon: 'pi pi-fw pi-power-off',
+            icon: 'pi pi-fw pi-indian-rupee',
             command: () => {
               this.purchaseReq();
             },
@@ -103,14 +103,14 @@ export class DashboardComponent {
 
       {
         label: 'Dashboard',
-        icon: 'pi pi-fw pi-power-off',
+        icon: 'pi pi-fw pi-building-columns',
         command: () => {
           this.initial();
         },
       },
       {
         label: 'Feedback',
-        icon: 'pi pi-fw pi-power-off',
+        icon: 'pi pi-fw pi-comment',
         command: () => {
           this.Feedback();
         },
