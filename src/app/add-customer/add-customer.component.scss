@@ -44,3 +44,20 @@
   background-color: #ffffff;
   padding: 1%;
 }
+
+@media (max-width: 600px) {
+  .add-customer-table-container-outer {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+  }
+
+  .add-customer-table-container {
+    width: 100%;
+  }
+
+  .add-customer-table-container-text{
+    margin-top: 1%;
+    width: 100%;
+  }
+}
