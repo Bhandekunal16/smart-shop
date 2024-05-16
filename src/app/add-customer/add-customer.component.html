@@ -1,4 +1,11 @@
 <div class="add-customer-table-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
   <p-table
     [value]="products"
     [tableStyle]="{

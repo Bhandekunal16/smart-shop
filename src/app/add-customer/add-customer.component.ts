@@ -10,16 +10,26 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-add-customer',
   standalone: true,
-  imports: [HttpClientModule, TableModule, CommonModule, ButtonModule],
+  imports: [
+    HttpClientModule,
+    TableModule,
+    CommonModule,
+    ButtonModule,
+    MessagesModule,
+  ],
   templateUrl: './add-customer.component.html',
   styleUrl: './add-customer.component.scss',
 })
 export class AddCustomerComponent implements OnInit {
   products!: any[];
+  public msg: Message[] | any;
+
   constructor(
     private http: HttpClient,
     private decrypt: DecryptService,
@@ -36,7 +46,16 @@ export class AddCustomerComponent implements OnInit {
     console.log(id);
     this.Subscribe(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-      data.status ? this.userList() : console.log('error');
+      console.log(data);
+      data.status
+        ? this.userList()
+        : (this.msg = [
+            {
+              severity: 'warn',
+              summary: 'warn',
+              detail: data.response,
+            },
+          ]);
     });
   }
 
