@@ -18,11 +18,11 @@ export class CustomerDashboardComponent implements OnInit {
     this.items = [
       {
         label: 'Profile',
-        icon: 'pi pi-fw pi-file',
+        icon: 'pi pi-fw pi-user',
         items: [
           {
             label: 'View',
-            icon: 'pi pi-fw pi-video',
+            icon: 'pi pi-fw pi-eye',
             command: () => {
               this.profile();
             },
@@ -35,28 +35,28 @@ export class CustomerDashboardComponent implements OnInit {
         items: [
           {
             label: 'ProductList',
-            icon: 'pi pi-fw pi-align-left',
+            icon: 'pi pi-fw pi-list',
             command: () => {
               this.initial();
             },
           },
           {
             label: 'Wishlist',
-            icon: 'pi pi-fw pi-align-right',
+            icon: 'pi pi-fw pi-list-check',
             command: () => {
               this.WishList();
             },
           },
           {
             label: 'Purchases',
-            icon: 'pi pi-fw pi-align-center',
+            icon: 'pi pi-fw pi-receipt',
             command: () => {
               this.list();
             },
           },
           {
             label: 'Feedback',
-            icon: 'pi pi-fw pi-align-justify',
+            icon: 'pi pi-fw pi-comment',
             command: () => {
               this.feedback();
             },
@@ -70,14 +70,14 @@ export class CustomerDashboardComponent implements OnInit {
         items: [
           {
             label: 'View',
-            icon: 'pi pi-fw pi-pencil',
+            icon: 'pi pi-fw pi-eye',
             command: () => {
               this.viewSubscriptionRoute();
             },
           },
           {
             label: 'Add',
-            icon: 'pi pi-fw pi-pencil',
+            icon: 'pi pi-fw pi-plus',
             command: () => {
               this.addSubscription();
             },
