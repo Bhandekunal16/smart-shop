@@ -12,6 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-customer-view-product',
@@ -23,6 +25,7 @@ import { RatingModule } from 'primeng/rating';
     ButtonModule,
     RatingModule,
     FormsModule,
+    MessagesModule,
   ],
   templateUrl: './customer-view-product.component.html',
   styleUrl: './customer-view-product.component.scss',
@@ -30,6 +33,8 @@ import { RatingModule } from 'primeng/rating';
 export class CustomerViewProductComponent implements OnInit {
   public data: any[] = [];
   public value!: number;
+  public msg: Message[] | any;
+  showButton: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -92,6 +97,39 @@ export class CustomerViewProductComponent implements OnInit {
     this.router.navigate(['customer-dashboard/payment']);
   }
 
+  remove(id: any) {
+    const userId = localStorage.getItem('id');
+    const body = {
+      userId: userId,
+      productId: id,
+    };
+    this.Remove(body).subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
+      console.log(res);
+
+      if (res.status) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    });
+  }
+
+  Remove(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http
+      .post<any>(`http://localhost:3003/product/wishlist/remove`, id, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
   shopDetails(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -116,7 +154,26 @@ export class CustomerViewProductComponent implements OnInit {
       console.log(ele);
       let res = this.decrypt.decrypt(ele.response);
       console.log(res);
-      this.view();
+      if (res.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'Success',
+            detail: 'add to wish list',
+          },
+        ];
+        this.view();
+        this.showButton = false;
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: res.response,
+          },
+        ];
+        this.showButton = true;
+      }
     });
   }
 
