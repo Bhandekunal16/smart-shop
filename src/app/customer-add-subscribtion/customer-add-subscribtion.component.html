@@ -27,6 +27,7 @@
             pRipple
             label="Subscribe"
             class="p-button-success"
+            icon="pi pi-check"
             (click)="subscribe(product.id)"
           ></button>
 
@@ -36,6 +37,7 @@
             *ngIf="product.isSubscribed"
             label="un-subscribe"
             class="p-button-success"
+            icon="pi pi-thumbs-down"
             (click)="unSubscribe(product.id)"
           ></button>
         </td>
