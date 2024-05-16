@@ -28,3 +28,19 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.add-customer-table-container-outer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1%;
+}
+
+.add-customer-table-container-header {
+  margin-left: 1%;
+}
+
+.add-customer-table-container-text {
+  width: 25%;
+  background-color: #ffffff;
+  padding: 1%;
+}
