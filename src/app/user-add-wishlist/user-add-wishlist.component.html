@@ -25,12 +25,14 @@
           <br />
           Status: {{ getStatusText(item.IsPurchased) }}
         </p>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-content-space-evenly">
           <button
             pButton
             pRipple
-            label="Add TO Wishlist"
-            class="p-button-success"
+            label="Wishlist"
+            icon="pi pi-heart"
+            *ngIf="!showButton"
+            class="p-button-secondary"
             (click)="setCurrentObjectId(item.id)"
           ></button>
 
@@ -38,8 +40,9 @@
             pButton
             pRipple
             *ngIf="showButton"
-            label="remove"
-            class="p-button-success"
+            label="Delete"
+            icon="pi pi-trash"
+            class="p-button-danger"
             (click)="remove(item.id)"
           ></button>
         </div>

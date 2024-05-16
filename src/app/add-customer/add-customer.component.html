@@ -34,13 +34,13 @@
             <button
               pButton
               pRipple
-              label="Add"
               class="p-button-success"
+              icon="pi pi-user-plus"
               (click)="edit(product.id)"
             ></button>
             <p-button
-              label="remove"
               *ngIf="!showButton"
+              icon="pi pi-trash"
               severity="danger"
               (click)="unsubscribe(product.id)"
             ></p-button>
