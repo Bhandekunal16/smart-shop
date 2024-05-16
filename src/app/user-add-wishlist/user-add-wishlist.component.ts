@@ -125,6 +125,10 @@ export class UserAddWishlistComponent implements OnInit {
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       console.log(res);
+      console.log(res)
+      if (res.status) {
+        window.location.reload();
+      }
     });
   }
 

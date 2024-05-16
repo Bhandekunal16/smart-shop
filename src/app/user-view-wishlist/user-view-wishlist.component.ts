@@ -50,6 +50,10 @@ export class UserViewWishlistComponent {
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       console.log(res);
+
+      if (res.status) {
+        window.location.reload();
+      }
     });
   }
 
@@ -80,7 +84,9 @@ export class UserViewWishlistComponent {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`http://localhost:3003/product/wishlist/remove`, id, { headers })
+      .post<any>(`http://localhost:3003/product/wishlist/remove`, id, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
