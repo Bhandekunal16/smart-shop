@@ -64,13 +64,15 @@ export class BuyRequestComponent {
   }
 
   getStatusInfo(isPurchased: boolean): { text: string; class: string } {
-    console.log(isPurchased)
+    console.log(isPurchased);
     if (isPurchased) {
-      return { text: 'Purchased', class: 'purchased' };
+      return { text: 'Sold', class: 'purchased' };
     } else {
       return { text: 'Process', class: 'Process' };
     }
   }
+
+ 
 
   onPay(userId: any, productId: any) {
     console.log(userId, productId);
@@ -81,10 +83,10 @@ export class BuyRequestComponent {
     };
     console.log(payload);
 
-    this.sell(payload).subscribe((ele)=> {
+    this.sell(payload).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-      console.log(data.data)
-    })
+      console.log(data.data);
+    });
   }
 
   onselect(mode: any) {

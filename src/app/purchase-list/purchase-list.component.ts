@@ -49,6 +49,11 @@ export class PurchaseListComponent implements OnInit {
     });
   }
 
+  viewRecept(object: any) {
+    console.log(object);
+    const recept = localStorage.setItem('payment', object);
+  }
+
   getStatusInfo(isPurchased: boolean): { text: string; class: string } {
     if (isPurchased) {
       return { text: 'Purchased', class: 'purchased' };
