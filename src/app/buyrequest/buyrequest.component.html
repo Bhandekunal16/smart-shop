@@ -10,20 +10,31 @@
           <th>customer name</th>
           <th>customer contact</th>
           <th>customer email</th>
+          <th>payment Option</th>
           <th>Action</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-product [formGroup]="myForm">
         <tr>
           <td>{{ product.ProductName }}</td>
           <td>{{ product.ProductDescription }}</td>
           <td>{{ product.productCost }} ₹</td>
           <td [ngClass]="getStatusInfo(product.isPurchased).class">
-            {{ getStatusInfo(product.isPurchased).text }}
+            {{ getStatusInfo(product.IsPurchased).text }}
           </td>
           <td>{{ product.custName }}</td>
           <td>{{ product.custMob }}</td>
           <td>{{ product.custEmail }}</td>
+          <td>
+            <select
+              formControlName="transactionType"
+              (change)="onselect(myForm.controls['transactionType'].value)"
+            >
+              <option *ngFor="let option of options" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </td>
           <td>
             <div class="card flex justify-content-center">
               <button
@@ -31,6 +42,7 @@
                 pRipple
                 icon="pi pi-indian-rupee"
                 class="p-button-success"
+                (click)="onPay(product.custId, product.productId)"
               ></button>
             </div>
           </td>
