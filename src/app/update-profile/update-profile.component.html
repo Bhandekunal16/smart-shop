@@ -9,7 +9,7 @@
 
   <form class="register-container-form" [formGroup]="myForm">
     <div class="register-container-form-top">
-      <h1>Register</h1>
+      <h1>Update Profile</h1>
     </div>
     <div class="register-container-form-input">
       <label>First name </label>
@@ -62,7 +62,8 @@
         type="button"
         pButton
         pRipple
-        label="Submit"
+        label="Update"
+        icon="pi pi-pencil"
         class="p-button-success"
         [disabled]="myForm.invalid"
         (click)="submitForm()"
