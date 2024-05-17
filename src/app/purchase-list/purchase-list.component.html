@@ -7,6 +7,7 @@
           <th>Product Description</th>
           <th>Cost</th>
           <th>product Type</th>
+          <th>brand</th>
           <th>status</th>
         </tr>
       </ng-template>
@@ -16,6 +17,7 @@
           <td>{{ product.ProductDescription }}</td>
           <td>{{ product.productCost }}</td>
           <td>{{ product.productType }}</td>
+          <td>{{product.brandName}}</td>
           <td [ngClass]="getStatusInfo(product.isPurchased).class">
             {{ getStatusInfo(product.IsPurchased).text }}
           </td>
