@@ -49,9 +49,14 @@ export class PurchaseListComponent implements OnInit {
     });
   }
 
+  viewProduct(): void {
+    this.route.navigate(['customer-dashboard/recept']);
+  }
+
   viewRecept(object: any) {
     console.log(object);
-    const recept = localStorage.setItem('payment', object);
+    const recept = localStorage.setItem('payment', JSON.stringify(object));
+    this.viewProduct()
   }
 
   getStatusInfo(isPurchased: boolean): { text: string; class: string } {

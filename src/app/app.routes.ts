@@ -30,6 +30,7 @@ import { UserViewWishlistComponent } from './user-view-wishlist/user-view-wishli
 import { PaymentComponent } from './payment/payment.component';
 import { PurchaseListComponent } from './purchase-list/purchase-list.component';
 import { BuyRequestComponent } from './buyrequest/buyrequest.component';
+import { ReceptComponent } from './recipt/recipt.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -84,6 +85,7 @@ export const routes: Routes = [
       { path: 'userViewWishList', component: UserViewWishlistComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'purchasedList', component: PurchaseListComponent },
+      { path: 'recept', component: ReceptComponent },
     ],
   },
 ];

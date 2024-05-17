@@ -1,0 +1,67 @@
+.receipt-container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 2%;
+}
+
+.header{
+    margin-top: 1%;
+}
+
+.footer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.header img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 50px 50px;
+}
+.company-info {
+}
+
+.receipt-info {
+  margin-bottom: 20px;
+}
+.section-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+}
+.summary {
+  text-align: right;
+}
+.summary p {
+  margin: 5px 0;
+}
+.footer p {
+  margin: 5px 0;
+}
+
+.receipt-main {
+    padding-top: 1%;
+    margin-top: 1%;
+}

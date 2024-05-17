@@ -1,0 +1,50 @@
+<div class="receipt-main">
+  <div class="receipt-container">
+    <div class="header">
+      <img src="{{ logo }}" alt="Anular Logo" />
+      <div class="company-info">
+        <p>Official Contact No: {{ officialContactNo }}</p>
+        <p>Email: {{ officialEmail }}</p>
+        <p>{{ address }}</p>
+      </div>
+    </div>
+
+    <div class="receipt-info">
+      <div class="section-title">Receipt Information</div>
+      <p>ProductId: {{ productId }}</p>
+      <p>Date of Purchase: {{ paymentDate }}</p>
+      <p>Payment Method: {{ transactionType }}</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Description</th>
+          <th>brandName</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ productName }}</td>
+          <td>{{ productDescription }}</td>
+          <td>{{ brand }}</td>
+          <td>1</td>
+          <td>{{ productCost }} ₹</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary">
+      <p>
+        <strong>Total Amount: {{ productCost }} ₹</strong>
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>Thank you for your purchase!</p>
+    </div>
+  </div>
+</div>
