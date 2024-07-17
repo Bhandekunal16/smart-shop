@@ -85,7 +85,7 @@ export class VerifyOtpComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/auth/otp/verify', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/otp/verify', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

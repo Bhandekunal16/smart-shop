@@ -95,7 +95,7 @@ export class ConformPasswordComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/auth/reset/password', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/reset/password', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

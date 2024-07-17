@@ -154,7 +154,7 @@ export class AddProductComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/product/create', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/product/create', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -168,7 +168,7 @@ export class AddProductComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/shop/search', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

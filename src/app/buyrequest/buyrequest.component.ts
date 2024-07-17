@@ -100,7 +100,7 @@ export class BuyRequestComponent {
     });
 
     return this.http
-      .get<any>(`http://localhost:3003/payment/purchase/request/${id}`, {
+      .get<any>(`https://smart-shop-api-eta.vercel.app/payment/purchase/request/${id}`, {
         headers,
       })
       .pipe(
@@ -116,7 +116,7 @@ export class BuyRequestComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/payment/transaction', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/payment/transaction', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

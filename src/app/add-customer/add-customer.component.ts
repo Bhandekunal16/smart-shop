@@ -69,7 +69,7 @@ export class AddCustomerComponent implements OnInit {
     });
 
     return this.http
-      .get<any>('http://localhost:3003/auth/getAll/customers', { headers })
+      .get<any>('https://smart-shop-api-eta.vercel.app/auth/getAll/customers', { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -92,7 +92,7 @@ export class AddCustomerComponent implements OnInit {
     console.log(body);
 
     return this.http
-      .post<any>('http://localhost:3003/auth/subscribe', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/subscribe', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -138,7 +138,7 @@ export class AddCustomerComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`http://localhost:3003/auth/unsubscribe/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/unsubscribe/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

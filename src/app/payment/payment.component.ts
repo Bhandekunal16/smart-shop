@@ -100,7 +100,7 @@ export class PaymentComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`http://localhost:3003/product/get/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -113,7 +113,7 @@ export class PaymentComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`http://localhost:3003/payment/request`, request, { headers })
+      .post<any>(`https://smart-shop-api-eta.vercel.app/payment/request`, request, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

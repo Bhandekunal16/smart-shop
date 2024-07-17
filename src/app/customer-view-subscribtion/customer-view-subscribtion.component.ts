@@ -39,7 +39,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`http://localhost:3003/auth/getAll/shop/subscribed/${id}`, {
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`, {
         headers,
       })
       .pipe(

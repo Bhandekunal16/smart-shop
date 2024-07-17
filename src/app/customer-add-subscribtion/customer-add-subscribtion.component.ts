@@ -86,14 +86,14 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     const id = localStorage.getItem('id');
     const headers = this.getHeaders();
     return this.http.get<ApiResponse<any>>(
-      `http://localhost:3003/auth/getAll/shop/subscribed/${id}`,
+      `https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`,
       { headers }
     );
   }
 
   shopDetails(): Observable<ApiResponse<any>> {
     const headers = this.getHeaders();
-    return this.http.get<ApiResponse<any>>(`http://localhost:3003/shop/shops`, {
+    return this.http.get<ApiResponse<any>>(`https://smart-shop-api-eta.vercel.app/shop/shops`, {
       headers,
     });
   }
@@ -161,7 +161,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     const CustomerId = localStorage.getItem('id');
     const body = { id, customerId: CustomerId };
     return this.http.post<ApiResponse<any>>(
-      'http://localhost:3003/auth/customer/subscribe',
+      'https://smart-shop-api-eta.vercel.app/auth/customer/subscribe',
       body,
       { headers }
     );
@@ -172,7 +172,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     const CustomerId = localStorage.getItem('id');
     const body = { shopId: id, id: CustomerId };
     return this.http.post<ApiResponse<any>>(
-      'http://localhost:3003/auth/customer/unsubscribe',
+      'https://smart-shop-api-eta.vercel.app/auth/customer/unsubscribe',
       body,
       { headers }
     );

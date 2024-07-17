@@ -171,7 +171,7 @@ export class RegisterComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/auth/register', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/register', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

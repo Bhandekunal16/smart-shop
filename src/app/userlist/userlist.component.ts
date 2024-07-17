@@ -74,7 +74,7 @@ export class UserlistComponent implements OnInit {
 
     return this.http
       .get<any>(
-        `http://localhost:3003/auth/getAll/customers/subscribed/${id}`,
+        `https://smart-shop-api-eta.vercel.app/auth/getAll/customers/subscribed/${id}`,
         { headers }
       )
       .pipe(
@@ -90,7 +90,7 @@ export class UserlistComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`http://localhost:3003/auth/unsubscribe/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/unsubscribe/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

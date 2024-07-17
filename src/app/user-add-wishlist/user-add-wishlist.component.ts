@@ -137,7 +137,7 @@ export class UserAddWishlistComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`http://localhost:3003/product/customer/get`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -150,7 +150,7 @@ export class UserAddWishlistComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`http://localhost:3003/product/wishlist`, id, { headers })
+      .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -163,7 +163,7 @@ export class UserAddWishlistComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`http://localhost:3003/product/wishlist/remove`, id, {
+      .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist/remove`, id, {
         headers,
       })
       .pipe(

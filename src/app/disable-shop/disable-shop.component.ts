@@ -44,7 +44,7 @@ export class DisableShopComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/shop/search', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -92,7 +92,7 @@ export class DisableShopComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/shop/enable', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/enable', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -106,7 +106,7 @@ export class DisableShopComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/shop/disable', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/disable', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

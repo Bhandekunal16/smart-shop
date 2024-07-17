@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`http://localhost:3003/auth/getUser/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

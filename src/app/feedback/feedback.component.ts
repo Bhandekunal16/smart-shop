@@ -75,7 +75,7 @@ export class FeedbackComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/auth/feedback', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/feedback', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

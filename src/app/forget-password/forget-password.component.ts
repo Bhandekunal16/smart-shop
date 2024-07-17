@@ -79,7 +79,7 @@ export class ForgetPasswordComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/auth/otp/send', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/otp/send', body, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

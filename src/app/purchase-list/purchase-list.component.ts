@@ -73,7 +73,7 @@ export class PurchaseListComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`http://localhost:3003/payment/purchase/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/payment/purchase/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);

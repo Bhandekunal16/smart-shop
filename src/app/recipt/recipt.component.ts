@@ -69,7 +69,7 @@ export class ReceptComponent implements OnInit {
     console.log(id);
 
     return this.http
-      .get<any>(`http://localhost:3003/shop/get/shopDetails/${id}`, {
+      .get<any>(`https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`, {
         headers,
       })
       .pipe(
@@ -87,7 +87,7 @@ export class ReceptComponent implements OnInit {
     console.log(id);
 
     return this.http
-      .get<any>(`http://localhost:3003/payment/get/TxnDetails/${id}`, {
+      .get<any>(`https://smart-shop-api-eta.vercel.app/payment/get/TxnDetails/${id}`, {
         headers,
       })
       .pipe(

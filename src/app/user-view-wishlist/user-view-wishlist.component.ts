@@ -71,7 +71,7 @@ export class UserViewWishlistComponent {
     });
 
     return this.http
-      .get<any>(`http://localhost:3003/product/get/wishlist/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/wishlist/${id}`, { headers })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -84,7 +84,7 @@ export class UserViewWishlistComponent {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`http://localhost:3003/product/wishlist/remove`, id, {
+      .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist/remove`, id, {
         headers,
       })
       .pipe(
