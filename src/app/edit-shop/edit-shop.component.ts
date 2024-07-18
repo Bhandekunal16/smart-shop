@@ -75,19 +75,24 @@ export class EditShopComponent {
   }
 
   details() {
-    const id = localStorage.getItem('id');
+    try {
+      const id = localStorage.getItem('id');
 
-    this.shopDetails({ id }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-
-      this.myForm.value.shopName == ''
-        ? (this.readingFlag = true)
-        : (this.readingFlag = false);
-
-      this.myForm.patchValue(res.data);
-
-      this.obj = res.data;
-    });
+      this.shopDetails({ id }).subscribe((ele) => {
+        const res = this.decrypt.decrypt(ele.response);
+  
+        this.myForm.value.shopName == ''
+          ? (this.readingFlag = true)
+          : (this.readingFlag = false);
+  
+        this.myForm.patchValue(res.data);
+  
+        this.obj = res.data;
+      });
+    } catch (error) {
+      console.warn('this is warning of localhost')
+    }
+   
   }
 
   shopDetails(body: any): Observable<any> {
