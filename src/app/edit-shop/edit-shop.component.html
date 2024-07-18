@@ -1,5 +1,5 @@
 <div class="edit-shop-container">
-  <div class="edit-product-container-text">
+  <div class="edit-product-container-text" *ngIf="readingFlag">
     <p>
       Welcome to the Update Shop Details page! Here, you can modify the details
       of your shop. Simply update the necessary fields with the new information
@@ -17,6 +17,8 @@
       [enableService]="false"
     ></p-messages>
   </div>
+
+  <h3 *ngIf="!readingFlag" class="typing-animation">Getting your shop details</h3>
 
   <form class="edit-shop-container-form" [formGroup]="myForm">
     <div class="edit-shop-container-form-top">

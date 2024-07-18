@@ -37,6 +37,7 @@ export class EditShopComponent {
   public obj: any;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
+  public readingFlag: boolean | undefined;
 
   constructor(
     private http: HttpClient,
@@ -96,7 +97,14 @@ export class EditShopComponent {
 
     this.shopDetails({ id }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
+      console.log(this.myForm.value.shopName);
+
+      this.myForm.value.shopName == ''
+        ? (this.readingFlag = true)
+        : (this.readingFlag = false);
+
       this.myForm.patchValue(res.data);
+
       this.obj = res.data;
     });
   }
