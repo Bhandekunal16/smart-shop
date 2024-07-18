@@ -36,8 +36,7 @@ export class UpdateRatingComponent implements OnInit {
       array.push(res.data);
       this.data = array;
 
-      console.log(typeof this.myForm.value.rating == 'string');
-      console.log(typeof this.myForm.value.rating == 'number');
+      console.log(array)
 
       let rating;
       if (typeof this.myForm.value.rating == 'string') {
@@ -48,9 +47,6 @@ export class UpdateRatingComponent implements OnInit {
         rating = this.data[0].rating.low;
       }
 
-      console.log(rating);
-
-      // const rating = this.data[0].rating;
       this.myForm.patchValue({ rating: rating });
     });
   }
@@ -107,7 +103,6 @@ export class UpdateRatingComponent implements OnInit {
 
   Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    console.log(id, 'i am hitting');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
