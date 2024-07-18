@@ -40,7 +40,6 @@ export class ViewProductComponent implements OnInit {
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       this.data = res.data;
-
       console.log(this.data);
     });
   }
@@ -61,12 +60,13 @@ export class ViewProductComponent implements OnInit {
 
   shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
-    console.log(id, 'i am hitting');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/getall/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/getall/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
