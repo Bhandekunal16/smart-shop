@@ -67,7 +67,6 @@ export class EditShopComponent {
   }
 
   submitForm() {
-    console.log(this.myForm.value.shopName);
     let payload = {
       ...this.obj,
       address: this.myForm.value.address,
@@ -85,10 +84,6 @@ export class EditShopComponent {
           detail: 'shop edited successfully!',
         },
       ];
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
     });
   }
 
@@ -112,7 +107,9 @@ export class EditShopComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -126,7 +123,9 @@ export class EditShopComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/edit', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/edit', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
