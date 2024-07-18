@@ -25,7 +25,7 @@
           <br />
           Status: {{ getStatusText(item.IsPurchased) }}
         </p>
-        <div class="button-grid">
+        <div class="button-grid" *ngIf="!screen">
           <button
             pButton
             pRipple
@@ -58,6 +58,41 @@
             pRipple
             *ngIf="showButton"
             label="remove"
+            class="p-button-secondary"
+            icon="pi pi-trash"
+            (click)="remove(item.id)"
+          ></button>
+        </div>
+
+        <div class="button-grid" *ngIf="screen">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-star-fill"
+            class="p-button-secondary"
+            (click)="setCurrentObjectId(item.id)"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            class="p-button-secondary"
+            icon="pi pi-heart-fill"
+            (click)="WishList(item.id)"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            class="p-button-secondary"
+            icon="pi pi-receipt"
+            (click)="paymentRoute(item.id)"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            *ngIf="showButton"
             class="p-button-secondary"
             icon="pi pi-trash"
             (click)="remove(item.id)"

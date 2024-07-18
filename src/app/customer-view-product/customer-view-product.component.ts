@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { BlobOptions } from 'buffer';
 
 @Component({
   selector: 'app-customer-view-product',
@@ -18,6 +19,7 @@ export class CustomerViewProductComponent implements OnInit {
   public value!: number;
   public msg: Message[] | any;
   showButton: boolean = false;
+  screen: boolean | undefined;
 
   constructor(
     private http: HttpClient,
@@ -26,6 +28,9 @@ export class CustomerViewProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const Screen = window.innerWidth;
+    Screen < 600 ? (this.screen = true) : (this.screen = false);
+
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
