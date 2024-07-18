@@ -1,28 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-add-customer',
   standalone: true,
-  imports: [
-    HttpClientModule,
-    TableModule,
-    CommonModule,
-    ButtonModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './add-customer.component.html',
   styleUrl: './add-customer.component.scss',
 })
@@ -69,7 +56,9 @@ export class AddCustomerComponent implements OnInit {
     });
 
     return this.http
-      .get<any>('https://smart-shop-api-eta.vercel.app/auth/getAll/customers', { headers })
+      .get<any>('https://smart-shop-api-eta.vercel.app/auth/getAll/customers', {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -92,7 +81,9 @@ export class AddCustomerComponent implements OnInit {
     console.log(body);
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/subscribe', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/subscribe', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -138,7 +129,10 @@ export class AddCustomerComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/unsubscribe/${id}`, { headers })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/auth/unsubscribe/${id}`,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

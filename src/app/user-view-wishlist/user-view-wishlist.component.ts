@@ -1,20 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
 import { Router } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-user-view-wishlist',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, ButtonModule, TableModule],
+  imports: [SharedModule],
   templateUrl: './user-view-wishlist.component.html',
   styleUrl: './user-view-wishlist.component.scss',
 })
@@ -71,7 +65,10 @@ export class UserViewWishlistComponent {
     });
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/wishlist/${id}`, { headers })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/product/get/wishlist/${id}`,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -84,9 +81,13 @@ export class UserViewWishlistComponent {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist/remove`, id, {
-        headers,
-      })
+      .post<any>(
+        `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
+        id,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

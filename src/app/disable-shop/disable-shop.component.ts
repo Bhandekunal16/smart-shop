@@ -1,20 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-disable-shop',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, ButtonModule, MessagesModule],
+  imports: [SharedModule],
   templateUrl: './disable-shop.component.html',
   styleUrl: './disable-shop.component.scss',
 })
@@ -44,7 +38,9 @@ export class DisableShopComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -92,7 +88,9 @@ export class DisableShopComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/enable', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/enable', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -106,7 +104,9 @@ export class DisableShopComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/disable', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/disable', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

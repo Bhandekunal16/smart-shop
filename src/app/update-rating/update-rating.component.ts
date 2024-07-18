@@ -1,39 +1,16 @@
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { RatingModule } from 'primeng/rating';
-import { CardModule } from 'primeng/card';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-update-rating',
   standalone: true,
-  imports: [
-    ButtonModule,
-    ReactiveFormsModule,
-    CommonModule,
-    HttpClientModule,
-    RatingModule,
-    CardModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './update-rating.component.html',
   styleUrl: './update-rating.component.scss',
 })
@@ -43,7 +20,6 @@ export class UpdateRatingComponent implements OnInit {
   public myForm: FormGroup | any;
 
   constructor(
-    private router: Router,
     private http: HttpClient,
     private decrypt: DecryptService,
     private fb: FormBuilder
@@ -136,7 +112,9 @@ export class UpdateRatingComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -150,7 +128,9 @@ export class UpdateRatingComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/product/rating', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/product/rating', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

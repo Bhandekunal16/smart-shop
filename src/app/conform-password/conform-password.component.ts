@@ -1,30 +1,17 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-conform-password',
   standalone: true,
-  imports: [
-    CommonModule,
-    ButtonModule,
-    MessagesModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './conform-password.component.html',
   styleUrl: './conform-password.component.scss',
 })
@@ -56,7 +43,7 @@ export class ConformPasswordComponent {
       const res = this.decrypt.decrypt(data.response);
 
       const id = localStorage.setItem('id', res.data.id);
-      
+
       if (res.status) {
         this.msg = [
           {
@@ -95,7 +82,11 @@ export class ConformPasswordComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/reset/password', body, { headers })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/auth/reset/password',
+        body,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

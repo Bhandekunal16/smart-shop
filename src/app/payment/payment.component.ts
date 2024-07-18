@@ -1,37 +1,16 @@
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { CardModule } from 'primeng/card';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    MessagesModule,
-    CardModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
 })
@@ -100,7 +79,9 @@ export class PaymentComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -113,7 +94,11 @@ export class PaymentComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`https://smart-shop-api-eta.vercel.app/payment/request`, request, { headers })
+      .post<any>(
+        `https://smart-shop-api-eta.vercel.app/payment/request`,
+        request,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

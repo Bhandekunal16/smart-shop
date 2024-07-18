@@ -1,33 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-update-profile',
   standalone: true,
-  imports: [
-    MessagesModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    CommonModule,
-    HttpClientModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './update-profile.component.html',
   styleUrl: './update-profile.component.scss',
 })
@@ -150,7 +133,9 @@ export class UpdateProfileComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -164,7 +149,9 @@ export class UpdateProfileComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/update', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/update', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

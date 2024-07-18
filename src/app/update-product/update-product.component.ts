@@ -1,25 +1,15 @@
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-update-product',
   standalone: true,
-  imports: [ButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [SharedModule],
   templateUrl: './update-product.component.html',
   styleUrl: './update-product.component.scss',
 })
@@ -60,7 +50,7 @@ export class UpdateProductComponent {
       productType: ['', Validators.required],
       productImage: ['', Validators.required],
       productCost: ['', Validators.required],
-      discount: ['', Validators.required]
+      discount: ['', Validators.required],
     });
   }
 
@@ -182,7 +172,7 @@ export class UpdateProductComponent {
   }
 
   async adjust() {
-    let originalPrice = this.products[this.currentIndex].productCost
+    let originalPrice = this.products[this.currentIndex].productCost;
     console.log(originalPrice);
     const cost =
       this.myForm.get('productCost')?.value == originalPrice
@@ -193,7 +183,7 @@ export class UpdateProductComponent {
     console.log(discount, cost);
 
     if (cost > 0) {
-      console.log(' i am here')
+      console.log(' i am here');
       this.myForm.patchValue({ productCost: cost });
       let payload = {
         id: localStorage.getItem('currentObjectId'),
@@ -206,7 +196,7 @@ export class UpdateProductComponent {
         }, 5000);
       });
     } else if (discount) {
-      console.log('i am in else')
+      console.log('i am in else');
       const productCost = originalPrice - (originalPrice * discount) / 100;
       await this.myForm.patchValue({ productCost: productCost });
       let payload = {
@@ -228,7 +218,9 @@ export class UpdateProductComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/product/edit', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/product/edit', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -242,7 +234,11 @@ export class UpdateProductComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/product/adjust/rate', body, { headers })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/product/adjust/rate',
+        body,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -257,7 +253,9 @@ export class UpdateProductComponent {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -272,7 +270,9 @@ export class UpdateProductComponent {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/delete/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/delete/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

@@ -1,32 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-customer-view-product',
   standalone: true,
-  imports: [
-    HttpClientModule,
-    CardModule,
-    CommonModule,
-    ButtonModule,
-    RatingModule,
-    FormsModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './customer-view-product.component.html',
   styleUrl: './customer-view-product.component.scss',
 })
@@ -120,9 +103,13 @@ export class CustomerViewProductComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist/remove`, id, {
-        headers,
-      })
+      .post<any>(
+        `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
+        id,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -135,7 +122,9 @@ export class CustomerViewProductComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -182,7 +171,9 @@ export class CustomerViewProductComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, { headers })
+      .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

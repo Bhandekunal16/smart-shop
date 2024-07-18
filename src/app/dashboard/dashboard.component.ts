@@ -1,13 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
+import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MenubarModule, CommonModule],
+  imports: [SharedModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

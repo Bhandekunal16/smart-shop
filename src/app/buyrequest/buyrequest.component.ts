@@ -1,35 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-buyrequest',
   standalone: true,
-  imports: [
-    HttpClientModule,
-    TableModule,
-    CommonModule,
-    ButtonModule,
-    MessagesModule,
-    ReactiveFormsModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './buyrequest.component.html',
   styleUrl: './buyrequest.component.scss',
 })
@@ -72,8 +53,6 @@ export class BuyRequestComponent {
     }
   }
 
- 
-
   onPay(userId: any, productId: any) {
     console.log(userId, productId);
     const payload = {
@@ -100,9 +79,12 @@ export class BuyRequestComponent {
     });
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/payment/purchase/request/${id}`, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/payment/purchase/request/${id}`,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -116,7 +98,11 @@ export class BuyRequestComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/payment/transaction', body, { headers })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/payment/transaction',
+        body,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

@@ -1,19 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-customer-view-subscribtion',
   standalone: true,
-  imports: [HttpClientModule, TableModule, ButtonModule],
+  imports: [SharedModule],
   templateUrl: './customer-view-subscribtion.component.html',
   styleUrl: './customer-view-subscribtion.component.scss',
 })
@@ -39,9 +34,12 @@ export class CustomerViewSubscriptionComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

@@ -1,34 +1,17 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-verify-otp',
   standalone: true,
-  imports: [
-    ButtonModule,
-    CommonModule,
-    MessagesModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './verify-otp.component.html',
   styleUrl: './verify-otp.component.scss',
 })
@@ -85,7 +68,11 @@ export class VerifyOtpComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/otp/verify', body, { headers })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/auth/otp/verify',
+        body,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

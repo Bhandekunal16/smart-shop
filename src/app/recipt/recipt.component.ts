@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-recipt',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [SharedModule],
   templateUrl: './recipt.component.html',
   styleUrl: './recipt.component.scss',
 })
@@ -57,7 +54,9 @@ export class ReceptComponent implements OnInit {
       const data = this.decrypt.decrypt(ele.response);
       console.log(data);
       this.transactionType = data.data.transactionType;
-      this.paymentDate = new Date(parseInt(data.data.paymentDate)).toLocaleString();
+      this.paymentDate = new Date(
+        parseInt(data.data.paymentDate)
+      ).toLocaleString();
     });
   }
 
@@ -69,9 +68,12 @@ export class ReceptComponent implements OnInit {
     console.log(id);
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -87,9 +89,12 @@ export class ReceptComponent implements OnInit {
     console.log(id);
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/payment/get/TxnDetails/${id}`, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/payment/get/TxnDetails/${id}`,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

@@ -1,28 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-purchase-list',
   standalone: true,
-  imports: [
-    HttpClientModule,
-    TableModule,
-    CommonModule,
-    ButtonModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './purchase-list.component.html',
   styleUrl: './purchase-list.component.scss',
 })
@@ -56,7 +43,7 @@ export class PurchaseListComponent implements OnInit {
   viewRecept(object: any) {
     console.log(object);
     const recept = localStorage.setItem('payment', JSON.stringify(object));
-    this.viewProduct()
+    this.viewProduct();
   }
 
   getStatusInfo(isPurchased: boolean): { text: string; class: string } {
@@ -73,7 +60,10 @@ export class PurchaseListComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/payment/purchase/${id}`, { headers })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/payment/purchase/${id}`,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);

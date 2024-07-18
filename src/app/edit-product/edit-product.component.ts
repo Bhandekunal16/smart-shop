@@ -1,33 +1,16 @@
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-edit-product',
   standalone: true,
-  imports: [
-    ButtonModule,
-    ReactiveFormsModule,
-    CommonModule,
-    HttpClientModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.scss',
 })
@@ -180,7 +163,9 @@ export class EditProductComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/product/edit', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/product/edit', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -195,7 +180,9 @@ export class EditProductComponent {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/getall/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/getall/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

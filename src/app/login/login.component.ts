@@ -1,34 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    ButtonModule,
-    CommonModule,
-    ReactiveFormsModule,
-    MessagesModule,
-    HttpClientModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -112,7 +94,9 @@ export class LoginComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/login', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/login', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

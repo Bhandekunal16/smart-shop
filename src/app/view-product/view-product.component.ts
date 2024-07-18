@@ -1,29 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { CardModule } from 'primeng/card';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
-import { RatingModule } from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-view-product',
   standalone: true,
-  imports: [
-    HttpClientModule,
-    CardModule,
-    CommonModule,
-    ButtonModule,
-    RatingModule,
-    FormsModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './view-product.component.html',
   styleUrl: './view-product.component.scss',
 })

@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { SharedModule } from '../shared/shared.module';
 
 interface ApiResponse<T> {
   status: boolean;
@@ -21,13 +14,7 @@ interface ApiResponse<T> {
 @Component({
   selector: 'app-customer-add-subscribtion',
   standalone: true,
-  imports: [
-    HttpClientModule,
-    TableModule,
-    ButtonModule,
-    CommonModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './customer-add-subscribtion.component.html',
   styleUrl: './customer-add-subscribtion.component.scss',
 })
@@ -93,9 +80,12 @@ export class CustomerAddSubscriptionComponent implements OnInit {
 
   shopDetails(): Observable<ApiResponse<any>> {
     const headers = this.getHeaders();
-    return this.http.get<ApiResponse<any>>(`https://smart-shop-api-eta.vercel.app/shop/shops`, {
-      headers,
-    });
+    return this.http.get<ApiResponse<any>>(
+      `https://smart-shop-api-eta.vercel.app/shop/shops`,
+      {
+        headers,
+      }
+    );
   }
 
   subscribe(id: any): void {

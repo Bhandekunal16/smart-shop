@@ -1,27 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CardModule } from 'primeng/card';
-import { CommonModule } from '@angular/common';
-import { ImageModule } from 'primeng/image';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [
-    CardModule,
-    CommonModule,
-    ImageModule,
-    HttpClientModule,
-    ButtonModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
@@ -71,7 +58,9 @@ export class ProfileComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

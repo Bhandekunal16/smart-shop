@@ -1,18 +1,13 @@
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-chart-product',
   standalone: true,
-  imports: [ChartModule, CommonModule, HttpClientModule],
+  imports: [SharedModule],
   templateUrl: './chart-product.component.html',
   styleUrl: './chart-product.component.scss',
 })
@@ -116,7 +111,9 @@ export class ChartProductComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/count/${id}`, { headers })
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/count/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

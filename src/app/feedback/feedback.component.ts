@@ -1,28 +1,16 @@
 import { Component } from '@angular/core';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
-import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
+import { FormGroup, FormControl } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-feedback',
   standalone: true,
-  imports: [
-    MessagesModule,
-    HttpClientModule,
-    CommonModule,
-    ButtonModule,
-    ReactiveFormsModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.scss',
 })
@@ -75,7 +63,9 @@ export class FeedbackComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/feedback', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/feedback', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

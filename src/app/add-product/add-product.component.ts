@@ -1,25 +1,15 @@
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [ButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [SharedModule],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.scss',
 })
@@ -154,7 +144,9 @@ export class AddProductComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/product/create', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/product/create', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -168,7 +160,9 @@ export class AddProductComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

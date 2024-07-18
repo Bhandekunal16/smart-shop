@@ -1,33 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    MessagesModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    CommonModule,
-    HttpClientModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -171,7 +154,9 @@ export class RegisterComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/register', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/register', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

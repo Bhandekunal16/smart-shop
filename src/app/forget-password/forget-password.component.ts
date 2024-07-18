@@ -1,29 +1,17 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
+import { FormGroup, FormControl } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-forget-password',
   standalone: true,
-  imports: [
-    ButtonModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MessagesModule,
-    HttpClientModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './forget-password.component.html',
   styleUrl: './forget-password.component.scss',
 })
@@ -79,7 +67,9 @@ export class ForgetPasswordComponent {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/otp/send', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/auth/otp/send', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

@@ -1,34 +1,16 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-
-import { ButtonModule } from 'primeng/button';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { DecryptService } from '../../global/decrypt.service';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-edit-shop',
   standalone: true,
-  imports: [
-    ButtonModule,
-    ReactiveFormsModule,
-    CommonModule,
-    HttpClientModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './edit-shop.component.html',
   styleUrl: './edit-shop.component.scss',
 })
