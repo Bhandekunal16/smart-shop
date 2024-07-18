@@ -43,11 +43,11 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
-  userList(): void {
+  private userList(): void {
     this.router.navigate(['/dashboard/userList']);
   }
 
-  edit(id: any) {
+  public edit(id: any) {
     this.Subscribe(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       if (data.status) {
@@ -66,7 +66,7 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
-  unsubscribe(id: any) {
+  public unsubscribe(id: any) {
     this.customerUnsubscribed(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
 
@@ -94,7 +94,7 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
-  shopDetails(): Observable<any> {
+  private shopDetails(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -110,7 +110,7 @@ export class AddCustomerComponent implements OnInit {
       );
   }
 
-  Subscribe(id: any): Observable<any> {
+  private Subscribe(id: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -135,7 +135,7 @@ export class AddCustomerComponent implements OnInit {
       );
   }
 
-  customerUnsubscribed(id: any): Observable<any> {
+  private customerUnsubscribed(id: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
