@@ -54,7 +54,9 @@ img {
   }
 
   .button-grid {
-    width: 80vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
   }
 }
 

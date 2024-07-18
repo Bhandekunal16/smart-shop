@@ -25,21 +25,27 @@ export class DisableShopComponent implements OnInit {
   }
 
   details() {
-    const id = localStorage.getItem('id');
-
-    this.msg = [{ severity: 'info', detail: 'searching for the shop details' }];
-
-    this.shopDetails({ id }).subscribe((ele) => {
-      const data = this.decryptService.decrypt(ele.response);
-      this.products.push(data.data);
+    try {
+      const id = localStorage.getItem('id');
 
       this.msg = [
-        {
-          severity: 'success',
-          detail: `shop details fetched for the ${data.data.shopName}`,
-        },
+        { severity: 'info', detail: 'searching for the shop details' },
       ];
-    });
+
+      this.shopDetails({ id }).subscribe((ele) => {
+        const data = this.decryptService.decrypt(ele.response);
+        this.products.push(data.data);
+
+        this.msg = [
+          {
+            severity: 'success',
+            detail: `shop details fetched for the ${data.data.shopName}`,
+          },
+        ];
+      });
+    } catch (error) {
+      console.log('some thing found with localhost');
+    }
   }
 
   shopDetails(body: any): Observable<any> {
