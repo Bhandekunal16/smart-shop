@@ -97,7 +97,6 @@ export class EditShopComponent {
 
     this.shopDetails({ id }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      console.log(this.myForm.value.shopName);
 
       this.myForm.value.shopName == ''
         ? (this.readingFlag = true)
