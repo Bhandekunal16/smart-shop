@@ -9,11 +9,19 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-view-shop',
   standalone: true,
-  imports: [CardModule, HttpClientModule, CommonModule, ImageModule],
+  imports: [
+    CardModule,
+    HttpClientModule,
+    CommonModule,
+    ImageModule,
+    MessagesModule,
+  ],
   templateUrl: './view-shop.component.html',
   styleUrl: './view-shop.component.scss',
 })
@@ -26,6 +34,7 @@ export class ViewShopComponent implements OnInit {
   public email: string | undefined;
   public status: string | undefined;
   public logo: string | undefined;
+  public msg: Message[] | any;
 
   ngOnInit(): void {
     this.details();
@@ -36,8 +45,25 @@ export class ViewShopComponent implements OnInit {
 
     console.log(this.email);
 
+    this.msg = [
+      {
+        severity: 'success',
+        detail: 'Gathering shop information, please wait...',
+      },
+    ];
+
     this.shopDetails({ id }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
+
+      this.msg = [
+        {
+          severity: res.status ? 'success' : 'error',
+          detail: res.status
+            ? `Great news! We found the data for ${res.data.shopName}`
+            : `Oops! Something went wrong with the data fetch`,
+        },
+      ];
+
       this.shopName = res.data.shopName;
       this.shopAddress = res.data.address;
       this.mobileNumber = res.data.officialContactNo;
