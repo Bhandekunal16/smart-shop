@@ -42,6 +42,10 @@ export class ViewProductComponent implements OnInit {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
+  now(input: string) {
+    return btoa(input);
+  }
+
   shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
     const headers = new HttpHeaders({
