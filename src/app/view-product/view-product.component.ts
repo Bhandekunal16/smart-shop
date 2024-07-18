@@ -25,7 +25,6 @@ export class ViewProductComponent implements OnInit {
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       this.data = res.data;
-      console.log(this.data);
     });
   }
 
