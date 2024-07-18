@@ -14,15 +14,16 @@ import { SharedModule } from '../shared/shared.module';
   styleUrl: './add-customer.component.scss',
 })
 export class AddCustomerComponent implements OnInit {
-  products!: any[];
+  public products!: any[];
   public msg: Message[] | any;
-  showButton: boolean = false;
+  public showButton: boolean = false;
 
   constructor(
     private http: HttpClient,
     private decrypt: DecryptService,
     private router: Router
   ) {}
+
   ngOnInit(): void {
     this.msg = [{ severity: 'info', detail: 'searching for your customer...' }];
     this.shopDetails().subscribe((ele) => {
@@ -42,8 +43,11 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
+  userList(): void {
+    this.router.navigate(['/dashboard/userList']);
+  }
+
   edit(id: any) {
-    console.log(id);
     this.Subscribe(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       if (data.status) {
@@ -59,6 +63,34 @@ export class AddCustomerComponent implements OnInit {
         ];
         this.showButton = false;
       }
+    });
+  }
+
+  unsubscribe(id: any) {
+    this.customerUnsubscribed(id).subscribe((ele) => {
+      const data = this.decrypt.decrypt(ele.response);
+
+      if (data.status) {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'success',
+            detail: `${data.data}`,
+          },
+        ];
+      } else {
+        this.msg = [
+          {
+            severity: 'warn',
+            summary: 'warn',
+            detail: 'some addition failed.',
+          },
+        ];
+      }
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     });
   }
 
@@ -101,38 +133,6 @@ export class AddCustomerComponent implements OnInit {
           return throwError(error);
         })
       );
-  }
-
-  userList(): void {
-    this.router.navigate(['/dashboard/userList']);
-  }
-
-  unsubscribe(id: any) {
-    this.customerUnsubscribed(id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-
-      if (data.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'success',
-            detail: `${data.data}`,
-          },
-        ];
-      } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: 'some addition failed.',
-          },
-        ];
-      }
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
-    });
   }
 
   customerUnsubscribed(id: any): Observable<any> {
