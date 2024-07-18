@@ -24,8 +24,20 @@ export class AddCustomerComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
+    this.msg = [{ severity: 'info', detail: 'searching for your customer...' }];
     this.shopDetails().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
+
+      data.status
+        ? (this.msg = [
+            { severity: 'success', detail: `user found ${data.data.length}` },
+          ])
+        : (this.msg = [{ severity: 'warn', detail: 'something went wrong' }]);
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 100);
+
       this.products = data.data;
     });
   }
