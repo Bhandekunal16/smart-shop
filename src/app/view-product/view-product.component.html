@@ -31,5 +31,8 @@
       </p-card>
     </ng-container>
     <ng-template #loading>Loading...</ng-template>
+    <div class="loader-container" *ngIf="data.length == 0">
+      <div class="loader"></div>
+    </div>
   </div>
 </div>
