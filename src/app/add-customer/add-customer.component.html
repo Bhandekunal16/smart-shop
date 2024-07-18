@@ -9,19 +9,12 @@
         [enableService]="false"
       ></p-messages>
     </div>
-    <p-table
-      [value]="products"
-      [tableStyle]="{
-        'min-width': '50rem',
-        'background-color ': 'red',
-        width: '100%'
-      }"
-    >
+    <p-table [value]="products" class="custom-table">
       <ng-template pTemplate="header">
         <tr>
-          <th>firstName</th>
-          <th>lastName</th>
-          <th>userType</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>User Type</th>
           <th>Action</th>
         </tr>
       </ng-template>
@@ -45,6 +38,11 @@
               (click)="unsubscribe(product.id)"
             ></p-button>
           </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="empty">
+        <tr>
+          <td colspan="4" class="no-data">No data found</td>
         </tr>
       </ng-template>
     </p-table>
