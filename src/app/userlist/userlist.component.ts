@@ -5,6 +5,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { setInterval } from 'timers/promises';
 
 @Component({
   selector: 'app-userlist',
@@ -23,20 +24,29 @@ export class UserlistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.msg = [
-      { severity: 'info', detail: 'searching for your customer...' },
-    ];
-    this.customerSubscribed().subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
+    try {
+      this.msg = [
+        { severity: 'info', detail: 'searching for your customer...' },
+      ];
+      const id = localStorage.getItem('id');
+      this.customerSubscribed(id).subscribe((ele) => {
+        const data = this.decrypt.decrypt(ele.response);
 
-      data.status
-        ? (this.msg = [
-            { severity: 'success', detail: `user found ${data.data.length}` },
-          ])
-        : (this.msg = [{ severity: 'warn', detail: 'something went wrong' }]);
+        data.status
+          ? (this.msg = [
+              { severity: 'success', detail: `user found ${data.data.length}` },
+            ])
+          : (this.msg = [{ severity: 'warn', detail: 'something went wrong' }]);
 
-      this.products = data.data;
-    });
+        setTimeout(() => {
+          this.msg = [];
+        }, 100);
+
+        this.products = data.data;
+      });
+    } catch (error) {
+      console.log('issue of the localhost');
+    }
   }
 
   unsubscribe(id: any) {
@@ -60,18 +70,13 @@ export class UserlistComponent implements OnInit {
           },
         ];
       }
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
     });
   }
 
-  customerSubscribed(): Observable<any> {
+  customerSubscribed(id: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    const id = localStorage.getItem('id');
 
     return this.http
       .get<any>(
