@@ -28,38 +28,40 @@ export class ViewShopComponent implements OnInit {
   }
 
   details() {
-    const id = localStorage.getItem('id');
-    this.msg = [
-      {
-        severity: 'success',
-        detail: 'Gathering shop information, please wait...',
-      },
-    ];
-
-    this.shopDetails({ id }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-
+    try {
+      const id = localStorage.getItem('id');
       this.msg = [
         {
-          severity: res.status ? 'success' : 'error',
-          detail: res.status
-            ? `Great news! We found the data for ${res.data.shopName}`
-            : `Oops! Something went wrong with the data fetch`,
+          severity: 'success',
+          detail: 'Gathering shop information, please wait...',
         },
       ];
 
-      this.shopName = res.data.shopName;
-      this.shopAddress = res.data.address;
-      this.mobileNumber = res.data.officialContactNo;
-      this.email = res.data.officialEmail;
-      this.logo = res.data.logo;
+      this.shopDetails({ id }).subscribe((ele) => {
+        const res = this.decrypt.decrypt(ele.response);
 
-      res.data.disable == false
-        ? (this.status = 'Active')
-        : (this.status = 'Deactivated');
+        this.msg = [
+          {
+            severity: res.status ? 'success' : 'error',
+            detail: res.status
+              ? `Great news! We found the data for ${res.data.shopName}`
+              : `Oops! Something went wrong with the data fetch`,
+          },
+        ];
 
-      console.log(this.shopName);
-    });
+        this.shopName = res.data.shopName;
+        this.shopAddress = res.data.address;
+        this.mobileNumber = res.data.officialContactNo;
+        this.email = res.data.officialEmail;
+        this.logo = res.data.logo;
+
+        res.data.disable == false
+          ? (this.status = 'Active')
+          : (this.status = 'Deactivated');
+      });
+    } catch (error) {
+      console.error(`localhost error please ignore`);
+    }
   }
 
   shopDetails(body: any): Observable<any> {
