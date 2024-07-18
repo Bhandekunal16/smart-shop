@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
 import { MenubarModule } from 'primeng/menubar';
 import { RatingModule } from 'primeng/rating';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import { RatingModule } from 'primeng/rating';
     ChartModule,
     MenubarModule,
     RatingModule,
+    ToastModule,
   ],
 })
 export class SharedModule {}
