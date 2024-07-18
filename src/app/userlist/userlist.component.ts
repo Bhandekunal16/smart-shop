@@ -24,7 +24,18 @@ export class UserlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerSubscribed().subscribe((ele) => {
+      this.msg = [
+        { severity: 'success', detail: 'searching for your customer...' },
+      ];
+
       const data = this.decrypt.decrypt(ele.response);
+
+      data.status
+        ? (this.msg = [
+            { severity: 'success', detail: `user found ${data.data.length}` },
+          ])
+        : (this.msg = [{ severity: 'warn', detail: 'something went wrong' }]);
+
       this.products = data.data;
     });
   }
