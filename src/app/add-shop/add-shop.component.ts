@@ -18,7 +18,7 @@ export class AddShopComponent {
   public myForm: FormGroup | any;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
-  public flag: boolean = false;
+  public flag: boolean = true;
 
   constructor(
     private http: HttpClient,
