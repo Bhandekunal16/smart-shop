@@ -23,11 +23,10 @@ export class UserlistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.msg = [
+      { severity: 'info', detail: 'searching for your customer...' },
+    ];
     this.customerSubscribed().subscribe((ele) => {
-      this.msg = [
-        { severity: 'success', detail: 'searching for your customer...' },
-      ];
-
       const data = this.decrypt.decrypt(ele.response);
 
       data.status
