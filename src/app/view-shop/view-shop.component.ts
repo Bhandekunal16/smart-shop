@@ -53,7 +53,7 @@ export class ViewShopComponent implements OnInit {
         this.shopAddress = res.data.address;
         this.mobileNumber = res.data.officialContactNo;
         this.email = res.data.officialEmail;
-        this.logo = res.data.logo;
+        this.logo = this.now(res.data.logo);
 
         res.data.disable == false
           ? (this.status = 'Active')
@@ -62,6 +62,10 @@ export class ViewShopComponent implements OnInit {
     } catch (error) {
       console.error(`localhost error please ignore`);
     }
+  }
+
+  now(input: string) {
+    return btoa(input);
   }
 
   shopDetails(body: any): Observable<any> {
