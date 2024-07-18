@@ -29,9 +29,6 @@ export class ViewShopComponent implements OnInit {
 
   details() {
     const id = localStorage.getItem('id');
-
-    console.log(this.email);
-
     this.msg = [
       {
         severity: 'success',
