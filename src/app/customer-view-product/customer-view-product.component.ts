@@ -28,9 +28,8 @@ export class CustomerViewProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const Screen = window.innerWidth;
-    Screen < 600 ? (this.screen = true) : (this.screen = false);
-
+    this.changer();
+    
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
@@ -60,6 +59,11 @@ export class CustomerViewProductComponent implements OnInit {
 
       this.data = data;
     });
+  }
+
+  changer() {
+    const Screen = window.innerWidth;
+    Screen < 600 ? (this.screen = true) : (this.screen = false);
   }
 
   edit(): void {
