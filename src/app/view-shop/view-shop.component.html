@@ -13,11 +13,7 @@
     <p>email : {{ email }}</p>
     <p>Shop Status : {{ status }}</p>
   </p-card>
-
-  <div class="loader-container" *ngIf="email == undefined">
-    <h3 style="color: #34db5e">Loading ....</h3>
-  </div>
-
+  
   <div class="loader-container" *ngIf="email == undefined">
     <div class="loader"></div>
   </div>
