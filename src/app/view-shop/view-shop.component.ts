@@ -1,27 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CardModule } from 'primeng/card';
-import { CommonModule } from '@angular/common';
-import { ImageModule } from 'primeng/image';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
+import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-view-shop',
   standalone: true,
-  imports: [
-    CardModule,
-    HttpClientModule,
-    CommonModule,
-    ImageModule,
-    MessagesModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './view-shop.component.html',
   styleUrl: './view-shop.component.scss',
 })
