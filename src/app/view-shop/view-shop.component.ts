@@ -34,6 +34,8 @@ export class ViewShopComponent implements OnInit {
   details() {
     const id = localStorage.getItem('id');
 
+    console.log(this.email);
+
     this.shopDetails({ id }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       this.shopName = res.data.shopName;
@@ -56,7 +58,9 @@ export class ViewShopComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

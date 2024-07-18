@@ -1,12 +1,24 @@
 <div class="view-shop-container">
-  <div class="shopDetailsLogo">
+  <div class="shopDetailsLogo" *ngIf="email != undefined">
     <p-image src="{{ logo }}" alt="Image" width="250"></p-image>
   </div>
-  <p-card header="Shop details" class="view-shop-container-card">
+  <p-card
+    header="Shop details"
+    class="view-shop-container-card"
+    *ngIf="email != undefined"
+  >
     <p>name : {{ shopName }}</p>
     <p>address : {{ shopAddress }}</p>
     <p>mobile Number : {{ mobileNumber }}</p>
     <p>email : {{ email }}</p>
     <p>Shop Status : {{ status }}</p>
   </p-card>
+
+  <div class="loader-container" *ngIf="email == undefined">
+    <h3 style="color: #34db5e">Loading ....</h3>
+  </div>
+
+  <div class="loader-container" *ngIf="email == undefined">
+    <div class="loader"></div>
+  </div>
 </div>
