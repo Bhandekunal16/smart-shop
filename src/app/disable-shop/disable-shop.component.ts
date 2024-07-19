@@ -42,6 +42,10 @@ export class DisableShopComponent implements OnInit {
             detail: `shop details fetched for the ${data.data.shopName}`,
           },
         ];
+
+        setTimeout(() => {
+          this.msg = [];
+        }, 1000);
       });
     } catch (error) {
       console.log('some thing found with localhost');
