@@ -50,7 +50,7 @@ export class UserAddWishlistComponent implements OnInit {
       }
 
       const data = array.reduce((acc, arr) => [...acc, ...arr], []);
-      // console.log(data);
+      //  (data);
 
       this.data = data;
     });
@@ -73,7 +73,7 @@ export class UserAddWishlistComponent implements OnInit {
 
     this.Add(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      console.log(res);
+       (res);
 
       if (res.status) {
         this.msg = [
@@ -103,7 +103,7 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   remove(id: any) {
-    console.log(id);
+     (id);
     const userId = localStorage.getItem('id');
     const body = {
       userId: userId,
@@ -111,8 +111,8 @@ export class UserAddWishlistComponent implements OnInit {
     };
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      console.log(res);
-      console.log(res);
+       (res);
+       (res);
       if (res.status) {
         window.location.reload();
       }

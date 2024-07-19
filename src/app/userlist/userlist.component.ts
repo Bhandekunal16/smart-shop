@@ -45,7 +45,7 @@ export class UserlistComponent implements OnInit {
         this.products = data.data;
       });
     } catch (error) {
-      console.log('issue of the localhost');
+       ('issue of the localhost');
     }
   }
 

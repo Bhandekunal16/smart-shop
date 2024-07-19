@@ -36,7 +36,7 @@ export class UpdateRatingComponent implements OnInit {
       array.push(res.data);
       this.data = array;
 
-      console.log(array);
+       (array);
 
       let rating;
       if (typeof this.myForm.value.rating == 'string') {
@@ -63,8 +63,8 @@ export class UpdateRatingComponent implements OnInit {
     this.Details().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
-      console.log(typeof this.myForm.value.rating == 'string');
-      console.log(this.myForm.value.rating, typeof this.myForm.value.rating);
+       (typeof this.myForm.value.rating == 'string');
+       (this.myForm.value.rating, typeof this.myForm.value.rating);
 
       let rate;
       if (typeof this.myForm.value.rating == 'string') {
@@ -75,7 +75,7 @@ export class UpdateRatingComponent implements OnInit {
         rate = this.myForm.value.rating.low;
       }
 
-      console.log(rate);
+       (rate);
 
       const userId = localStorage.getItem('id');
 
@@ -101,7 +101,7 @@ export class UpdateRatingComponent implements OnInit {
           window.location.reload();
         }, 3000);
       });
-      console.log(rate);
+       (rate);
     });
   }
 

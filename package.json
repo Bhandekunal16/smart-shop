@@ -28,6 +28,7 @@
     "express": "^4.18.2",
     "primeicons": "^7.0.0",
     "primeng": "^17.12.0",
+    "robotic.js": "^1.4.8",
     "roboticdb": "^1.0.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -39,7 +39,7 @@ export class PaymentComponent implements OnInit {
     let array = [];
     this.Details().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-      console.log(data);
+       (data);
       this.myForm.patchValue(data.data);
       array.push(data.data);
       this.data = array;
@@ -51,7 +51,7 @@ export class PaymentComponent implements OnInit {
   }
 
   purchaseProduct(id: any) {
-    console.log(id);
+     (id);
     const userId = localStorage.getItem('id');
     let payload = {
       userId: userId,
@@ -60,7 +60,7 @@ export class PaymentComponent implements OnInit {
 
     this.add(payload).subscribe((ele) => {
       let data = this.decrypt.decrypt(ele.response);
-      console.log(data);
+       (data);
 
       if (data.status) {
         this.list();
@@ -74,7 +74,7 @@ export class PaymentComponent implements OnInit {
 
   Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    console.log(id, 'i am hitting');
+     (id, 'i am hitting');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

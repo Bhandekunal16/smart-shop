@@ -32,7 +32,7 @@ export class PurchaseListComponent implements OnInit {
     this.purchasedList(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
-      console.log(data);
+       (data);
     });
   }
 
@@ -41,7 +41,7 @@ export class PurchaseListComponent implements OnInit {
   }
 
   viewRecept(object: any) {
-    console.log(object);
+     (object);
     const recept = localStorage.setItem('payment', JSON.stringify(object));
     this.viewProduct();
   }

@@ -65,7 +65,7 @@ export class UpdateProfileComponent implements OnInit {
       const data = this.decrypt.decrypt(ele.response);
       this.myForm.patchValue(data.data);
       this.obj = data.data;
-      console.log(data);
+       (data);
     });
   }
 
@@ -94,7 +94,7 @@ export class UpdateProfileComponent implements OnInit {
     const file = event.target.files[0];
     try {
       this.selectedImage = await this.uploadFile(file);
-      console.log('Image uploaded successfully:', this.selectedImage);
+       ('Image uploaded successfully:', this.selectedImage);
     } catch (error) {
       console.error('Error uploading image:', error);
     }

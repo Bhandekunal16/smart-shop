@@ -123,7 +123,7 @@ export class AddCustomerComponent implements OnInit {
       customerId: id,
     };
 
-    console.log(body);
+     (body);
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/subscribe', body, {

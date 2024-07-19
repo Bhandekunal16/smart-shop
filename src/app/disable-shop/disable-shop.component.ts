@@ -48,7 +48,7 @@ export class DisableShopComponent implements OnInit {
         }, 1000);
       });
     } catch (error) {
-      console.log('some thing found with localhost');
+       ('some thing found with localhost');
     }
   }
 

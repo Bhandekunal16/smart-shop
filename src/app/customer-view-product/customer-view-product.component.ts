@@ -55,7 +55,7 @@ export class CustomerViewProductComponent implements OnInit {
       }
 
       const data = array.reduce((acc, arr) => [...acc, ...arr], []);
-      // console.log(data);
+      //  (data);
 
       this.data = data;
     });
@@ -79,7 +79,7 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   setCurrentObjectId(id: string) {
-    console.log(id);
+     (id);
     localStorage.setItem('currentObjectId', id);
     this.edit();
   }
@@ -101,7 +101,7 @@ export class CustomerViewProductComponent implements OnInit {
     };
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      console.log(res);
+       (res);
 
       if (res.status) {
         setTimeout(() => {
@@ -153,9 +153,9 @@ export class CustomerViewProductComponent implements OnInit {
     };
 
     this.Add(body).subscribe((ele) => {
-      console.log(ele);
+       (ele);
       let res = this.decrypt.decrypt(ele.response);
-      console.log(res);
+       (res);
       if (res.status) {
         this.msg = [
           {

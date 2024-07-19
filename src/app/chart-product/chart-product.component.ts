@@ -33,7 +33,7 @@ export class ChartProductComponent implements OnInit {
       (ele) => {
         const res = this.decrypt.decrypt(ele.response);
         this.array = res.data;
-        console.log(this.array);
+         (this.array);
         let value = [];
         let name = [];
         for (let index = 0; index < this.array.length; index++) {

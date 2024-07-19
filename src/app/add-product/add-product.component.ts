@@ -53,7 +53,7 @@ export class AddProductComponent {
     const file = event.target.files[0];
     try {
       this.selectedImage = await this.uploadFile(file);
-      console.log('Image uploaded successfully:', this.selectedImage);
+       ('Image uploaded successfully:', this.selectedImage);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -95,7 +95,7 @@ export class AddProductComponent {
     const productImage = this.selectedImage;
     const id = localStorage.getItem('shopId');
 
-    console.log(
+     (
       ProductName,
       ProductDescription,
       productType,
@@ -115,7 +115,7 @@ export class AddProductComponent {
       units,
     };
 
-    this.create(body).subscribe((ele) => console.log(ele));
+    this.create(body).subscribe((ele) =>  (ele));
     this.myForm.reset();
   }
 
@@ -128,7 +128,7 @@ export class AddProductComponent {
       const id = localStorage.getItem('id');
 
       this.shopDetails({ id }).subscribe((ele) => {
-        console.log(ele);
+         (ele);
         const res = this.decrypt.decrypt(ele.response);
         localStorage.setItem('shopId', res.data.id);
       });

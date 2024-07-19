@@ -63,7 +63,7 @@ export class BuyRequestComponent {
   }
 
   getStatusInfo(isPurchased: boolean): { text: string; class: string } {
-    console.log(isPurchased);
+     (isPurchased);
     if (isPurchased) {
       return { text: 'Sold', class: 'purchased' };
     } else {
@@ -72,22 +72,22 @@ export class BuyRequestComponent {
   }
 
   onPay(userId: any, productId: any) {
-    console.log(userId, productId);
+     (userId, productId);
     const payload = {
       custId: userId,
       productId: productId,
       transactionType: this.mode,
     };
-    console.log(payload);
+     (payload);
 
     this.sell(payload).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-      console.log(data.data);
+       (data.data);
     });
   }
 
   onselect(mode: any) {
-    console.log(mode);
+     (mode);
     this.mode = mode;
   }
 

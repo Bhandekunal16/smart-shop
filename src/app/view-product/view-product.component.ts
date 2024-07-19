@@ -48,7 +48,7 @@ export class ViewProductComponent implements OnInit {
   }
 
   setCurrentObjectId(id: string) {
-    console.log(id);
+     (id);
     localStorage.setItem('currentObjectId', id);
     this.edit();
   }

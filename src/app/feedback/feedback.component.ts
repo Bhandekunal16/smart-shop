@@ -30,7 +30,7 @@ export class FeedbackComponent {
     const message = this.myForm.value.message;
 
     const body = { email, message };
-    console.log(email, message);
+     (email, message);
 
     this.sendOtp(body).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);

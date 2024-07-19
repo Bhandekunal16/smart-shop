@@ -105,7 +105,7 @@ export class EditProductComponent {
     const file = event.target.files[0];
     try {
       this.selectedImage = await this.uploadFile(file);
-      console.log('Image uploaded successfully:', this.selectedImage);
+       ('Image uploaded successfully:', this.selectedImage);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -189,7 +189,7 @@ export class EditProductComponent {
 
   Details(): Observable<any> {
     const id = localStorage.getItem('id');
-    console.log(id, 'i am hitting');
+     (id, 'i am hitting');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

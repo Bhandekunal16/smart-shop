@@ -66,7 +66,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
       obj1.isSubscribed = !!matchedObj;
     });
     this.products = array1;
-    console.log(this.products[0].isSubscribed);
+     (this.products[0].isSubscribed);
   }
 
   added(): Observable<ApiResponse<any>> {
@@ -110,7 +110,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
         ];
       }
 
-      data.status ? this.viewSubscriptionRoute() : console.log('nothing');
+      data.status ? this.viewSubscriptionRoute() :  ('nothing');
     });
   }
 

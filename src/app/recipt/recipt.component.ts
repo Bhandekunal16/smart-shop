@@ -29,7 +29,7 @@ export class ReceptComponent implements OnInit {
 
   ngOnInit(): void {
     const product: any = localStorage.getItem('payment');
-    console.log(product);
+     (product);
     const parse = JSON.parse(product);
     this.productName = parse.ProductName;
     this.productDescription = parse.ProductDescription;
@@ -37,13 +37,13 @@ export class ReceptComponent implements OnInit {
     this.brand = parse.brandName;
     this.productId = parse.id;
 
-    console.log(this.productName);
+     (this.productName);
 
-    console.log(parse);
+     (parse);
 
     this.purchasedList(parse.ownerId).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-      console.log(data);
+       (data);
       this.officialContactNo = data.data.officialContactNo;
       this.officialEmail = data.data.officialEmail;
       this.address = data.data.address;
@@ -52,7 +52,7 @@ export class ReceptComponent implements OnInit {
 
     this.TxnList(parse.id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-      console.log(data);
+       (data);
       this.transactionType = data.data.transactionType;
       this.paymentDate = new Date(
         parseInt(data.data.paymentDate)
@@ -65,7 +65,7 @@ export class ReceptComponent implements OnInit {
       'Content-Type': 'application/json',
     });
 
-    console.log(id);
+     (id);
 
     return this.http
       .get<any>(
@@ -86,7 +86,7 @@ export class ReceptComponent implements OnInit {
       'Content-Type': 'application/json',
     });
 
-    console.log(id);
+     (id);
 
     return this.http
       .get<any>(
