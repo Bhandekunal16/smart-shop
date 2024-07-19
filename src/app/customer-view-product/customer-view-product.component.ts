@@ -29,7 +29,10 @@ export class CustomerViewProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.changer();
+    this.search();
+  }
 
+  search() {
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
@@ -79,7 +82,7 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   setCurrentObjectId(id: string) {
-     (id);
+    id;
     localStorage.setItem('currentObjectId', id);
     this.edit();
   }
@@ -101,12 +104,10 @@ export class CustomerViewProductComponent implements OnInit {
     };
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-       (res);
+      res;
 
       if (res.status) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        this.search();
       }
     });
   }
@@ -153,9 +154,9 @@ export class CustomerViewProductComponent implements OnInit {
     };
 
     this.Add(body).subscribe((ele) => {
-       (ele);
+      ele;
       let res = this.decrypt.decrypt(ele.response);
-       (res);
+      res;
       if (res.status) {
         this.msg = [
           {
