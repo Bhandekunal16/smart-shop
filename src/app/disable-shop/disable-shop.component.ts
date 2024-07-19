@@ -48,7 +48,7 @@ export class DisableShopComponent implements OnInit {
         }, 1000);
       });
     } catch (error) {
-       ('some thing found with localhost');
+      ('some thing found with localhost');
     }
   }
 
@@ -79,9 +79,7 @@ export class DisableShopComponent implements OnInit {
         },
       ];
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      this.details();
     });
   }
 
@@ -96,9 +94,7 @@ export class DisableShopComponent implements OnInit {
         },
       ];
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      this.details();
     });
   }
 
