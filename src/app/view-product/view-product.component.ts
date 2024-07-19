@@ -58,7 +58,6 @@ export class ViewProductComponent implements OnInit {
   }
 
   convertTimestampToDate(timestamp: any): string {
-    console.log(timestamp);
     const date = new Date(parseInt(timestamp));
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
