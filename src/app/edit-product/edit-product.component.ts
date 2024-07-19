@@ -56,11 +56,28 @@ export class EditProductComponent {
   }
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        detail: `searching for your product`,
+      },
+    ];
     this.Details().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       this.products = res.data;
 
+      this.msg = [
+        {
+          severity: 'success',
+          detail: `product found ${res.data.length}`,
+        },
+      ];
+
       this.populateForm(this.currentIndex);
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 
@@ -152,9 +169,6 @@ export class EditProductComponent {
             },
           ]);
     });
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
   }
 
   editShopDetails(body: any): Observable<any> {
