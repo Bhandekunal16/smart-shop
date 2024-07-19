@@ -25,6 +25,10 @@ export class UserAddWishlistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.search()
+  }
+
+  search() {
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
@@ -50,11 +54,10 @@ export class UserAddWishlistComponent implements OnInit {
       }
 
       const data = array.reduce((acc, arr) => [...acc, ...arr], []);
-      //  (data);
-
       this.data = data;
     });
   }
+
 
   view(): void {
     this.router.navigate(['customer-dashboard/userViewWishList']);
@@ -73,7 +76,7 @@ export class UserAddWishlistComponent implements OnInit {
 
     this.Add(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-       (res);
+      res;
 
       if (res.status) {
         this.msg = [
@@ -103,7 +106,7 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   remove(id: any) {
-     (id);
+    id;
     const userId = localStorage.getItem('id');
     const body = {
       userId: userId,
@@ -111,10 +114,8 @@ export class UserAddWishlistComponent implements OnInit {
     };
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-       (res);
-       (res);
       if (res.status) {
-        window.location.reload();
+        this.search()
       }
     });
   }

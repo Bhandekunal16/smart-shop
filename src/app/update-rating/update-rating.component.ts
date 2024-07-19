@@ -30,14 +30,15 @@ export class UpdateRatingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.search();
+  }
+
+  search() {
     this.Details().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       let array = [];
       array.push(res.data);
       this.data = array;
-
-       (array);
-
       let rating;
       if (typeof this.myForm.value.rating == 'string') {
         rating = this.data[0].rating;
@@ -63,8 +64,8 @@ export class UpdateRatingComponent implements OnInit {
     this.Details().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
-       (typeof this.myForm.value.rating == 'string');
-       (this.myForm.value.rating, typeof this.myForm.value.rating);
+      typeof this.myForm.value.rating == 'string';
+      this.myForm.value.rating, typeof this.myForm.value.rating;
 
       let rate;
       if (typeof this.myForm.value.rating == 'string') {
@@ -75,7 +76,7 @@ export class UpdateRatingComponent implements OnInit {
         rate = this.myForm.value.rating.low;
       }
 
-       (rate);
+      rate;
 
       const userId = localStorage.getItem('id');
 
@@ -96,12 +97,8 @@ export class UpdateRatingComponent implements OnInit {
             detail: res.data,
           },
         ];
-
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
       });
-       (rate);
+      rate;
     });
   }
 

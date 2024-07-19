@@ -27,15 +27,15 @@ export class UserViewWishlistComponent {
   details() {
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe((ele) => {
-       (ele);
+      ele;
       const data = this.decrypt.decrypt(ele.response);
-       (data.data);
+      data.data;
       this.products = data.data;
     });
   }
 
   remove(id: any) {
-     (id);
+    id;
     const userId = localStorage.getItem('id');
     const body = {
       userId: userId,
@@ -43,10 +43,10 @@ export class UserViewWishlistComponent {
     };
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-       (res);
+      res;
 
       if (res.status) {
-        window.location.reload();
+        this.details();
       }
     });
   }
