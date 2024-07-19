@@ -33,6 +33,7 @@ export class DisableShopComponent implements OnInit {
       ];
 
       this.shopDetails({ id }).subscribe((ele) => {
+        this.products = [];
         const data = this.decryptService.decrypt(ele.response);
         this.products.push(data.data);
 
