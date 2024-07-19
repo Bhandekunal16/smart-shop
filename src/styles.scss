@@ -8,3 +8,13 @@
 @import "primeng/resources/themes/viva-light/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+
+.message-card {
+  width: fit-content;
+  height: 10vh;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}

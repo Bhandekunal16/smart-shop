@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError, timeInterval } from 'rxjs';
 import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-view-product',
@@ -15,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
 export class ViewProductComponent implements OnInit {
   public data: any[] = [];
   public value!: number;
+  public msg: Message[] | any;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -22,9 +24,26 @@ export class ViewProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        detail: 'searching product for you!',
+      },
+    ];
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
+
+      this.msg = [
+        {
+          severity: 'success',
+          detail: 'product found for you',
+        },
+      ];
       this.data = res.data;
+
+      setInterval(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 
