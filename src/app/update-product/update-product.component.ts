@@ -55,7 +55,12 @@ export class UpdateProductComponent {
   }
 
   ngOnInit(): void {
+    this.search();
+  }
+
+  search() {
     this.Details().subscribe((ele) => {
+      this.products = [];
       const res = this.decrypt.decrypt(ele.response);
       const array = [];
       array.push(res.data);
@@ -137,9 +142,7 @@ export class UpdateProductComponent {
       response;
     });
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    this.search();
   }
 
   back(): void {
@@ -147,7 +150,6 @@ export class UpdateProductComponent {
   }
 
   remove() {
-    ('i am removeing');
     this.delete().subscribe((response) => {
       response;
       this.back();
@@ -188,9 +190,7 @@ export class UpdateProductComponent {
       };
       this.adjustRate(payload).subscribe((response) => {
         const data = this.decrypt.decrypt(response.response);
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
+        this.search();
       });
     } else if (discount) {
       ('i am in else');
@@ -202,9 +202,7 @@ export class UpdateProductComponent {
       };
       this.adjustRate(payload).subscribe((response) => {
         const data = this.decrypt.decrypt(response.response);
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
+        this.search();
       });
     }
   }
