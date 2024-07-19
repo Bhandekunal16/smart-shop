@@ -134,15 +134,15 @@ export class UpdateProductComponent {
       ProductName: this.myForm.value.ProductName,
       ProductDescription: this.myForm.value.ProductDescription,
       productType: this.myForm.value.productType,
-      productImage: this.selectedImage,
+      ProductImageBase: this.selectedImage,
       productCost: this.myForm.value.productCost,
     };
 
     this.editShopDetails(payload).subscribe((response) => {
-      response;
-    });
+      console.log(response);
 
-    this.search();
+      this.search();
+    });
   }
 
   back(): void {
@@ -190,7 +190,9 @@ export class UpdateProductComponent {
       };
       this.adjustRate(payload).subscribe((response) => {
         const data = this.decrypt.decrypt(response.response);
-        this.search();
+        setTimeout(() => {
+          this.search();
+        }, 5000);
       });
     } else if (discount) {
       ('i am in else');
@@ -202,7 +204,9 @@ export class UpdateProductComponent {
       };
       this.adjustRate(payload).subscribe((response) => {
         const data = this.decrypt.decrypt(response.response);
-        this.search();
+        setTimeout(() => {
+          this.search();
+        }, 5000);
       });
     }
   }

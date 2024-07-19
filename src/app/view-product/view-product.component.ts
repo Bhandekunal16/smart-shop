@@ -40,6 +40,7 @@ export class ViewProductComponent implements OnInit {
         },
       ];
       this.data = res.data;
+      console.log(res.data)
 
       setInterval(() => {
         this.msg = [];
