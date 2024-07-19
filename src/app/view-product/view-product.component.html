@@ -14,7 +14,12 @@
         subheader="{{ item.ProductDescription }}"
       >
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="now(item.ProductImageBase)" />
+          <img
+            alt="Card"
+            [src]="now(item.ProductImageBase)"
+            [style]=""
+            class="card-image"
+          />
         </ng-template>
         <p>
           Uploaded On: {{ convertTimestampToDate(item.createdOn) }}

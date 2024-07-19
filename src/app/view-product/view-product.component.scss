@@ -75,3 +75,12 @@ img {
     transform: rotate(360deg);
   }
 }
+
+.card-image {
+  max-width: 100%; /* Ensures the image does not overflow the container */
+  height: auto; /* Maintains the aspect ratio */
+  display: block; /* Removes the bottom space of the image */
+  border-radius: 8px; /* Optional: Adds rounded corners to the image */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+  object-fit: cover; /* Ensures the image covers the container */
+}
