@@ -56,7 +56,6 @@ export class AddShopComponent {
     const file = event.target.files[0];
     try {
       this.selectedImage = await this.uploadFile(file);
-       ('Image uploaded successfully:', this.selectedImage);
     } catch (error) {
       console.error('Error uploading image:', error);
     }

@@ -74,7 +74,6 @@ export class PaymentComponent implements OnInit {
 
   Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-     (id, 'i am hitting');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

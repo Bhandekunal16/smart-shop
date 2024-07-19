@@ -72,7 +72,6 @@ export class BuyRequestComponent {
   }
 
   onPay(userId: any, productId: any) {
-     (userId, productId);
     const payload = {
       custId: userId,
       productId: productId,

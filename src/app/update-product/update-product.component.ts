@@ -88,7 +88,6 @@ export class UpdateProductComponent {
     const file = event.target.files[0];
     try {
       this.selectedImage = await this.uploadFile(file);
-       ('Image uploaded successfully:', this.selectedImage);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -135,7 +134,7 @@ export class UpdateProductComponent {
     };
 
     this.editShopDetails(payload).subscribe((response) => {
-       (response);
+      response;
     });
 
     setTimeout(() => {
@@ -148,9 +147,9 @@ export class UpdateProductComponent {
   }
 
   remove() {
-     ('i am removeing');
+    ('i am removeing');
     this.delete().subscribe((response) => {
-       (response);
+      response;
       this.back();
     });
   }
@@ -173,17 +172,15 @@ export class UpdateProductComponent {
 
   async adjust() {
     let originalPrice = this.products[this.currentIndex].productCost;
-     (originalPrice);
+    originalPrice;
     const cost =
       this.myForm.get('productCost')?.value == originalPrice
         ? 0
         : this.myForm.get('productCost')?.value;
     const discount = this.myForm.get('discount')?.value;
 
-     (discount, cost);
-
     if (cost > 0) {
-       (' i am here');
+      (' i am here');
       this.myForm.patchValue({ productCost: cost });
       let payload = {
         id: localStorage.getItem('currentObjectId'),
@@ -196,7 +193,7 @@ export class UpdateProductComponent {
         }, 5000);
       });
     } else if (discount) {
-       ('i am in else');
+      ('i am in else');
       const productCost = originalPrice - (originalPrice * discount) / 100;
       await this.myForm.patchValue({ productCost: productCost });
       let payload = {
@@ -248,7 +245,6 @@ export class UpdateProductComponent {
 
   Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-     (id, 'i am hitting');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -265,7 +261,6 @@ export class UpdateProductComponent {
 
   delete(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-     (id, 'i am hitting');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
