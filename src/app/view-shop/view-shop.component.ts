@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { setInterval } from 'timers/promises';
 
 @Component({
   selector: 'app-view-shop',
@@ -58,6 +59,10 @@ export class ViewShopComponent implements OnInit {
         res.data.disable == false
           ? (this.status = 'Active')
           : (this.status = 'Deactivated');
+
+        setTimeout(() => {
+          this.msg = [];
+        }, 1000);
       });
     } catch (error) {
       console.error(`localhost error please ignore`);
