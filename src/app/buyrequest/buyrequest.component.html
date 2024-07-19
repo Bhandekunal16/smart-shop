@@ -1,4 +1,11 @@
 <div class="view-wishlist-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
   <div class="view-wishlist-container-body">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
@@ -49,5 +56,12 @@
         </tr>
       </ng-template>
     </p-table>
+    <div *ngIf="products.length == 0">
+      <h1>No data found</h1>
+    </div>
+
+    <div class="loader-container" *ngIf="langFlag">
+      <div class="loader"></div>
+    </div>
   </div>
 </div>

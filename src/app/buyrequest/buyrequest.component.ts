@@ -20,11 +20,8 @@ export class BuyRequestComponent {
   public msg: Message[] | any;
   public myForm: FormGroup | any;
   public mode: any;
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private route: Router
-  ) {
+  public langFlag: boolean | undefined = false;
+  constructor(private http: HttpClient, private decrypt: DecryptService) {
     this.myForm = new FormGroup({
       transactionType: new FormControl('', [Validators.required]),
     });
@@ -37,10 +34,31 @@ export class BuyRequestComponent {
   list() {
     let id = localStorage.getItem('id');
 
+    this.msg = [{ severity: `info`, detail: 'searching buy request for you' }];
+
     this.purchasedList(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
-      console.log(data);
+
+      data.status ? (this.langFlag = false) : (this.langFlag = true);
+
+      data.data.length > 0
+        ? (this.msg = [
+            {
+              severity: `success`,
+              detail: `request found ${data.data.length}`,
+            },
+          ])
+        : (this.msg = [
+            {
+              severity: `warn`,
+              detail: 'currently you do not have any request',
+            },
+          ]);
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 500);
     });
   }
 
