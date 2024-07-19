@@ -7,8 +7,7 @@
         subheader="{{ item.ProductDescription }}"
       >
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="'data:image/jpeg;base64,' + now(item.ProductImage)" />
-
+          <img alt="Card" [src]="now(item.ProductImageBase)" />
         </ng-template>
         <p>
           Uploaded On: {{ item.createdOn.low * 1000 | date : "medium" }}

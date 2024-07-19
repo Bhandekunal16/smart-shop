@@ -43,7 +43,9 @@ export class ViewProductComponent implements OnInit {
   }
 
   now(input: string) {
-    return btoa(input);
+    console.log(input)
+    console.log(`'data:image/jpeg;base64',${btoa(input)}`);
+    return `data:image/jpeg;base64,${btoa(input)}`;
   }
 
   shopDetails(): Observable<any> {

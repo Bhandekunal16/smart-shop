@@ -55,8 +55,6 @@ export class ViewShopComponent implements OnInit {
         this.email = res.data.officialEmail;
         this.logo = `data:image/jpeg;base64,${btoa(res.data.logo)}`;
 
-        console.log(this.logo)
-
         res.data.disable == false
           ? (this.status = 'Active')
           : (this.status = 'Deactivated');

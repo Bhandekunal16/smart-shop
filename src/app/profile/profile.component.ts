@@ -40,7 +40,9 @@ export class ProfileComponent implements OnInit {
       this.lastName = data.data.lastName;
       this.mobileNo = data.data.mobileNo;
       this.userType = data.data.userType;
-      this.profileImage = data.data.profileImage;
+      this.profileImage = `data:image/jpeg;base64,${btoa(
+        data.data.profileImage
+      )}`;
     });
   }
 

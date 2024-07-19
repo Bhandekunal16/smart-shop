@@ -29,7 +29,7 @@ export class CustomerViewProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.changer();
-    
+
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
@@ -59,6 +59,10 @@ export class CustomerViewProductComponent implements OnInit {
 
       this.data = data;
     });
+  }
+
+  now(input: string) {
+    return btoa(input);
   }
 
   changer() {
