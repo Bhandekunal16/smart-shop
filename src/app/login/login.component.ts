@@ -39,9 +39,7 @@ export class LoginComponent {
     const password: string = this.myForm.value.Password;
 
     this.login({ username, password }).subscribe((data) => {
-      const res = this.decrypt.decrypt(data.response);
-
-      if (res.status) {
+      if (data.status) {
         console.log(`login true`);
         this.msg = [
           {
@@ -51,10 +49,10 @@ export class LoginComponent {
           },
         ];
 
-        const id = res.data.id;
+        const id = data.data.id;
         localStorage.setItem('id', id);
 
-        if (res.data.userType == 'MERCHANT') {
+        if (data.data.userType == 'MERCHANT') {
           this.dashboard();
         } else {
           this.customerDashboard();
