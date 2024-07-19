@@ -14,17 +14,12 @@ import { SharedModule } from '../shared/shared.module';
 })
 export class CustomerViewSubscriptionComponent implements OnInit {
   products!: any[];
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
   ngOnInit(): void {
     this.shopDetails().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
-      console.log(data);
     });
   }
 
