@@ -50,9 +50,7 @@ export class FeedbackComponent {
             },
           ]);
 
-      setInterval(() => {
-        window.location.reload();
-      }, 3000);
+      this.myForm.reset();
     });
   }
 
