@@ -79,6 +79,26 @@ export class AddCustomerComponent implements OnInit {
             detail: `${data.data}`,
           },
         ];
+        this.shopDetails().subscribe((ele) => {
+          const data = this.decrypt.decrypt(ele.response);
+
+          data.status
+            ? (this.msg = [
+                {
+                  severity: 'success',
+                  detail: `user found ${data.data.length}`,
+                },
+              ])
+            : (this.msg = [
+                { severity: 'warn', detail: 'something went wrong' },
+              ]);
+
+          setTimeout(() => {
+            this.msg = [];
+          }, 100);
+
+          this.products = data.data;
+        });
       } else {
         this.msg = [
           {
@@ -88,10 +108,6 @@ export class AddCustomerComponent implements OnInit {
           },
         ];
       }
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
     });
   }
 
@@ -123,7 +139,7 @@ export class AddCustomerComponent implements OnInit {
       customerId: id,
     };
 
-     (body);
+    body;
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/subscribe', body, {
