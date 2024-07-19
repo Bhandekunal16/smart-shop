@@ -30,6 +30,10 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.search();
+  }
+
+  search() {
     const subscribedShop: any[] = [];
 
     this.added().subscribe((ele: ApiResponse<any>) => {
@@ -58,7 +62,6 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     });
   }
 
-
   newKey(array1: any[], array2: any[]): void {
     array1.forEach((obj1) => {
       const matchedObj = array2.find(
@@ -67,7 +70,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
       obj1.isSubscribed = !!matchedObj;
     });
     this.products = array1;
-     (this.products[0].isSubscribed);
+    this.products[0].isSubscribed;
   }
 
   added(): Observable<ApiResponse<any>> {
@@ -111,7 +114,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
         ];
       }
 
-      data.status ? this.viewSubscriptionRoute() :  ('nothing');
+      data.status ? this.viewSubscriptionRoute() : 'nothing';
     });
   }
 
@@ -127,6 +130,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
             detail: `${data.data}`,
           },
         ];
+        this.search();
       } else {
         this.msg = [
           {
@@ -137,9 +141,9 @@ export class CustomerAddSubscriptionComponent implements OnInit {
         ];
       }
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 3000);
     });
   }
 
