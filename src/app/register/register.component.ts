@@ -17,7 +17,6 @@ import { SharedModule } from '../shared/shared.module';
 export class RegisterComponent implements OnInit {
   public myForm: FormGroup | any;
   public msg: Message[] | any;
-  private selectedOption: any;
   public selectedImage: File | any = null;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
 
@@ -73,9 +72,7 @@ export class RegisterComponent implements OnInit {
       userType,
       profileImage,
     }).subscribe((data) => {
-      const res = this.decrypt.decrypt(data.response);
-      const id = localStorage.setItem('id', res.data.id);
-      if (res.status) {
+      if (data.status) {
         this.msg = [
           {
             severity: 'success',
@@ -84,7 +81,7 @@ export class RegisterComponent implements OnInit {
           },
         ];
 
-        res.data.userType == 'MERCHANT'
+        data.data.userType == 'MERCHANT'
           ? this.dashboard()
           : this.customerDashboard();
       } else {
@@ -92,7 +89,7 @@ export class RegisterComponent implements OnInit {
           {
             severity: 'warn',
             summary: 'warn',
-            detail: `${res.response}`,
+            detail: `${data.response}`,
           },
         ];
       }
@@ -154,7 +151,7 @@ export class RegisterComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/register', body, {
+      .post<any>('http://localhost:3003/auth/register', body, {
         headers,
       })
       .pipe(
