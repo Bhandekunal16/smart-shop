@@ -60,6 +60,10 @@ export class UserAddWishlistComponent implements OnInit {
     this.router.navigate(['customer-dashboard/userViewWishList']);
   }
 
+  now(input: string) {
+    return `data:image/jpeg;base64,${btoa(input)}`;
+  }
+
   setCurrentObjectId(id: string) {
     const userId = localStorage.getItem('id');
     const body = {

@@ -36,7 +36,7 @@ export class UpdateRatingComponent implements OnInit {
       array.push(res.data);
       this.data = array;
 
-      console.log(array)
+      console.log(array);
 
       let rating;
       if (typeof this.myForm.value.rating == 'string') {
@@ -49,6 +49,10 @@ export class UpdateRatingComponent implements OnInit {
 
       this.myForm.patchValue({ rating: rating });
     });
+  }
+
+  now(input: string) {
+    return `data:image/jpeg;base64,${btoa(input)}`;
   }
 
   getStatusText(isPurchased: boolean): string {
