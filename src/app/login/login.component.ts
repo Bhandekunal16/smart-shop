@@ -40,7 +40,6 @@ export class LoginComponent {
 
     this.login({ username, password }).subscribe((data) => {
       if (data.status) {
-        console.log(`login true`);
         this.msg = [
           {
             severity: 'success',
