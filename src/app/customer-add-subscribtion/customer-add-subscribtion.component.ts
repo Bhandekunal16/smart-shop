@@ -58,6 +58,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     });
   }
 
+
   newKey(array1: any[], array2: any[]): void {
     array1.forEach((obj1) => {
       const matchedObj = array2.find(
