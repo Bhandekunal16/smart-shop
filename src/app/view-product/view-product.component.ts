@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-view-product',
@@ -12,6 +13,7 @@ import { Message } from 'primeng/api';
   imports: [SharedModule],
   templateUrl: './view-product.component.html',
   styleUrl: './view-product.component.scss',
+  providers: [DatePipe],
 })
 export class ViewProductComponent implements OnInit {
   public data: any[] = [];
@@ -20,7 +22,8 @@ export class ViewProductComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private decrypt: DecryptService
+    private decrypt: DecryptService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +43,7 @@ export class ViewProductComponent implements OnInit {
         },
       ];
       this.data = res.data;
-      console.log(res.data)
+      console.log(res.data);
 
       setInterval(() => {
         this.msg = [];
@@ -49,9 +52,26 @@ export class ViewProductComponent implements OnInit {
   }
 
   setCurrentObjectId(id: string) {
-     (id);
+    id;
     localStorage.setItem('currentObjectId', id);
     this.edit();
+  }
+
+  convertTimestampToDate(timestamp: any): string {
+    console.log(timestamp);
+    const date = new Date(parseInt(timestamp));
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    return `${year}-${month.toString().padStart(2, '0')}-${day
+      .toString()
+      .padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
   edit(): void {
