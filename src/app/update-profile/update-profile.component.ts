@@ -84,7 +84,7 @@ export class UpdateProfileComponent implements OnInit {
         {
           severity: 'success',
           summary: 'Success',
-          detail: 'shop edited successfully!',
+          detail: 'Profile edited successfully!',
         },
       ];
     });
