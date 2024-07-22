@@ -44,12 +44,6 @@ export class UpdateProfileComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^\d{10}$/),
       ]),
-      Password: new FormControl('', [
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
-        ),
-      ]),
       userType: new FormControl('', Validators.required),
     });
   }
