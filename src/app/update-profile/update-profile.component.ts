@@ -21,6 +21,7 @@ export class UpdateProfileComponent implements OnInit {
   private selectedOption: any;
   public selectedImage: File | any = null;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
+  public Status: boolean | undefined;
 
   constructor(
     private router: Router,
@@ -65,7 +66,7 @@ export class UpdateProfileComponent implements OnInit {
       const data = this.decrypt.decrypt(ele.response);
       this.myForm.patchValue(data.data);
       this.obj = data.data;
-      console.log(data);
+      this.Status = data.data.status;
       this.msg = [
         {
           severity: data.status ? 'success' : 'warn',
@@ -100,6 +101,25 @@ export class UpdateProfileComponent implements OnInit {
         },
       ];
     });
+  }
+
+  delete() {
+    try {
+      const id = localStorage.getItem('id');
+      this.status(id).subscribe((ele) => {
+        this.msg = [
+          {
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Profile status changed',
+          },
+        ];
+
+        this.getDetails();
+      });
+    } catch (error) {
+      console.log(' this is not an error ');
+    }
   }
 
   async onImageSelected(event: any) {
@@ -145,6 +165,22 @@ export class UpdateProfileComponent implements OnInit {
 
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  status(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/status/${id}`, {
         headers,
       })
       .pipe(

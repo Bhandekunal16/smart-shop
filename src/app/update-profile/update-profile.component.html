@@ -55,8 +55,31 @@
         label="Update"
         icon="pi pi-pencil"
         class="p-button-success"
-        [disabled]="myForm.invalid"
+        [disabled]="myForm.invalid || !Status"
         (click)="submitForm()"
+      ></button>
+
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Delete"
+        icon="pi pi-trash"
+        class="p-button-warning"
+        [disabled]="myForm.invalid"
+        (click)="delete()"
+        *ngIf="Status"
+      ></button>
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Restore"
+        icon="pi pi-trash"
+        class="p-button-warning"
+        [disabled]="myForm.invalid"
+        (click)="delete()"
+        *ngIf="!Status"
       ></button>
     </div>
   </form>
