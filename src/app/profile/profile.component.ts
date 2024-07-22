@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
+  public msg: Message[] | any;
   public email: string | undefined;
   public firstName: string | undefined;
   public lastName: string | undefined;
@@ -26,6 +28,12 @@ export class ProfileComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'Searching your profile data !',
+      },
+    ];
     this.getDetails();
   }
 
@@ -43,6 +51,16 @@ export class ProfileComponent implements OnInit {
       this.profileImage = `data:image/jpeg;base64,${btoa(
         data.data.profileImage
       )}`;
+      this.msg = [
+        {
+          severity: data.status == true ? 'success' : 'warn',
+          summary: `Welcome ${data.data.firstName} ${data.data.lastName}`,
+        },
+      ];
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 

@@ -1,4 +1,11 @@
 <div class="profile-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
   <p-card header="Profile">
     <ng-template pTemplate="header">
       <img alt="image" src="{{ profileImage }}" />
@@ -21,7 +28,7 @@
       </div>
     </ng-template>
   </p-card>
-  <div class="faq-container">
+  <div class="faq-container" *ngIf="email !== undefined">
     <h3>FAQs</h3>
     <p>
       What happens when I update my email address (or mobile number)? Your login
