@@ -1,4 +1,11 @@
 <div class="view-wishlist-container">
+  <div class="message-card">
+    <p-messages
+      [value]="msg"
+      [closable]="true"
+      [enableService]="false"
+    ></p-messages>
+  </div>
   <div class="view-wishlist-container-body">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
@@ -11,16 +18,21 @@
           <th>status</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-product *ngIf="products.length !== 0">
         <tr>
           <td (click)="viewRecept(product)">{{ product.ProductName }}</td>
           <td>{{ product.ProductDescription }}</td>
           <td>{{ product.productCost }}</td>
           <td>{{ product.productType }}</td>
-          <td>{{product.brandName}}</td>
+          <td>{{ product.brandName }}</td>
           <td [ngClass]="getStatusInfo(product.isPurchased).class">
             {{ getStatusInfo(product.IsPurchased).text }}
           </td>
+        </tr>
+      </ng-template>
+      <ng-template *ngIf="products.length == 0">
+        <tr>
+          <td>Not found anything</td>
         </tr>
       </ng-template>
     </p-table>

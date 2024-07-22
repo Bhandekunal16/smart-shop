@@ -23,6 +23,12 @@ export class PurchaseListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'Searching for your purchased products!',
+      },
+    ];
     this.list();
   }
 
@@ -32,7 +38,20 @@ export class PurchaseListComponent implements OnInit {
     this.purchasedList(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
-       (data);
+
+      this.products.length == 0
+        ? (this.msg = [
+            {
+              severity: 'warn',
+              summary: 'you do not purchase anything till now',
+            },
+          ])
+        : (this.msg = [
+            {
+              severity: 'success',
+              summary: `purchased product found ${this.products.length}`,
+            },
+          ]);
     });
   }
 
@@ -41,7 +60,7 @@ export class PurchaseListComponent implements OnInit {
   }
 
   viewRecept(object: any) {
-     (object);
+    object;
     const recept = localStorage.setItem('payment', JSON.stringify(object));
     this.viewProduct();
   }
