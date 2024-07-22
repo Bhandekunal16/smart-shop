@@ -28,6 +28,12 @@ export class CustomerViewProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'Searching product for you!',
+      },
+    ];
     this.changer();
     this.search();
   }
@@ -61,6 +67,17 @@ export class CustomerViewProductComponent implements OnInit {
       //  (data);
 
       this.data = data;
+
+      this.msg = [
+        {
+          severity: 'success',
+          summary: `products found ${this.data.length}`,
+        },
+      ];
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 
