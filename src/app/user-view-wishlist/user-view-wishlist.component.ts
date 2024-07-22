@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-user-view-wishlist',
@@ -19,18 +20,33 @@ export class UserViewWishlistComponent {
     private router: Router
   ) {}
   products!: any[];
+  public msg: Message[] | any;
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'Searching for your wish list!',
+      },
+    ];
     this.details();
   }
 
   details() {
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe((ele) => {
-      ele;
       const data = this.decrypt.decrypt(ele.response);
-      data.data;
       this.products = data.data;
+      this.msg = [
+        {
+          severity: 'success',
+          summary: `found items from your wish list ${this.products.length}`,
+        },
+      ];
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 500);
     });
   }
 
