@@ -49,6 +49,12 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'searching for your profile information.',
+      },
+    ];
     this.getDetails();
   }
 
@@ -59,7 +65,19 @@ export class UpdateProfileComponent implements OnInit {
       const data = this.decrypt.decrypt(ele.response);
       this.myForm.patchValue(data.data);
       this.obj = data.data;
-      data;
+      console.log(data);
+      this.msg = [
+        {
+          severity: data.status ? 'success' : 'warn',
+          summary: data.status
+            ? `welcome ${data.data.email}`
+            : 'profile not found',
+        },
+      ];
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 
