@@ -142,7 +142,7 @@ export class UpdateProfileComponent implements OnInit {
     });
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/update', body, {
+      .post<any>('http://localhost:3003/auth/update', body, {
         headers,
       })
       .pipe(
