@@ -22,6 +22,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   products!: any[];
   Add: any[] = [];
   public msg: Message[] | any;
+  public flag: boolean | any;
 
   constructor(
     private http: HttpClient,
@@ -30,6 +31,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.changer();
     this.msg = [
       {
         severity: 'info',
@@ -37,6 +39,11 @@ export class CustomerAddSubscriptionComponent implements OnInit {
       },
     ];
     this.search();
+  }
+
+  changer() {
+    this.flag = localStorage.getItem('status');
+    console.log(this.flag);
   }
 
   search() {

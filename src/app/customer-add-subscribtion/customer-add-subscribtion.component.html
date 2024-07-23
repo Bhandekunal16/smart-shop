@@ -29,6 +29,7 @@
             class="p-button-success"
             icon="pi pi-check"
             (click)="subscribe(product.id)"
+            [disabled]="flag"
           ></button>
 
           <button
@@ -39,6 +40,7 @@
             class="p-button-success"
             icon="pi pi-thumbs-down"
             (click)="unSubscribe(product.id)"
+            [disabled]="flag"
           ></button>
         </td>
       </tr>
