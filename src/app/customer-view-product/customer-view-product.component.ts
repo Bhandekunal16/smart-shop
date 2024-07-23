@@ -6,6 +6,8 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { BlobOptions } from 'buffer';
+import { StateService } from '../state.service';
+import { stat } from 'fs';
 
 @Component({
   selector: 'app-customer-view-product',
@@ -25,10 +27,15 @@ export class CustomerViewProductComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private decrypt: DecryptService
+    private decrypt: DecryptService,
+    private statusService: StateService
   ) {}
 
   ngOnInit(): void {
+    this.statusService.status$.subscribe((status) => {
+      console.log(status);
+      this.flag = status;
+    });
     this.msg = [
       {
         severity: 'info',
@@ -87,7 +94,6 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   changer() {
-    this.flag = localStorage.getItem('status');
     const Screen = window.innerWidth;
     Screen < 600 ? (this.screen = true) : (this.screen = false);
   }

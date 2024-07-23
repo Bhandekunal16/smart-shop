@@ -5,6 +5,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { StateService } from '../state.service';
 
 interface ApiResponse<T> {
   status: boolean;
@@ -27,11 +28,14 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private decrypt: DecryptService,
-    private router: Router
+    private router: Router,
+    private statusService: StateService
   ) {}
 
   ngOnInit(): void {
-    this.changer();
+    this.statusService.status$.subscribe((status) => {
+      this.flag = status;
+    });
     this.msg = [
       {
         severity: 'info',
@@ -39,10 +43,6 @@ export class CustomerAddSubscriptionComponent implements OnInit {
       },
     ];
     this.search();
-  }
-
-  changer() {
-    this.flag = localStorage.getItem('status');
   }
 
   search() {
