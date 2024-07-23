@@ -20,6 +20,7 @@ export class CustomerViewProductComponent implements OnInit {
   public msg: Message[] | any;
   showButton: boolean = false;
   screen: boolean | undefined;
+  public flag: boolean | any;
 
   constructor(
     private http: HttpClient,
@@ -86,6 +87,7 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   changer() {
+    this.flag = localStorage.getItem('status');
     const Screen = window.innerWidth;
     Screen < 600 ? (this.screen = true) : (this.screen = false);
   }
