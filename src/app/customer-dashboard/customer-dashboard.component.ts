@@ -16,7 +16,6 @@ export class CustomerDashboardComponent implements OnInit {
   constructor(private router: Router) {}
   ngOnInit() {
     const status = localStorage.getItem('status');
-    console.log(status);
 
     this.items = [
       {
