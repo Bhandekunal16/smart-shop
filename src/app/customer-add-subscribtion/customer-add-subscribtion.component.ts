@@ -30,6 +30,12 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'searching for subscription',
+      },
+    ];
     this.search();
   }
 
@@ -58,6 +64,17 @@ export class CustomerAddSubscriptionComponent implements OnInit {
         }
 
         this.products = newArray;
+
+        this.msg = [
+          {
+            severity: 'success',
+            summary: `subscription found for ${this.products.length} shop`,
+          },
+        ];
+
+        setTimeout(() => {
+          this.msg = [];
+        }, 1000);
       }
     });
   }
