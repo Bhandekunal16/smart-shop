@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -13,10 +14,15 @@ import { SharedModule } from '../shared/shared.module';
 export class CustomerDashboardComponent implements OnInit {
   items: MenuItem[] | undefined;
 
-  constructor(private router: Router) {}
-  ngOnInit() {
-    const status = localStorage.getItem('status');
+  constructor(private router: Router, private statusService: StateService) {}
 
+  ngOnInit(): void {
+    this.statusService.status$.subscribe((status) => {
+      this.updateMenuItems(status);
+    });
+  }
+
+  updateMenuItems(status: boolean) {
     this.items = [
       {
         label: 'Profile',
@@ -65,7 +71,6 @@ export class CustomerDashboardComponent implements OnInit {
           },
         ],
       },
-
       {
         label: 'Subscriptions',
         icon: 'pi pi-fw pi-calendar',

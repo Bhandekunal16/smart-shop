@@ -6,6 +6,7 @@ import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-update-profile',
@@ -26,7 +27,8 @@ export class UpdateProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private decrypt: DecryptService
+    private decrypt: DecryptService,
+    private statusService: StateService
   ) {
     this.myForm = new FormGroup({
       firstName: new FormControl('', [
@@ -68,6 +70,7 @@ export class UpdateProfileComponent implements OnInit {
       this.obj = data.data;
       this.Status = data.data.status;
       localStorage.setItem('status', data.data.status);
+      this.setStatus(data.data.status);
       this.msg = [
         {
           severity: data.status ? 'success' : 'warn',
@@ -81,6 +84,10 @@ export class UpdateProfileComponent implements OnInit {
         this.msg = [];
       }, 1000);
     });
+  }
+
+  setStatus(status: boolean) {
+    this.statusService.setStatus(status);
   }
 
   submitForm() {
