@@ -67,6 +67,7 @@ export class UpdateProfileComponent implements OnInit {
       this.myForm.patchValue(data.data);
       this.obj = data.data;
       this.Status = data.data.status;
+      localStorage.setItem('status', data.data.status);
       this.msg = [
         {
           severity: data.status ? 'success' : 'warn',
