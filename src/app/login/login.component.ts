@@ -50,6 +50,7 @@ export class LoginComponent {
 
         const id = data.data.id;
         localStorage.setItem('id', id);
+        localStorage.setItem('status', data.data.status);
 
         if (data.data.userType == 'MERCHANT') {
           this.dashboard();
@@ -64,7 +65,6 @@ export class LoginComponent {
             detail: 'please check login credential !',
           },
         ];
-         (`login false`);
       }
     });
   }
