@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-customer-view-subscribtion',
@@ -14,12 +15,31 @@ import { SharedModule } from '../shared/shared.module';
 })
 export class CustomerViewSubscriptionComponent implements OnInit {
   products!: any[];
+  public msg: Message[] | any;
   constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'searching for subscription',
+      },
+    ];
+
     this.shopDetails().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
+
+      this.msg = [
+        {
+          severity: 'success',
+          summary: `shop found ${this.products.length}`,
+        },
+      ];
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 
