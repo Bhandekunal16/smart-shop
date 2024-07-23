@@ -43,7 +43,6 @@ export class CustomerAddSubscriptionComponent implements OnInit {
 
   changer() {
     this.flag = localStorage.getItem('status');
-    console.log(this.flag);
   }
 
   search() {
