@@ -15,6 +15,9 @@ export class CustomerDashboardComponent implements OnInit {
 
   constructor(private router: Router) {}
   ngOnInit() {
+    const status = localStorage.getItem('status');
+    console.log(status);
+
     this.items = [
       {
         label: 'Profile',
@@ -92,15 +95,10 @@ export class CustomerDashboardComponent implements OnInit {
         },
       },
       {
-        label: !this.changer() ? 'Account Enabled' : 'Account Disabled',
-        icon: !this.changer() ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+        label: status ? 'Account Enabled' : 'Account Disabled',
+        icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
       },
     ];
-  }
-
-  changer() {
-    console.log(localStorage.getItem('status'))
-    return localStorage.getItem('status');
   }
 
   login(): void {
