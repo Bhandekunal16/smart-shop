@@ -92,13 +92,14 @@ export class CustomerDashboardComponent implements OnInit {
         },
       },
       {
-        label: this.changer() ? 'Account Enabled' : 'Account Disabled',
-        icon: this.changer() ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+        label: !this.changer() ? 'Account Enabled' : 'Account Disabled',
+        icon: !this.changer() ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
       },
     ];
   }
 
   changer() {
+    console.log(localStorage.getItem('status'))
     return localStorage.getItem('status');
   }
 

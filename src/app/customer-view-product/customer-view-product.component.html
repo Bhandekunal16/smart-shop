@@ -37,7 +37,7 @@
             icon="pi pi-star-fill"
             class="p-button-secondary"
             (click)="setCurrentObjectId(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
 
           <button
@@ -47,7 +47,7 @@
             class="p-button-secondary"
             icon="pi pi-heart-fill"
             (click)="WishList(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
 
           <button
@@ -57,7 +57,7 @@
             class="p-button-secondary"
             icon="pi pi-receipt"
             (click)="paymentRoute(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
 
           <button
@@ -68,7 +68,7 @@
             class="p-button-secondary"
             icon="pi pi-trash"
             (click)="remove(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
         </div>
 
@@ -79,7 +79,7 @@
             icon="pi pi-star-fill"
             class="p-button-secondary"
             (click)="setCurrentObjectId(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
 
           <button
@@ -88,7 +88,7 @@
             class="p-button-secondary"
             icon="pi pi-heart-fill"
             (click)="WishList(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
 
           <button
@@ -97,7 +97,7 @@
             class="p-button-secondary"
             icon="pi pi-receipt"
             (click)="paymentRoute(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
 
           <button
@@ -107,7 +107,7 @@
             class="p-button-secondary"
             icon="pi pi-trash"
             (click)="remove(item.id)"
-            [disabled]="!flag"
+            [disabled]="flag"
           ></button>
         </div>
       </p-card>
