@@ -64,6 +64,7 @@
         icon="pi pi-play"
         class="p-button-success"
         (click)="trigger()"
+        *ngIf="!statusFlag"
       ></button>
       <button
         type="button"
@@ -73,6 +74,7 @@
         icon="pi pi-pause-circle"
         class="p-button-warning"
         (click)="trigger2()"
+        *ngIf="statusFlag"
       ></button>
     </div>
   </form>
