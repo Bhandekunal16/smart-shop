@@ -15,7 +15,11 @@ export class NetworkStatusService {
   }
 
   private updateOnlineStatus() {
-    this.onlineStatus.next(navigator.onLine);
+    try {
+      this.onlineStatus.next(navigator.onLine);
+    } catch (error) {
+      console.log('this is not error ');
+    }
   }
 
   get onlineStatus$() {
