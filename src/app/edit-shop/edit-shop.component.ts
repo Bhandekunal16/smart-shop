@@ -90,7 +90,7 @@ export class EditShopComponent {
 
         this.myForm.patchValue(res.data);
 
-        this.status = !res.data.disable ? 'Disabled' : 'Enabled';
+        this.status = res.data.disable ? 'Disabled' : 'Enabled';
         this.statusFlag = res.data.disable;
 
         this.obj = res.data;
