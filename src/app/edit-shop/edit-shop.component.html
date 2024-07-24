@@ -18,7 +18,9 @@
     ></p-messages>
   </div>
 
-  <h3 *ngIf="!readingFlag" class="typing-animation">Getting your shop details</h3>
+  <h3 *ngIf="!readingFlag" class="typing-animation">
+    Getting your shop details
+  </h3>
 
   <form class="edit-shop-container-form" [formGroup]="myForm">
     <div class="edit-shop-container-form-top">
@@ -43,6 +45,7 @@
       />
       <label>Shop Image</label>
       <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+      <input [value]="status" readonly="true" />
     </div>
     <div class="edit-shop-container-form-button">
       <button
@@ -52,6 +55,24 @@
         label="Submit"
         class="p-button-success"
         (click)="submitForm()"
+      ></button>
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Activate"
+        icon="pi pi-play"
+        class="p-button-success"
+        (click)="trigger()"
+      ></button>
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Deactivate"
+        icon="pi pi-pause-circle"
+        class="p-button-warning"
+        (click)="trigger2()"
       ></button>
     </div>
   </form>

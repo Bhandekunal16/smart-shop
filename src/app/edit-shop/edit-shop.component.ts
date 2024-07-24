@@ -20,6 +20,7 @@ export class EditShopComponent {
   public msg: Message[] | any;
   public selectedImage: File | any = null;
   public readingFlag: boolean | undefined;
+  public status: any | undefined;
 
   constructor(
     private http: HttpClient,
@@ -80,19 +81,21 @@ export class EditShopComponent {
 
       this.shopDetails({ id }).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
-  
+        console.log(res);
+
         this.myForm.value.shopName == ''
           ? (this.readingFlag = true)
           : (this.readingFlag = false);
-  
+
         this.myForm.patchValue(res.data);
-  
+
+        this.status = res.data.disable ? 'Disabled' : 'Enabled';
+
         this.obj = res.data;
       });
     } catch (error) {
-      console.warn('this is warning of localhost')
+      console.warn('this is warning of localhost');
     }
-   
   }
 
   shopDetails(body: any): Observable<any> {
@@ -161,5 +164,67 @@ export class EditShopComponent {
         resolve(null);
       }
     });
+  }
+
+  trigger() {
+    const id = localStorage.getItem('id');
+    this.activate({ id }).subscribe((ele) => {
+      this.msg = [
+        {
+          severity: 'success',
+          summary: 'Success',
+          detail: 'shop activated successfully!',
+        },
+      ];
+
+      this.details();
+    });
+  }
+
+  trigger2() {
+    const id = localStorage.getItem('id');
+    this.deactivated({ id }).subscribe((ele) => {
+      this.msg = [
+        {
+          severity: 'success',
+          summary: 'Success',
+          detail: 'shop Deactivated successfully!',
+        },
+      ];
+
+      this.details();
+    });
+  }
+
+  activate(body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/enable', body, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  deactivated(body: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/disable', body, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 }
