@@ -5,12 +5,3 @@
   background-color: transparent;
   color: #1e5d4a;
 }
-::ng-deep .menu {
-  background-color: #99b66e;
-  color: #314222;
-}
-
-::ng-deep .menu .p-menuitem :hover {
-  background-color: #719646 !important;
-  border-radius: 6px;
-}
