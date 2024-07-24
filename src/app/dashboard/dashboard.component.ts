@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { NetworkStatusService } from '../network-status.service';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +14,58 @@ import { SharedModule } from '../shared/shared.module';
 })
 export class DashboardComponent {
   items: MenuItem[] | undefined;
+  onlineStatus: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private statusService: StateService,
+    private networkStatusService: NetworkStatusService
+  ) {}
 
   ngOnInit() {
+    let value: boolean;
+    this.statusService.status$.subscribe((status) => {
+      this.updateMenuItems(status);
+      value = status;
+    });
+
+    this.networkStatusService.onlineStatus$.subscribe((status) => {
+      this.onlineStatus = status;
+      this.updateMenuItems(value);
+    });
+  }
+
+  updateMenuItems(status: boolean) {
     this.items = [
+      {
+        label: 'Settings',
+        icon: 'pi pi-fw pi-cog',
+        items: [
+          {
+            label: 'Profile',
+            icon: 'pi pi-fw pi-user',
+            command: () => {
+              this.update();
+            },
+          },
+          {
+            label: status ? 'Account Enabled' : 'Account Disabled',
+            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+          },
+          {
+            label: this.onlineStatus ? 'Online' : 'Offline',
+            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
+          },
+          {
+            label: 'Quit',
+            icon: 'pi pi-fw pi-power-off',
+            command: () => {
+              this.login();
+            },
+          },
+        ],
+      },
+
       {
         label: 'Shop',
         icon: 'pi pi-fw pi-shop',
@@ -114,13 +163,6 @@ export class DashboardComponent {
           this.Feedback();
         },
       },
-      {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off',
-        command: () => {
-          this.login();
-        },
-      },
     ];
   }
 
@@ -171,6 +213,10 @@ export class DashboardComponent {
 
   initial() {
     this.router.navigate(['dashboard']);
+  }
+
+  update() {
+    this.router.navigate(['dashboard/updateProfile']);
   }
 
   ViewUser() {

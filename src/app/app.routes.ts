@@ -56,6 +56,10 @@ export const routes: Routes = [
       { path: 'userList', component: UserlistComponent },
       { path: 'feedback', component: FeedbackComponent },
       { path: 'buyRequest', component: BuyRequestComponent },
+      {
+        path: 'updateProfile',
+        component: UpdateProfileComponent,
+      },
     ],
   },
   {
