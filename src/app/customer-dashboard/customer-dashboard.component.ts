@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
+import { NetworkStatusService } from '../network-status.service';
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -13,12 +14,24 @@ import { StateService } from '../state.service';
 })
 export class CustomerDashboardComponent implements OnInit {
   items: MenuItem[] | undefined;
+  onlineStatus: boolean = true;
 
-  constructor(private router: Router, private statusService: StateService) {}
+  constructor(
+    private router: Router,
+    private statusService: StateService,
+    private networkStatusService: NetworkStatusService
+  ) {}
 
   ngOnInit(): void {
+    let value: boolean;
     this.statusService.status$.subscribe((status) => {
       this.updateMenuItems(status);
+      value = status;
+    });
+
+    this.networkStatusService.onlineStatus$.subscribe((status) => {
+      this.onlineStatus = status;
+      this.updateMenuItems(value);
     });
   }
 
@@ -99,8 +112,18 @@ export class CustomerDashboardComponent implements OnInit {
         },
       },
       {
-        label: status ? 'Account Enabled' : 'Account Disabled',
-        icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+        label: 'Settings',
+        icon: 'pi pi-fw pi-cog',
+        items: [
+          {
+            label: status ? 'Account Enabled' : 'Account Disabled',
+            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+          },
+          {
+            label: this.onlineStatus ? 'Online' : 'Offline',
+            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
+          },
+        ],
       },
     ];
   }
