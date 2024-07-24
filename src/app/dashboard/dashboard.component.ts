@@ -81,11 +81,6 @@ export class DashboardComponent {
             command: () => this.viewShop(),
           },
           {
-            label: 'Disable/Enable',
-            icon: 'pi pi-fw pi-play',
-            command: () => this.DisableShop(),
-          },
-          {
             label: 'Add',
             icon: 'pi pi-fw pi-cart-plus',
             command: () => this.addShop(),
@@ -193,10 +188,6 @@ export class DashboardComponent {
 
   addShop(): void {
     this.router.navigate(['dashboard/addShop']);
-  }
-
-  DisableShop(): void {
-    this.router.navigate(['dashboard/disableShop']);
   }
 
   addProduct(): void {
