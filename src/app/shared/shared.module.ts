@@ -11,6 +11,9 @@ import { ChartModule } from 'primeng/chart';
 import { MenubarModule } from 'primeng/menubar';
 import { RatingModule } from 'primeng/rating';
 import { ToastModule } from 'primeng/toast';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [],
@@ -28,6 +31,9 @@ import { ToastModule } from 'primeng/toast';
     MenubarModule,
     RatingModule,
     ToastModule,
+    FloatLabelModule,
+    InputNumberModule,
+    InputTextModule,
   ],
 })
 export class SharedModule {}
