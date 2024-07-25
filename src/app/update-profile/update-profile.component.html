@@ -1,4 +1,4 @@
-<div class="register-container">
+<div class="update-profile-container">
   <div class="message-card">
     <p-messages
       [value]="msg"
@@ -12,39 +12,61 @@
       <h1>Update Profile</h1>
     </div>
     <div class="register-container-form-input">
-      <label>First name </label>
-      <div *ngIf="myForm.get('firstName')?.errors?.['pattern']" class="error">
-        Enter valid first name
+      <div class="register-container-form-header-line">
+        <label>First name </label>
+        <label>Last name </label>
       </div>
-      <input type="text" placeholder="First Name" formControlName="firstName" />
 
-      <label>Last name </label>
-      <div *ngIf="myForm.get('lastName')?.errors?.['pattern']" class="error">
-        Enter valid last name
+      <div class="register-container-form-line">
+        <div *ngIf="myForm.get('firstName')?.errors?.['pattern']" class="error">
+          Enter valid first name
+        </div>
+        <input
+          type="text"
+          placeholder="First Name"
+          formControlName="firstName"
+        />
+        <div *ngIf="myForm.get('lastName')?.errors?.['pattern']" class="error">
+          Enter valid last name
+        </div>
+        <input type="text" placeholder="Last Name" formControlName="lastName" />
       </div>
-      <input type="text" placeholder="Last Name" formControlName="lastName" />
 
-      <label>Email id </label>
-      <div *ngIf="myForm.get('email')?.errors?.['pattern']" class="error">
-        Enter valid email
+      <div class="register-container-form-header-line">
+        <label>Email id </label>
+        <label>Mobile No</label>
       </div>
-      <input type="text" placeholder="Email" formControlName="email" />
 
-      <label>Mobile No</label>
-      <div *ngIf="myForm.get('mobileNo')?.errors?.['pattern']" class="error">
-        Enter valid mobile number
+      <div class="register-container-form-line">
+        <div *ngIf="myForm.get('email')?.errors?.['pattern']" class="error">
+          Enter valid email
+        </div>
+        <input type="text" placeholder="Email" formControlName="email" />
+
+        <div *ngIf="myForm.get('mobileNo')?.errors?.['pattern']" class="error">
+          Enter valid mobile number
+        </div>
+        <input type="text" placeholder="Mobile No" formControlName="mobileNo" />
       </div>
-      <input type="text" placeholder="Mobile No" formControlName="mobileNo" />
 
-      <label>type</label>
-      <select formControlName="userType">
-        <option *ngFor="let option of options" [value]="option">
-          {{ option }}
-        </option>
-      </select>
+      <div class="register-container-form-header-line">
+        <label>type</label>
+        <label>profile image</label>
+      </div>
 
-      <label>profile image</label>
-      <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+      <div class="register-container-form-line">
+        <select formControlName="userType">
+          <option *ngFor="let option of options" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+
+        <input
+          type="file"
+          (change)="onImageSelected($event)"
+          accept="image/*"
+        />
+      </div>
     </div>
 
     <div class="register-container-form-button">
