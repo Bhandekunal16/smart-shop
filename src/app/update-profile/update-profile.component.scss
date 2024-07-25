@@ -1,15 +1,15 @@
 .update-profile-container {
   position: relative;
   width: 100%;
-  height: 99vh;
+  height: 90vh;
   background-color: #ffffff;
   color: #1e5d4a;
-  padding-top: 1%;
+  padding-top: 2%;
 }
 
 .register-container-form {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #f0f0f0;
@@ -22,16 +22,6 @@
   align-items: center;
   padding-bottom: 1%;
   margin-top: 0.3%;
-}
-
-.register-container-form-line {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.register-container-form-header-line {
-  display: flex;
-  justify-content: space-between;
 }
 
 .register-container-form-top {
