@@ -30,6 +30,12 @@ export class UpdateRatingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'getting product information.',
+      },
+    ];
     this.search();
   }
 
@@ -48,7 +54,18 @@ export class UpdateRatingComponent implements OnInit {
         rating = this.data[0].rating.low;
       }
 
+      this.msg = [
+        {
+          severity: 'success',
+          summary: 'your product ready to rate',
+        },
+      ];
+
       this.myForm.patchValue({ rating: rating });
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 
