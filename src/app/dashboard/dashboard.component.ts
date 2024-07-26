@@ -57,6 +57,13 @@ export class DashboardComponent {
             icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
           },
           {
+            label: 'Share',
+            icon: 'pi pi-fw pi-share-alt',
+            command: () => {
+              this.share();
+            },
+          },
+          {
             label: 'Quit',
             icon: 'pi pi-fw pi-power-off',
             command: () => {
@@ -216,5 +223,9 @@ export class DashboardComponent {
 
   purchaseReq() {
     this.router.navigate(['dashboard/buyRequest']);
+  }
+
+  share() {
+    this.router.navigate(['dashboard/share']);
   }
 }
