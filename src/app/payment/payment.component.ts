@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError, timeInterval } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -32,6 +32,12 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: `heading to purchasing product`,
+      },
+    ];
     this.view();
   }
 
@@ -39,10 +45,19 @@ export class PaymentComponent implements OnInit {
     let array = [];
     this.Details().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-       (data);
       this.myForm.patchValue(data.data);
       array.push(data.data);
+      this.msg = [
+        {
+          severity: 'success',
+          summary: `purchasing request for ${data.data.ProductName}`,
+        },
+      ];
       this.data = array;
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
     });
   }
 
@@ -51,7 +66,6 @@ export class PaymentComponent implements OnInit {
   }
 
   purchaseProduct(id: any) {
-     (id);
     const userId = localStorage.getItem('id');
     let payload = {
       userId: userId,
@@ -60,7 +74,7 @@ export class PaymentComponent implements OnInit {
 
     this.add(payload).subscribe((ele) => {
       let data = this.decrypt.decrypt(ele.response);
-       (data);
+      data;
 
       if (data.status) {
         this.list();
@@ -70,6 +84,10 @@ export class PaymentComponent implements OnInit {
 
   list() {
     this.router.navigate(['customer-dashboard/purchasedList']);
+  }
+
+  now(input: string) {
+    return btoa(input);
   }
 
   Details(): Observable<any> {

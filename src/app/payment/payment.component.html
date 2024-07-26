@@ -14,7 +14,10 @@
         subheader="{{ item.ProductDescription }}"
       >
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="item.ProductImageBase" />
+          <img
+            alt="Card"
+            [src]="'data:image/jpeg;base64,' + now(item.ProductImageBase)"
+          />
         </ng-template>
         <p>
           Uploaded On: {{ item.createdOn.low * 1000 | date : "medium" }}
@@ -25,7 +28,6 @@
           <br />
           Status: {{ getStatusText(item.IsPurchased) }} <br />
         </p>
-
 
         <div class="card flex justify-content-center">
           <button
@@ -40,4 +42,7 @@
     </ng-container>
     <ng-template #loading>Loading...</ng-template>
   </div>
+</div>
+<div class="loader-container" *ngIf="data.length == 0">
+  <div class="loader"></div>
 </div>
