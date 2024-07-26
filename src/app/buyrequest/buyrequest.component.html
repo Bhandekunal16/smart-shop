@@ -59,9 +59,8 @@
     <div *ngIf="products.length == 0">
       <h1>No data found</h1>
     </div>
-
-    <div class="loader-container" *ngIf="langFlag">
-      <div class="loader"></div>
-    </div>
   </div>
+</div>
+<div class="loader-container" *ngIf="products == undefined">
+  <div class="loader"></div>
 </div>
