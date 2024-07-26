@@ -116,6 +116,13 @@ export class CustomerDashboardComponent implements OnInit {
             label: this.onlineStatus ? 'Online' : 'Offline',
             icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
           },
+          {
+            label: 'Share',
+            icon: 'pi pi-fw pi-share-alt',
+            command: () => {
+              this.share();
+            },
+          },
         ],
       },
       {
@@ -158,5 +165,9 @@ export class CustomerDashboardComponent implements OnInit {
 
   list() {
     this.router.navigate(['customer-dashboard/purchasedList']);
+  }
+
+  share() {
+    this.router.navigate(['customer-dashboard/share']);
   }
 }

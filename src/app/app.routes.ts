@@ -30,6 +30,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { PurchaseListComponent } from './purchase-list/purchase-list.component';
 import { BuyRequestComponent } from './buyrequest/buyrequest.component';
 import { ReceptComponent } from './recipt/recipt.component';
+import { ShareComponent } from './share/share.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -58,6 +59,7 @@ export const routes: Routes = [
         path: 'updateProfile',
         component: UpdateProfileComponent,
       },
+      { path: 'share', component: ShareComponent },
     ],
   },
   {
@@ -88,6 +90,7 @@ export const routes: Routes = [
       { path: 'payment', component: PaymentComponent },
       { path: 'purchasedList', component: PurchaseListComponent },
       { path: 'recept', component: ReceptComponent },
+      { path: 'share', component: ShareComponent },
     ],
   },
 ];
