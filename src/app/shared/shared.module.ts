@@ -6,7 +6,7 @@ import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
 import { MenubarModule } from 'primeng/menubar';
 import { RatingModule } from 'primeng/rating';
@@ -27,6 +27,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ButtonModule,
     TableModule,
     ReactiveFormsModule,
+    FormsModule,
     ChartModule,
     MenubarModule,
     RatingModule,

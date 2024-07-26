@@ -28,6 +28,8 @@
           Price: {{ item.productCost }} ₹
           <br />
           Status: {{ getStatusText(item.IsPurchased) }}
+          <br />
+          Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true"/>
         </p>
         <div class="button-grid" *ngIf="!screen">
           <button

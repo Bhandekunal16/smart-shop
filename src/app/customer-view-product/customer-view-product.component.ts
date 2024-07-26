@@ -72,9 +72,10 @@ export class CustomerViewProductComponent implements OnInit {
       }
 
       const data = array.reduce((acc, arr) => [...acc, ...arr], []);
-      //  (data);
 
       this.data = data;
+
+      console.log(data);
 
       this.msg = [
         {
