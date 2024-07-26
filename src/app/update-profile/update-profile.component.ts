@@ -63,6 +63,7 @@ export class UpdateProfileComponent implements OnInit {
 
   getDetails() {
     const id = localStorage.getItem('id');
+    console.log(this.obj)
 
     this.shopDetails(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
