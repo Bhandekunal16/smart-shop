@@ -98,13 +98,6 @@ export class CustomerDashboardComponent implements OnInit {
         ],
       },
       {
-        label: 'Log-out',
-        icon: 'pi pi-fw pi-power-off',
-        command: () => {
-          this.login();
-        },
-      },
-      {
         label: 'Settings',
         icon: 'pi pi-fw pi-cog',
         items: [
@@ -121,6 +114,13 @@ export class CustomerDashboardComponent implements OnInit {
             icon: 'pi pi-fw pi-share-alt',
             command: () => {
               this.share();
+            },
+          },
+          {
+            label: 'Log-out',
+            icon: 'pi pi-fw pi-power-off',
+            command: () => {
+              this.login();
             },
           },
         ],
