@@ -22,7 +22,7 @@
         <td>{{ product.officialEmail }}</td>
         <td>
           <button
-            *ngIf="!product.isSubscribed"
+            *ngIf="!product.isSubscribed !screen"
             pButton
             pRipple
             label="Subscribe"
@@ -35,8 +35,28 @@
           <button
             pButton
             pRipple
-            *ngIf="product.isSubscribed"
+            *ngIf="product.isSubscribed && !screen"
             label="un-subscribe"
+            class="p-button-success"
+            icon="pi pi-thumbs-down"
+            (click)="unSubscribe(product.id)"
+            [disabled]="!flag"
+          ></button>
+
+          <button
+            *ngIf="!product.isSubscribed && screen"
+            pButton
+            pRipple
+            class="p-button-success"
+            icon="pi pi-check"
+            (click)="subscribe(product.id)"
+            [disabled]="!flag"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            *ngIf="product.isSubscribed && screen"
             class="p-button-success"
             icon="pi pi-thumbs-down"
             (click)="unSubscribe(product.id)"

@@ -24,6 +24,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   Add: any[] = [];
   public msg: Message[] | any;
   public flag: boolean | any;
+  public screen: boolean | undefined;
 
   constructor(
     private http: HttpClient,
@@ -43,6 +44,9 @@ export class CustomerAddSubscriptionComponent implements OnInit {
       },
     ];
     this.search();
+
+    const Screen = window.innerWidth;
+    Screen < 600 ? (this.screen = true) : (this.screen = false);
   }
 
   search() {
