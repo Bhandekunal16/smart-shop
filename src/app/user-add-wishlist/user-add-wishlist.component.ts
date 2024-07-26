@@ -25,7 +25,7 @@ export class UserAddWishlistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.search()
+    this.search();
   }
 
   search() {
@@ -58,7 +58,6 @@ export class UserAddWishlistComponent implements OnInit {
     });
   }
 
-
   view(): void {
     this.router.navigate(['customer-dashboard/userViewWishList']);
   }
@@ -76,7 +75,6 @@ export class UserAddWishlistComponent implements OnInit {
 
     this.Add(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      res;
 
       if (res.status) {
         this.msg = [
@@ -115,7 +113,7 @@ export class UserAddWishlistComponent implements OnInit {
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       if (res.status) {
-        this.search()
+        this.search();
       }
     });
   }
