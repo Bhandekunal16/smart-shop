@@ -75,13 +75,6 @@ export class CustomerDashboardComponent implements OnInit {
               this.list();
             },
           },
-          {
-            label: 'Feedback',
-            icon: 'pi pi-fw pi-comment',
-            command: () => {
-              this.feedback();
-            },
-          },
         ],
       },
       {
@@ -124,6 +117,13 @@ export class CustomerDashboardComponent implements OnInit {
             icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
           },
         ],
+      },
+      {
+        label: 'Feedback',
+        icon: 'pi pi-fw pi-comment',
+        command: () => {
+          this.feedback();
+        },
       },
     ];
   }
