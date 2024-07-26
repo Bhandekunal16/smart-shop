@@ -51,36 +51,11 @@ img {
   background-color: rebeccapurple;
 }
 
-.loader-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10%;
-}
-
-.loader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #34db5e;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .card-image {
-  max-width: 100%; /* Ensures the image does not overflow the container */
-  height: auto; /* Maintains the aspect ratio */
-  display: block; /* Removes the bottom space of the image */
-  border-radius: 8px; /* Optional: Adds rounded corners to the image */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
-  object-fit: cover; /* Ensures the image covers the container */
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
