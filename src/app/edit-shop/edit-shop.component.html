@@ -18,10 +18,6 @@
     ></p-messages>
   </div>
 
-  <h3 *ngIf="!readingFlag" class="typing-animation">
-    Getting your shop details
-  </h3>
-
   <form class="edit-shop-container-form" [formGroup]="myForm">
     <div class="edit-shop-container-form-top">
       <h1>Edit Shop</h1>
@@ -79,4 +75,8 @@
       ></button>
     </div>
   </form>
+</div>
+
+<div class="loader-container" *ngIf="!readingFlag">
+  <div class="loader"></div>
 </div>
