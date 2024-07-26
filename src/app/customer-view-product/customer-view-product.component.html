@@ -57,7 +57,7 @@
             class="p-button-secondary"
             icon="pi pi-receipt"
             (click)="paymentRoute(item.id)"
-            [disabled]="!flag"
+            [disabled]="!flag || item.IsPurchased"
           ></button>
 
           <button
@@ -97,7 +97,7 @@
             class="p-button-secondary"
             icon="pi pi-receipt"
             (click)="paymentRoute(item.id)"
-            [disabled]="!flag"
+            [disabled]="!flag || item.IsPurchased"
           ></button>
 
           <button
