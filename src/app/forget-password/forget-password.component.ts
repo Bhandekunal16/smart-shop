@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 export class ForgetPasswordComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
+  public flag: boolean = true;
 
   constructor(
     private router: Router,
@@ -31,12 +32,20 @@ export class ForgetPasswordComponent {
   }
 
   submitForm() {
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'sending email to your official email address',
+      },
+    ];
     const email: string = this.myForm.value.email;
     // this.settler.emailObj = email;
     localStorage.setItem('email', email);
+    this.flag = false;
 
     this.sendOtp({ email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
+      this.flag = true;
       if (!res.status) {
         this.msg = [
           {
