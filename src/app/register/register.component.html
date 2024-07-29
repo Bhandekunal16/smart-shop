@@ -50,10 +50,10 @@
       <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
         Enter valid Password
       </div>
-      <input
-        type="password"
+      <p-password
         placeholder="Password"
         formControlName="Password"
+        [feedback]="false"
       />
     </div>
 

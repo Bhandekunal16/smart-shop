@@ -18,7 +18,11 @@
       <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
         Enter valid Password
       </div>
-      <input type="text" placeholder="Password" formControlName="Password" />
+      <p-password
+        placeholder="Password"
+        formControlName="Password"
+        [feedback]="false"
+      />
     </div>
     <div class="login-container-form-button">
       <button
