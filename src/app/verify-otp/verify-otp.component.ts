@@ -33,7 +33,7 @@ export class VerifyOtpComponent {
 
   submitForm() {
     const otp: string = this.myForm.value.otp;
-    const email: string = this.settler.emailObj;
+    const email: string | any = localStorage.getItem('email');
 
     this.verifyOtp({ otp, email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);

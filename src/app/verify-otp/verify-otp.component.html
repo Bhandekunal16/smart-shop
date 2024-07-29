@@ -17,7 +17,7 @@
       <div *ngIf="myForm.get('otp')?.errors?.['pattern']" class="error">
         Enter valid OTP
       </div>
-      <input type="text" placeholder="Enter OTP" formControlName="otp" />
+      <p-inputOtp placeholder="Enter OTP" formControlName="otp" />
     </div>
     <div class="verifyOtp-container-form-button">
       <button

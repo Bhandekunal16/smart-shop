@@ -32,7 +32,8 @@ export class ForgetPasswordComponent {
 
   submitForm() {
     const email: string = this.myForm.value.email;
-    this.settler.emailObj = email;
+    // this.settler.emailObj = email;
+    localStorage.setItem('email', email);
 
     this.sendOtp({ email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);

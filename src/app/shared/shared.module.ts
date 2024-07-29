@@ -15,6 +15,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @NgModule({
   declarations: [],
@@ -37,6 +38,7 @@ import { PasswordModule } from 'primeng/password';
     InputNumberModule,
     InputTextModule,
     PasswordModule,
+    InputOtpModule,
   ],
 })
 export class SharedModule {}
