@@ -38,41 +38,12 @@ export class DashboardComponent {
   updateMenuItems(status: boolean) {
     this.items = [
       {
-        label: 'Settings',
-        icon: 'pi pi-fw pi-cog',
-        items: [
-          {
-            label: 'Profile',
-            icon: 'pi pi-fw pi-user',
-            command: () => {
-              this.update();
-            },
-          },
-          {
-            label: status ? 'Account Enabled' : 'Account Disabled',
-            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
-          },
-          {
-            label: this.onlineStatus ? 'Online' : 'Offline',
-            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
-          },
-          {
-            label: 'Share',
-            icon: 'pi pi-fw pi-share-alt',
-            command: () => {
-              this.share();
-            },
-          },
-          {
-            label: 'Quit',
-            icon: 'pi pi-fw pi-power-off',
-            command: () => {
-              this.login();
-            },
-          },
-        ],
+        label: 'Dashboard',
+        icon: 'pi pi-fw pi-building-columns',
+        command: () => {
+          this.initial();
+        },
       },
-
       {
         label: 'Shop',
         icon: 'pi pi-fw pi-shop',
@@ -152,18 +123,46 @@ export class DashboardComponent {
       },
 
       {
-        label: 'Dashboard',
-        icon: 'pi pi-fw pi-building-columns',
-        command: () => {
-          this.initial();
-        },
-      },
-      {
         label: 'Feedback',
         icon: 'pi pi-fw pi-comment',
         command: () => {
           this.Feedback();
         },
+      },
+      {
+        label: 'Settings',
+        icon: 'pi pi-fw pi-cog',
+        items: [
+          {
+            label: 'Profile',
+            icon: 'pi pi-fw pi-user',
+            command: () => {
+              this.update();
+            },
+          },
+          {
+            label: status ? 'Account Enabled' : 'Account Disabled',
+            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+          },
+          {
+            label: this.onlineStatus ? 'Online' : 'Offline',
+            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
+          },
+          {
+            label: 'Share',
+            icon: 'pi pi-fw pi-share-alt',
+            command: () => {
+              this.share();
+            },
+          },
+          {
+            label: 'Quit',
+            icon: 'pi pi-fw pi-power-off',
+            command: () => {
+              this.login();
+            },
+          },
+        ],
       },
     ];
   }
