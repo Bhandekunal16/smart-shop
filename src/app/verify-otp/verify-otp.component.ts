@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 export class VerifyOtpComponent {
   public msg: Message[] | any;
   public myForm: FormGroup;
+  public flag: boolean = true;
 
   constructor(
     private router: Router,
@@ -34,9 +35,18 @@ export class VerifyOtpComponent {
   submitForm() {
     const otp: string = this.myForm.value.otp;
     const email: string | any = localStorage.getItem('email');
+    this.flag = false;
+
+    this.msg = [
+      {
+        severity: 'info',
+        summary: 'checking otp!',
+      },
+    ];
 
     this.verifyOtp({ otp, email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
+      this.flag = true;
       if (res.status) {
         this.msg = [
           {
