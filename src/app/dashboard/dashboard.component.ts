@@ -66,27 +66,6 @@ export class DashboardComponent {
         ],
       },
       {
-        label: 'Users',
-        icon: 'pi pi-fw pi-user',
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-user-plus',
-            command: () => {
-              this.addUser();
-            },
-          },
-
-          {
-            label: 'customer-list',
-            icon: 'pi pi-fw pi-list',
-            command: () => {
-              this.ViewUser();
-            },
-          },
-        ],
-      },
-      {
         label: 'Product',
         icon: 'pi pi-fw pi-calendar',
         items: [
@@ -117,6 +96,27 @@ export class DashboardComponent {
             icon: 'pi pi-fw pi-indian-rupee',
             command: () => {
               this.purchaseReq();
+            },
+          },
+        ],
+      },
+      {
+        label: 'Users',
+        icon: 'pi pi-fw pi-user',
+        items: [
+          {
+            label: 'New',
+            icon: 'pi pi-fw pi-user-plus',
+            command: () => {
+              this.addUser();
+            },
+          },
+
+          {
+            label: 'customer-list',
+            icon: 'pi pi-fw pi-list',
+            command: () => {
+              this.ViewUser();
             },
           },
         ],
