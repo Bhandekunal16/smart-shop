@@ -18,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
 export class ConformPasswordComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
+  public flag: any = true;
 
   constructor(
     private router: Router,
@@ -36,13 +37,23 @@ export class ConformPasswordComponent {
   }
 
   submitForm() {
+    this.flag = false;
     const password: string = this.myForm.value.Password;
-    const email: string = this.settler.emailObj;
+    const email: any = localStorage.getItem('email');
 
     this.conformPassword({ password, email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
 
+      this.flag = true;
+
       const id = localStorage.setItem('id', res.data.id);
+
+      this.msg = [
+        {
+          severity: 'info',
+          summary: 'Conforming the password...',
+        },
+      ];
 
       if (res.status) {
         this.msg = [
