@@ -16,6 +16,7 @@ import { SharedModule } from '../shared/shared.module';
 })
 export class RegisterComponent implements OnInit {
   public myForm: FormGroup | any;
+  public flag: boolean = true;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
@@ -63,6 +64,8 @@ export class RegisterComponent implements OnInit {
     const userType: string = this.myForm.value.userType;
     const profileImage = this.selectedImage;
 
+    this.flag = false;
+
     this.register({
       firstName,
       lastName,
@@ -80,6 +83,8 @@ export class RegisterComponent implements OnInit {
             detail: 'register successfully !',
           },
         ];
+
+        this.flag = data.status;
 
         data.data.userType == 'MERCHANT'
           ? this.dashboard()
