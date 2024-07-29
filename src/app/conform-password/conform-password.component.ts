@@ -43,10 +43,9 @@ export class ConformPasswordComponent {
 
     this.conformPassword({ password, email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
-
       this.flag = true;
 
-      const id = localStorage.setItem('id', res.data.id);
+      localStorage.setItem('id', res.data.id);
 
       this.msg = [
         {
