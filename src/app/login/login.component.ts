@@ -17,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
 export class LoginComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
+  public flag: boolean = true;
 
   constructor(
     private router: Router,
@@ -38,6 +39,8 @@ export class LoginComponent {
     const username: string = this.myForm.value.Username;
     const password: string = this.myForm.value.Password;
 
+    this.flag = false;
+
     this.login({ username, password }).subscribe((data) => {
       if (data.status) {
         this.msg = [
@@ -51,6 +54,7 @@ export class LoginComponent {
         const id = data.data.id;
         localStorage.setItem('id', id);
         localStorage.setItem('status', data.data.status);
+        this.flag = true;
 
         if (data.data.userType == 'MERCHANT') {
           this.dashboard();
