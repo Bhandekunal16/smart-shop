@@ -133,10 +133,18 @@ export class UpdateProfileComponent implements OnInit {
 
   async onImageSelected(event: any) {
     const file = event.target.files[0];
+    const maxSize = 2 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      alert('File size exceeds 2MB limit.');
+      event.target.value = '';
+      return;
+    }
+
     try {
       this.selectedImage = await this.convertToWebPAndBinaryString(file);
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error('Error processing image:', error);
     }
   }
 
