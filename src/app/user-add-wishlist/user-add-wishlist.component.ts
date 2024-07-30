@@ -63,7 +63,7 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   now(input: string) {
-    return `data:image/jpeg;base64,${btoa(input)}`;
+    return `data:image/webp;base64,${btoa(input)}`;
   }
 
   setCurrentObjectId(id: string) {

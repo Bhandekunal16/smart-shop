@@ -82,7 +82,7 @@ export class ViewProductComponent implements OnInit {
   }
 
   now(input: string) {
-    return `data:image/jpeg;base64,${btoa(input)}`;
+    return `data:image/webp;base64,${btoa(input)}`;
   }
 
   shopDetails(): Observable<any> {

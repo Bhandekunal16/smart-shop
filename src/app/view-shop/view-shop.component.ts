@@ -54,7 +54,7 @@ export class ViewShopComponent implements OnInit {
         this.shopAddress = res.data.address;
         this.mobileNumber = res.data.officialContactNo;
         this.email = res.data.officialEmail;
-        this.logo = `data:image/jpeg;base64,${btoa(res.data.logo)}`;
+        this.logo = `data:image/webp;base64,${btoa(res.data.logo)}`;
 
         res.data.disable == false
           ? (this.status = 'Active')
