@@ -1,7 +1,15 @@
 .dashboard-container {
-    position: relative;
-    width: 100%;
-    height: fit-content;
-    background-color: #f5f5f5;
-    color: #1e5d4a;
-  }
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  background-color: #f5f5f5;
+  color: #1e5d4a;
+}
+
+.offline {
+  color: red;
+}
+
+.online {
+  color: green;
+}

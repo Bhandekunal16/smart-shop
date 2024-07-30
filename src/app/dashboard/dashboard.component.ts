@@ -130,8 +130,7 @@ export class DashboardComponent {
         },
       },
       {
-        label: 'Settings',
-        icon: 'pi pi-fw pi-cog',
+        label: `${localStorage.getItem('username')}`,
         items: [
           {
             label: 'Profile',
@@ -143,10 +142,14 @@ export class DashboardComponent {
           {
             label: status ? 'Account Enabled' : 'Account Disabled',
             icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+            iconStyle: status ? { color: 'green' } : { color: 'red' },
           },
           {
             label: this.onlineStatus ? 'Online' : 'Offline',
             icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
+            iconStyle: this.onlineStatus
+              ? { color: 'green' }
+              : { color: 'red' },
           },
           {
             label: 'Share',
