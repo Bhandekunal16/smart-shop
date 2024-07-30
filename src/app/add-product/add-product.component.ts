@@ -103,23 +103,6 @@ export class AddProductComponent {
       reader.onerror = (error) => reject(error);
     });
   }
-  // uploadFile(event: any): Promise<string | null> {
-  //   return new Promise((resolve, reject) => {
-  //     let reader = new FileReader();
-  //     let file = event;
-  //     if (event) {
-  //       reader.readAsDataURL(file);
-  //       reader.onload = () => {
-  //         this.getBase64(file)
-  //           .then((res: any) => resolve(res))
-  //           .catch((err) => reject(err));
-  //       };
-  //       reader.onerror = (error) => reject(error);
-  //     } else {
-  //       resolve(null);
-  //     }
-  //   });
-  // }
 
   submitForm() {
     const ProductName = this.myForm.value.ProductName;
