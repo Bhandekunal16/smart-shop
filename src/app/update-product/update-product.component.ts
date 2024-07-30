@@ -92,36 +92,55 @@ export class UpdateProductComponent {
   async onImageSelected(event: any) {
     const file = event.target.files[0];
     try {
-      this.selectedImage = await this.uploadFile(file);
+      this.selectedImage = await this.convertToWebPAndBinaryString(file);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
   }
 
-  getBase64(file: any) {
+  convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
-      let reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  }
 
-  uploadFile(event: any): Promise<string | null> {
-    return new Promise((resolve, reject) => {
-      let reader = new FileReader();
-      let file = event;
-      if (event) {
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          this.getBase64(file)
-            .then((res: any) => resolve(res))
-            .catch((err) => reject(err));
+      reader.onload = () => {
+        const img = new Image();
+        img.src = reader.result as string;
+
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+
+          if (ctx) {
+            ctx.drawImage(img, 0, 0);
+            canvas.toBlob(
+              (blob) => {
+                if (blob) {
+                  const arrayReader = new FileReader();
+                  arrayReader.readAsBinaryString(blob);
+                  arrayReader.onload = () => {
+                    const binaryString = arrayReader.result as string;
+                    resolve(binaryString);
+                  };
+                  arrayReader.onerror = (error) => reject(error);
+                } else {
+                  reject(new Error('Conversion to WebP failed'));
+                }
+              },
+              'image/webp',
+              0.8 // Quality factor for WebP format
+            );
+          } else {
+            reject(new Error('Canvas context is not supported'));
+          }
         };
-        reader.onerror = (error) => reject(error);
-      } else {
-        resolve(null);
-      }
+
+        img.onerror = (error) => reject(error);
+      };
+
+      reader.onerror = (error) => reject(error);
     });
   }
 

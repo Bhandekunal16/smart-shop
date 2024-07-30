@@ -152,7 +152,7 @@ export class AddProductComponent {
     });
 
     return this.http
-      .post<any>('http://localhost:3003/product/create', body, {
+      .post<any>('https://smart-shop-api-eta.vercel.app/product/create', body, {
         headers,
       })
       .pipe(
