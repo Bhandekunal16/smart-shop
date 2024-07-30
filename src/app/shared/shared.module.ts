@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
 import { InputOtpModule } from 'primeng/inputotp';
+import { ChipModule } from 'primeng/chip';
 
 @NgModule({
   declarations: [],
@@ -32,6 +33,7 @@ import { InputOtpModule } from 'primeng/inputotp';
     FormsModule,
     ChartModule,
     MenubarModule,
+    ChipModule,
     RatingModule,
     ToastModule,
     FloatLabelModule,
