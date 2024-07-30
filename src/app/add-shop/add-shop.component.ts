@@ -19,6 +19,7 @@ export class AddShopComponent {
   public msg: Message[] | any;
   public selectedImage: File | any = null;
   public flag: boolean = true;
+  public sending: boolean = true;
 
   constructor(
     private http: HttpClient,
@@ -61,6 +62,7 @@ export class AddShopComponent {
     const panNo = this.myForm.value.panNo;
     const pinCode = this.myForm.value.pinCode;
     const logo = this.selectedImage;
+    this.sending = false;
 
     const body = {
       logo,
@@ -76,6 +78,7 @@ export class AddShopComponent {
 
     this.create(body).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
+      this.sending = true;
       if (res.status) {
         this.msg = [
           {
