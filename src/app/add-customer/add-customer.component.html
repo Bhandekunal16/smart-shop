@@ -9,7 +9,11 @@
         [enableService]="false"
       ></p-messages>
     </div>
-    <p-table [value]="products" class="custom-table">
+    <p-table
+      [value]="products"
+      class="custom-table"
+      styleClass="p-datatable-gridlines"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>First Name</th>
