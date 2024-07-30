@@ -11,7 +11,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #f0f0f0;
-  width: 40vw;
+  width: 30vw;
   height: 62vh;
   border: solid #ffffff 0.2px;
   border-radius: 8px;
@@ -40,8 +40,8 @@
 
 .login-container-form-input input {
   margin-top: 2%;
-  height: 5vh;
-  width: 33vw;
+  // height: 5vh;
+  // width: 33vw;
   border-radius: 5px;
   border: solid #f0f0f0 0.2px;
 }
@@ -74,7 +74,7 @@
 
 
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .login-container-form {
     width: 80vw;
     height: 50vh;

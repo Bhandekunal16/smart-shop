@@ -9,8 +9,8 @@
 
   <div>
     <p>
-      * If you don't have a account for this number / email - you can
-      create one.
+      * If you don't have a account for this number / email - you can create
+      one.
     </p>
   </div>
 
@@ -20,7 +20,14 @@
     </div>
     <div class="login-container-form-input">
       <label>Username </label>
-      <input type="text" placeholder="username" formControlName="Username" />
+      <!-- <input type="text" placeholder="username" formControlName="Username" /> -->
+      <input
+        type="text"
+        pInputText
+        placeholder="username"
+        formControlName="Username"
+      />
+
       <label>Password </label>
       <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
         Enter valid Password
