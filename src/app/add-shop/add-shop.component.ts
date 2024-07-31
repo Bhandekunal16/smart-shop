@@ -103,7 +103,7 @@ export class AddShopComponent {
 
  async onImageSelected(event: any) {
   const file = event.target.files[0];
-  const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+  const maxSize = 1 * 1024 * 1024; // 2MB in bytes
 
   if (file.size > maxSize) {
     alert('File size exceeds 2MB limit.');
