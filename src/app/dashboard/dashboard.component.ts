@@ -130,6 +130,13 @@ export class DashboardComponent {
         },
       },
       {
+        label: 'Feed',
+        icon: 'pi pi-fw pi-cart-arrow-down',
+        command: () => {
+          this.feed();
+        },
+      },
+      {
         label: `${localStorage.getItem('username')}`,
         items: [
           {
@@ -229,5 +236,9 @@ export class DashboardComponent {
 
   share() {
     this.router.navigate(['dashboard/share']);
+  }
+
+  feed() {
+    this.router.navigate(['dashboard/feed']);
   }
 }

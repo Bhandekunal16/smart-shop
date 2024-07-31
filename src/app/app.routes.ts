@@ -60,6 +60,12 @@ export const routes: Routes = [
         component: UpdateProfileComponent,
       },
       { path: 'share', component: ShareComponent },
+      { path: 'feed', component: CustomerViewProductComponent },
+      { path: 'updateRating', component: UpdateRatingComponent },
+      { path: 'userAddWishList', component: UserAddWishlistComponent },
+      { path: 'userViewWishList', component: UserViewWishlistComponent },
+      { path: 'payment', component: PaymentComponent },
+      { path: 'purchasedList', component: PurchaseListComponent },
     ],
   },
   {

@@ -86,6 +86,7 @@ export class RegisterComponent implements OnInit {
 
         this.flag = data.status;
         localStorage.setItem('id', data.data.id);
+        localStorage.setItem('type', data.data.userType);
 
         data.data.userType == 'MERCHANT'
           ? this.dashboard()

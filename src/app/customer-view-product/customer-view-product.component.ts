@@ -107,19 +107,18 @@ export class CustomerViewProductComponent implements OnInit {
     this.router.navigate(['customer-dashboard/userViewWishList']);
   }
 
+  paymentRoute(id: string) {
+    localStorage.setItem('currentObjectId', id);
+    this.router.navigate(['customer-dashboard/payment']);
+  }
+
   setCurrentObjectId(id: string) {
-    id;
     localStorage.setItem('currentObjectId', id);
     this.edit();
   }
 
   getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
-  }
-
-  paymentRoute(id: string) {
-    localStorage.setItem('currentObjectId', id);
-    this.router.navigate(['customer-dashboard/payment']);
   }
 
   remove(id: any) {
