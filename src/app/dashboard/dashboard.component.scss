@@ -13,3 +13,9 @@
 .online {
   color: green;
 }
+
+::ng-deep .menu .p-menuitem :hover {
+  background-color: #fff !important;
+  border-radius: 6px;
+  color: darkgreen;
+}
