@@ -4,7 +4,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
-import { setInterval } from 'timers/promises';
 
 @Component({
   selector: 'app-view-shop',
