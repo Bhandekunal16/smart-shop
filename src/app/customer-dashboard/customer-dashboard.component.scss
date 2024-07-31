@@ -5,3 +5,9 @@
   background-color: transparent;
   color: #1e5d4a;
 }
+
+::ng-deep .menu .p-menuitem :hover {
+  background-color: #fff !important;
+  border-radius: 6px;
+  color: darkgreen;
+}
