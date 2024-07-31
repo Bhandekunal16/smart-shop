@@ -92,6 +92,13 @@ export class DashboardComponent {
             },
           },
           {
+            label: 'feed',
+            icon: 'pi pi-fw pi-comment',
+            command: () => {
+              this.feed();
+            },
+          },
+          {
             label: 'Buy request',
             icon: 'pi pi-fw pi-indian-rupee',
             command: () => {
@@ -229,5 +236,9 @@ export class DashboardComponent {
 
   share(): void {
     this.router.navigate(['dashboard/share']);
+  }
+
+  feed(): void {
+    this.router.navigate(['dashboard/feed']);
   }
 }

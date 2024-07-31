@@ -31,6 +31,7 @@ import { PurchaseListComponent } from './purchase-list/purchase-list.component';
 import { BuyRequestComponent } from './buyrequest/buyrequest.component';
 import { ReceptComponent } from './recipt/recipt.component';
 import { ShareComponent } from './share/share.component';
+import { FeedComponent } from './feed/feed.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -60,6 +61,7 @@ export const routes: Routes = [
         component: UpdateProfileComponent,
       },
       { path: 'share', component: ShareComponent },
+      { path: 'feed', component: FeedComponent },
     ],
   },
   {
