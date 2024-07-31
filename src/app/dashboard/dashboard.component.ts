@@ -211,23 +211,23 @@ export class DashboardComponent {
     this.router.navigate(['dashboard/editProduct']);
   }
 
-  initial() {
+  initial(): void {
     this.router.navigate(['dashboard']);
   }
 
-  update() {
+  update(): void {
     this.router.navigate(['dashboard/updateProfile']);
   }
 
-  ViewUser() {
+  ViewUser(): void {
     this.router.navigate(['dashboard/userList']);
   }
 
-  purchaseReq() {
+  purchaseReq(): void {
     this.router.navigate(['dashboard/buyRequest']);
   }
 
-  share() {
+  share(): void {
     this.router.navigate(['dashboard/share']);
   }
 }
