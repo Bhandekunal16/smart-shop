@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-chart-product',
@@ -18,6 +19,8 @@ export class ChartProductComponent implements OnInit {
   public Name: any[] = [];
   public Value: any[] = [];
   public array: any[] = [];
+  public flag: boolean = false;
+  public msg: Message[] | any;
 
   constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
@@ -29,11 +32,40 @@ export class ChartProductComponent implements OnInit {
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
+    this.flag = false;
+
     this.shopDetails().subscribe(
       (ele) => {
         const res = this.decrypt.decrypt(ele.response);
         this.array = res.data;
-         (this.array);
+
+        this.flag = true;
+
+        this.msg = [
+          {
+            severity: 'info',
+            summary: 'searching products for you !',
+          },
+        ];
+
+        console.log(res);
+
+        res.response == null
+          ? (this.msg = [
+              {
+                severity: 'warn',
+                summary: 'No Data',
+                detail:
+                  'you currently not have any product, create shop & add some product',
+              },
+            ])
+          : [
+              {
+                severity: 'success',
+                summary: 'product found at your shop',
+              },
+            ];
+
         let value = [];
         let name = [];
         for (let index = 0; index < this.array.length; index++) {
