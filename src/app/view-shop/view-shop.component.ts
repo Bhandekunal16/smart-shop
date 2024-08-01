@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-shop',
@@ -13,7 +14,11 @@ import { SharedModule } from '../shared/shared.module';
   styleUrl: './view-shop.component.scss',
 })
 export class ViewShopComponent implements OnInit {
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(
+    private http: HttpClient,
+    private decrypt: DecryptService,
+    private router: Router
+  ) {}
 
   public shopName: string | undefined;
   public shopAddress: string | undefined;
@@ -22,8 +27,10 @@ export class ViewShopComponent implements OnInit {
   public status: string | undefined;
   public logo: string | undefined;
   public msg: Message[] | any;
+  public flag: boolean = true;
 
   ngOnInit(): void {
+    this.flag = false;
     this.details();
   }
 
@@ -42,12 +49,14 @@ export class ViewShopComponent implements OnInit {
 
         this.msg = [
           {
-            severity: res.status ? 'success' : 'error',
+            severity: res.status ? 'success' : 'warn',
             detail: res.status
               ? `Great news! We found the data for ${res.data.shopName}`
               : `Oops! Something went wrong with the data fetch`,
           },
         ];
+
+        this.flag = true;
 
         this.shopName = res.data.shopName;
         this.shopAddress = res.data.address;
@@ -70,6 +79,10 @@ export class ViewShopComponent implements OnInit {
 
   now(input: string) {
     return btoa(input);
+  }
+
+  addShop(): void {
+    this.router.navigate(['dashboard/addShop']);
   }
 
   shopDetails(body: any): Observable<any> {

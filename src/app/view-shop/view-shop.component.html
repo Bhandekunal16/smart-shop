@@ -6,7 +6,7 @@
       [enableService]="false"
     ></p-messages>
   </div>
-  
+
   <div class="view-shop-container" *ngIf="email != undefined">
     <div class="shopDetailsLogo">
       <p-image src="{{ logo }}" alt="Image" width="250"></p-image>
@@ -19,11 +19,32 @@
       <p>Shop Status : {{ status }}</p>
     </p-card>
   </div>
-  
-  <div class="loader-container" *ngIf="email == undefined">
-    <div class="loader"></div>
+
+  <div *ngIf="email == undefined">
+    <p>
+      Add Shop First to Proceed To continue with the next steps, please ensure
+      that you add a shop first. This is a crucial step in setting up your
+      account and accessing all the features of CyborgCart. Once your shop is
+      added, you can proceed with the following processes seamlessly. Add Shop:
+      Create your shop by providing the necessary details. Customize Shop:
+      Personalize your shop settings and appearance. Start Selling: Begin
+      listing your products and start selling. Adding a shop is the first step
+      to unlocking the full potential of CyborgCart. Let’s get started!
+    </p>
+    <div class="view-shop-container-button">
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Add Shop"
+        class="p-button-success"
+        icon="pi pi-plus"
+        (click)="addShop()"
+      ></button>
+    </div>
   </div>
 
+  <div class="loader-container" *ngIf="!flag">
+    <div class="loader"></div>
+  </div>
 </div>
-
-
