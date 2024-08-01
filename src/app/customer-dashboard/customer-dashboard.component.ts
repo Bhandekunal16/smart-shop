@@ -38,7 +38,7 @@ export class CustomerDashboardComponent implements OnInit {
   updateMenuItems(status: boolean) {
     this.items = [
       {
-        label: 'Profile',
+        label: `${localStorage.getItem('username')}`,
         icon: 'pi pi-fw pi-user',
         items: [
           {
@@ -46,6 +46,33 @@ export class CustomerDashboardComponent implements OnInit {
             icon: 'pi pi-fw pi-eye',
             command: () => {
               this.profile();
+            },
+          },
+
+          {
+            label: status ? 'Account Enabled' : 'Account Disabled',
+            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+            iconStyle: status ? { color: 'green' } : { color: 'red' },
+          },
+          {
+            label: this.onlineStatus ? 'Online' : 'Offline',
+            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
+            iconStyle: this.onlineStatus
+              ? { color: 'green' }
+              : { color: 'red' },
+          },
+          {
+            label: 'Share',
+            icon: 'pi pi-fw pi-share-alt',
+            command: () => {
+              this.share();
+            },
+          },
+          {
+            label: 'Log-out',
+            icon: 'pi pi-fw pi-power-off',
+            command: () => {
+              this.login();
             },
           },
         ],
@@ -93,38 +120,6 @@ export class CustomerDashboardComponent implements OnInit {
             icon: 'pi pi-fw pi-plus',
             command: () => {
               this.addSubscription();
-            },
-          },
-        ],
-      },
-      {
-        label: 'Settings',
-        icon: 'pi pi-fw pi-cog',
-        items: [
-          {
-            label: status ? 'Account Enabled' : 'Account Disabled',
-            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
-            iconStyle: status ? { color: 'green' } : { color: 'red' },
-          },
-          {
-            label: this.onlineStatus ? 'Online' : 'Offline',
-            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
-            iconStyle: this.onlineStatus
-              ? { color: 'green' }
-              : { color: 'red' },
-          },
-          {
-            label: 'Share',
-            icon: 'pi pi-fw pi-share-alt',
-            command: () => {
-              this.share();
-            },
-          },
-          {
-            label: 'Log-out',
-            icon: 'pi pi-fw pi-power-off',
-            command: () => {
-              this.login();
             },
           },
         ],

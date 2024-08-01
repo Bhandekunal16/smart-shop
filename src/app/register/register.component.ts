@@ -87,6 +87,11 @@ export class RegisterComponent implements OnInit {
         this.flag = data.status;
         localStorage.setItem('id', data.data.id);
         localStorage.setItem('type', data.data.userType);
+        localStorage.setItem('status', data.data.status);
+        localStorage.setItem(
+          'username',
+          `${data.data.firstName} ${data.data.lastName}`
+        );
 
         data.data.userType == 'MERCHANT'
           ? this.dashboard()
@@ -107,7 +112,7 @@ export class RegisterComponent implements OnInit {
     const file = event.target.files[0];
     const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
-     if (file.size > maxSize) {
+    if (file.size > maxSize) {
       this.msg = [
         {
           severity: 'warn',
@@ -116,8 +121,6 @@ export class RegisterComponent implements OnInit {
         },
       ];
       event.target.value = ''; // Clear the input
-
-   
 
       return;
     }
