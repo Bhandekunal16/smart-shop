@@ -93,6 +93,7 @@ export const routes: Routes = [
       { path: 'purchasedList', component: PurchaseListComponent },
       { path: 'recept', component: ReceptComponent },
       { path: 'share', component: ShareComponent },
+      { path: 'viewShop', component: ViewShopComponent },
     ],
   },
 ];

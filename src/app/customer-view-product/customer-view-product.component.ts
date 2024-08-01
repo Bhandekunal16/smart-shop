@@ -90,6 +90,11 @@ export class CustomerViewProductComponent implements OnInit {
     });
   }
 
+  onViewShop(id: any) {
+    localStorage.setItem('viewShopId', id);
+    this.viewShop();
+  }
+
   now(input: string) {
     return btoa(input);
   }
@@ -105,6 +110,10 @@ export class CustomerViewProductComponent implements OnInit {
 
   view(): void {
     this.router.navigate(['customer-dashboard/userViewWishList']);
+  }
+
+  viewShop(): void {
+    this.router.navigate(['customer-dashboard/viewShop']);
   }
 
   paymentRoute(id: string) {

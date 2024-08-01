@@ -29,8 +29,9 @@
           <br />
           Status: {{ getStatusText(item.IsPurchased) }}
           <br />
-          Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true"/>
+          Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
         </p>
+        <h3 (click)="onViewShop(item.ownerId)">Seller : {{ item.shopName }}</h3>
         <div class="button-grid" *ngIf="!screen">
           <button
             pButton

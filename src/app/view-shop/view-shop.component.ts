@@ -36,42 +36,82 @@ export class ViewShopComponent implements OnInit {
 
   details() {
     try {
-      const id = localStorage.getItem('id');
-      this.msg = [
-        {
-          severity: 'success',
-          detail: 'Gathering shop information, please wait...',
-        },
-      ];
-
-      this.shopDetails({ id }).subscribe((ele) => {
-        const res = this.decrypt.decrypt(ele.response);
+      if (localStorage.getItem('type') == 'MERCHANT') {
+        const id = localStorage.getItem('id');
 
         this.msg = [
           {
-            severity: res.status ? 'success' : 'warn',
-            detail: res.status
-              ? `Great news! We found the data for ${res.data.shopName}`
-              : `Oops! Something went wrong with the data fetch`,
+            severity: 'success',
+            detail: 'Gathering shop information, please wait...',
           },
         ];
 
-        this.flag = true;
+        this.shopDetails({ id }).subscribe((ele) => {
+          const res = this.decrypt.decrypt(ele.response);
 
-        this.shopName = res.data.shopName;
-        this.shopAddress = res.data.address;
-        this.mobileNumber = res.data.officialContactNo;
-        this.email = res.data.officialEmail;
-        this.logo = `data:image/webp;base64,${btoa(res.data.logo)}`;
+          this.msg = [
+            {
+              severity: res.status ? 'success' : 'warn',
+              detail: res.status
+                ? `Great news! We found the data for ${res.data.shopName}`
+                : `Oops! Something went wrong with the data fetch`,
+            },
+          ];
 
-        res.data.disable == false || res.data.disable == null
-          ? (this.status = 'Active')
-          : (this.status = 'Deactivated');
+          this.flag = true;
 
-        setTimeout(() => {
-          this.msg = [];
-        }, 1000);
-      });
+          this.shopName = res.data.shopName;
+          this.shopAddress = res.data.address;
+          this.mobileNumber = res.data.officialContactNo;
+          this.email = res.data.officialEmail;
+          this.logo = `data:image/webp;base64,${btoa(res.data.logo)}`;
+
+          res.data.disable == false || res.data.disable == null
+            ? (this.status = 'Active')
+            : (this.status = 'Deactivated');
+
+          setTimeout(() => {
+            this.msg = [];
+          }, 1000);
+        });
+      } else {
+        const id = localStorage.getItem('viewShopId');
+        this.msg = [
+          {
+            severity: 'success',
+            detail: 'Gathering shop information, please wait...',
+          },
+        ];
+
+        this.shopDetailsNext(id).subscribe((ele) => {
+          const res = this.decrypt.decrypt(ele.response);
+
+          this.msg = [
+            {
+              severity: res.status ? 'success' : 'warn',
+              detail: res.status
+                ? `Great news! We found the data for ${res.data.shopName}`
+                : `Oops! Something went wrong with the data fetch`,
+            },
+          ];
+
+          this.flag = true;
+
+          this.shopName = res.data.shopName;
+          this.shopAddress = res.data.address;
+          this.mobileNumber = res.data.officialContactNo;
+          this.email = res.data.officialEmail;
+          this.logo = `data:image/webp;base64,${btoa(res.data.logo)}`;
+
+          res.data.disable == false || res.data.disable == null
+            ? (this.status = 'Active')
+            : (this.status = 'Deactivated');
+
+          setTimeout(() => {
+            this.msg = [];
+          }, 1000);
+        });
+      }
     } catch (error) {
       console.error(`localhost error please ignore`);
     }
@@ -94,6 +134,23 @@ export class ViewShopComponent implements OnInit {
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
         headers,
       })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  shopDetailsNext(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
