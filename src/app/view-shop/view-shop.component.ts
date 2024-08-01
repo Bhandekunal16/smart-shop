@@ -58,8 +58,6 @@ export class ViewShopComponent implements OnInit {
 
         this.flag = true;
 
-        console.log(res.data);
-
         this.shopName = res.data.shopName;
         this.shopAddress = res.data.address;
         this.mobileNumber = res.data.officialContactNo;

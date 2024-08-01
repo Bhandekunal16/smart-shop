@@ -101,23 +101,30 @@ export class EditProductComponent {
     }
   }
 
- async onImageSelected(event: any) {
-  const file = event.target.files[0];
-  const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+  async onImageSelected(event: any) {
+    const file = event.target.files[0];
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
-  if (file.size > maxSize) {
-    alert('File size exceeds 2MB limit.');
-    event.target.value = ''; // Clear the input
-    return;
+    if (file.size > maxSize) {
+      
+      this.msg = [
+        {
+          severity: 'warn',
+          summary: 'warn',
+          detail: 'File size exceeds 2MB limit.',
+        },
+      ];
+      event.target.value = ''; // Clear the input
+      this.msg = [];
+      return;
+    }
+
+    try {
+      this.selectedImage = await this.convertToWebPAndBinaryString(file);
+    } catch (error) {
+      console.error('Error processing image:', error);
+    }
   }
-
-  try {
-    this.selectedImage = await this.convertToWebPAndBinaryString(file);
-  } catch (error) {
-    console.error('Error processing image:', error);
-  }
-}
-
 
   convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {

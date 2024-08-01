@@ -136,8 +136,16 @@ export class UpdateProfileComponent implements OnInit {
     const maxSize = 2 * 1024 * 1024;
 
     if (file.size > maxSize) {
-      alert('File size exceeds 2MB limit.');
+      
+      this.msg = [
+        {
+          severity: 'warn',
+          summary: 'warn',
+          detail: 'File size exceeds 2MB limit.',
+        },
+      ];
       event.target.value = '';
+      this.msg = [];
       return;
     }
 
