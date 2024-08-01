@@ -42,26 +42,6 @@ img {
   width: 50vw;
 }
 
-@media (max-width: 600px) {
-  p-card {
-    width: 95vw;
-    display: flex;
-    flex-direction: column;
-  }
-
-  img {
-    width: 95vw;
-    height: 40vh;
-    object-fit: cover;
-  }
-
-  .button-grid {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-  }
-}
-
 .view-product-card-data {
   background-color: rebeccapurple;
 }
@@ -90,4 +70,28 @@ img {
 
 select {
   background-color: transparent;
+}
+
+@media (max-width: 600px) {
+  p-card {
+    width: 95vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  img {
+    width: 95vw;
+    height: 40vh;
+    object-fit: cover;
+  }
+
+  .button-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .add-product-container-form {
+    width: 95vw;
+  }
 }
