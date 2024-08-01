@@ -44,7 +44,7 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
-  public edit(id: any) {
+  public edit(id: string): void {
     this.Subscribe(id).subscribe((ele) => {
       const data: any = this.decrypt.decrypt(ele.response);
 
@@ -64,7 +64,7 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
-  public unsubscribe(id: any) {
+  public unsubscribe(id: string): void {
     this.customerUnsubscribed(id).subscribe((ele) => {
       const data: any = this.decrypt.decrypt(ele.response);
 
