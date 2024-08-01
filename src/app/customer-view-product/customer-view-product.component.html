@@ -13,6 +13,13 @@
         {{ option }}
       </option>
     </select>
+    <button
+      pButton
+      pRipple
+      class="p-button-secondary"
+      icon="pi pi-trash"
+      (click)="clearSelection()"
+    ></button>
   </form>
 
   <div class="view-product-card">
@@ -128,6 +135,6 @@
     <ng-template #loading>Loading...</ng-template>
   </div>
 </div>
-<div class="loader-container" *ngIf="data.length == 0">
+<div class="loader-container" *ngIf="!loader">
   <div class="loader"></div>
 </div>

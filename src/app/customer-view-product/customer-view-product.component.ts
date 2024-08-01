@@ -23,6 +23,7 @@ export class CustomerViewProductComponent implements OnInit {
   public screen: boolean | undefined;
   public flag: boolean | any;
   public myForm: FormGroup | any;
+  public loader: boolean = true;
   public options: string[] | any = [
     'Grocery',
     'Clothing',
@@ -118,8 +119,11 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   search() {
+    this.loader = false;
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
+
+      this.loader = true;
 
       const updatedShops = res.data.map((shop: any) => {
         const updatedProducts = shop.products.map((product: any) => ({
@@ -170,6 +174,11 @@ export class CustomerViewProductComponent implements OnInit {
     return btoa(input);
   }
 
+  clearSelection() {
+    this.myForm.get('productType')?.setValue('');
+    this.search();
+  }
+
   changer() {
     const Screen = window.innerWidth;
     Screen < 600 ? (this.screen = true) : (this.screen = false);
@@ -202,10 +211,12 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   selectItem(event: Event) {
+    this.loader = false;
     const selectedValue = (event.target as HTMLSelectElement).value;
 
     this.filter({ productType: selectedValue }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
+      this.loader = true;
 
       const updatedShops = res.data.map((shop: any) => {
         const updatedProducts = shop.products.map((product: any) => ({
