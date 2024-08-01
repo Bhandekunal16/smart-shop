@@ -21,7 +21,8 @@
           />
         </ng-template>
         <p>
-          Uploaded On: {{ item.createdOn.low * 1000 | date : "medium" }}
+          Uploaded On: {{ item.createdOn | date : "medium" }}
+
           <br />
           Product Type: {{ item.productType }}
           <br />
