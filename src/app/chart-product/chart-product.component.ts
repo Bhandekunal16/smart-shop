@@ -49,8 +49,9 @@ export class ChartProductComponent implements OnInit {
         ];
 
         console.log(res);
+        console.log(res.response == null && res.data.length == 0);
 
-        res.response == null
+        res.response == null && res.data.length == 0
           ? (this.msg = [
               {
                 severity: 'warn',
@@ -59,12 +60,16 @@ export class ChartProductComponent implements OnInit {
                   'you currently not have any product, create shop & add some product',
               },
             ])
-          : [
+          : (this.msg = [
               {
                 severity: 'success',
                 summary: 'product found at your shop',
               },
-            ];
+            ]);
+
+        setTimeout(() => {
+          this.msg = [];
+        }, 1000);
 
         let value = [];
         let name = [];
