@@ -42,8 +42,8 @@
         </div>
       </p-card>
     </ng-container>
-    <ng-template #loading>Loading...</ng-template>
-    <div class="loader-container" *ngIf="data.length == 0">
+    <ng-template #loading style="color: darkgreen">Not found</ng-template>
+    <div class="loader-container" *ngIf="!flag">
       <div class="loader"></div>
     </div>
   </div>

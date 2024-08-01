@@ -19,11 +19,11 @@ export class ViewProductComponent implements OnInit {
   public data: any[] = [];
   public value!: number;
   public msg: Message[] | any;
+  public flag: boolean = true;
   constructor(
     private http: HttpClient,
     private router: Router,
-    private decrypt: DecryptService,
-    private datePipe: DatePipe
+    private decrypt: DecryptService
   ) {}
 
   ngOnInit(): void {
@@ -35,19 +35,30 @@ export class ViewProductComponent implements OnInit {
     ];
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
+      this.flag = false;
 
       this.msg = [
         {
           severity: 'success',
-          detail: 'product found for you',
+          detail: 'you currently not have anything in the shop',
         },
       ];
-      this.data = res.data;
-      console.log(res.data);
 
-      setInterval(() => {
-        this.msg = [];
-      }, 1000);
+      if (res.status) {
+        this.data = res.data;
+        this.flag = true;
+
+        this.msg = [
+          {
+            severity: 'success',
+            detail: `product found for you ${res.data.length}`,
+          },
+        ];
+
+        setInterval(() => {
+          this.msg = [];
+        }, 1000);
+      }
     });
   }
 
