@@ -18,15 +18,36 @@ export class FeedComponent implements OnInit {
   public msg: Message[] | any;
   public showButton: boolean = false;
   public screen: boolean | undefined;
-  public flag: boolean | any;
+  public flag: boolean | any = true;
 
   constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
   ngOnInit(): void {
+    this.flag = false;
+    this.msg = [
+      {
+        severity: 'info',
+        detail: 'searching products for you !',
+      },
+    ];
     const id: string | null = localStorage.getItem('id');
     this.shopDetails(id).subscribe((res) => {
       const data: any = this.decrypt.decrypt(res.response);
-      this.product = data.data;
+
+      if (data.status) {
+        this.product = data.data;
+        this.flag = true;
+        this.msg = [
+          {
+            severity: 'success',
+            detail: `product found ${data.data.length}`,
+          },
+        ];
+
+        setTimeout(() => {
+          this.msg = [];
+        }, 1000);
+      }
     });
   }
 
@@ -44,12 +65,9 @@ export class FeedComponent implements OnInit {
     });
 
     return this.http
-      .get<any>(
-        `https://smart-shop-api-eta.vercel.app/shop/get/products/${id}`,
-        {
-          headers,
-        }
-      )
+      .get<any>(`http://localhost:3003/shop/get/products/${id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);

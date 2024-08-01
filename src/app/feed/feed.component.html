@@ -33,9 +33,9 @@
         </p>
       </p-card>
     </ng-container>
-    <ng-template #loading>Loading...</ng-template>
+    <ng-template #loading style="text-align: center">No data Found</ng-template>
   </div>
 </div>
-<div class="loader-container" *ngIf="product.length == 0">
+<div class="loader-container" *ngIf="!flag">
   <div class="loader"></div>
 </div>
