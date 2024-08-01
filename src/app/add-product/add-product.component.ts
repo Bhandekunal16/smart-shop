@@ -32,7 +32,59 @@ export class AddProductComponent {
     'Toys',
     'Automotive',
     'Other',
+    'Office Supplies',
+    'Garden',
+    'Music',
+    'Movies',
+    'Video Games',
+    'Health & Wellness',
+    'Baby Products',
+    'Crafts',
+    'Outdoor Equipment',
+    'Tools',
+    'Bags & Accessories',
+    'Footwear',
+    'Bedding',
+    'Kitchenware',
+    'Stationery',
+    'Groceries & Food',
+    'Cleaning Supplies',
+    'Party Supplies',
+    'Travel',
+    'Watches',
+    'Eyewear',
+    'Art Supplies',
+    'Fitness Equipment',
+    'Building Materials',
+    'Lighting',
+    'Electrical',
+    'Plumbing',
+    'Heating & Cooling',
+    'Seasonal Decor',
+    'Cameras & Photography',
+    'Computers & Accessories',
+    'Phones & Accessories',
+    'Smart Home Devices',
+    'Musical Instruments',
+    'Books & Magazines',
+    'Board Games',
+    'Luggage',
+    'Hiking & Camping Gear',
+    'Marine & Water Sports',
+    'Fishing Equipment',
+    'Cycling Gear',
+    'Skateboarding',
+    'Winter Sports',
+    'Yoga & Pilates',
+    'Personal Care',
+    'Wine & Spirits',
+    'Office Furniture',
+    'Safety & Security',
+    'Industrial Equipment',
+    'Educational Supplies',
+    'Gift Cards',
   ];
+
   public myForm: FormGroup | any;
 
   constructor(
@@ -49,23 +101,22 @@ export class AddProductComponent {
     });
   }
 
- async onImageSelected(event: any) {
-  const file = event.target.files[0];
-  const maxSize = 2 * 1024 * 1024; 
+  async onImageSelected(event: any) {
+    const file = event.target.files[0];
+    const maxSize = 2 * 1024 * 1024;
 
-  if (file.size > maxSize) {
-    alert('File size exceeds 2MB limit.');
-    event.target.value = ''; // Clear the input
-    return;
+    if (file.size > maxSize) {
+      alert('File size exceeds 2MB limit.');
+      event.target.value = ''; // Clear the input
+      return;
+    }
+
+    try {
+      this.selectedImage = await this.convertToWebPAndBinaryString(file);
+    } catch (error) {
+      console.error('Error processing image:', error);
+    }
   }
-
-  try {
-    this.selectedImage = await this.convertToWebPAndBinaryString(file);
-  } catch (error) {
-    console.error('Error processing image:', error);
-  }
-}
-
 
   convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
