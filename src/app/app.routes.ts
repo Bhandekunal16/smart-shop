@@ -32,6 +32,7 @@ import { BuyRequestComponent } from './buyrequest/buyrequest.component';
 import { ReceptComponent } from './recipt/recipt.component';
 import { ShareComponent } from './share/share.component';
 import { FeedComponent } from './feed/feed.component';
+import { OfflineComponent } from './offline/offline.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -56,6 +57,7 @@ export const routes: Routes = [
       { path: 'userList', component: UserlistComponent },
       { path: 'feedback', component: FeedbackComponent },
       { path: 'buyRequest', component: BuyRequestComponent },
+      { path: 'not-connected', component: OfflineComponent },
       {
         path: 'updateProfile',
         component: UpdateProfileComponent,
