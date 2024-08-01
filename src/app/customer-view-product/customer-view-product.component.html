@@ -6,6 +6,15 @@
       [enableService]="false"
     ></p-messages>
   </div>
+
+  <form class="add-product-container-form" [formGroup]="myForm">
+    <select formControlName="productType" (change)="selectItem($event)">
+      <option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </option>
+    </select>
+  </form>
+
   <div class="view-product-card">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
