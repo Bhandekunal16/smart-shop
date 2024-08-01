@@ -38,11 +38,17 @@ export class DashboardComponent {
 
   @HostListener('window:beforeinstallprompt', ['$event'])
   onBeforeInstallPrompt(event: any) {
+    console.log('beforeinstallprompt event fired');
     event.preventDefault();
     this.deferredPrompt = event;
   }
 
   addToHomeScreen() {
+    if (!this.deferredPrompt) {
+      console.error('deferredPrompt is not set');
+      return;
+    }
+
     this.deferredPrompt.prompt();
     this.deferredPrompt.userChoice.then((choiceResult: any) => {
       if (choiceResult.outcome === 'accepted') {
