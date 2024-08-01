@@ -135,7 +135,6 @@ export class ChartProductComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching shop details:', error);
-
         window.location.reload();
       }
     );
