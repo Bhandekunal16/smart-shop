@@ -26,6 +26,7 @@ export class AddCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.msg = [{ severity: 'info', detail: 'searching for your customer...' }];
+
     this.shopDetails().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
 
@@ -43,13 +44,9 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
-  private userList(): void {
-    this.router.navigate(['/dashboard/userList']);
-  }
-
   public edit(id: any) {
     this.Subscribe(id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
+      const data: any = this.decrypt.decrypt(ele.response);
 
       if (data.status) {
         this.userList();
@@ -69,7 +66,7 @@ export class AddCustomerComponent implements OnInit {
 
   public unsubscribe(id: any) {
     this.customerUnsubscribed(id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
+      const data: any = this.decrypt.decrypt(ele.response);
 
       if (data.status) {
         this.msg = [
@@ -79,8 +76,9 @@ export class AddCustomerComponent implements OnInit {
             detail: `${data.data}`,
           },
         ];
+
         this.shopDetails().subscribe((ele) => {
-          const data = this.decrypt.decrypt(ele.response);
+          const data: any = this.decrypt.decrypt(ele.response);
 
           data.status
             ? (this.msg = [
@@ -111,6 +109,10 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
+  private userList(): void {
+    this.router.navigate(['/dashboard/userList']);
+  }
+
   private shopDetails(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -127,19 +129,17 @@ export class AddCustomerComponent implements OnInit {
       );
   }
 
-  private Subscribe(id: any): Observable<any> {
+  private Subscribe(id: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    const MerchantId = localStorage.getItem('id');
+    const MerchantId: string | null = localStorage.getItem('id');
 
     const body = {
       id: MerchantId,
       customerId: id,
     };
-
-    body;
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/subscribe', body, {
@@ -152,7 +152,7 @@ export class AddCustomerComponent implements OnInit {
       );
   }
 
-  private customerUnsubscribed(id: any): Observable<any> {
+  private customerUnsubscribed(id: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
