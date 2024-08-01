@@ -137,16 +137,14 @@ export class EditShopComponent {
     const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
     if (file.size > maxSize) {
-      
       this.msg = [
         {
           severity: 'warn',
-          summary: 'warn',
           detail: 'File size exceeds 2MB limit.',
         },
       ];
       event.target.value = ''; // Clear the input
-      this.msg = [];
+
       return;
     }
 

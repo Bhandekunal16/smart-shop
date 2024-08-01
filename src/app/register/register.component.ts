@@ -107,8 +107,7 @@ export class RegisterComponent implements OnInit {
     const file = event.target.files[0];
     const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
-    if (file.size > maxSize) {
-      
+     if (file.size > maxSize) {
       this.msg = [
         {
           severity: 'warn',
@@ -117,7 +116,9 @@ export class RegisterComponent implements OnInit {
         },
       ];
       event.target.value = ''; // Clear the input
-      this.msg = [];
+
+   
+
       return;
     }
 
