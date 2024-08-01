@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
@@ -15,6 +15,7 @@ import { StateService } from '../state.service';
 export class DashboardComponent {
   items: MenuItem[] | undefined;
   onlineStatus: boolean = true;
+  deferredPrompt: any;
 
   constructor(
     private router: Router,
@@ -32,6 +33,24 @@ export class DashboardComponent {
     this.networkStatusService.onlineStatus$.subscribe((status) => {
       this.onlineStatus = status;
       this.updateMenuItems(value);
+    });
+  }
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onBeforeInstallPrompt(event: any) {
+    event.preventDefault();
+    this.deferredPrompt = event;
+  }
+
+  addToHomeScreen() {
+    this.deferredPrompt.prompt();
+    this.deferredPrompt.userChoice.then((choiceResult: any) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+      } else {
+        console.log('User dismissed the A2HS prompt');
+      }
+      this.deferredPrompt = null;
     });
   }
 
@@ -163,6 +182,13 @@ export class DashboardComponent {
             icon: 'pi pi-fw pi-share-alt',
             command: () => {
               this.share();
+            },
+          },
+          {
+            label: 'Download',
+            icon: 'pi pi-fw pi-download',
+            command: () => {
+              this.addToHomeScreen();
             },
           },
           {
