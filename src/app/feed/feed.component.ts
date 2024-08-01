@@ -16,19 +16,16 @@ export class FeedComponent implements OnInit {
   public product: any[] = [];
   public value!: number;
   public msg: Message[] | any;
-  showButton: boolean = false;
-  screen: boolean | undefined;
+  public showButton: boolean = false;
+  public screen: boolean | undefined;
   public flag: boolean | any;
 
   constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
   ngOnInit(): void {
-    console.log('i am here');
-
-    const id = localStorage.getItem('id');
-
+    const id: string | null = localStorage.getItem('id');
     this.shopDetails(id).subscribe((res) => {
-      const data = this.decrypt.decrypt(res.response);
+      const data: any = this.decrypt.decrypt(res.response);
       this.product = data.data;
     });
   }
@@ -41,7 +38,7 @@ export class FeedComponent implements OnInit {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  shopDetails(id: any): Observable<any> {
+  private shopDetails(id: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

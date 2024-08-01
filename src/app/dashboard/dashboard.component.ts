@@ -91,13 +91,13 @@ export class DashboardComponent {
               this.addProduct();
             },
           },
-          // {
-          //   label: 'feed',
-          //   icon: 'pi pi-fw pi-comment',
-          //   command: () => {
-          //     this.feed();
-          //   },
-          // },
+          {
+            label: 'feed',
+            icon: 'pi pi-fw pi-comment',
+            command: () => {
+              this.feed();
+            },
+          },
           {
             label: 'Buy request',
             icon: 'pi pi-fw pi-indian-rupee',
