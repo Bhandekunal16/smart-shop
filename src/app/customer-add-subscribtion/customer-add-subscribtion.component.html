@@ -22,7 +22,7 @@
         <td>{{ product.officialEmail }}</td>
         <td>
           <button
-            *ngIf="!product.isSubscribed !screen"
+            *ngIf="!product.isSubscribed && !screen"
             pButton
             pRipple
             label="Subscribe"
