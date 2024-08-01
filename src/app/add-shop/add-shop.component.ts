@@ -109,12 +109,10 @@ export class AddShopComponent {
       this.msg = [
         {
           severity: 'warn',
-          summary: 'warn',
           detail: 'File size exceeds MB limit.',
         },
       ];
       event.target.value = ''; // Clear the input
-      this.msg = [];
       return;
     }
 
