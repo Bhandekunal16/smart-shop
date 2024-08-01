@@ -36,30 +36,6 @@ export class DashboardComponent {
     });
   }
 
-  @HostListener('window:beforeinstallprompt', ['$event'])
-  onBeforeInstallPrompt(event: any) {
-    console.log('beforeinstallprompt event fired');
-    event.preventDefault();
-    this.deferredPrompt = event;
-  }
-
-  addToHomeScreen() {
-    if (!this.deferredPrompt) {
-      console.error('deferredPrompt is not set');
-      return;
-    }
-
-    this.deferredPrompt.prompt();
-    this.deferredPrompt.userChoice.then((choiceResult: any) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the A2HS prompt');
-      } else {
-        console.log('User dismissed the A2HS prompt');
-      }
-      this.deferredPrompt = null;
-    });
-  }
-
   updateMenuItems(status: boolean) {
     this.items = [
       {
@@ -188,13 +164,6 @@ export class DashboardComponent {
             icon: 'pi pi-fw pi-share-alt',
             command: () => {
               this.share();
-            },
-          },
-          {
-            label: 'Download',
-            icon: 'pi pi-fw pi-download',
-            command: () => {
-              this.addToHomeScreen();
             },
           },
           {
