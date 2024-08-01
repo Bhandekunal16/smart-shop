@@ -33,6 +33,14 @@ export class DashboardComponent {
       this.onlineStatus = status;
       this.updateMenuItems(value);
     });
+
+    this.networkStatusService.onlineStatus$.subscribe((isOnline: boolean) => {
+      if (!isOnline) {
+        this.router.navigate(['dashboard/not-connected']);
+      } else {
+        this.initial();
+      }
+    });
   }
 
   updateMenuItems(status: boolean) {
