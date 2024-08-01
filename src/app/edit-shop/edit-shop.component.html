@@ -52,6 +52,7 @@
         class="p-button-success"
         (click)="submitForm()"
         [disabled]="statusFlag"
+        *ngIf="status != undefined"
       ></button>
       <button
         type="button"
@@ -72,6 +73,17 @@
         class="p-button-warning"
         (click)="trigger2()"
         *ngIf="!statusFlag"
+      ></button>
+
+      <button
+        type="button"
+        pButton
+        pRipple
+        label="Add Shop"
+        class="p-button-success"
+        icon="pi pi-plus"
+        (click)="addShop()"
+        *ngIf="status == undefined"
       ></button>
     </div>
   </form>

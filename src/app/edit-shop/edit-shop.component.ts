@@ -82,7 +82,6 @@ export class EditShopComponent {
 
       this.shopDetails({ id }).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
-        console.log(res);
 
         this.myForm.value.shopName == ''
           ? (this.readingFlag = true)
@@ -91,6 +90,7 @@ export class EditShopComponent {
         this.myForm.patchValue(res.data);
 
         this.status = res.data.disable ? 'Disabled' : 'Enabled';
+        console.log(this.status);
         this.statusFlag = res.data.disable;
 
         this.obj = res.data;
@@ -132,23 +132,22 @@ export class EditShopComponent {
       );
   }
 
- async onImageSelected(event: any) {
-  const file = event.target.files[0];
-  const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+  async onImageSelected(event: any) {
+    const file = event.target.files[0];
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
-  if (file.size > maxSize) {
-    alert('File size exceeds 2MB limit.');
-    event.target.value = ''; // Clear the input
-    return;
+    if (file.size > maxSize) {
+      alert('File size exceeds 2MB limit.');
+      event.target.value = ''; // Clear the input
+      return;
+    }
+
+    try {
+      this.selectedImage = await this.convertToWebPAndBinaryString(file);
+    } catch (error) {
+      console.error('Error processing image:', error);
+    }
   }
-
-  try {
-    this.selectedImage = await this.convertToWebPAndBinaryString(file);
-  } catch (error) {
-    console.error('Error processing image:', error);
-  }
-}
-
 
   convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
@@ -224,6 +223,10 @@ export class EditShopComponent {
 
       this.details();
     });
+  }
+
+  addShop(): void {
+    this.router.navigate(['dashboard/addShop']);
   }
 
   activate(body: any): Observable<any> {
