@@ -48,10 +48,7 @@ export class ChartProductComponent implements OnInit {
           },
         ];
 
-        console.log(res);
-        console.log(res.response == null && res.data.length == 0);
-
-        res.response == null && res.data.length == 0
+        res.response == null && res.data == undefined
           ? (this.msg = [
               {
                 severity: 'warn',
