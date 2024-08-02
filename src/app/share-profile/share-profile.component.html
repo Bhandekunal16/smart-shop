@@ -1,0 +1,13 @@
+<div class="share-profile-container">
+  <p-card header="Profile">
+    <ng-template pTemplate="header">
+      <img alt="image" src="{{ profileImage }}" />
+    </ng-template>
+    <p>email : {{ email }}</p>
+    <p>firstName : {{ firstName }}</p>
+    <p>lastName : {{ lastName }}</p>
+    <p>mobileNo: {{ mobileNo }}</p>
+    <p>userType: {{ userType }}</p>
+    <p>Uploaded On: {{ lastUpdated | date : "medium" }}</p>
+  </p-card>
+</div>

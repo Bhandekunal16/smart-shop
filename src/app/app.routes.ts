@@ -32,6 +32,7 @@ import { BuyRequestComponent } from './buyrequest/buyrequest.component';
 import { ReceptComponent } from './recipt/recipt.component';
 import { ShareComponent } from './share/share.component';
 import { FeedComponent } from './feed/feed.component';
+import { ShareProfileComponent } from './share-profile/share-profile.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -39,6 +40,7 @@ export const routes: Routes = [
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'verify-otp', component: VerifyOtpComponent },
   { path: 'conform-password', component: ConformPasswordComponent },
+  { path: 'in/:id', component: ShareProfileComponent },
   {
     path: 'dashboard',
     component: DashboardComponent,
