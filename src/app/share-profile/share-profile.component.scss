@@ -3,14 +3,45 @@
   width: 97vw;
 }
 
+.share-profile-container p-card {
+  width: 100%;
+  height: fit-content;
+  margin-top: 1%;
+  background-color: red;
+}
+
 .share-profile-container img {
-  width: 50vw;
-  height: 60vh;
+  width: 100%;
+  max-width: 50vw;
+  height: auto;
+  max-height: 60vh;
   object-fit: cover;
+
+  //   border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.share-profile-container img:hover {
+  transform: scale(1.05);
 }
 
 @media (max-width: 600px) {
   .share-profile-container img {
     width: 97vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .share-profile-container img {
+    max-width: 80vw;
+    max-height: 40vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-profile-container img {
+    max-width: 90vw;
+    max-height: 30vh;
   }
 }
