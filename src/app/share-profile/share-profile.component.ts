@@ -34,7 +34,6 @@ export class ShareProfileComponent {
 
       this.shopDetails(this.id).subscribe((ele) => {
         const data = this.decrypt.decrypt(ele.response);
-        console.log(data);
 
         this.email = data.data.email;
         this.firstName = data.data.firstName;
@@ -45,8 +44,6 @@ export class ShareProfileComponent {
           data.data.profileImage
         )}`;
         this.lastUpdated = data.data.createdOn;
-
-        console.log(this.lastUpdated);
       });
     });
   }
