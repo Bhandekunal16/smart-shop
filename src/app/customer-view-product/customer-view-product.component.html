@@ -7,6 +7,7 @@
     ></p-messages>
   </div>
 
+  <label for="productType">Select type</label>
   <form class="add-product-container-form" [formGroup]="myForm">
     <select formControlName="productType" (change)="selectItem($event)">
       <option *ngFor="let option of options" [value]="option">
