@@ -62,6 +62,56 @@ export class ShareComponent {
     });
   }
 
+  shareProfile() {
+    const id = localStorage.getItem('id');
+    this.shopDetails(id).subscribe((res) => {
+      const data = this.decrypt.decrypt(res.response);
+
+      const email = this.myForm.value.email;
+      const message = `https://cyborgcart.vercel.app/in/${data.data.email}`;
+
+      const body = { email, message };
+
+      this.sendOtp(body).subscribe((ele) => {
+        const data = this.decrypt.decrypt(ele.response);
+
+        data.status
+          ? (this.msg = [
+              {
+                severity: 'success',
+                summary: 'success',
+                detail: `${data.data}`,
+              },
+            ])
+          : (this.msg = [
+              {
+                severity: 'warn',
+                summary: 'warn',
+                detail: `${data.data}`,
+              },
+            ]);
+
+        this.myForm.reset();
+      });
+    });
+  }
+
+  shopDetails(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
   sendOtp(body: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
