@@ -17,6 +17,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { PasswordModule } from 'primeng/password';
 import { InputOtpModule } from 'primeng/inputotp';
 import { ChipModule } from 'primeng/chip';
+import { AvatarModule } from 'primeng/avatar';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [],
@@ -41,6 +43,8 @@ import { ChipModule } from 'primeng/chip';
     InputTextModule,
     PasswordModule,
     InputOtpModule,
+    AvatarModule,
+    DialogModule,
   ],
 })
 export class SharedModule {}

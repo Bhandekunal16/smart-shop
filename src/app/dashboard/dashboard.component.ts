@@ -16,6 +16,8 @@ export class DashboardComponent {
   items: MenuItem[] | undefined;
   onlineStatus: boolean = true;
   deferredPrompt: any;
+  visible: boolean = false;
+  Log: any;
 
   constructor(
     private router: Router,
@@ -229,5 +231,15 @@ export class DashboardComponent {
 
   feed(): void {
     this.router.navigate(['dashboard/feed']);
+  }
+
+  date() {
+    this.visible = true;
+    const data: any = localStorage.getItem('lastLogin');
+    this.Log = new Date(parseInt(data)).toISOString();
+
+    setInterval(() => {
+      this.Log = null;
+    }, 10000);
   }
 }

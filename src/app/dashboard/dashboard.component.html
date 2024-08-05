@@ -1,6 +1,21 @@
 <div class="card">
-  <p-menubar [model]="items" styleClass="menu"></p-menubar>
+  <p-menubar [model]="items" styleClass="menu">
+    <ng-template pTemplate="end">
+      <div class="flex align-items-center gap-2">
+        <p-avatar
+          image="../../assets/robot_614411.png"
+          shape="circle"
+          (mouseover)="date()"
+        />
+      </div>
+    </ng-template>
+  </p-menubar>
 </div>
+
+<div *ngIf="Log != null" class="pop-up">
+  <label>last Login : {{ Log }}</label>
+</div>
+
 <div class="dashboard-container">
   <router-outlet></router-outlet>
 </div>

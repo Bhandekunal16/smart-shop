@@ -18,6 +18,19 @@
   z-index: 999;
 }
 
+.pop-up {
+  width: fit-content;
+  height: 10vh;
+  float: right;
+  position: absolute;
+  top: 1;
+  right: 0;
+  z-index: 999;
+  background-color: #fff;
+  padding: 1%;
+  border-radius: 8px;
+}
+
 .no-data {
   text-align: center;
   font-weight: bold;
