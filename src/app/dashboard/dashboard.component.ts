@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { NetworkStatusService } from '../network-status.service';
 import { StateService } from '../state.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,11 +21,14 @@ export class DashboardComponent {
   deferredPrompt: any;
   visible: boolean = false;
   Log: any;
+  public profileImage: string | any;
 
   constructor(
     private router: Router,
     private statusService: StateService,
-    private networkStatusService: NetworkStatusService
+    private networkStatusService: NetworkStatusService,
+    private http: HttpClient,
+    private decrypt: DecryptService
   ) {}
 
   ngOnInit() {
@@ -35,6 +41,12 @@ export class DashboardComponent {
     this.networkStatusService.onlineStatus$.subscribe((status) => {
       this.onlineStatus = status;
       this.updateMenuItems(value);
+    });
+
+    const id = localStorage.getItem('id');
+    this.shopDetails(id).subscribe(async (res) => {
+      const data = await this.decrypt.decrypt(res.response);
+      this.profileImage = `data:image/webp;base64,${btoa(data.data)}`;
     });
   }
 
@@ -241,5 +253,22 @@ export class DashboardComponent {
     setInterval(() => {
       this.Log = null;
     }, 10000);
+  }
+
+  shopDetails(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/auth/profile/image/${id}`,
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 }
