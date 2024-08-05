@@ -60,6 +60,12 @@ img {
   object-fit: cover;
 }
 
+.view-product-card-contain-sub {
+  border: #000 dotted 1px;
+  padding: 1%;
+  border-radius: 8px;
+}
+
 .add-product-container-form {
   background-color: #f0f0f0;
   width: 25vw;
@@ -103,5 +109,9 @@ select {
 
   .add-product-container-form {
     width: 95vw;
+  }
+
+  .view-product-card-contain-sub {
+    margin-top: 1%;
   }
 }
