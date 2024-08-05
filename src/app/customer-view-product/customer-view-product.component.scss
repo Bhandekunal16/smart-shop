@@ -27,6 +27,8 @@ p-card {
 .view-product-card-contain {
   display: flex;
   justify-content: space-evenly;
+  padding: 1%;
+  background-color: #f5f5f5de;
 }
 
 ng-container {
@@ -61,7 +63,6 @@ img {
 }
 
 .view-product-card-contain-sub {
-  border: #000 dotted 1px;
   padding: 1%;
   border-radius: 8px;
 }
