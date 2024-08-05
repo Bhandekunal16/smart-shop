@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
 import { NetworkStatusService } from '../network-status.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -15,11 +18,16 @@ import { NetworkStatusService } from '../network-status.service';
 export class CustomerDashboardComponent implements OnInit {
   items: MenuItem[] | undefined;
   onlineStatus: boolean = true;
+  visible: boolean = false;
+  Log: any;
+  public profileImage: string | any;
 
   constructor(
     private router: Router,
     private statusService: StateService,
-    private networkStatusService: NetworkStatusService
+    private networkStatusService: NetworkStatusService,
+    private http: HttpClient,
+    private decrypt: DecryptService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +40,12 @@ export class CustomerDashboardComponent implements OnInit {
     this.networkStatusService.onlineStatus$.subscribe((status) => {
       this.onlineStatus = status;
       this.updateMenuItems(value);
+    });
+
+    const id = localStorage.getItem('id');
+    this.shopDetails(id).subscribe(async (res) => {
+      const data = await this.decrypt.decrypt(res.response);
+      this.profileImage = `data:image/webp;base64,${btoa(data.data)}`;
     });
   }
 
@@ -168,5 +182,32 @@ export class CustomerDashboardComponent implements OnInit {
 
   share() {
     this.router.navigate(['customer-dashboard/share']);
+  }
+
+  date() {
+    this.visible = true;
+    const data: any = localStorage.getItem('lastLogin');
+    this.Log = new Date(parseInt(data)).toISOString();
+
+    setInterval(() => {
+      this.Log = null;
+    }, 10000);
+  }
+
+  shopDetails(id: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/auth/profile/image/${id}`,
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 }
