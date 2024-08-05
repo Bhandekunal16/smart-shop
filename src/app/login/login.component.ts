@@ -59,6 +59,7 @@ export class LoginComponent {
           `${data.data.firstName} ${data.data.lastName}`
         );
         localStorage.setItem('type', data.data.userType);
+        localStorage.setItem('lastLogin', `${new Date().getTime()}`);
         this.flag = true;
 
         if (data.data.userType == 'MERCHANT') {

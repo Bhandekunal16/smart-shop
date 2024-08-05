@@ -92,6 +92,7 @@ export class RegisterComponent implements OnInit {
           'username',
           `${data.data.firstName} ${data.data.lastName}`
         );
+        localStorage.setItem('lastLogin', `${new Date().getTime()}`);
 
         data.data.userType == 'MERCHANT'
           ? this.dashboard()
