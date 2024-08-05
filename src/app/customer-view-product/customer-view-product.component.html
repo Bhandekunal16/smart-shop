@@ -29,106 +29,113 @@
         header="{{ item.ProductName }}"
         subheader="{{ item.ProductDescription }}"
       >
-        <ng-template pTemplate="header">
+        <div class="view-product-card-contain">
           <img
             alt="Card"
             [src]="'data:image/webp;base64,' + now(item.ProductImageBase)"
             class="card-image"
           />
-        </ng-template>
-        <p>
-          Uploaded On: {{ item.createdOn | date : "medium" }}
 
-          <br />
-          Product Type: {{ item.productType }}
-          <br />
-          Price: {{ item.productCost }} ₹
-          <br />
-          Status: {{ getStatusText(item.IsPurchased) }}
-          <br />
-          Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
-        </p>
-        <h3 (click)="onViewShop(item.ownerId)">Seller : {{ item.shopName }}</h3>
-        <div class="button-grid" *ngIf="!screen">
-          <button
-            pButton
-            pRipple
-            label="Rate Product"
-            icon="pi pi-star-fill"
-            class="p-button-secondary"
-            (click)="setCurrentObjectId(item.id)"
-            [disabled]="!flag"
-          ></button>
+          <div>
+            <p>
+              Uploaded On: {{ item.createdOn | date : "medium" }}
 
-          <button
-            pButton
-            pRipple
-            label="WishList"
-            class="p-button-secondary"
-            icon="pi pi-heart-fill"
-            (click)="WishList(item.id)"
-            [disabled]="!flag"
-          ></button>
+              <br />
+              Product Type: {{ item.productType }}
+              <br />
+              Price: {{ item.productCost }} ₹
+              <br />
+              Status: {{ getStatusText(item.IsPurchased) }}
+              <br />
+              Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
+            </p>
 
-          <button
-            pButton
-            pRipple
-            label="Purchase"
-            class="p-button-secondary"
-            icon="pi pi-receipt"
-            (click)="paymentRoute(item.id)"
-            [disabled]="!flag || item.IsPurchased"
-          ></button>
+            <h3 (click)="onViewShop(item.ownerId)">
+              Seller : {{ item.shopName }}
+            </h3>
 
-          <button
-            pButton
-            pRipple
-            *ngIf="showButton"
-            label="remove"
-            class="p-button-secondary"
-            icon="pi pi-trash"
-            (click)="remove(item.id)"
-            [disabled]="!flag"
-          ></button>
-        </div>
+            <div class="button-grid" *ngIf="!screen">
+              <button
+                pButton
+                pRipple
+                label="Rate Product"
+                icon="pi pi-star-fill"
+                class="p-button-secondary"
+                (click)="setCurrentObjectId(item.id)"
+                [disabled]="!flag"
+              ></button>
 
-        <div class="button-grid" *ngIf="screen">
-          <button
-            pButton
-            pRipple
-            icon="pi pi-star-fill"
-            class="p-button-secondary"
-            (click)="setCurrentObjectId(item.id)"
-            [disabled]="!flag"
-          ></button>
+              <button
+                pButton
+                pRipple
+                label="WishList"
+                class="p-button-secondary"
+                icon="pi pi-heart-fill"
+                (click)="WishList(item.id)"
+                [disabled]="!flag"
+              ></button>
 
-          <button
-            pButton
-            pRipple
-            class="p-button-secondary"
-            icon="pi pi-heart-fill"
-            (click)="WishList(item.id)"
-            [disabled]="!flag"
-          ></button>
+              <button
+                pButton
+                pRipple
+                label="Purchase"
+                class="p-button-secondary"
+                icon="pi pi-receipt"
+                (click)="paymentRoute(item.id)"
+                [disabled]="!flag || item.IsPurchased"
+              ></button>
 
-          <button
-            pButton
-            pRipple
-            class="p-button-secondary"
-            icon="pi pi-receipt"
-            (click)="paymentRoute(item.id)"
-            [disabled]="!flag || item.IsPurchased"
-          ></button>
+              <button
+                pButton
+                pRipple
+                *ngIf="showButton"
+                label="remove"
+                class="p-button-secondary"
+                icon="pi pi-trash"
+                (click)="remove(item.id)"
+                [disabled]="!flag"
+              ></button>
+            </div>
 
-          <button
-            pButton
-            pRipple
-            *ngIf="showButton"
-            class="p-button-secondary"
-            icon="pi pi-trash"
-            (click)="remove(item.id)"
-            [disabled]="!flag"
-          ></button>
+            <div class="button-grid" *ngIf="screen">
+              <button
+                pButton
+                pRipple
+                icon="pi pi-star-fill"
+                class="p-button-secondary"
+                (click)="setCurrentObjectId(item.id)"
+                [disabled]="!flag"
+              ></button>
+
+              <button
+                pButton
+                pRipple
+                class="p-button-secondary"
+                icon="pi pi-heart-fill"
+                (click)="WishList(item.id)"
+                [disabled]="!flag"
+              ></button>
+
+              <button
+                pButton
+                pRipple
+                class="p-button-secondary"
+                icon="pi pi-receipt"
+                (click)="paymentRoute(item.id)"
+                [disabled]="!flag || item.IsPurchased"
+              ></button>
+
+              <button
+                pButton
+                pRipple
+                *ngIf="showButton"
+                class="p-button-secondary"
+                icon="pi pi-trash"
+                (click)="remove(item.id)"
+                [disabled]="!flag"
+              ></button>
+            </div>
+          </div>
         </div>
       </p-card>
     </ng-container>

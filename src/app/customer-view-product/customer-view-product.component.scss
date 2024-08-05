@@ -24,6 +24,11 @@ p-card {
   border-radius: 8px;
 }
 
+.view-product-card-contain {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 ng-container {
   width: 300px;
   margin: 1%;
@@ -48,7 +53,7 @@ img {
 
 .card-image {
   max-width: 100%;
-  height: auto;
+  height: 60vh;
   display: block;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -83,6 +88,11 @@ select {
     width: 95vw;
     height: 40vh;
     object-fit: cover;
+  }
+
+  .view-product-card-contain {
+    display: flex;
+    flex-direction: column;
   }
 
   .button-grid {
