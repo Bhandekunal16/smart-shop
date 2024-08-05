@@ -71,14 +71,6 @@ export class DashboardComponent {
         icon: 'pi pi-fw pi-calendar',
         items: [
           {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-            command: () => {
-              this.editProduct();
-            },
-          },
-
-          {
             label: 'View',
             icon: 'pi pi-fw pi-eye',
             command: () => {
@@ -213,10 +205,6 @@ export class DashboardComponent {
 
   viewProduct(): void {
     this.router.navigate(['dashboard/viewProduct']);
-  }
-
-  editProduct(): void {
-    this.router.navigate(['dashboard/editProduct']);
   }
 
   initial(): void {

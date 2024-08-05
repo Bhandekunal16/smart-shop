@@ -13,7 +13,6 @@ import { ViewShopComponent } from './view-shop/view-shop.component';
 import { EditShopComponent } from './edit-shop/edit-shop.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { ChartProductComponent } from './chart-product/chart-product.component';
 import { UserlistComponent } from './userlist/userlist.component';
@@ -52,7 +51,6 @@ export const routes: Routes = [
       { path: 'editShop', component: EditShopComponent },
       { path: 'addProduct', component: AddProductComponent },
       { path: 'viewProduct', component: ViewProductComponent },
-      { path: 'editProduct', component: EditProductComponent },
       { path: 'updateProduct', component: UpdateProductComponent },
       { path: '', component: ChartProductComponent },
       { path: 'userList', component: UserlistComponent },
