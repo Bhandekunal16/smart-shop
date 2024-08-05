@@ -90,9 +90,9 @@ select {
     flex-direction: column;
   }
 
-  img {
-    width: 95vw;
-    height: 40vh;
+  .card-image {
+    width: fit-content;
+    height: fit-content;
     object-fit: cover;
   }
 
