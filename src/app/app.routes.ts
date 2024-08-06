@@ -62,6 +62,7 @@ export const routes: Routes = [
       },
       { path: 'share', component: ShareComponent },
       { path: 'feed', component: FeedComponent },
+      { path: 'userViewWishList', component: UserViewWishlistComponent },
     ],
   },
   {

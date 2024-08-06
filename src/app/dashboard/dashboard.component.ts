@@ -173,6 +173,13 @@ export class DashboardComponent {
             },
           },
           {
+            label: 'Wishlist',
+            icon: 'pi pi-fw pi-list-check',
+            command: () => {
+              this.wishList();
+            },
+          },
+          {
             label: 'Quit',
             icon: 'pi pi-fw pi-power-off',
             command: () => {
@@ -243,6 +250,10 @@ export class DashboardComponent {
 
   feed(): void {
     this.router.navigate(['dashboard/feed']);
+  }
+
+  wishList(): void {
+    this.router.navigate(['dashboard/userViewWishList']);
   }
 
   date() {
