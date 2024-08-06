@@ -19,6 +19,7 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { ChipModule } from 'primeng/chip';
 import { AvatarModule } from 'primeng/avatar';
 import { DialogModule } from 'primeng/dialog';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @NgModule({
   declarations: [],
@@ -45,6 +46,7 @@ import { DialogModule } from 'primeng/dialog';
     InputOtpModule,
     AvatarModule,
     DialogModule,
+    ProgressBarModule,
   ],
 })
 export class SharedModule {}
