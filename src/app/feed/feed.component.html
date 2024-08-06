@@ -32,6 +32,44 @@
               <br />
               Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
             </p>
+
+            <div class="button-grid" *ngIf="!screen">
+              <button
+                pButton
+                pRipple
+                label="WishList"
+                class="p-button-secondary"
+                icon="pi pi-heart-fill"
+                (click)="WishList(item.id)"
+              ></button>
+
+              <button
+                pButton
+                pRipple
+                label="remove"
+                class="p-button-secondary"
+                icon="pi pi-trash"
+                (click)="remove(item.id)"
+              ></button>
+            </div>
+
+            <div class="button-grid" *ngIf="screen">
+              <button
+                pButton
+                pRipple
+                class="p-button-secondary"
+                icon="pi pi-heart-fill"
+                (click)="WishList(item.id)"
+              ></button>
+
+              <button
+                pButton
+                pRipple
+                class="p-button-secondary"
+                icon="pi pi-trash"
+                (click)="remove(item.id)"
+              ></button>
+            </div>
           </div>
         </div>
       </p-card>

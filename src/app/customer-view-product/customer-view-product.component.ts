@@ -266,7 +266,6 @@ export class CustomerViewProductComponent implements OnInit {
     };
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      res;
 
       if (res.status) {
         this.search();
