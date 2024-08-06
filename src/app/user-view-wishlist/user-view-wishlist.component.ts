@@ -51,15 +51,14 @@ export class UserViewWishlistComponent {
   }
 
   remove(id: any) {
-    id;
     const userId = localStorage.getItem('id');
+
     const body = {
       userId: userId,
       productId: id,
     };
     this.Remove(body).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      res;
 
       if (res.status) {
         this.details();
