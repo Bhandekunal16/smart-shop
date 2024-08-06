@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -20,7 +21,11 @@ export class FeedComponent implements OnInit {
   public screen: boolean | undefined;
   public flag: boolean | any = true;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(
+    private http: HttpClient,
+    private decrypt: DecryptService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.flag = false;
@@ -132,6 +137,11 @@ export class FeedComponent implements OnInit {
         this.shopDetails(userId);
       }
     });
+  }
+
+  paymentRoute(id: string) {
+    localStorage.setItem('currentObjectId', id);
+    this.router.navigate(['dashboard/payment']);
   }
 
   AddToWishList(id: any): Observable<any> {

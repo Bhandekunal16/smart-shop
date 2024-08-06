@@ -64,6 +64,7 @@ export const routes: Routes = [
       { path: 'feed', component: FeedComponent },
       { path: 'userViewWishList', component: UserViewWishlistComponent },
       { path: 'userAddWishList', component: UserAddWishlistComponent },
+      { path: 'payment', component: PaymentComponent },
     ],
   },
   {

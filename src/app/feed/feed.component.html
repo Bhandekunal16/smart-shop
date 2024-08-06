@@ -51,6 +51,15 @@
                 icon="pi pi-trash"
                 (click)="remove(item.id)"
               ></button>
+
+              <button
+                pButton
+                pRipple
+                label="Purchase"
+                class="p-button-secondary"
+                icon="pi pi-receipt"
+                (click)="paymentRoute(item.id)"
+              ></button>
             </div>
 
             <div class="button-grid" *ngIf="screen">
@@ -68,6 +77,14 @@
                 class="p-button-secondary"
                 icon="pi pi-trash"
                 (click)="remove(item.id)"
+              ></button>
+
+              <button
+                pButton
+                pRipple
+                class="p-button-secondary"
+                icon="pi pi-receipt"
+                (click)="paymentRoute(item.id)"
               ></button>
             </div>
           </div>
