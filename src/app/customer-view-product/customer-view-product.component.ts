@@ -24,6 +24,7 @@ export class CustomerViewProductComponent implements OnInit {
   public flag: boolean | any;
   public myForm: FormGroup | any;
   public loader: boolean = true;
+
   public options: string[] | any = [
     'Grocery',
     'Clothing',
@@ -142,6 +143,7 @@ export class CustomerViewProductComponent implements OnInit {
 
         for (let index = 0; index < product.length; index++) {
           const element = product[index].products;
+
           array.push(element);
         }
       }
