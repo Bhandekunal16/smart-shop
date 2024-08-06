@@ -74,6 +74,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
         }
 
         this.products = newArray;
+        console.log(this.products);
 
         this.msg = [
           {

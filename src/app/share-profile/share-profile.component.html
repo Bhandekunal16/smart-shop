@@ -11,6 +11,27 @@
     <ng-template pTemplate="footer">
       <p>Uploaded On: {{ lastUpdated | date : "medium" }}</p>
     </ng-template>
+    <p *ngIf="!userPresent">
+      * You are currently not registered in the application. Please register to
+      try all features.
+    </p>
+    <button
+      pButton
+      pRipple
+      label="Register"
+      class="p-button-success"
+      *ngIf="!userPresent"
+      (click)="register()"
+    ></button>
+
+    <button
+      pButton
+      pRipple
+      label="subscribe"
+      class="p-button-success"
+      *ngIf="userPresent"
+      (click)="subscribe()"
+    ></button>
   </p-card>
 </div>
 <div class="loader-container" *ngIf="email == undefined">
