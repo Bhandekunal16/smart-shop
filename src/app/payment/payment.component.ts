@@ -82,7 +82,11 @@ export class PaymentComponent implements OnInit {
   }
 
   list() {
-    this.router.navigate(['customer-dashboard/purchasedList']);
+    const userType = localStorage.getItem('type');
+
+    userType == 'MERCHANT'
+      ? this.router.navigate(['dashboard/purchasedList'])
+      : this.router.navigate(['customer-dashboard/purchasedList']);
   }
 
   now(input: string) {
