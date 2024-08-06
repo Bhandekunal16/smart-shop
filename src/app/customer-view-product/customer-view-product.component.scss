@@ -36,12 +36,6 @@ ng-container {
   margin: 1%;
 }
 
-img {
-  width: 40vw;
-  height: 40vh;
-  object-fit: cover;
-}
-
 .button-grid {
   display: flex;
   justify-content: space-evenly;
@@ -54,7 +48,7 @@ img {
 }
 
 .card-image {
-  max-width: 100%;
+  width: 40vw;
   height: 60vh;
   display: block;
   border-radius: 8px;
@@ -92,8 +86,8 @@ select {
   }
 
   .card-image {
-    width: fit-content;
-    height: fit-content;
+    width: 80vw;
+    height: 80vh;
     object-fit: cover;
   }
 

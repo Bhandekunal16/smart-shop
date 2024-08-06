@@ -1,0 +1,54 @@
+.card-image {
+  width: 40vw;
+  height: 60vh;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+.view-product-card-contain-sub {
+  padding: 1%;
+  border-radius: 8px;
+}
+
+.view-product-card-contain {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1%;
+  align-items: center;
+  background-color: #f5f5f5de;
+}
+
+@media (max-width: 600px) {
+  p-card {
+    width: 95vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-image {
+    width: 80vw;
+    height: 80vh;
+    object-fit: cover;
+  }
+
+  .view-product-card-contain {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .add-product-container-form {
+    width: 95vw;
+  }
+
+  .view-product-card-contain-sub {
+    margin-top: 1%;
+  }
+}
