@@ -27,29 +27,28 @@ ng-container {
   margin: 1%;
 }
 
-@media (max-width: 600px) {
-  p-card {
-    width: 95vw;
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 .view-product-card-data {
   background-color: rebeccapurple;
 }
 
 .card-image {
-  max-width: 100%;
-  height: auto;
+  width: 40vw;
+  height: 40vh;
   display: block;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   object-fit: cover;
 }
 
-img {
-  width: 40vw;
-  height: 40vh;
-  object-fit: cover;
+@media (max-width: 600px) {
+  p-card {
+    width: 95vw;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-image {
+    width: 70vw;
+    height: 70vh;
+  }
 }
