@@ -50,8 +50,8 @@ ng-container {
 }
 
 .card-image {
-  width: 40vw;
-  height: 60vh;
+  max-width: 40vw;
+  max-height: 60vh;
   display: block;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
