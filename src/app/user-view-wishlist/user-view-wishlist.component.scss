@@ -5,9 +5,20 @@
 .view-wishlist-container-header {
   display: flex;
   justify-content: end;
-  padding: 1%;
+}
+
+.view-wishlist-container-header-sub {
+  display: flex;
+  width: 30vw;
+  justify-content: space-evenly;
 }
 
 .view-wishlist-container-body {
-    margin-top: 1%;
+  margin-top: 1%;
+}
+
+@media (max-width: 600px) {
+  .view-wishlist-container-header-sub {
+    width: 50vw;
+  }
 }
