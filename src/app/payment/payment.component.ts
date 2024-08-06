@@ -74,7 +74,6 @@ export class PaymentComponent implements OnInit {
 
     this.add(payload).subscribe((ele) => {
       let data = this.decrypt.decrypt(ele.response);
-      data;
 
       if (data.status) {
         this.list();
