@@ -71,7 +71,11 @@ export class UserViewWishlistComponent {
   }
 
   add(): void {
-    this.router.navigate(['customer-dashboard/userAddWishList']);
+    const userType = localStorage.getItem('type');
+
+    userType == 'MERCHANT'
+      ? this.router.navigate(['dashboard/userAddWishList'])
+      : this.router.navigate(['customer-dashboard/userAddWishList']);
   }
 
   shopDetails(id: any): Observable<any> {

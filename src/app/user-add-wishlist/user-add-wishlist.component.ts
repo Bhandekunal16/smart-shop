@@ -59,7 +59,11 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   view(): void {
-    this.router.navigate(['customer-dashboard/userViewWishList']);
+    const userType = localStorage.getItem('type');
+
+    userType == 'MERCHANT'
+      ? this.router.navigate(['dashboard/userViewWishList'])
+      : this.router.navigate(['customer-dashboard/userViewWishList']);
   }
 
   now(input: string) {
