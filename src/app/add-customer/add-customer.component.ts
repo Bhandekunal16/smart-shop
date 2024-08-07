@@ -73,7 +73,7 @@ export class AddCustomerComponent implements OnInit {
 
         this.shopDetails().subscribe((ele) => {
           const data: any = this.decrypt.decrypt(ele.response);
-          
+
           this.products = data.data;
 
           data.status
@@ -93,9 +93,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   private shopDetails(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
 
     return this.http
       .get<any>('https://smart-shop-api-eta.vercel.app/auth/getAll/customers', {
@@ -109,9 +107,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   private Subscribe(id: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
 
     return this.http
       .post<any>(
@@ -132,9 +128,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   private customerUnsubscribed(id: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
 
     return this.http
       .get<any>(
@@ -146,5 +140,11 @@ export class AddCustomerComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }

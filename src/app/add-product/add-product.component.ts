@@ -14,7 +14,6 @@ import { options } from '../string';
   styleUrl: './add-product.component.scss',
 })
 export class AddProductComponent {
-  public shopId: any;
   public selectedImage: File | any = null;
   public flag: boolean = false;
   public options: string[] = options;
@@ -30,7 +29,11 @@ export class AddProductComponent {
     });
   }
 
-  async onImageSelected(event: any) {
+  ngOnInit(): void {
+    this.details();
+  }
+
+  public async onImageSelected(event: any) {
     try {
       const [file, maxSize] = [event.target.files[0], 2 * 1024 * 1024];
 
@@ -46,7 +49,7 @@ export class AddProductComponent {
     }
   }
 
-  convertToWebPAndBinaryString(file: File): Promise<string | null> {
+  private convertToWebPAndBinaryString(file: File) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -92,7 +95,7 @@ export class AddProductComponent {
     });
   }
 
-  submitForm() {
+  public submitForm() {
     const ProductName = this.myForm.value.ProductName;
     const ProductDescription = this.myForm.value.ProductDescription;
     const productType = this.myForm.value.productType;
@@ -101,7 +104,7 @@ export class AddProductComponent {
     const productImage = this.selectedImage;
     const id = localStorage.getItem('shopId');
 
-    const body = {
+    this.create({
       ProductName,
       ProductDescription,
       productType,
@@ -109,14 +112,9 @@ export class AddProductComponent {
       id,
       productCost,
       units,
-    };
+    }).subscribe((ele) => ele);
 
-    this.create(body).subscribe((ele) => ele);
     this.myForm.reset();
-  }
-
-  ngOnInit(): void {
-    this.details();
   }
 
   details() {
@@ -124,20 +122,14 @@ export class AddProductComponent {
       const id = localStorage.getItem('id');
 
       this.shopDetails({ id }).subscribe((ele) => {
-        ele;
         const res = this.decrypt.decrypt(ele.response);
         localStorage.setItem('shopId', res.data.id);
       });
-      return this.shopId;
-    } else {
-      console.error('LocalStorage is not available in this environment.');
-    }
+    } else console.error('LocalStorage is not available in this environment.');
   }
 
   create(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/product/create', body, {
@@ -151,9 +143,7 @@ export class AddProductComponent {
   }
 
   shopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
@@ -164,5 +154,11 @@ export class AddProductComponent {
           return throwError(error);
         })
       );
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
