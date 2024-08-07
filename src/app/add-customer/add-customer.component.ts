@@ -134,17 +134,17 @@ export class AddCustomerComponent implements OnInit {
       'Content-Type': 'application/json',
     });
 
-    const MerchantId: string | null = localStorage.getItem('id');
-
-    const body = {
-      id: MerchantId,
-      customerId: id,
-    };
-
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/auth/subscribe', body, {
-        headers,
-      })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/auth/subscribe',
+        {
+          id: localStorage.getItem('id'),
+          customerId: id,
+        },
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
