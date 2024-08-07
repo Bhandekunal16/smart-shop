@@ -36,60 +36,41 @@ export class ConformPasswordComponent {
     });
   }
 
-  submitForm() {
-    this.flag = false;
+  public submitForm() {
     const password: string = this.myForm.value.Password;
     const email: any = localStorage.getItem('email');
 
+    this.flag = false;
+    this.messageHandler('info', 'Conforming the password...');
+
     this.conformPassword({ password, email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
+      localStorage.setItem('id', res.data.id);
       this.flag = true;
 
-      localStorage.setItem('id', res.data.id);
-
-      this.msg = [
-        {
-          severity: 'info',
-          summary: 'Conforming the password...',
-        },
-      ];
-
       if (res.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'success',
-            detail: 'password changed successfully.',
-          },
-        ];
+        this.messageHandler('success', 'password changed successfully.');
 
         res.data.userType == 'MERCHANT'
           ? this.dashboard()
           : this.customerDashboard();
       } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: 'something went wrong',
-          },
-        ];
+        this.messageHandler('warn', 'something went wrong');
+        this.clearMessagesAfterDelay();
       }
     });
   }
 
-  dashboard(): void {
+  private dashboard(): void {
     this.router.navigate(['/dashboard']);
   }
 
-  customerDashboard(): void {
+  private customerDashboard(): void {
     this.router.navigate(['/customer-dashboard']);
   }
 
-  conformPassword(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private conformPassword(body: any): Observable<any> {
+    const headers = this.header();
 
     return this.http
       .post<any>(
@@ -102,5 +83,21 @@ export class ConformPasswordComponent {
           return throwError(error);
         })
       );
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
