@@ -69,42 +69,21 @@ export class AddCustomerComponent implements OnInit {
       const data: any = this.decrypt.decrypt(ele.response);
 
       if (data.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'success',
-            detail: `${data.data}`,
-          },
-        ];
+        this.messageHandler('success', `${data.data}`, 'success');
 
         this.shopDetails().subscribe((ele) => {
           const data: any = this.decrypt.decrypt(ele.response);
+          
+          this.products = data.data;
 
           data.status
-            ? (this.msg = [
-                {
-                  severity: 'success',
-                  detail: `user found ${data.data.length}`,
-                },
-              ])
-            : (this.msg = [
-                { severity: 'warn', detail: 'something went wrong' },
-              ]);
+            ? this.messageHandler('success', `user found ${data.data.length}`)
+            : this.messageHandler('warn', 'something went wrong');
 
-          setTimeout(() => {
-            this.msg = [];
-          }, 100);
-
-          this.products = data.data;
+          this.clearMessagesAfterDelay();
         });
       } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: 'some addition failed.',
-          },
-        ];
+        this.messageHandler('warn', 'some addition failed.');
       }
     });
   }
