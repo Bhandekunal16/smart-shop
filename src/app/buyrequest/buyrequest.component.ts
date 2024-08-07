@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
-import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
@@ -15,12 +14,13 @@ import { SharedModule } from '../shared/shared.module';
   styleUrl: './buyrequest.component.scss',
 })
 export class BuyRequestComponent {
-  products!: any[];
+  public products!: any[];
   public options: string[] | any = ['CASH'];
   public msg: Message[] | any;
   public myForm: FormGroup | any;
   public mode: any;
   public langFlag: boolean | undefined = false;
+  public loader: boolean = false;
   constructor(private http: HttpClient, private decrypt: DecryptService) {
     this.myForm = new FormGroup({
       transactionType: new FormControl('', [Validators.required]),
@@ -28,72 +28,52 @@ export class BuyRequestComponent {
   }
 
   ngOnInit(): void {
+    this.loader = true;
     this.list();
   }
 
-  list() {
+  public list() {
     let id = localStorage.getItem('id');
 
-    this.msg = [{ severity: `info`, detail: 'searching buy request for you' }];
+    this.messageHandler(`info`, 'searching buy request for you');
 
     this.purchasedList(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
+      this.loader = false;
 
-      data.status ? (this.langFlag = false) : (this.langFlag = true);
+      if (!data.status) {
+        this.langFlag = true;
+      }
 
       data.data.length > 0
-        ? (this.msg = [
-            {
-              severity: `success`,
-              detail: `request found ${data.data.length}`,
-            },
-          ])
-        : (this.msg = [
-            {
-              severity: `warn`,
-              detail: 'currently you do not have any request',
-            },
-          ]);
+        ? this.messageHandler(`success`, `request found ${data.data.length}`)
+        : this.messageHandler(`warn`, 'currently you do not have any request');
 
-      setTimeout(() => {
-        this.msg = [];
-      }, 500);
+      this.clearMessagesAfterDelay();
     });
   }
 
-  getStatusInfo(isPurchased: boolean): { text: string; class: string } {
-     (isPurchased);
-    if (isPurchased) {
-      return { text: 'Sold', class: 'purchased' };
-    } else {
-      return { text: 'Process', class: 'Process' };
-    }
+  public getStatusInfo(isPurchased: boolean) {
+    return isPurchased
+      ? { text: 'Sold', class: 'purchased' }
+      : { text: 'Process', class: 'Process' };
   }
 
-  onPay(userId: any, productId: any) {
-    const payload = {
+  public onPay(userId: any, productId: any) {
+    this.sell({
       custId: userId,
       productId: productId,
       transactionType: this.mode,
-    };
-     (payload);
-
-    this.sell(payload).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-       (data.data);
     });
   }
 
-  onselect(mode: any) {
-     (mode);
+  public onselect(mode: any) {
     this.mode = mode;
   }
 
-  purchasedList(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private purchasedList(id: any): Observable<any> {
+    const headers = this.header();
 
     return this.http
       .get<any>(
@@ -109,10 +89,8 @@ export class BuyRequestComponent {
       );
   }
 
-  sell(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private sell(body: any): Observable<any> {
+    const headers = this.header();
 
     return this.http
       .post<any>(
@@ -125,5 +103,21 @@ export class BuyRequestComponent {
           return throwError(error);
         })
       );
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
