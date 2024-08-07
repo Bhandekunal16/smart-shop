@@ -16,6 +16,8 @@ import { SharedModule } from '../shared/shared.module';
 export class PurchaseListComponent implements OnInit {
   products!: any[];
   public msg: Message[] | any;
+  public totalCost: number | undefined;
+
   constructor(
     private http: HttpClient,
     private decrypt: DecryptService,
@@ -38,6 +40,10 @@ export class PurchaseListComponent implements OnInit {
     this.purchasedList(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
+      this.totalCost = data.data.reduce(
+        (accumulator: any, currentValue: any) => accumulator + currentValue,
+        0
+      );
 
       this.products.length == 0
         ? (this.msg = [
