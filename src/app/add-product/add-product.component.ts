@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { options } from '../string';
 
 @Component({
   selector: 'app-add-product',
@@ -17,81 +17,10 @@ export class AddProductComponent {
   public shopId: any;
   public selectedImage: File | any = null;
   public flag: boolean = false;
-  public options: string[] | any = [
-    'Grocery',
-    'Clothing',
-    'Electronics',
-    'Bookstore',
-    'Pharmacy',
-    'Furniture',
-    'Sports',
-    'Jewelry',
-    'Beauty',
-    'Home Improvement',
-    'Pet Supplies',
-    'Toys',
-    'Automotive',
-    'Other',
-    'Office Supplies',
-    'Garden',
-    'Music',
-    'Movies',
-    'Video Games',
-    'Health & Wellness',
-    'Baby Products',
-    'Crafts',
-    'Outdoor Equipment',
-    'Tools',
-    'Bags & Accessories',
-    'Footwear',
-    'Bedding',
-    'Kitchenware',
-    'Stationery',
-    'Groceries & Food',
-    'Cleaning Supplies',
-    'Party Supplies',
-    'Travel',
-    'Watches',
-    'Eyewear',
-    'Art Supplies',
-    'Fitness Equipment',
-    'Building Materials',
-    'Lighting',
-    'Electrical',
-    'Plumbing',
-    'Heating & Cooling',
-    'Seasonal Decor',
-    'Cameras & Photography',
-    'Computers & Accessories',
-    'Phones & Accessories',
-    'Smart Home Devices',
-    'Musical Instruments',
-    'Books & Magazines',
-    'Board Games',
-    'Luggage',
-    'Hiking & Camping Gear',
-    'Marine & Water Sports',
-    'Fishing Equipment',
-    'Cycling Gear',
-    'Skateboarding',
-    'Winter Sports',
-    'Yoga & Pilates',
-    'Personal Care',
-    'Wine & Spirits',
-    'Office Furniture',
-    'Safety & Security',
-    'Industrial Equipment',
-    'Educational Supplies',
-    'Gift Cards',
-  ];
-
+  public options: string[] = options;
   public myForm: FormGroup | any;
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private decrypt: DecryptService
-  ) {
+  constructor(private http: HttpClient, private decrypt: DecryptService) {
     this.myForm = new FormGroup({
       ProductName: new FormControl('', Validators.required),
       ProductDescription: new FormControl('', Validators.required),
@@ -102,16 +31,15 @@ export class AddProductComponent {
   }
 
   async onImageSelected(event: any) {
-    const file = event.target.files[0];
-    const maxSize = 2 * 1024 * 1024;
-
-    if (file.size > maxSize) {
-      alert('File size exceeds 2MB limit.');
-      event.target.value = ''; // Clear the input
-      return;
-    }
-
     try {
+      const [file, maxSize] = [event.target.files[0], 2 * 1024 * 1024];
+
+      if (file.size > maxSize) {
+        alert('File size exceeds 2MB limit.');
+        event.target.value = '';
+        return;
+      }
+
       this.selectedImage = await this.convertToWebPAndBinaryString(file);
     } catch (error) {
       console.error('Error processing image:', error);
@@ -150,7 +78,7 @@ export class AddProductComponent {
                 }
               },
               'image/webp',
-              0.8 // Quality factor for WebP format
+              0.8
             );
           } else {
             reject(new Error('Canvas context is not supported'));
