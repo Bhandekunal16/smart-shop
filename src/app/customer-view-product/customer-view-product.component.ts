@@ -26,6 +26,7 @@ export class CustomerViewProductComponent implements OnInit {
   public loader: boolean = true;
   public skip: number = 0;
   public limit: number = 10;
+  public selectedValue: string | undefined;
 
   public options: string[] | any = [
     'Grocery',
@@ -108,7 +109,6 @@ export class CustomerViewProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.statusService.status$.subscribe((status) => {
-      console.log(status);
       this.flag = status;
     });
     this.msg = [
@@ -155,8 +155,8 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   clearSelection() {
-    console.log(this.skip);
     this.myForm.get('productType')?.setValue('');
+    this.selectedValue = '';
     this.skip = 0;
     this.search();
   }
@@ -195,33 +195,34 @@ export class CustomerViewProductComponent implements OnInit {
   add() {
     this.skip += 10;
 
-    this.shopDetails({ skip: this.skip, limit: this.limit }).subscribe(
-      (ele) => {
-        const res = this.decrypt.decrypt(ele.response);
+    this.shopDetails({
+      skip: this.skip,
+      limit: this.limit,
+      productType: this.selectedValue,
+    }).subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
 
-        this.loader = true;
+      this.loader = true;
 
-        console.log(res.data);
+      this.data = res.data;
 
-        this.data = res.data;
+      this.msg = [
+        {
+          severity: 'success',
+          summary: `products found ${this.data.length}`,
+        },
+      ];
 
-        this.msg = [
-          {
-            severity: 'success',
-            summary: `products found ${this.data.length}`,
-          },
-        ];
-
-        setTimeout(() => {
-          this.msg = [];
-        }, 1000);
-      }
-    );
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
+    });
   }
 
   selectItem(event: Event) {
     this.loader = false;
     const selectedValue = (event.target as HTMLSelectElement).value;
+    this.selectedValue = selectedValue;
 
     this.shopDetails({
       skip: this.skip,
@@ -231,8 +232,6 @@ export class CustomerViewProductComponent implements OnInit {
       const res = this.decrypt.decrypt(ele.response);
 
       this.loader = true;
-
-      console.log(res.data);
 
       this.data = res.data;
 
@@ -288,9 +287,13 @@ export class CustomerViewProductComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, body, {
-        headers,
-      })
+      .post<any>(
+        `https://smart-shop-api-eta.vercel.app/product/customer/get`,
+        body,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
