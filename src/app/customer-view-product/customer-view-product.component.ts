@@ -24,6 +24,8 @@ export class CustomerViewProductComponent implements OnInit {
   public flag: boolean | any;
   public myForm: FormGroup | any;
   public loader: boolean = true;
+  public skip: number = 0;
+  public limit: number = 10;
 
   public options: string[] | any = [
     'Grocery',
@@ -126,33 +128,7 @@ export class CustomerViewProductComponent implements OnInit {
 
       this.loader = true;
 
-      const updatedShops = res.data.map((shop: any) => {
-        const updatedProducts = shop.products.map((product: any) => ({
-          ...product,
-          shopName: shop.shopName,
-        }));
-
-        return {
-          products: updatedProducts,
-        };
-      });
-
-      let array = [];
-      for (let index = 0; index < 1; index++) {
-        const product = updatedShops;
-
-        for (let index = 0; index < product.length; index++) {
-          const element = product[index].products;
-
-          array.push(element);
-        }
-      }
-
-      const data = array.reduce((acc, arr) => [...acc, ...arr], []);
-
-      this.data = data;
-
-      console.log(data);
+      this.data = res.data;
 
       this.msg = [
         {
@@ -177,7 +153,9 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   clearSelection() {
+    console.log(this.skip);
     this.myForm.get('productType')?.setValue('');
+    this.skip = 0;
     this.search();
   }
 
@@ -210,6 +188,31 @@ export class CustomerViewProductComponent implements OnInit {
 
   getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
+  }
+
+  add() {
+    this.skip += 10;
+
+    this.shopDetails().subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
+
+      this.loader = true;
+
+      console.log(res.data);
+
+      this.data = res.data;
+
+      this.msg = [
+        {
+          severity: 'success',
+          summary: `products found ${this.data.length}`,
+        },
+      ];
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
+    });
   }
 
   selectItem(event: Event) {
@@ -299,9 +302,13 @@ export class CustomerViewProductComponent implements OnInit {
       'Content-Type': 'application/json',
     });
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, {
-        headers,
-      })
+      .post<any>(
+        `https://smart-shop-api-eta.vercel.app/product/customer/get`,
+        { skip: this.skip, limit: this.limit },
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
