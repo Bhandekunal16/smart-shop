@@ -157,7 +157,9 @@ export class AddShopComponent {
       const id = localStorage.getItem('id');
       this.shopDetails(id).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
-        res.status ? (this.flag = true) : (this.flag = false);
+        if (res.status) {
+          this.flag = true;
+        }
       });
     } else LocalStorageNotFound();
   }
