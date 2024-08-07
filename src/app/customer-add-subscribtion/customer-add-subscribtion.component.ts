@@ -20,8 +20,8 @@ interface ApiResponse<T> {
   styleUrl: './customer-add-subscribtion.component.scss',
 })
 export class CustomerAddSubscriptionComponent implements OnInit {
-  products!: any[];
-  Add: any[] = [];
+  public products!: any[];
+  public Add: any[] = [];
   public msg: Message[] | any;
   public flag: boolean | any;
   public screen: boolean | undefined;
@@ -37,19 +37,18 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     this.statusService.status$.subscribe((status) => {
       this.flag = status;
     });
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'searching for subscription',
-      },
-    ];
-    this.search();
 
+    this.messageHandler('info', 'searching for subscription');
+    this.search();
+    this.ui();
+  }
+
+  private ui() {
     const Screen = window.innerWidth;
     Screen < 600 ? (this.screen = true) : (this.screen = false);
   }
 
-  search() {
+  private search() {
     const subscribedShop: any[] = [];
 
     this.added().subscribe((ele: ApiResponse<any>) => {
@@ -74,23 +73,18 @@ export class CustomerAddSubscriptionComponent implements OnInit {
         }
 
         this.products = newArray;
-        console.log(this.products);
 
-        this.msg = [
-          {
-            severity: 'success',
-            summary: `subscription found for ${this.products.length} shop`,
-          },
-        ];
+        this.messageHandler(
+          'success',
+          `subscription found for ${this.products.length} shop`
+        );
 
-        setTimeout(() => {
-          this.msg = [];
-        }, 1000);
+        this.clearMessagesAfterDelay();
       }
     });
   }
 
-  newKey(array1: any[], array2: any[]): void {
+  private newKey(array1: any[], array2: any[]): void {
     array1.forEach((obj1) => {
       const matchedObj = array2.find(
         (obj2: { id: any }) => obj1.id === obj2.id
@@ -101,17 +95,17 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     this.products[0].isSubscribed;
   }
 
-  added(): Observable<ApiResponse<any>> {
+  private added(): Observable<ApiResponse<any>> {
     const id = localStorage.getItem('id');
-    const headers = this.getHeaders();
+    const headers = this.header();
     return this.http.get<ApiResponse<any>>(
       `https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`,
       { headers }
     );
   }
 
-  shopDetails(): Observable<ApiResponse<any>> {
-    const headers = this.getHeaders();
+  private shopDetails(): Observable<ApiResponse<any>> {
+    const headers = this.header();
     return this.http.get<ApiResponse<any>>(
       `https://smart-shop-api-eta.vercel.app/shop/shops`,
       {
@@ -120,63 +114,37 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     );
   }
 
-  subscribe(id: any): void {
+  public subscribe(id: any): void {
     this.Subscribe(id).subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
 
-      if (data.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'success',
-            detail: `${data.data}`,
-          },
-        ];
-      } else {
-        this.msg = [
-          {
-            severity: 'error',
-            summary: 'error',
-            detail: `${data.data}`,
-          },
-        ];
-      }
+      data.status
+        ? this.messageHandler('success', `${data.data}`)
+        : this.messageHandler('error', `${data.data}`);
 
       data.status ? this.viewSubscriptionRoute() : 'nothing';
     });
   }
 
-  unSubscribe(id: any): void {
+  public unSubscribe(id: any): void {
     this.unsubscribe(id).subscribe((ele: ApiResponse<any>) => {
       const data = this.decrypt.decrypt(ele.response);
 
       if (data.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'success',
-            detail: `${data.data}`,
-          },
-        ];
+        this.messageHandler('success', `${data.data}`);
         this.search();
       } else {
-        this.msg = [
-          {
-            severity: 'error',
-            summary: 'error',
-            detail: `${data.data}`,
-          },
-        ];
+        this.messageHandler('error', `${data.data}`);
       }
     });
   }
 
-  viewSubscriptionRoute(): void {
+  private viewSubscriptionRoute(): void {
     this.router.navigate(['customer-dashboard/viewSubscription']);
   }
 
-  Subscribe(id: any): Observable<ApiResponse<any>> {
-    const headers = this.getHeaders();
+  private Subscribe(id: any): Observable<ApiResponse<any>> {
+    const headers = this.header();
     const CustomerId = localStorage.getItem('id');
     const body = { id, customerId: CustomerId };
     return this.http.post<ApiResponse<any>>(
@@ -186,8 +154,8 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     );
   }
 
-  unsubscribe(id: any): Observable<ApiResponse<any>> {
-    const headers = this.getHeaders();
+  private unsubscribe(id: any): Observable<ApiResponse<any>> {
+    const headers = this.header();
     const CustomerId = localStorage.getItem('id');
     const body = { shopId: id, id: CustomerId };
     return this.http.post<ApiResponse<any>>(
@@ -197,7 +165,17 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     );
   }
 
-  private getHeaders(): HttpHeaders {
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
     return new HttpHeaders({
       'Content-Type': 'application/json',
     });
