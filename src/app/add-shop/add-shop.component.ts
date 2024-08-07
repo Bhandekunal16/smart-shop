@@ -19,7 +19,7 @@ export class AddShopComponent {
   public myForm: FormGroup | any;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
-  public flag: boolean = false;
+  public flag: boolean = true;
   public sending: boolean = true;
 
   constructor(
@@ -157,8 +157,8 @@ export class AddShopComponent {
       const id = localStorage.getItem('id');
       this.shopDetails(id).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
-        if (res.status) {
-          this.flag = true;
+        if (!res.status) {
+          this.flag = false;
         }
       });
     } else LocalStorageNotFound();
