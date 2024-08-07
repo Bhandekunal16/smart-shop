@@ -123,24 +123,26 @@ export class CustomerViewProductComponent implements OnInit {
 
   search() {
     this.loader = false;
-    this.shopDetails().subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
+    this.shopDetails({ skip: this.skip, limit: this.limit }).subscribe(
+      (ele) => {
+        const res = this.decrypt.decrypt(ele.response);
 
-      this.loader = true;
+        this.loader = true;
 
-      this.data = res.data;
+        this.data = res.data;
 
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `products found ${this.data.length}`,
-        },
-      ];
+        this.msg = [
+          {
+            severity: 'success',
+            summary: `products found ${this.data.length}`,
+          },
+        ];
 
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
-    });
+        setTimeout(() => {
+          this.msg = [];
+        }, 1000);
+      }
+    );
   }
 
   onViewShop(id: any) {
@@ -193,7 +195,39 @@ export class CustomerViewProductComponent implements OnInit {
   add() {
     this.skip += 10;
 
-    this.shopDetails().subscribe((ele) => {
+    this.shopDetails({ skip: this.skip, limit: this.limit }).subscribe(
+      (ele) => {
+        const res = this.decrypt.decrypt(ele.response);
+
+        this.loader = true;
+
+        console.log(res.data);
+
+        this.data = res.data;
+
+        this.msg = [
+          {
+            severity: 'success',
+            summary: `products found ${this.data.length}`,
+          },
+        ];
+
+        setTimeout(() => {
+          this.msg = [];
+        }, 1000);
+      }
+    );
+  }
+
+  selectItem(event: Event) {
+    this.loader = false;
+    const selectedValue = (event.target as HTMLSelectElement).value;
+
+    this.shopDetails({
+      skip: this.skip,
+      limit: this.limit,
+      productType: selectedValue,
+    }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
       this.loader = true;
@@ -201,54 +235,6 @@ export class CustomerViewProductComponent implements OnInit {
       console.log(res.data);
 
       this.data = res.data;
-
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `products found ${this.data.length}`,
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
-    });
-  }
-
-  selectItem(event: Event) {
-    this.loader = false;
-    const selectedValue = (event.target as HTMLSelectElement).value;
-
-    this.filter({ productType: selectedValue }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-      this.loader = true;
-
-      const updatedShops = res.data.map((shop: any) => {
-        const updatedProducts = shop.products.map((product: any) => ({
-          ...product,
-          shopName: shop.shopName,
-        }));
-
-        return {
-          products: updatedProducts,
-        };
-      });
-
-      let array = [];
-      for (let index = 0; index < 1; index++) {
-        const product = updatedShops;
-
-        for (let index = 0; index < product.length; index++) {
-          const element = product[index].products;
-          array.push(element);
-        }
-      }
-
-      const data = array.reduce((acc, arr) => [...acc, ...arr], []);
-
-      this.data = data;
-
-      console.log(data);
 
       this.msg = [
         {
@@ -297,18 +283,14 @@ export class CustomerViewProductComponent implements OnInit {
       );
   }
 
-  shopDetails(): Observable<any> {
+  shopDetails(body: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     return this.http
-      .post<any>(
-        `https://smart-shop-api-eta.vercel.app/product/customer/get`,
-        { skip: this.skip, limit: this.limit },
-        {
-          headers,
-        }
-      )
+      .post<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -324,9 +306,8 @@ export class CustomerViewProductComponent implements OnInit {
     };
 
     this.Add(body).subscribe((ele) => {
-      ele;
       let res = this.decrypt.decrypt(ele.response);
-      res;
+
       if (res.status) {
         this.msg = [
           {
@@ -358,25 +339,6 @@ export class CustomerViewProductComponent implements OnInit {
       .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
         headers,
       })
-      .pipe(
-        catchError((error) => {
-          return throwError(error);
-        })
-      );
-  }
-
-  filter(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this.http
-      .post<any>(
-        `https://smart-shop-api-eta.vercel.app/product/customer/get/filter`,
-        id,
-        {
-          headers,
-        }
-      )
       .pipe(
         catchError((error) => {
           return throwError(error);
