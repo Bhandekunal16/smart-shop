@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
-import { options } from '../string';
+import { options, LocalStorageNotFound } from '../string';
 
 @Component({
   selector: 'app-add-product',
@@ -117,7 +117,7 @@ export class AddProductComponent {
     this.myForm.reset();
   }
 
-  details() {
+  private details() {
     if (typeof window !== 'undefined' && window.localStorage) {
       const id = localStorage.getItem('id');
 
@@ -125,10 +125,10 @@ export class AddProductComponent {
         const res = this.decrypt.decrypt(ele.response);
         localStorage.setItem('shopId', res.data);
       });
-    } else console.error('LocalStorage is not available in this environment.');
+    } else LocalStorageNotFound();
   }
 
-  create(body: any): Observable<any> {
+  private create(body: any): Observable<any> {
     const headers = this.header();
 
     return this.http
@@ -142,7 +142,7 @@ export class AddProductComponent {
       );
   }
 
-  shopDetails(id: any): Observable<any> {
+  private shopDetails(id: any): Observable<any> {
     const headers = this.header();
 
     return this.http

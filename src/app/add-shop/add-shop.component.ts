@@ -6,6 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { LocalStorageNotFound } from '../string';
 
 @Component({
   selector: 'app-add-shop',
@@ -18,7 +19,7 @@ export class AddShopComponent {
   public myForm: FormGroup | any;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
-  public flag: boolean = true;
+  public flag: boolean = false;
   public sending: boolean = true;
 
   constructor(
@@ -53,7 +54,7 @@ export class AddShopComponent {
     this.details();
   }
 
-  submitForm() {
+  public submitForm() {
     const shopName = this.myForm.value.ShopName;
     const address = this.myForm.value.Address;
     const officialEmail = this.myForm.value.officialEmail;
@@ -62,9 +63,10 @@ export class AddShopComponent {
     const panNo = this.myForm.value.panNo;
     const pinCode = this.myForm.value.pinCode;
     const logo = this.selectedImage;
+
     this.sending = false;
 
-    const body = {
+    this.create({
       logo,
       shopName,
       address,
@@ -74,56 +76,37 @@ export class AddShopComponent {
       shopGst,
       pinCode,
       id: localStorage.getItem('id'),
-    };
-
-    this.create(body).subscribe((data) => {
+    }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
       this.sending = true;
-      if (res.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'success',
-            detail: 'shop added successfully.',
-          },
-        ];
-      } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: 'some addition failed.',
-          },
-        ];
-      }
+
+      res.status
+        ? this.messageHandler('success', 'shop added successfully.', 'success')
+        : this.messageHandler('warn', 'some addition failed.', 'warn');
+
+      this.clearMessagesAfterDelay();
     });
 
     this.myForm.reset();
   }
 
-  async onImageSelected(event: any) {
-    const file = event.target.files[0];
-    const maxSize = 1 * 1024 * 1024; // 2MB in bytes
-
-    if (file.size > maxSize) {
-      this.msg = [
-        {
-          severity: 'warn',
-          detail: 'File size exceeds MB limit.',
-        },
-      ];
-      event.target.value = ''; // Clear the input
-      return;
-    }
-
+  public async onImageSelected(event: any) {
     try {
+      const [file, maxSize] = [event.target.files[0], 1 * 1024 * 1024];
+
+      if (file.size > maxSize) {
+        this.messageHandler('warn', 'File size exceeds MB limit.');
+        event.target.value = '';
+        return;
+      }
+
       this.selectedImage = await this.convertToWebPAndBinaryString(file);
     } catch (error) {
       console.error('Error processing image:', error);
     }
   }
 
-  convertToWebPAndBinaryString(file: File): Promise<string | null> {
+  private convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -155,7 +138,7 @@ export class AddShopComponent {
                 }
               },
               'image/webp',
-              0.8 // Quality factor for WebP format
+              0.8
             );
           } else {
             reject(new Error('Canvas context is not supported'));
@@ -169,22 +152,18 @@ export class AddShopComponent {
     });
   }
 
-  details() {
+  private details() {
     if (typeof window !== 'undefined' && window.localStorage) {
       const id = localStorage.getItem('id');
-      this.shopDetails({ id }).subscribe((ele) => {
+      this.shopDetails(id).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
         res.status ? (this.flag = true) : (this.flag = false);
       });
-    } else {
-      console.error('LocalStorage is not available in this environment.');
-    }
+    } else LocalStorageNotFound();
   }
 
-  create(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  public create(body: any): Observable<any> {
+    const headers = this.header();
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/create', body, {
@@ -197,15 +176,17 @@ export class AddShopComponent {
       );
   }
 
-  shopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private shopDetails(id: any): Observable<any> {
+    const headers = this.header();
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/shop/get/shop/id/${id}`,
+
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -213,7 +194,23 @@ export class AddShopComponent {
       );
   }
 
-  viewShop(): void {
+  public viewShop(): void {
     this.router.navigate(['dashboard/viewShop']);
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }

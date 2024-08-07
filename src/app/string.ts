@@ -65,3 +65,7 @@ export const options: string[] = [
   'Educational Supplies',
   'Gift Cards',
 ];
+
+export const LocalStorageNotFound = (): string => {
+  return 'LocalStorage is not available in this environment.';
+};
