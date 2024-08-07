@@ -10,9 +10,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f0f0f0;
+  // background-color: #f0f0f0;
+  background-color: red;
   width: 30vw;
-  height: 62vh;
+  height: 70vh;
   border: solid #ffffff 0.2px;
   border-radius: 8px;
   display: flex;
@@ -70,14 +71,10 @@
   border-top: dotted #1e5d4a 1px;
 }
 
- 
-
-
-
 @media (max-width: 1000px) {
   .login-container-form {
     width: 80vw;
-    height: 50vh;
+    height: fit-content;
   }
 
   .login-container-form-input input {
