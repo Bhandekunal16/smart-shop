@@ -13,9 +13,8 @@ import { Message } from 'primeng/api';
   styleUrl: './chart-product.component.scss',
 })
 export class ChartProductComponent implements OnInit {
-  basicData: any;
-  basicOptions: any;
-
+  public basicData: any;
+  public basicOptions: any;
   public Name: any[] = [];
   public Value: any[] = [];
   public array: any[] = [];
@@ -34,39 +33,12 @@ export class ChartProductComponent implements OnInit {
 
     this.flag = false;
 
+    this.messageHandler('info', 'searching products for you !');
+
     this.shopDetails().subscribe(
       (ele) => {
         const res = this.decrypt.decrypt(ele.response);
         this.array = res.data;
-
-        this.flag = true;
-
-        this.msg = [
-          {
-            severity: 'info',
-            summary: 'searching products for you !',
-          },
-        ];
-
-        res.response == null && res.data == undefined
-          ? (this.msg = [
-              {
-                severity: 'warn',
-                summary: 'No Data',
-                detail:
-                  'you currently not have any product, create shop & add some product',
-              },
-            ])
-          : (this.msg = [
-              {
-                severity: 'success',
-                summary: 'product found at your shop',
-              },
-            ]);
-
-        setTimeout(() => {
-          this.msg = [];
-        }, 1000);
 
         let value = [];
         let name = [];
@@ -77,8 +49,18 @@ export class ChartProductComponent implements OnInit {
 
         this.Name = name;
         this.Value = value;
+        this.flag = true;
 
-        // Set chart data here
+        res.response == null && res.data == undefined
+          ? this.messageHandler(
+              'warn',
+              'you currently not have any product, create shop & add some product',
+              'No Data'
+            )
+          : this.messageHandler('success', 'product found at your shop');
+
+        this.clearMessagesAfterDelay();
+
         this.basicData = {
           labels: this.Name,
           datasets: [
@@ -140,11 +122,9 @@ export class ChartProductComponent implements OnInit {
     );
   }
 
-  shopDetails(): Observable<any> {
+  public shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/count/${id}`, {
         headers,
@@ -154,5 +134,21 @@ export class ChartProductComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
