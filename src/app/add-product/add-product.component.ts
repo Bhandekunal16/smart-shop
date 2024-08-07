@@ -121,9 +121,9 @@ export class AddProductComponent {
     if (typeof window !== 'undefined' && window.localStorage) {
       const id = localStorage.getItem('id');
 
-      this.shopDetails({ id }).subscribe((ele) => {
+      this.shopDetails(id).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
-        localStorage.setItem('shopId', res.data.id);
+        localStorage.setItem('shopId', res.data);
       });
     } else console.error('LocalStorage is not available in this environment.');
   }
@@ -142,13 +142,17 @@ export class AddProductComponent {
       );
   }
 
-  shopDetails(body: any): Observable<any> {
+  shopDetails(id: any): Observable<any> {
     const headers = this.header();
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/shop/get/shop/id/${id}`,
+
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
