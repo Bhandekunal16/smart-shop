@@ -26,7 +26,10 @@ export class AddCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageHandler('info', 'searching for your customer...');
+    this.shopCreate();
+  }
 
+  private shopCreate() {
     this.shopDetails().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
 
