@@ -25,23 +25,29 @@ export class AddCustomerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.msg = [{ severity: 'info', detail: 'searching for your customer...' }];
+    this.messageHandler('info', 'searching for your customer...');
 
     this.shopDetails().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
 
-      data.status
-        ? (this.msg = [
-            { severity: 'success', detail: `user found ${data.data.length}` },
-          ])
-        : (this.msg = [{ severity: 'warn', detail: 'something went wrong' }]);
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 100);
-
       this.products = data.data;
+
+      data.status
+        ? this.messageHandler('success', `user found ${data.data.length}`)
+        : this.messageHandler('warn', 'something went wrong');
+
+      this.clearMessagesAfterDelay();
     });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
   public edit(id: string): void {
@@ -52,13 +58,7 @@ export class AddCustomerComponent implements OnInit {
         this.userList();
         this.showButton = true;
       } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: data.response,
-          },
-        ];
+        this.messageHandler('warn', data.response, 'warn');
         this.showButton = false;
       }
     });
