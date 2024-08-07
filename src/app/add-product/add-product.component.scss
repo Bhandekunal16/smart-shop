@@ -74,12 +74,12 @@
     margin-left: -1%;
   }
 
-  .add-product-container-form-input input {
-    height: 5vh;
-    width: 70vw;
+  .add-product-container-form-top {
+    height: fit-content;
   }
 
-  .add-product-container-form-input select {
+  .add-product-container-form-input input,
+  select {
     height: 5vh;
     width: 70vw;
   }
