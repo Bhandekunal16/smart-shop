@@ -25,4 +25,5 @@ export const routes: Routes = [
     component: CustomerDashboardComponent,
     loadChildren: () => import('./customer.routes').then((mod) => mod.Customer),
   },
+  { path: '**', redirectTo: '' },
 ];
