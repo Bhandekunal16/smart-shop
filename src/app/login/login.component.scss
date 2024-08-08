@@ -59,15 +59,28 @@
   transition: box-shadow 0.3s, transform 0.3s;
 }
 
-.login-container-form p {
-  text-align: left;
-  color: #1e5d4a;
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
 }
 
-.login-container-form-p {
-  width: 90%;
-  margin-top: 2%;
-  border-top: dotted #1e5d4a 1px;
+.login-option {
+  cursor: pointer;
+  color: #1e5d4a;
+  text-decoration: underline;
+}
+
+.login-option:hover {
+  color: #1e5d49;
+}
+
+.separator {
+  font-weight: bold;
+  color: #888;
 }
 
 @media (max-width: 1000px) {

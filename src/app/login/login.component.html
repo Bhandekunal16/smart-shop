@@ -18,6 +18,7 @@
     <div class="login-container-form-top">
       <h1>Login</h1>
     </div>
+
     <div class="login-container-form-input">
       <label>Username </label>
       <input
@@ -46,17 +47,19 @@
         [disabled]="myForm.invalid"
         (click)="submitForm()"
       ></button>
-      <button
+      <!-- <button
         pButton
         pRipple
         label="Register"
         class="p-button-success"
         (click)="register()"
-      ></button>
+      ></button> -->
     </div>
 
-    <div class="login-container-form-p">
-      <p (click)="forgetPassword()">Forget Password!</p>
+    <div class="login-options">
+      <p class="login-option" (click)="forgetPassword()">Forgot Password?</p>
+      <span class="separator">OR</span>
+      <p class="login-option" (click)="register()">Sign up</p>
     </div>
   </form>
 </div>
