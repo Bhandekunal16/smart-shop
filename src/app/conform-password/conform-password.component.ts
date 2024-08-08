@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from 'primeng/api';
-import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
@@ -22,7 +21,6 @@ export class ConformPasswordComponent {
 
   constructor(
     private router: Router,
-    private settler: SettlerService,
     private http: HttpClient,
     private decrypt: DecryptService
   ) {
