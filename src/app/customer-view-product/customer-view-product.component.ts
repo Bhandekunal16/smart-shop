@@ -7,6 +7,7 @@ import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { options } from '../string';
 
 @Component({
   selector: 'app-customer-view-product',
@@ -27,74 +28,7 @@ export class CustomerViewProductComponent implements OnInit {
   public skip: number = 0;
   public limit: number = 10;
   public selectedValue: string | undefined;
-
-  public options: string[] | any = [
-    'Grocery',
-    'Clothing',
-    'Electronics',
-    'Bookstore',
-    'Pharmacy',
-    'Furniture',
-    'Sports',
-    'Jewelry',
-    'Beauty',
-    'Home Improvement',
-    'Pet Supplies',
-    'Toys',
-    'Automotive',
-    'Other',
-    'Office Supplies',
-    'Garden',
-    'Music',
-    'Movies',
-    'Video Games',
-    'Health & Wellness',
-    'Baby Products',
-    'Crafts',
-    'Outdoor Equipment',
-    'Tools',
-    'Bags & Accessories',
-    'Footwear',
-    'Bedding',
-    'Kitchenware',
-    'Stationery',
-    'Groceries & Food',
-    'Cleaning Supplies',
-    'Party Supplies',
-    'Travel',
-    'Watches',
-    'Eyewear',
-    'Art Supplies',
-    'Fitness Equipment',
-    'Building Materials',
-    'Lighting',
-    'Electrical',
-    'Plumbing',
-    'Heating & Cooling',
-    'Seasonal Decor',
-    'Cameras & Photography',
-    'Computers & Accessories',
-    'Phones & Accessories',
-    'Smart Home Devices',
-    'Musical Instruments',
-    'Books & Magazines',
-    'Board Games',
-    'Luggage',
-    'Hiking & Camping Gear',
-    'Marine & Water Sports',
-    'Fishing Equipment',
-    'Cycling Gear',
-    'Skateboarding',
-    'Winter Sports',
-    'Yoga & Pilates',
-    'Personal Care',
-    'Wine & Spirits',
-    'Office Furniture',
-    'Safety & Security',
-    'Industrial Equipment',
-    'Educational Supplies',
-    'Gift Cards',
-  ];
+  public options: string[] | any = options;
 
   constructor(
     private http: HttpClient,
@@ -111,12 +45,7 @@ export class CustomerViewProductComponent implements OnInit {
     this.statusService.status$.subscribe((status) => {
       this.flag = status;
     });
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'Searching product for you!',
-      },
-    ];
+    this.messageHandler('info', 'Searching product for you!');
     this.changer();
     this.search();
   }
@@ -126,127 +55,45 @@ export class CustomerViewProductComponent implements OnInit {
     this.shopDetails({ skip: this.skip, limit: this.limit }).subscribe(
       (ele) => {
         const res = this.decrypt.decrypt(ele.response);
-
         this.loader = true;
-
         this.data = res.data;
-
-        this.msg = [
-          {
-            severity: 'success',
-            summary: `products found ${this.data.length}`,
-          },
-        ];
-
-        setTimeout(() => {
-          this.msg = [];
-        }, 1000);
+        this.messageHandler('success', `products found ${this.data.length}`);
+        this.clearMessagesAfterDelay();
       }
     );
   }
 
-  onViewShop(id: any) {
-    localStorage.setItem('viewShopId', id);
-    this.viewShop();
-  }
-
-  now(input: string) {
-    return btoa(input);
-  }
-
-  clearSelection() {
-    this.myForm.get('productType')?.setValue('');
-    this.selectedValue = '';
-    this.skip = 0;
-    this.search();
-  }
-
-  changer() {
-    const Screen = window.innerWidth;
-    Screen < 600 ? (this.screen = true) : (this.screen = false);
-  }
-
-  edit(): void {
-    this.router.navigate(['customer-dashboard/updateRating']);
-  }
-
-  view(): void {
-    this.router.navigate(['customer-dashboard/userViewWishList']);
-  }
-
-  viewShop(): void {
-    this.router.navigate(['customer-dashboard/viewShop']);
-  }
-
-  paymentRoute(id: string) {
-    localStorage.setItem('currentObjectId', id);
-    this.router.navigate(['customer-dashboard/payment']);
-  }
-
-  setCurrentObjectId(id: string) {
-    localStorage.setItem('currentObjectId', id);
-    this.edit();
-  }
-
-  getStatusText(isPurchased: boolean): string {
-    return isPurchased ? 'Sold' : 'Unsold';
-  }
-
-  add() {
+  public add() {
     this.skip += 10;
-
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
       productType: this.selectedValue,
     }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-
       this.loader = true;
-
       this.data = res.data;
-
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `products found ${this.data.length}`,
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.messageHandler('success', `products found ${this.data.length}`);
+      this.clearMessagesAfterDelay();
     });
   }
 
-  decries() {
+  public decries() {
     this.skip == 0 ? 0 : (this.skip -= 10);
-
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
       productType: this.selectedValue,
     }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-
       this.loader = true;
-
       this.data = res.data;
-
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `products found ${this.data.length}`,
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.messageHandler('success', `products found ${this.data.length}`);
+      this.clearMessagesAfterDelay();
     });
   }
 
-  selectItem(event: Event) {
+  public selectItem(event: Event) {
     this.loader = false;
     const selectedValue = (event.target as HTMLSelectElement).value;
     this.selectedValue = selectedValue;
@@ -257,43 +104,81 @@ export class CustomerViewProductComponent implements OnInit {
       productType: selectedValue,
     }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-
       this.loader = true;
-
       this.data = res.data;
-
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `products found ${this.data.length}`,
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.messageHandler('success', `products found ${this.data.length}`);
+      this.clearMessagesAfterDelay();
     });
   }
 
-  remove(id: any) {
-    const userId = localStorage.getItem('id');
-    const body = {
-      userId: userId,
+  public remove(id: any) {
+    this.Remove({
+      userId: localStorage.getItem('id'),
       productId: id,
-    };
-    this.Remove(body).subscribe((ele) => {
+    }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-
       if (res.status) {
         this.search();
       }
     });
   }
 
-  Remove(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+  public WishList(id: string) {
+    this.Add({
+      userId: localStorage.getItem('id'),
+      productId: id,
+    }).subscribe((ele) => {
+      let res = this.decrypt.decrypt(ele.response);
+      if (res.status) {
+        this.messageHandler('success', 'add to wish list');
+        this.view();
+        this.showButton = false;
+        this.clearMessagesAfterDelay();
+      } else {
+        this.messageHandler('warn', res.response);
+        this.showButton = true;
+        this.clearMessagesAfterDelay();
+      }
     });
+  }
+
+  public getStatusText(isPurchased: boolean): string {
+    return isPurchased ? 'Sold' : 'Unsold';
+  }
+
+  public paymentRoute(id: string) {
+    localStorage.setItem('currentObjectId', id);
+    this.router.navigate(['customer-dashboard/payment']);
+  }
+
+  public setCurrentObjectId(id: string) {
+    localStorage.setItem('currentObjectId', id);
+    this.edit();
+  }
+
+  public now(input: string) {
+    return btoa(input);
+  }
+
+  public onViewShop(id: any) {
+    localStorage.setItem('viewShopId', id);
+    this.viewShop();
+  }
+
+  public clearSelection() {
+    this.myForm.get('productType')?.setValue('');
+    this.selectedValue = '';
+    this.skip = 0;
+    this.search();
+  }
+
+  private changer() {
+    const Screen = window.innerWidth;
+    Screen < 600 ? (this.screen = true) : (this.screen = false);
+  }
+
+  private Remove(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
@@ -309,10 +194,8 @@ export class CustomerViewProductComponent implements OnInit {
       );
   }
 
-  shopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private shopDetails(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/customer/get`,
@@ -328,43 +211,8 @@ export class CustomerViewProductComponent implements OnInit {
       );
   }
 
-  WishList(id: string) {
-    const userId = localStorage.getItem('id');
-    const body = {
-      userId: userId,
-      productId: id,
-    };
-
-    this.Add(body).subscribe((ele) => {
-      let res = this.decrypt.decrypt(ele.response);
-
-      if (res.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: 'add to wish list',
-          },
-        ];
-        this.view();
-        this.showButton = false;
-      } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: res.response,
-          },
-        ];
-        this.showButton = true;
-      }
-    });
-  }
-
-  Add(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private Add(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
         headers,
@@ -374,5 +222,33 @@ export class CustomerViewProductComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private edit(): void {
+    this.router.navigate(['customer-dashboard/updateRating']);
+  }
+
+  private view(): void {
+    this.router.navigate(['customer-dashboard/userViewWishList']);
+  }
+
+  private viewShop(): void {
+    this.router.navigate(['customer-dashboard/viewShop']);
   }
 }
