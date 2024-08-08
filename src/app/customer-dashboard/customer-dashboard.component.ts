@@ -16,10 +16,10 @@ import { DecryptService } from '../../global/decrypt.service';
   styleUrl: './customer-dashboard.component.scss',
 })
 export class CustomerDashboardComponent implements OnInit {
-  items: MenuItem[] | undefined;
-  onlineStatus: boolean = true;
-  visible: boolean = false;
-  Log: any;
+  public items: MenuItem[] | undefined;
+  public onlineStatus: boolean = true;
+  public visible: boolean = false;
+  public Log: any;
   public profileImage: string | any;
 
   constructor(
@@ -49,7 +49,7 @@ export class CustomerDashboardComponent implements OnInit {
     });
   }
 
-  updateMenuItems(status: boolean) {
+  private updateMenuItems(status: boolean) {
     this.items = [
       {
         label: `${localStorage.getItem('username')}`,
@@ -148,56 +148,51 @@ export class CustomerDashboardComponent implements OnInit {
     ];
   }
 
-  login(): void {
+  private login(): void {
     this.router.navigate(['']);
   }
 
-  addSubscription(): void {
+  private addSubscription(): void {
     this.router.navigate(['customer-dashboard/addSubscription']);
   }
 
-  initial() {
+  private initial() {
     this.router.navigate(['customer-dashboard']);
   }
 
-  WishList() {
+  private WishList() {
     this.router.navigate(['customer-dashboard/userViewWishList']);
   }
 
-  profile() {
+  private profile() {
     this.router.navigate(['customer-dashboard/profile']);
   }
 
-  viewSubscriptionRoute() {
+  private viewSubscriptionRoute() {
     this.router.navigate(['customer-dashboard/viewSubscription']);
   }
 
-  feedback() {
+  private feedback() {
     this.router.navigate(['customer-dashboard/feedback']);
   }
 
-  list() {
+  private list() {
     this.router.navigate(['customer-dashboard/purchasedList']);
   }
 
-  share() {
+  private share() {
     this.router.navigate(['customer-dashboard/share']);
   }
 
-  date() {
+  public date() {
     this.visible = true;
     const data: any = localStorage.getItem('lastLogin');
     this.Log = new Date(parseInt(data)).toISOString();
-
-    setInterval(() => {
-      this.Log = null;
-    }, 10000);
+    this.clearLog();
   }
 
-  shopDetails(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  public shopDetails(id: any): Observable<any> {
+    const headers = this.header();
 
     return this.http
       .get<any>(
@@ -209,5 +204,17 @@ export class CustomerDashboardComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearLog() {
+    setInterval(() => {
+      this.Log = null;
+    }, 10000);
   }
 }
