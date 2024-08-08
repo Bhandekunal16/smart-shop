@@ -60,6 +60,13 @@ export class DashboardComponent {
         },
       },
       {
+        label: 'feed',
+        icon: 'pi pi-fw pi-box',
+        command: () => {
+          this.feed();
+        },
+      },
+      {
         label: 'Shop',
         icon: 'pi pi-fw pi-shop',
         items: [
@@ -96,13 +103,6 @@ export class DashboardComponent {
             icon: 'pi pi-fw pi-plus',
             command: () => {
               this.addProduct();
-            },
-          },
-          {
-            label: 'feed',
-            icon: 'pi pi-fw pi-comment',
-            command: () => {
-              this.feed();
             },
           },
           {
