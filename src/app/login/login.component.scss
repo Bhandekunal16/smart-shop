@@ -12,24 +12,29 @@
   transform: translate(-50%, -50%);
   background-color: #f0f0f0;
   width: 30vw;
-  height: 70vh;
+  height: 72vh;
   border: solid #ffffff 0.2px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .login-container-form-top {
-  background-color: #1e5d4a;
-  height: 20%;
-  width: 100%;
-  border-radius: 8px 8px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+ 
+}
+
+.login-container-form-top p-image {
+  margin-bottom: 10px;
 }
 
 .login-container-form-top h1 {
-  color: #f0f0f0;
-  text-align: center;
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
 }
 
 .login-container-form-input {
