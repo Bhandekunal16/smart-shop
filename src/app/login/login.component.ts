@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 
 @Component({
@@ -19,11 +18,7 @@ export class LoginComponent {
   public msg: Message[] | any;
   public flag: boolean = true;
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private decrypt: DecryptService
-  ) {
+  constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
       Username: new FormControl(''),
       Password: new FormControl('', [
@@ -35,24 +30,18 @@ export class LoginComponent {
     });
   }
 
-  submitForm() {
-    const username: string = this.myForm.value.Username;
-    const password: string = this.myForm.value.Password;
-
+  public submitForm() {
     this.flag = false;
 
-    this.login({ username, password }).subscribe((data) => {
+    this.login({
+      username: this.myForm.value.Username,
+      password: this.myForm.value.Password,
+    }).subscribe((data) => {
       if (data.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: 'login successfully !',
-          },
-        ];
+        this.messageHandler('success', 'login successfully !');
+        this.flag = true;
 
-        const id = data.data.id;
-        localStorage.setItem('id', id);
+        localStorage.setItem('id', data.data.id);
         localStorage.setItem('status', data.data.status);
         localStorage.setItem(
           'username',
@@ -60,46 +49,17 @@ export class LoginComponent {
         );
         localStorage.setItem('type', data.data.userType);
         localStorage.setItem('lastLogin', `${new Date().getTime()}`);
-        this.flag = true;
 
-        if (data.data.userType == 'MERCHANT') {
-          this.dashboard();
-        } else {
-          this.customerDashboard();
-        }
-      } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: 'please check login credential !',
-          },
-        ];
-      }
+        data.data.userType == 'MERCHANT'
+          ? this.dashboard()
+          : this.customerDashboard();
+      } else this.messageHandler('warn', 'please check login credential !');
+      this.clearMessagesAfterDelay();
     });
   }
 
-  register(): void {
-    this.router.navigate(['/register']);
-  }
-
-  dashboard(): void {
-    this.router.navigate(['/dashboard']);
-  }
-
-  customerDashboard(): void {
-    this.router.navigate(['customer-dashboard']);
-  }
-
-  forgetPassword(): void {
-    this.router.navigate(['/forget-password']);
-  }
-
-  login(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private login(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/login', body, {
         headers,
@@ -109,5 +69,37 @@ export class LoginComponent {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  public register(): void {
+    this.router.navigate(['/register']);
+  }
+
+  private dashboard(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
+  private customerDashboard(): void {
+    this.router.navigate(['customer-dashboard']);
+  }
+
+  public forgetPassword(): void {
+    this.router.navigate(['/forget-password']);
   }
 }
