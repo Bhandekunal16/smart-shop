@@ -19,8 +19,8 @@ export class EditShopComponent {
   public obj: any;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
-  public readingFlag: boolean | undefined;
-  public status: any | undefined;
+  public readingFlag: boolean = false;
+  public status: any | undefined = 'Enabled';
   public statusFlag: any;
 
   constructor(
@@ -51,111 +51,60 @@ export class EditShopComponent {
     });
   }
 
-  submitForm() {
-    let payload = {
+  ngOnInit(): void {
+    this.messageHandler('info', 'searching shop details!');
+    this.details();
+  }
+
+  public submitForm() {
+    this.editShopDetails({
       ...this.obj,
       address: this.myForm.value.address,
       shopName: this.myForm.value.shopName,
       officialEmail: this.myForm.value.officialEmail,
       officialContactNo: this.myForm.value.officialContactNo,
       logo: this.selectedImage,
-    };
-
-    this.editShopDetails(payload).subscribe((ele) => {
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'Success',
-          detail: 'shop edited successfully!',
-        },
-      ];
+    }).subscribe((ele) => {
+      this.messageHandler('success', 'shop edited successfully!');
+      this.clearMessagesAfterDelay();
     });
   }
 
-  ngOnInit(): void {
-    this.details();
-  }
-
-  details() {
+  private details() {
     try {
-      const id = localStorage.getItem('id');
-
-      this.shopDetails({ id }).subscribe((ele) => {
+      this.readingFlag = false;
+      this.shopDetails({ id: localStorage.getItem('id') }).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
-
-        this.myForm.value.shopName == ''
-          ? (this.readingFlag = true)
-          : (this.readingFlag = false);
-
-        this.myForm.patchValue(res.data);
-
-        this.status = res.data.disable ? 'Disabled' : 'Enabled';
-        console.log(this.status);
-        this.statusFlag = res.data.disable;
-
         this.obj = res.data;
+        this.myForm.patchValue(res.data);
+        if (res.data.disable) {
+          this.status = 'Disabled';
+        }
+        this.statusFlag = res.data.disable;
+        this.readingFlag = true;
+        this.clearMessagesAfterDelay();
       });
     } catch (error) {
-      console.warn('this is warning of localhost');
+      this.messageHandler('error', 'something went wrong');
     }
   }
 
-  shopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
-        headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError(error);
-        })
-      );
-  }
-
-  editShopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-    return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/edit', body, {
-        headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError(error);
-        })
-      );
-  }
-
-  async onImageSelected(event: any) {
-    const file = event.target.files[0];
-    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
-
-    if (file.size > maxSize) {
-      this.msg = [
-        {
-          severity: 'warn',
-          detail: 'File size exceeds 2MB limit.',
-        },
-      ];
-      event.target.value = ''; // Clear the input
-
-      return;
-    }
-
+  public async onImageSelected(event: any) {
     try {
+      const [file, maxSize] = [event.target.files[0], 2 * 1024 * 1024];
+      if (file.size > maxSize) {
+        this.messageHandler('warn', 'File size exceeds 2MB limit.');
+        event.target.value = '';
+        return;
+      }
       this.selectedImage = await this.convertToWebPAndBinaryString(file);
+      this.clearMessagesAfterDelay();
     } catch (error) {
       console.error('Error processing image:', error);
     }
   }
 
-  convertToWebPAndBinaryString(file: File): Promise<string | null> {
+  private convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -187,7 +136,7 @@ export class EditShopComponent {
                 }
               },
               'image/webp',
-              0.8 // Quality factor for WebP format
+              0.8
             );
           } else {
             reject(new Error('Canvas context is not supported'));
@@ -201,45 +150,24 @@ export class EditShopComponent {
     });
   }
 
-  trigger() {
-    const id = localStorage.getItem('id');
-    this.activate({ id }).subscribe((ele) => {
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'Success',
-          detail: 'shop activated successfully!',
-        },
-      ];
-
+  public trigger() {
+    this.activate({ id: localStorage.getItem('id') }).subscribe((ele) => {
+      this.messageHandler('success', 'shop activated successfully!');
       this.details();
+      this.clearMessagesAfterDelay();
     });
   }
 
-  trigger2() {
-    const id = localStorage.getItem('id');
-    this.deactivated({ id }).subscribe((ele) => {
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'Success',
-          detail: 'shop Deactivated successfully!',
-        },
-      ];
-
+  public trigger2() {
+    this.deactivated({ id: localStorage.getItem('id') }).subscribe((ele) => {
+      this.messageHandler('success', 'shop Deactivated successfully!');
       this.details();
+      this.clearMessagesAfterDelay();
     });
   }
 
-  addShop(): void {
-    this.router.navigate(['dashboard/addShop']);
-  }
-
-  activate(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private activate(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/enable', body, {
         headers,
@@ -251,11 +179,8 @@ export class EditShopComponent {
       );
   }
 
-  deactivated(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private deactivated(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/disable', body, {
         headers,
@@ -265,5 +190,51 @@ export class EditShopComponent {
           return throwError(error);
         })
       );
+  }
+
+  private editShopDetails(body: any): Observable<any> {
+    const headers = this.header();
+    return this.http
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/edit', body, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  private shopDetails(body: any): Observable<any> {
+    const headers = this.header();
+    return this.http
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  public addShop(): void {
+    this.router.navigate(['dashboard/addShop']);
   }
 }
