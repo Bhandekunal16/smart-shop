@@ -8,7 +8,7 @@
 
 .register-container-form {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #f0f0f0;
@@ -23,16 +23,22 @@
 }
 
 .register-container-form-top {
-  background-color: #1e5d4a;
-  height: 20%;
-  width: 100%;
-  border-radius: 8px 8px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.register-container-form-top p-image {
+  margin-bottom: 10px;
 }
 
 .register-container-form-top h1 {
-  color: #f0f0f0;
-  text-align: center;
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
 }
+
 
 .register-container-form-input {
   padding-top: 1%;

@@ -9,8 +9,10 @@
 
   <form class="register-container-form" [formGroup]="myForm">
     <div class="register-container-form-top">
+      <p-image src="../../assets/robot_614411.png" alt="Image" width="80" />
       <h1>Register</h1>
     </div>
+
     <div class="register-container-form-input">
       <label>First name </label>
       <div *ngIf="myForm.get('firstName')?.errors?.['pattern']" class="error">
