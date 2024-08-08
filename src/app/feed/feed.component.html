@@ -6,6 +6,36 @@
       [enableService]="false"
     ></p-messages>
   </div>
+
+  <div class="feed-product-container-form">
+    <p-badge
+      value="{{ product.length }}"
+      badgeSize="large"
+      severity="warning"
+    />
+
+    <button
+      pButton
+      pRipple
+      class="p-button-secondary"
+      icon="pi pi-trash"
+      (click)="clearSelection()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      class="p-button-secondary"
+      icon="pi pi-caret-left"
+      (click)="decries()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      class="p-button-secondary"
+      icon="pi pi-caret-right"
+      (click)="add()"
+    ></button>
+  </div>
   <div class="view-product-card">
     <ng-container *ngIf="product.length > 0; else loading">
       <p-card

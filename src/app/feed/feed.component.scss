@@ -27,6 +27,19 @@
   width: 50vw;
 }
 
+.feed-product-container-form {
+  background-color: #f0f0f0;
+  width: 30vw;
+  height: fit-content;
+  border: solid #ffffff 0.2px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1%;
+  padding: 1%;
+}
+
 @media (max-width: 600px) {
   p-card {
     width: 95vw;
@@ -57,5 +70,9 @@
 
   .view-product-card-contain-sub {
     margin-top: 1%;
+  }
+
+  .feed-product-container-form {
+    width: 95vw;
   }
 }

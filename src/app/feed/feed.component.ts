@@ -20,6 +20,8 @@ export class FeedComponent implements OnInit {
   public showButton: boolean = false;
   public screen: boolean | undefined;
   public flag: boolean | any = true;
+  public skip: number = 0;
+  public limit: number = 10;
 
   constructor(
     private http: HttpClient,
@@ -36,26 +38,126 @@ export class FeedComponent implements OnInit {
       },
     ];
     const id: string | null = localStorage.getItem('id');
-    this.shopDetails(id).subscribe((res) => {
-      const data: any = this.decrypt.decrypt(res.response);
+    this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
+      (res) => {
+        const data: any = this.decrypt.decrypt(res.response);
 
-      if (data.status) {
-        this.product = data.data;
-        this.flag = true;
-        this.msg = [
-          {
-            severity: 'success',
-            detail: `product found ${data.data.length}`,
-          },
-        ];
+        if (data.status) {
+          this.product = data.data;
+          this.flag = true;
+          this.msg = [
+            {
+              severity: 'success',
+              detail: `product found ${data.data.length}`,
+            },
+          ];
 
-        setTimeout(() => {
-          this.msg = [];
-        }, 1000);
+          setTimeout(() => {
+            this.msg = [];
+          }, 1000);
+        }
       }
-    });
+    );
 
     this.changer();
+  }
+
+  add() {
+    this.skip += 10;
+    this.flag = false;
+    this.msg = [
+      {
+        severity: 'info',
+        detail: 'searching products for you !',
+      },
+    ];
+    const id: string | null = localStorage.getItem('id');
+
+    this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
+      (res) => {
+        const data: any = this.decrypt.decrypt(res.response);
+
+        if (data.status) {
+          this.product = data.data;
+          this.flag = true;
+          this.msg = [
+            {
+              severity: 'success',
+              detail: `product found ${data.data.length}`,
+            },
+          ];
+
+          setTimeout(() => {
+            this.msg = [];
+          }, 1000);
+        }
+      }
+    );
+  }
+
+  clearSelection() {
+    this.skip = 0;
+    this.flag = false;
+    this.msg = [
+      {
+        severity: 'info',
+        detail: 'searching products for you !',
+      },
+    ];
+    const id: string | null = localStorage.getItem('id');
+    this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
+      (res) => {
+        const data: any = this.decrypt.decrypt(res.response);
+
+        if (data.status) {
+          this.product = data.data;
+          this.flag = true;
+          this.msg = [
+            {
+              severity: 'success',
+              detail: `product found ${data.data.length}`,
+            },
+          ];
+
+          setTimeout(() => {
+            this.msg = [];
+          }, 1000);
+        }
+      }
+    );
+  }
+
+  decries() {
+    this.skip == 0 ? 0 : (this.skip -= 10);
+    this.flag = false;
+    this.msg = [
+      {
+        severity: 'info',
+        detail: 'searching products for you !',
+      },
+    ];
+    const id: string | null = localStorage.getItem('id');
+
+    this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
+      (res) => {
+        const data: any = this.decrypt.decrypt(res.response);
+
+        if (data.status) {
+          this.product = data.data;
+          this.flag = true;
+          this.msg = [
+            {
+              severity: 'success',
+              detail: `product found ${data.data.length}`,
+            },
+          ];
+
+          setTimeout(() => {
+            this.msg = [];
+          }, 1000);
+        }
+      }
+    );
   }
 
   now(input: string) {
@@ -66,18 +168,15 @@ export class FeedComponent implements OnInit {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  private shopDetails(id: any): Observable<any> {
+  private shopDetails(body: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
     return this.http
-      .get<any>(
-        `https://smart-shop-api-eta.vercel.app/shop/get/products/${id}`,
-        {
-          headers,
-        }
-      )
+      .post<any>(`https://smart-shop-api-eta.vercel.app/shop/get/products`, body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -109,7 +208,7 @@ export class FeedComponent implements OnInit {
             detail: 'add to wish list',
           },
         ];
-        this.shopDetails(userId);
+        this.shopDetails({ id: userId, skip: this.skip, limit: this.limit });
         this.showButton = false;
       } else {
         this.msg = [
@@ -134,7 +233,7 @@ export class FeedComponent implements OnInit {
       const res = this.decrypt.decrypt(ele.response);
 
       if (res.status) {
-        this.shopDetails(userId);
+        this.shopDetails({ id: userId, skip: this.skip, limit: this.limit });
       }
     });
   }
