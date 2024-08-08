@@ -27,7 +27,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
     });
   }
 
-  public shopDetails(): Observable<any> {
+  private shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
     const headers = this.header();
     return this.http
