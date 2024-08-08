@@ -16,11 +16,11 @@ import { DecryptService } from '../../global/decrypt.service';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  items: MenuItem[] | undefined;
-  onlineStatus: boolean = true;
-  deferredPrompt: any;
-  visible: boolean = false;
-  Log: any;
+  public items: MenuItem[] | undefined;
+  public onlineStatus: boolean = true;
+  public deferredPrompt: any;
+  public visible: boolean = false;
+  public Log: any;
   public profileImage: string | any;
 
   constructor(
@@ -50,7 +50,7 @@ export class DashboardComponent {
     });
   }
 
-  updateMenuItems(status: boolean) {
+  private updateMenuItems(status: boolean) {
     this.items = [
       {
         label: 'Dashboard',
@@ -191,85 +191,15 @@ export class DashboardComponent {
     ];
   }
 
-  login(): void {
-    this.router.navigate(['']);
-    localStorage.clear();
-  }
-
-  Feedback(): void {
-    this.router.navigate(['dashboard/feedback']);
-  }
-
-  addUser(): void {
-    this.router.navigate(['dashboard/addUser']);
-  }
-
-  viewShop(): void {
-    this.router.navigate(['dashboard/viewShop']);
-  }
-
-  editShop(): void {
-    this.router.navigate(['dashboard/editShop']);
-  }
-
-  deleteUser(): void {
-    this.router.navigate(['dashboard/deleteUser']);
-  }
-
-  addShop(): void {
-    this.router.navigate(['dashboard/addShop']);
-  }
-
-  addProduct(): void {
-    this.router.navigate(['dashboard/addProduct']);
-  }
-
-  viewProduct(): void {
-    this.router.navigate(['dashboard/viewProduct']);
-  }
-
-  initial(): void {
-    this.router.navigate(['dashboard']);
-  }
-
-  update(): void {
-    this.router.navigate(['dashboard/updateProfile']);
-  }
-
-  ViewUser(): void {
-    this.router.navigate(['dashboard/userList']);
-  }
-
-  purchaseReq(): void {
-    this.router.navigate(['dashboard/buyRequest']);
-  }
-
-  share(): void {
-    this.router.navigate(['dashboard/share']);
-  }
-
-  feed(): void {
-    this.router.navigate(['dashboard/feed']);
-  }
-
-  wishList(): void {
-    this.router.navigate(['dashboard/userViewWishList']);
-  }
-
-  date() {
+  public date() {
     this.visible = true;
     const data: any = localStorage.getItem('lastLogin');
     this.Log = new Date(parseInt(data)).toISOString();
-
-    setInterval(() => {
-      this.Log = null;
-    }, 10000);
+    this.LogRester();
   }
 
-  shopDetails(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private shopDetails(id: any): Observable<any> {
+    const headers = this.header();
 
     return this.http
       .get<any>(
@@ -281,5 +211,82 @@ export class DashboardComponent {
           return throwError(error);
         })
       );
+  }
+
+  private login(): void {
+    this.router.navigate(['']);
+    localStorage.clear();
+  }
+
+  private Feedback(): void {
+    this.router.navigate(['dashboard/feedback']);
+  }
+
+  private addUser(): void {
+    this.router.navigate(['dashboard/addUser']);
+  }
+
+  private viewShop(): void {
+    this.router.navigate(['dashboard/viewShop']);
+  }
+
+  private editShop(): void {
+    this.router.navigate(['dashboard/editShop']);
+  }
+
+  private deleteUser(): void {
+    this.router.navigate(['dashboard/deleteUser']);
+  }
+
+  private addShop(): void {
+    this.router.navigate(['dashboard/addShop']);
+  }
+
+  private addProduct(): void {
+    this.router.navigate(['dashboard/addProduct']);
+  }
+
+  private viewProduct(): void {
+    this.router.navigate(['dashboard/viewProduct']);
+  }
+
+  private initial(): void {
+    this.router.navigate(['dashboard']);
+  }
+
+  private update(): void {
+    this.router.navigate(['dashboard/updateProfile']);
+  }
+
+  private ViewUser(): void {
+    this.router.navigate(['dashboard/userList']);
+  }
+
+  private purchaseReq(): void {
+    this.router.navigate(['dashboard/buyRequest']);
+  }
+
+  private share(): void {
+    this.router.navigate(['dashboard/share']);
+  }
+
+  private feed(): void {
+    this.router.navigate(['dashboard/feed']);
+  }
+
+  private wishList(): void {
+    this.router.navigate(['dashboard/userViewWishList']);
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private LogRester() {
+    setInterval(() => {
+      this.Log = null;
+    }, 10000);
   }
 }
