@@ -31,91 +31,110 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.flag = false;
-    this.msg = [
-      {
-        severity: 'info',
-        detail: 'searching products for you !',
-      },
-    ];
-
+    this.messageHandler('info', 'searching products for you !');
     this.shopDetail();
-
     this.changer();
   }
 
-  shopDetail() {
+  public shopDetail() {
     const id: string | null = localStorage.getItem('id');
     this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
       (res) => {
         const data: any = this.decrypt.decrypt(res.response);
-
         if (data.status) {
           this.product = data.data;
           this.flag = true;
-          this.msg = [
-            {
-              severity: 'success',
-              detail: `product found ${data.data.length}`,
-            },
-          ];
-
-          setTimeout(() => {
-            this.msg = [];
-          }, 1000);
+          this.messageHandler('success', `product found ${data.data.length}`);
+          this.clearMessagesAfterDelay();
         }
       }
     );
   }
 
-  add() {
+  public add() {
     this.skip += 10;
     this.flag = false;
-    this.msg = [
-      {
-        severity: 'info',
-        detail: 'searching products for you !',
-      },
-    ];
+    this.messageHandler('info', 'searching products for you !');
     this.shopDetail();
   }
 
-  clearSelection() {
+  public clearSelection() {
     this.skip = 0;
     this.flag = false;
-    this.msg = [
-      {
-        severity: 'info',
-        detail: 'searching products for you !',
-      },
-    ];
+    this.messageHandler('info', 'searching products for you !');
     this.shopDetail();
   }
 
-  decries() {
+  public decries() {
     this.skip == 0 ? 0 : (this.skip -= 10);
     this.flag = false;
-    this.msg = [
-      {
-        severity: 'info',
-        detail: 'searching products for you !',
-      },
-    ];
+    this.messageHandler('info', 'searching products for you !');
     this.shopDetail();
   }
 
-  now(input: string) {
+  public WishList(id: string) {
+    this.AddToWishList({
+      userId: localStorage.getItem('id'),
+      productId: id,
+    }).subscribe((ele) => {
+      let res = this.decrypt.decrypt(ele.response);
+      if (res.status) {
+        this.messageHandler('success', 'add to wish list');
+        this.shopDetail();
+        this.showButton = false;
+        this.clearMessagesAfterDelay();
+      } else {
+        this.messageHandler('warn', res.response);
+        this.showButton = true;
+        this.clearMessagesAfterDelay();
+      }
+    });
+  }
+
+  public remove(id: any) {
+    this.RemoveFromWishlist({
+      userId: localStorage.getItem('id'),
+      productId: id,
+    }).subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
+
+      if (res.status) {
+        this.shopDetail();
+        this.clearMessagesAfterDelay();
+      }
+    });
+  }
+
+  public now(input: string) {
     return btoa(input);
   }
 
-  getStatusText(isPurchased: boolean): string {
+  public getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  private shopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  public paymentRoute(id: string) {
+    localStorage.setItem('currentObjectId', id);
+    this.router.navigate(['dashboard/payment']);
+  }
 
+  private changer() {
+    const Screen = window.innerWidth;
+    Screen < 600 ? (this.screen = true) : (this.screen = false);
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private shopDetails(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/shop/get/products`,
@@ -131,67 +150,8 @@ export class FeedComponent implements OnInit {
       );
   }
 
-  changer() {
-    const Screen = window.innerWidth;
-    Screen < 600 ? (this.screen = true) : (this.screen = false);
-  }
-
-  WishList(id: string) {
-    const userId = localStorage.getItem('id');
-    const body = {
-      userId: userId,
-      productId: id,
-    };
-
-    this.AddToWishList(body).subscribe((ele) => {
-      let res = this.decrypt.decrypt(ele.response);
-      if (res.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: 'add to wish list',
-          },
-        ];
-        this.shopDetail();
-        this.showButton = false;
-      } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: res.response,
-          },
-        ];
-        this.showButton = true;
-      }
-    });
-  }
-
-  remove(id: any) {
-    const userId = localStorage.getItem('id');
-    const body = {
-      userId: userId,
-      productId: id,
-    };
-    this.RemoveFromWishlist(body).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-
-      if (res.status) {
-        this.shopDetail();
-      }
-    });
-  }
-
-  paymentRoute(id: string) {
-    localStorage.setItem('currentObjectId', id);
-    this.router.navigate(['dashboard/payment']);
-  }
-
-  AddToWishList(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private AddToWishList(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
         headers,
@@ -203,10 +163,8 @@ export class FeedComponent implements OnInit {
       );
   }
 
-  RemoveFromWishlist(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private RemoveFromWishlist(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
@@ -220,5 +178,11 @@ export class FeedComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
