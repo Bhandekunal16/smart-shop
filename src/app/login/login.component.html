@@ -21,12 +21,10 @@
     </div>
 
     <div class="login-container-form-input">
-      <label>Username </label>
-      <p-password
-        placeholder="username"
-        formControlName="Username"
-        [feedback]="false"
-      />
+      <p-floatLabel>
+        <input pInputText id="username" formControlName="Username" />
+        <label for="username">Username</label>
+      </p-floatLabel>
 
       <label>Password </label>
       <div *ngIf="myForm.get('Password')?.errors?.['pattern']" class="error">
