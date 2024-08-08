@@ -25,40 +25,21 @@ export class FeedbackComponent {
     });
   }
 
-  submitForm() {
+  public submitForm() {
     const email = this.myForm.value.email;
     const message = this.myForm.value.message;
-
-    const body = { email, message };
-
-    this.sendOtp(body).subscribe((ele) => {
+    this.sendOtp({ email, message }).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-
-      data.status
-        ? (this.msg = [
-            {
-              severity: 'success',
-              summary: 'success',
-              detail: `${data.data}`,
-            },
-          ])
-        : (this.msg = [
-            {
-              severity: 'warn',
-              summary: 'warn',
-              detail: `${data.data}`,
-            },
-          ]);
-
       this.myForm.reset();
+      data.status
+        ? this.messageHandler('success', `${data.data}`)
+        : this.messageHandler('warn', `${data.data}`);
+      this.clearMessagesAfterDelay();
     });
   }
 
-  sendOtp(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private sendOtp(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/feedback', body, {
         headers,
@@ -68,5 +49,21 @@ export class FeedbackComponent {
           return throwError(error);
         })
       );
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
