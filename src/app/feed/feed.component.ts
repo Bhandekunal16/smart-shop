@@ -37,6 +37,13 @@ export class FeedComponent implements OnInit {
         detail: 'searching products for you !',
       },
     ];
+
+    this.shopDetail();
+
+    this.changer();
+  }
+
+  shopDetail() {
     const id: string | null = localStorage.getItem('id');
     this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
       (res) => {
@@ -58,8 +65,6 @@ export class FeedComponent implements OnInit {
         }
       }
     );
-
-    this.changer();
   }
 
   add() {
@@ -71,28 +76,7 @@ export class FeedComponent implements OnInit {
         detail: 'searching products for you !',
       },
     ];
-    const id: string | null = localStorage.getItem('id');
-
-    this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
-      (res) => {
-        const data: any = this.decrypt.decrypt(res.response);
-
-        if (data.status) {
-          this.product = data.data;
-          this.flag = true;
-          this.msg = [
-            {
-              severity: 'success',
-              detail: `product found ${data.data.length}`,
-            },
-          ];
-
-          setTimeout(() => {
-            this.msg = [];
-          }, 1000);
-        }
-      }
-    );
+    this.shopDetail();
   }
 
   clearSelection() {
@@ -104,27 +88,7 @@ export class FeedComponent implements OnInit {
         detail: 'searching products for you !',
       },
     ];
-    const id: string | null = localStorage.getItem('id');
-    this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
-      (res) => {
-        const data: any = this.decrypt.decrypt(res.response);
-
-        if (data.status) {
-          this.product = data.data;
-          this.flag = true;
-          this.msg = [
-            {
-              severity: 'success',
-              detail: `product found ${data.data.length}`,
-            },
-          ];
-
-          setTimeout(() => {
-            this.msg = [];
-          }, 1000);
-        }
-      }
-    );
+    this.shopDetail();
   }
 
   decries() {
@@ -136,28 +100,7 @@ export class FeedComponent implements OnInit {
         detail: 'searching products for you !',
       },
     ];
-    const id: string | null = localStorage.getItem('id');
-
-    this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
-      (res) => {
-        const data: any = this.decrypt.decrypt(res.response);
-
-        if (data.status) {
-          this.product = data.data;
-          this.flag = true;
-          this.msg = [
-            {
-              severity: 'success',
-              detail: `product found ${data.data.length}`,
-            },
-          ];
-
-          setTimeout(() => {
-            this.msg = [];
-          }, 1000);
-        }
-      }
-    );
+    this.shopDetail();
   }
 
   now(input: string) {
@@ -174,9 +117,13 @@ export class FeedComponent implements OnInit {
     });
 
     return this.http
-      .post<any>(`https://smart-shop-api-eta.vercel.app/shop/get/products`, body, {
-        headers,
-      })
+      .post<any>(
+        `https://smart-shop-api-eta.vercel.app/shop/get/products`,
+        body,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
@@ -197,9 +144,7 @@ export class FeedComponent implements OnInit {
     };
 
     this.AddToWishList(body).subscribe((ele) => {
-      ele;
       let res = this.decrypt.decrypt(ele.response);
-      res;
       if (res.status) {
         this.msg = [
           {
@@ -208,7 +153,7 @@ export class FeedComponent implements OnInit {
             detail: 'add to wish list',
           },
         ];
-        this.shopDetails({ id: userId, skip: this.skip, limit: this.limit });
+        this.shopDetail();
         this.showButton = false;
       } else {
         this.msg = [
@@ -233,7 +178,7 @@ export class FeedComponent implements OnInit {
       const res = this.decrypt.decrypt(ele.response);
 
       if (res.status) {
-        this.shopDetails({ id: userId, skip: this.skip, limit: this.limit });
+        this.shopDetail();
       }
     });
   }
