@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
-import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 
@@ -14,40 +13,23 @@ import { Message } from 'primeng/api';
   styleUrl: './customer-view-subscribtion.component.scss',
 })
 export class CustomerViewSubscriptionComponent implements OnInit {
-  products!: any[];
+  public products!: any[];
   public msg: Message[] | any;
   constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
   ngOnInit(): void {
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'searching for subscription',
-      },
-    ];
-
+    this.messageHandler('info', `searching for subscription`);
     this.shopDetails().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
-
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `shop found ${this.products.length}`,
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.messageHandler('success', `shop found ${this.products.length}`);
+      this.clearMessagesAfterDelay();
     });
   }
 
-  shopDetails(): Observable<any> {
+  public shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`,
@@ -60,5 +42,21 @@ export class CustomerViewSubscriptionComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
