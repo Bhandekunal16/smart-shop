@@ -22,11 +22,10 @@
 
     <div class="login-container-form-input">
       <label>Username </label>
-      <input
-        type="text"
-        pInputText
+      <p-password
         placeholder="username"
         formControlName="Username"
+        [feedback]="true"
       />
 
       <label>Password </label>
