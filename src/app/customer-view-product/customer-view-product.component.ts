@@ -219,6 +219,33 @@ export class CustomerViewProductComponent implements OnInit {
     });
   }
 
+  decries() {
+    this.skip == 0 ? 0 : (this.skip -= 10);
+
+    this.shopDetails({
+      skip: this.skip,
+      limit: this.limit,
+      productType: this.selectedValue,
+    }).subscribe((ele) => {
+      const res = this.decrypt.decrypt(ele.response);
+
+      this.loader = true;
+
+      this.data = res.data;
+
+      this.msg = [
+        {
+          severity: 'success',
+          summary: `products found ${this.data.length}`,
+        },
+      ];
+
+      setTimeout(() => {
+        this.msg = [];
+      }, 1000);
+    });
+  }
+
   selectItem(event: Event) {
     this.loader = false;
     const selectedValue = (event.target as HTMLSelectElement).value;
