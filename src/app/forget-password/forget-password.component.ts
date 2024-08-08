@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from 'primeng/api';
-import { SettlerService } from '../common/settler.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
@@ -22,7 +21,6 @@ export class ForgetPasswordComponent {
 
   constructor(
     private router: Router,
-    private settler: SettlerService,
     private http: HttpClient,
     private decrypt: DecryptService
   ) {
@@ -31,51 +29,25 @@ export class ForgetPasswordComponent {
     });
   }
 
-  submitForm() {
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'sending email to your official email address',
-      },
-    ];
-    const email: string = this.myForm.value.email;
-    // this.settler.emailObj = email;
-    localStorage.setItem('email', email);
+  public submitForm() {
+    this.messageHandler('info', 'sending email to your official email address');
     this.flag = false;
-
+    const email: string = this.myForm.value.email;
+    localStorage.setItem('email', email);
     this.sendOtp({ email }).subscribe((data) => {
       const res = this.decrypt.decrypt(data.response);
       this.flag = true;
       if (!res.status) {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: 'something went wrong',
-          },
-        ];
+        this.messageHandler('warn', 'something went wrong');
       } else {
+        this.messageHandler('success', 'otp send to your email.');
         this.verifyOtp();
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: 'otp send to your email.',
-          },
-        ];
       }
     });
   }
 
-  verifyOtp(): void {
-    this.router.navigate(['/verify-otp']);
-  }
-
-  sendOtp(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private sendOtp(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/otp/send', body, {
         headers,
@@ -85,5 +57,19 @@ export class ForgetPasswordComponent {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private verifyOtp(): void {
+    this.router.navigate(['/verify-otp']);
   }
 }
