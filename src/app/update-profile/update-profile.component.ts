@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
@@ -19,13 +18,11 @@ export class UpdateProfileComponent implements OnInit {
   public myForm: FormGroup | any;
   public obj: any;
   public msg: Message[] | any;
-  private selectedOption: any;
   public selectedImage: File | any = null;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
   public Status: boolean | undefined;
 
   constructor(
-    private router: Router,
     private http: HttpClient,
     private decrypt: DecryptService,
     private statusService: StateService
@@ -52,19 +49,12 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'searching for your profile information.',
-      },
-    ];
+    this.messageHandler('info', 'searching for your profile information.');
     this.getDetails();
   }
 
-  getDetails() {
+  private getDetails() {
     const id = localStorage.getItem('id');
-    console.log(this.obj);
-
     this.shopDetails(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.myForm.patchValue(data.data);
@@ -72,58 +62,36 @@ export class UpdateProfileComponent implements OnInit {
       this.Status = data.data.status;
       localStorage.setItem('status', data.data.status);
       this.setStatus(data.data.status);
-      this.msg = [
-        {
-          severity: data.status ? 'success' : 'warn',
-          summary: data.status
-            ? `welcome ${data.data.email}`
-            : 'profile not found',
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.messageHandler(
+        data.status ? 'success' : 'warn',
+        data.status ? `welcome ${data.data.email}` : 'profile not found'
+      );
+      this.clearMessagesAfterDelay();
     });
   }
 
-  setStatus(status: boolean) {
+  private setStatus(status: boolean) {
     this.statusService.setStatus(status);
   }
 
-  submitForm() {
-    let payload = {
+  public submitForm() {
+    this.editUserDetails({
       ...this.obj,
       firstName: this.myForm.value.firstName,
       lastName: this.myForm.value.lastName,
       email: this.myForm.value.email,
       mobileNo: this.myForm.value.mobileNo,
       profileImage: this.selectedImage,
-    };
-
-    this.editUserDetails(payload).subscribe((ele) => {
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Profile edited successfully!',
-        },
-      ];
+    }).subscribe(() => {
+      this.messageHandler('success', 'Profile edited successfully!');
     });
   }
 
-  delete() {
+  public delete() {
     try {
       const id = localStorage.getItem('id');
-      this.status(id).subscribe((ele) => {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Profile status changed',
-          },
-        ];
-
+      this.status(id).subscribe(() => {
+        this.messageHandler('success', 'Profile status changed');
         this.getDetails();
       });
     } catch (error) {
@@ -131,32 +99,22 @@ export class UpdateProfileComponent implements OnInit {
     }
   }
 
-  async onImageSelected(event: any) {
-    const file = event.target.files[0];
-    const maxSize = 2 * 1024 * 1024;
-
-    if (file.size > maxSize) {
-      
-      this.msg = [
-        {
-          severity: 'warn',
-          summary: 'warn',
-          detail: 'File size exceeds 2MB limit.',
-        },
-      ];
-      event.target.value = '';
-      this.msg = [];
-      return;
-    }
-
+  public async onImageSelected(event: any) {
     try {
+      const [file, maxSize] = [event.target.files[0], 2 * 1024 * 1024];
+      if (file.size > maxSize) {
+        this.messageHandler('warn', 'File size exceeds 2MB limit.');
+        event.target.value = '';
+        this.clearMessagesAfterDelay();
+        return;
+      }
       this.selectedImage = await this.convertToWebPAndBinaryString(file);
     } catch (error) {
       console.error('Error processing image:', error);
     }
   }
 
-  convertToWebPAndBinaryString(file: File): Promise<string | null> {
+  private convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -188,7 +146,7 @@ export class UpdateProfileComponent implements OnInit {
                 }
               },
               'image/webp',
-              0.8 // Quality factor for WebP format
+              0.8
             );
           } else {
             reject(new Error('Canvas context is not supported'));
@@ -202,11 +160,8 @@ export class UpdateProfileComponent implements OnInit {
     });
   }
 
-  shopDetails(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private shopDetails(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
         headers,
@@ -218,11 +173,8 @@ export class UpdateProfileComponent implements OnInit {
       );
   }
 
-  status(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private status(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/auth/status/${id}`, {
         headers,
@@ -234,11 +186,8 @@ export class UpdateProfileComponent implements OnInit {
       );
   }
 
-  editUserDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private editUserDetails(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/update', body, {
         headers,
@@ -248,5 +197,21 @@ export class UpdateProfileComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
   }
 }
