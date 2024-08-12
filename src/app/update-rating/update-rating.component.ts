@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
@@ -30,16 +29,11 @@ export class UpdateRatingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'getting product information.',
-      },
-    ];
+    this.messageHandler('info', 'getting product information.');
     this.search();
   }
 
-  search() {
+  private search() {
     this.Details().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       let array = [];
@@ -53,37 +47,23 @@ export class UpdateRatingComponent implements OnInit {
       } else {
         rating = this.data[0].rating.low;
       }
-
-      this.msg = [
-        {
-          severity: 'success',
-          summary: 'your product ready to rate',
-        },
-      ];
-
+      this.messageHandler('success', 'your product ready to rate');
       this.myForm.patchValue({ rating: rating });
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.clearMessagesAfterDelay();
     });
   }
 
-  now(input: string) {
+  public now(input: string) {
     return `data:image/webp;base64,${btoa(input)}`;
   }
 
-  getStatusText(isPurchased: boolean): string {
+  public getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  submitForm() {
+  public submitForm() {
     this.Details().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-
-      typeof this.myForm.value.rating == 'string';
-      this.myForm.value.rating, typeof this.myForm.value.rating;
-
       let rate;
       if (typeof this.myForm.value.rating == 'string') {
         rate = this.myForm.value.rating;
@@ -93,37 +73,21 @@ export class UpdateRatingComponent implements OnInit {
         rate = this.myForm.value.rating.low;
       }
 
-      rate;
-
-      const userId = localStorage.getItem('id');
-
-      const id = res.data.id;
-      const body = {
-        userId: userId,
-        productId: id,
+      this.editShopDetails({
+        userId: localStorage.getItem('id'),
+        productId: res.data.id,
         rating: rate,
-      };
-
-      this.editShopDetails(body).subscribe((ele) => {
+      }).subscribe((ele) => {
         const res = this.decrypt.decrypt(ele.response);
-
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: res.data,
-          },
-        ];
+        this.messageHandler('success', res.data);
+        this.clearMessagesAfterDelay();
       });
-      rate;
     });
   }
 
-  Details(): Observable<any> {
+  private Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
         headers,
@@ -135,11 +99,8 @@ export class UpdateRatingComponent implements OnInit {
       );
   }
 
-  editShopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private editShopDetails(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/product/rating', body, {
         headers,
@@ -149,5 +110,21 @@ export class UpdateRatingComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
   }
 }
