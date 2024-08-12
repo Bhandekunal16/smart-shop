@@ -12,18 +12,18 @@ import { SharedModule } from '../shared/shared.module';
   styleUrl: './recipt.component.scss',
 })
 export class ReceptComponent implements OnInit {
-  product: any = {};
-  productName: string | undefined;
-  productDescription: string | undefined;
-  productCost: string | undefined;
-  brand: string | undefined;
-  productId: string | undefined;
-  officialContactNo: string | undefined;
-  officialEmail: string | undefined;
-  address: string | undefined;
-  logo: string | undefined;
-  transactionType: string | undefined;
-  paymentDate: string | undefined;
+  public product: any = {};
+  public productName: string | undefined;
+  public productDescription: string | undefined;
+  public productCost: string | undefined;
+  public brand: string | undefined;
+  public productId: string | undefined;
+  public officialContactNo: string | undefined;
+  public officialEmail: string | undefined;
+  public address: string | undefined;
+  public logo: string | undefined;
+  public transactionType: string | undefined;
+  public paymentDate: string | undefined;
 
   constructor(private http: HttpClient, private decrypt: DecryptService) {}
 
