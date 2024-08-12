@@ -28,21 +28,13 @@ export class ProfileComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'Searching your profile data !',
-      },
-    ];
+    this.messageHandler('info', 'Searching your profile data !');
     this.getDetails();
   }
 
-  getDetails() {
-    const id = localStorage.getItem('id');
-
-    this.shopDetails(id).subscribe((ele) => {
+  private getDetails() {
+    this.shopDetails({ id: localStorage.getItem('id') }).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-
       this.email = data.data.email;
       this.firstName = data.data.firstName;
       this.lastName = data.data.lastName;
@@ -51,32 +43,20 @@ export class ProfileComponent implements OnInit {
       this.profileImage = `data:image/webp;base64,${btoa(
         data.data.profileImage
       )}`;
-      this.msg = [
-        {
-          severity: data.status == true ? 'success' : 'warn',
-          summary: `Welcome ${data.data.firstName} ${data.data.lastName}`,
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.messageHandler(
+        data.status == true ? 'success' : 'warn',
+        `Welcome ${data.data.firstName} ${data.data.lastName}`
+      );
+      this.clearMessagesAfterDelay();
     });
   }
 
-  edit() {
+  public edit() {
     this.update();
   }
 
-  update(): void {
-    this.router.navigate(['/customer-dashboard/updateProfile']);
-  }
-
-  shopDetails(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private shopDetails(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
         headers,
@@ -86,5 +66,25 @@ export class ProfileComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private update(): void {
+    this.router.navigate(['/customer-dashboard/updateProfile']);
   }
 }
