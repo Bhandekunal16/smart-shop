@@ -61,7 +61,7 @@ export class DashboardComponent {
         },
       },
       {
-        label: 'feed',
+        label: 'Feed',
         icon: 'pi pi-box',
         command: () => {
           this.feed();
