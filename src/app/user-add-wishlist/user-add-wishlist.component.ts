@@ -17,7 +17,7 @@ export class UserAddWishlistComponent implements OnInit {
   public data: any[] = [];
   public value!: number;
   public msg: Message[] | any;
-  showButton: boolean = false;
+  public showButton: boolean = false;
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -28,7 +28,7 @@ export class UserAddWishlistComponent implements OnInit {
     this.search();
   }
 
-  search() {
+  private search() {
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
 
@@ -58,63 +58,44 @@ export class UserAddWishlistComponent implements OnInit {
     });
   }
 
-  view(): void {
+  private view(): void {
     const userType = localStorage.getItem('type');
-
     userType == 'MERCHANT'
       ? this.router.navigate(['dashboard/userViewWishList'])
       : this.router.navigate(['customer-dashboard/userViewWishList']);
   }
 
-  now(input: string) {
+  public now(input: string) {
     return `data:image/webp;base64,${btoa(input)}`;
   }
 
-  setCurrentObjectId(id: string) {
-    const userId = localStorage.getItem('id');
-    const body = {
-      userId: userId,
+  public setCurrentObjectId(id: string) {
+    this.Add({
+      userId: localStorage.getItem('id'),
       productId: id,
-    };
-
-    this.Add(body).subscribe((ele) => {
+    }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-
       if (res.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: 'add to wish list',
-          },
-        ];
+        this.messageHandler('success', 'add to wish list');
         this.view();
         this.showButton = false;
       } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: res.response,
-          },
-        ];
+        this.messageHandler('warn', res.response);
         this.showButton = true;
       }
+      this.clearMessagesAfterDelay();
     });
   }
 
-  getStatusText(isPurchased: boolean): string {
+  public getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  remove(id: any) {
-    id;
-    const userId = localStorage.getItem('id');
-    const body = {
-      userId: userId,
+  public remove(id: any) {
+    this.Remove({
+      userId: localStorage.getItem('id'),
       productId: id,
-    };
-    this.Remove(body).subscribe((ele) => {
+    }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       if (res.status) {
         this.search();
@@ -122,10 +103,8 @@ export class UserAddWishlistComponent implements OnInit {
     });
   }
 
-  shopDetails(): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private shopDetails(): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, {
         headers,
@@ -137,10 +116,8 @@ export class UserAddWishlistComponent implements OnInit {
       );
   }
 
-  Add(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private Add(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
         headers,
@@ -152,10 +129,8 @@ export class UserAddWishlistComponent implements OnInit {
       );
   }
 
-  Remove(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private Remove(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
@@ -169,5 +144,21 @@ export class UserAddWishlistComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
   }
 }
