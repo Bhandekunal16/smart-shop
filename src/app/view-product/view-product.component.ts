@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, throwError, timeInterval } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
@@ -27,48 +27,34 @@ export class ViewProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.msg = [
-      {
-        severity: 'info',
-        detail: 'searching product for you!',
-      },
-    ];
+    this.messageHandler('info', 'searching product for you!');
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
       this.flag = false;
 
-      this.msg = [
-        {
-          severity: 'success',
-          detail: 'you currently not have anything in the shop',
-        },
-      ];
+      this.messageHandler(
+        'success',
+        'you currently not have anything in the shop'
+      );
 
       if (res.status) {
         this.data = res.data;
         this.flag = true;
-
-        this.msg = [
-          {
-            severity: 'success',
-            detail: `product found for you ${res.data.length}`,
-          },
-        ];
-
-        setInterval(() => {
-          this.msg = [];
-        }, 1000);
+        this.messageHandler(
+          'success',
+          `product found for you ${res.data.length}`
+        );
+        this.clearMessagesAfterDelay();
       }
     });
   }
 
-  setCurrentObjectId(id: string) {
-    id;
+  public setCurrentObjectId(id: string) {
     localStorage.setItem('currentObjectId', id);
     this.edit();
   }
 
-  convertTimestampToDate(timestamp: any): string {
+  public convertTimestampToDate(timestamp: any): string {
     const date = new Date(parseInt(timestamp));
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -84,23 +70,17 @@ export class ViewProductComponent implements OnInit {
       .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
-  edit(): void {
-    this.router.navigate(['dashboard/updateProduct']);
-  }
-
-  getStatusText(isPurchased: boolean): string {
+  public getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  now(input: string) {
+  public now(input: string) {
     return `data:image/webp;base64,${btoa(input)}`;
   }
 
-  shopDetails(): Observable<any> {
+  private shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/getall/${id}`, {
         headers,
@@ -112,5 +92,23 @@ export class ViewProductComponent implements OnInit {
       );
   }
 
-  updateProduct() {}
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  private edit(): void {
+    this.router.navigate(['dashboard/updateProduct']);
+  }
 }
