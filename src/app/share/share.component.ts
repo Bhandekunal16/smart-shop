@@ -24,83 +24,44 @@ export class ShareComponent {
     });
   }
 
-  submitForm() {
+  public submitForm() {
     const email = this.myForm.value.email;
     const message = `
     <h3>Hi,</h3>
     <p>I found this interesting website and thought you might like it:</p>
-     
     <p>https://cyborgcart.vercel.app/</p>
-    
-
      <p>Best regards,</p>
      <p>${email}</p>
    `;
-
-    const body = { email, message };
-
-    this.sendOtp(body).subscribe((ele) => {
+    this.sendOtp({ email, message }).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-
       data.status
-        ? (this.msg = [
-            {
-              severity: 'success',
-              summary: 'success',
-              detail: `${data.data}`,
-            },
-          ])
-        : (this.msg = [
-            {
-              severity: 'warn',
-              summary: 'warn',
-              detail: `${data.data}`,
-            },
-          ]);
-
+        ? this.messageHandler('success', `${data.data}`)
+        : this.messageHandler('warn', `${data.data}`);
+      this.clearMessagesAfterDelay();
       this.myForm.reset();
     });
   }
 
-  shareProfile() {
+  public shareProfile() {
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe((res) => {
       const data = this.decrypt.decrypt(res.response);
-
       const email = this.myForm.value.email;
       const message = `https://cyborgcart.vercel.app/in/${data.data.email}`;
-
-      const body = { email, message };
-
-      this.sendOtp(body).subscribe((ele) => {
+      this.sendOtp({ email, message }).subscribe((ele) => {
         const data = this.decrypt.decrypt(ele.response);
-
         data.status
-          ? (this.msg = [
-              {
-                severity: 'success',
-                summary: 'success',
-                detail: `${data.data}`,
-              },
-            ])
-          : (this.msg = [
-              {
-                severity: 'warn',
-                summary: 'warn',
-                detail: `${data.data}`,
-              },
-            ]);
-
+          ? this.messageHandler('success', `${data.data}`)
+          : this.messageHandler('warn', `${data.data}`);
+        this.clearMessagesAfterDelay();
         this.myForm.reset();
       });
     });
   }
 
-  shopDetails(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private shopDetails(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
         headers,
@@ -112,11 +73,8 @@ export class ShareComponent {
       );
   }
 
-  sendOtp(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private sendOtp(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/email', body, {
         headers,
@@ -126,5 +84,21 @@ export class ShareComponent {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
   }
 }
