@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 
 @Component({
@@ -14,18 +13,14 @@ import { SharedModule } from '../shared/shared.module';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   public myForm: FormGroup | any;
   public flag: boolean = true;
   public msg: Message[] | any;
   public selectedImage: File | any = null;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private decrypt: DecryptService
-  ) {
+  constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
       firstName: new FormControl('', [
         Validators.required,
@@ -53,9 +48,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
-
-  async submitForm(): Promise<void> {
+  public async submitForm(): Promise<void> {
+    this.flag = false;
     const firstName: string = this.myForm.value.firstName;
     const lastName: string = this.myForm.value.lastName;
     const email: string = this.myForm.value.gmail;
@@ -63,8 +57,6 @@ export class RegisterComponent implements OnInit {
     const password: string = this.myForm.value.Password;
     const userType: string = this.myForm.value.userType;
     const profileImage = this.selectedImage;
-
-    this.flag = false;
 
     this.register({
       firstName,
@@ -76,15 +68,8 @@ export class RegisterComponent implements OnInit {
       profileImage,
     }).subscribe((data) => {
       if (data.status) {
-        this.msg = [
-          {
-            severity: 'success',
-            summary: 'Success',
-            detail: 'register successfully !',
-          },
-        ];
+        this.messageHandler('success', 'register successfully !');
 
-        this.flag = data.status;
         localStorage.setItem('id', data.data.id);
         localStorage.setItem('type', data.data.userType);
         localStorage.setItem('status', data.data.status);
@@ -93,47 +78,31 @@ export class RegisterComponent implements OnInit {
           `${data.data.firstName} ${data.data.lastName}`
         );
         localStorage.setItem('lastLogin', `${new Date().getTime()}`);
+        this.flag = data.status;
 
         data.data.userType == 'MERCHANT'
           ? this.dashboard()
           : this.customerDashboard();
-      } else {
-        this.msg = [
-          {
-            severity: 'warn',
-            summary: 'warn',
-            detail: `${data.response}`,
-          },
-        ];
-      }
+      } else this.messageHandler('warn', `${data.response}`);
     });
   }
 
-  async onImageSelected(event: any) {
-    const file = event.target.files[0];
-    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
-
-    if (file.size > maxSize) {
-      this.msg = [
-        {
-          severity: 'warn',
-          summary: 'warn',
-          detail: 'File size exceeds 2MB limit.',
-        },
-      ];
-      event.target.value = ''; // Clear the input
-
-      return;
-    }
-
+  public async onImageSelected(event: any) {
     try {
+      const [file, maxSize] = [event.target.files[0], 2 * 1024 * 1024];
+      if (file.size > maxSize) {
+        this.messageHandler('warn', 'File size exceeds 2MB limit.');
+        event.target.value = '';
+        return;
+      }
       this.selectedImage = await this.convertToWebPAndBinaryString(file);
+      this.clearMessagesAfterDelay();
     } catch (error) {
       console.error('Error processing image:', error);
     }
   }
 
-  convertToWebPAndBinaryString(file: File): Promise<string | null> {
+  private convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -165,7 +134,7 @@ export class RegisterComponent implements OnInit {
                 }
               },
               'image/webp',
-              0.8 // Quality factor for WebP format
+              0.8
             );
           } else {
             reject(new Error('Canvas context is not supported'));
@@ -179,23 +148,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  login(): void {
-    this.router.navigate(['']);
-  }
-
-  dashboard(): void {
-    this.router.navigate(['/dashboard']);
-  }
-
-  customerDashboard(): void {
-    this.router.navigate(['/customer-dashboard']);
-  }
-
-  register(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private register(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(' https://smart-shop-api-eta.vercel.app/auth/register', body, {
         headers,
@@ -205,5 +159,33 @@ export class RegisterComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
+  }
+
+  public login(): void {
+    this.router.navigate(['']);
+  }
+
+  private dashboard(): void {
+    this.router.navigate(['/dashboard']);
+  }
+
+  private customerDashboard(): void {
+    this.router.navigate(['/customer-dashboard']);
   }
 }
