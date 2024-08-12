@@ -81,8 +81,8 @@
 }
 .loader::before,
 .loader::after {
-  content: "";
-  grid-area: 1/
+  content: "
+  grid-area: 1;
   background: linear-gradient(currentColor 0 0) center,
     linear-gradient(currentColor 0 0) center;
   background-size: 100% 10px, 10px 100%;
