@@ -68,7 +68,7 @@ export class UpdateProductComponent {
     }
   }
 
-  async onImageSelected(event: any) {
+  public async onImageSelected(event: any) {
     try {
       const [file, maxSize] = [event.target.files[0], 2 * 1024 * 1024];
       if (file.size > maxSize) {
