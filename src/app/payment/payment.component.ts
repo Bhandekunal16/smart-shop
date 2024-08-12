@@ -32,72 +32,55 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.msg = [
-      {
-        severity: 'info',
-        summary: `heading to purchasing product`,
-      },
-    ];
+    this.messageHandler('info', `heading to purchasing product`);
     this.view();
   }
 
-  view() {
+  public view() {
     let array = [];
     this.Details().subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.myForm.patchValue(data.data);
       array.push(data.data);
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `purchasing request for ${data.data.ProductName}`,
-        },
-      ];
       this.data = array;
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 1000);
+      this.messageHandler(
+        'success',
+        `purchasing request for ${data.data.ProductName}`
+      );
+      this.clearMessagesAfterDelay();
     });
   }
 
-  getStatusText(isPurchased: boolean): string {
+  public getStatusText(isPurchased: boolean): string {
     return isPurchased ? 'Sold' : 'Unsold';
   }
 
-  purchaseProduct(id: any) {
-    const userId = localStorage.getItem('id');
-    let payload = {
-      userId: userId,
+  public purchaseProduct(id: any) {
+    this.add({
+      userId: localStorage.getItem('id'),
       productId: id,
-    };
-
-    this.add(payload).subscribe((ele) => {
+    }).subscribe((ele) => {
       let data = this.decrypt.decrypt(ele.response);
-
       if (data.status) {
         this.list();
       }
     });
   }
 
-  list() {
+  private list() {
     const userType = localStorage.getItem('type');
-
     userType == 'MERCHANT'
       ? this.router.navigate(['dashboard/purchasedList'])
       : this.router.navigate(['customer-dashboard/purchasedList']);
   }
 
-  now(input: string) {
+  public now(input: string) {
     return btoa(input);
   }
 
-  Details(): Observable<any> {
+  private Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
         headers,
@@ -109,10 +92,8 @@ export class PaymentComponent implements OnInit {
       );
   }
 
-  add(request: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private add(request: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/payment/request`,
@@ -124,5 +105,21 @@ export class PaymentComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
   }
 }
