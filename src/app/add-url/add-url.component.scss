@@ -1,0 +1,23 @@
+.add-url-container {
+  height: 50vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-url-container-sub {
+  display: flex;
+  justify-content: space-evenly;
+  width: 35vw;
+}
+
+@media (max-width: 600px) {
+  .add-url-container {
+    height: 60vh;
+  }
+
+  .add-url-container-sub {
+    width: 100%;
+  }
+}

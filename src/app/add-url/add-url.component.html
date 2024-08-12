@@ -1,0 +1,15 @@
+<div class="add-url-container">
+  <div class="add-url-container-sub">
+    <p-floatLabel>
+        <input type="text" pInputText [(ngModel)]="value" />
+        <label for="Url">Add Url</label>
+    </p-floatLabel>
+    <p-button
+      icon="pi pi-plus"
+      [rounded]="true"
+      [text]="true"
+      [raised]="true"
+      (click)="get()"
+    />
+  </div>
+</div>
