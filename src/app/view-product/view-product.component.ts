@@ -29,10 +29,9 @@ export class ViewProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageHandler('info', 'searching product for you!');
+    this.flag = false;
     this.shopDetails().subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-      this.flag = false;
-
       this.messageHandler(
         'success',
         'you currently not have anything in the shop'
@@ -96,8 +95,6 @@ export class ViewProductComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {
