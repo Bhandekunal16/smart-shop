@@ -23,66 +23,48 @@ export class UserViewWishlistComponent {
   public msg: Message[] | any;
 
   ngOnInit(): void {
-    this.msg = [
-      {
-        severity: 'info',
-        summary: 'Searching for your wish list!',
-      },
-    ];
+    this.messageHandler('info', 'Searching for your wish list!');
     this.details();
   }
 
-  details() {
+  private details() {
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
       this.products = data.data;
-      this.msg = [
-        {
-          severity: 'success',
-          summary: `found items from your wish list ${this.products.length}`,
-        },
-      ];
-
-      setTimeout(() => {
-        this.msg = [];
-      }, 500);
+      this.messageHandler(
+        'success',
+        `found items from your wish list ${this.products.length}`
+      );
+      this.clearMessagesAfterDelay();
     });
   }
 
   remove(id: any) {
-    const userId = localStorage.getItem('id');
-
-    const body = {
-      userId: userId,
+    this.Remove({
+      userId: localStorage.getItem('id'),
       productId: id,
-    };
-    this.Remove(body).subscribe((ele) => {
+    }).subscribe((ele) => {
       const res = this.decrypt.decrypt(ele.response);
-
       if (res.status) {
         this.details();
       }
     });
   }
 
-  submit() {
+  public submit() {
     this.add();
   }
 
-  add(): void {
+  private add(): void {
     const userType = localStorage.getItem('type');
-
     userType == 'MERCHANT'
       ? this.router.navigate(['dashboard/userAddWishList'])
       : this.router.navigate(['customer-dashboard/userAddWishList']);
   }
 
-  shopDetails(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private shopDetails(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/product/get/wishlist/${id}`,
@@ -95,10 +77,8 @@ export class UserViewWishlistComponent {
       );
   }
 
-  Remove(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+  private Remove(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
@@ -112,5 +92,21 @@ export class UserViewWishlistComponent {
           return throwError(error);
         })
       );
+  }
+
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
   }
 }
