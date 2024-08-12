@@ -29,30 +29,21 @@ export class ReceptComponent implements OnInit {
 
   ngOnInit(): void {
     const product: any = localStorage.getItem('payment');
-     (product);
     const parse = JSON.parse(product);
     this.productName = parse.ProductName;
     this.productDescription = parse.ProductDescription;
     this.productCost = parse.productCost;
     this.brand = parse.brandName;
     this.productId = parse.id;
-
-     (this.productName);
-
-     (parse);
-
     this.purchasedList(parse.ownerId).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-       (data);
       this.officialContactNo = data.data.officialContactNo;
       this.officialEmail = data.data.officialEmail;
       this.address = data.data.address;
       this.logo = data.data.logo;
     });
-
     this.TxnList(parse.id).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-       (data);
       this.transactionType = data.data.transactionType;
       this.paymentDate = new Date(
         parseInt(data.data.paymentDate)
@@ -60,13 +51,8 @@ export class ReceptComponent implements OnInit {
     });
   }
 
-  purchasedList(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-     (id);
-
+  private purchasedList(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`,
@@ -81,13 +67,8 @@ export class ReceptComponent implements OnInit {
       );
   }
 
-  TxnList(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
-     (id);
-
+  private TxnList(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/payment/get/TxnDetails/${id}`,
@@ -100,5 +81,11 @@ export class ReceptComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 }
