@@ -55,12 +55,15 @@ export class ProfileComponent implements OnInit {
     this.update();
   }
 
-  private shopDetails(id: any): Observable<any> {
+  private shopDetails(body: any): Observable<any> {
     const headers = this.header();
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/auth/getUser/${body.id}`,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
