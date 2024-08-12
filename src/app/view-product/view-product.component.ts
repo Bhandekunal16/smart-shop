@@ -6,6 +6,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 import { DatePipe } from '@angular/common';
+import { header } from '../string';
 
 @Component({
   selector: 'app-view-product',
@@ -80,7 +81,7 @@ export class ViewProductComponent implements OnInit {
 
   private shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/getall/${id}`, {
         headers,
@@ -96,11 +97,7 @@ export class ViewProductComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

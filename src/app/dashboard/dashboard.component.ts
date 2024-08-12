@@ -7,6 +7,7 @@ import { StateService } from '../state.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { header } from '../string';
 
 @Component({
   selector: 'app-dashboard',
@@ -199,7 +200,7 @@ export class DashboardComponent {
   }
 
   private shopDetails(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .get<any>(
@@ -278,11 +279,7 @@ export class DashboardComponent {
     this.router.navigate(['dashboard/userViewWishList']);
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private LogRester() {
     setInterval(() => {

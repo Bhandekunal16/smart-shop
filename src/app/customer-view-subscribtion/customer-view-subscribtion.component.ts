@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
+import { header } from '../string';
 
 @Component({
   selector: 'app-customer-view-subscribtion',
@@ -29,7 +30,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
 
   private shopDetails(): Observable<any> {
     const id = localStorage.getItem('id');
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`,
@@ -54,9 +55,5 @@ export class CustomerViewSubscriptionComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

@@ -5,6 +5,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { Router } from '@angular/router';
+import { header } from '../string';
 
 @Component({
   selector: 'app-view-shop',
@@ -101,7 +102,7 @@ export class ViewShopComponent implements OnInit {
   }
 
   private shopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
         headers,
@@ -114,7 +115,7 @@ export class ViewShopComponent implements OnInit {
   }
 
   private shopDetailsNext(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`,
@@ -129,12 +130,6 @@ export class ViewShopComponent implements OnInit {
 
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
-  }
-
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
   }
 
   private clearMessagesAfterDelay() {

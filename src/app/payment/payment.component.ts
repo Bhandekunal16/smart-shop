@@ -6,6 +6,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-payment',
@@ -80,7 +81,7 @@ export class PaymentComponent implements OnInit {
 
   private Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
         headers,
@@ -93,7 +94,7 @@ export class PaymentComponent implements OnInit {
   }
 
   private add(request: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/payment/request`,
@@ -111,11 +112,7 @@ export class PaymentComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

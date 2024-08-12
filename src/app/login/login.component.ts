@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +60,7 @@ export class LoginComponent {
   }
 
   private login(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/login', body, {
         headers,
@@ -75,11 +76,7 @@ export class LoginComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

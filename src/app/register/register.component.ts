@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-register',
@@ -149,7 +150,7 @@ export class RegisterComponent {
   }
 
   private register(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(' https://smart-shop-api-eta.vercel.app/auth/register', body, {
         headers,
@@ -165,11 +166,7 @@ export class RegisterComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

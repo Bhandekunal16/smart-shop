@@ -1,3 +1,5 @@
+import { HttpHeaders } from '@angular/common/http';
+
 export const options: string[] = [
   'Grocery',
   'Clothing',
@@ -69,3 +71,9 @@ export const options: string[] = [
 export const LocalStorageNotFound = (): string => {
   return 'LocalStorage is not available in this environment.';
 };
+
+export function header() {
+  return new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+}

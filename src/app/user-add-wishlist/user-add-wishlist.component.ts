@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-user-add-wishlist',
@@ -104,7 +105,7 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   private shopDetails(): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, {
         headers,
@@ -117,7 +118,7 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   private Add(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
         headers,
@@ -130,7 +131,7 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   private Remove(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
@@ -150,11 +151,7 @@ export class UserAddWishlistComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

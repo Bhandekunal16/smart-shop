@@ -5,6 +5,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-purchase-list',
@@ -59,7 +60,7 @@ export class PurchaseListComponent implements OnInit {
   }
 
   private purchasedList(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/payment/purchase/${id.id}`,
@@ -76,11 +77,7 @@ export class PurchaseListComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

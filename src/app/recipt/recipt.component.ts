@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-recipt',
@@ -52,7 +53,7 @@ export class ReceptComponent implements OnInit {
   }
 
   private purchasedList(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`,
@@ -68,7 +69,7 @@ export class ReceptComponent implements OnInit {
   }
 
   private TxnList(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/payment/get/TxnDetails/${id}`,
@@ -83,9 +84,5 @@ export class ReceptComponent implements OnInit {
       );
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

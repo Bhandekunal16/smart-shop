@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-share',
@@ -61,7 +62,7 @@ export class ShareComponent {
   }
 
   private shopDetails(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/auth/getUser/${id}`, {
         headers,
@@ -74,7 +75,7 @@ export class ShareComponent {
   }
 
   private sendOtp(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/auth/email', body, {
         headers,
@@ -90,11 +91,7 @@ export class ShareComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

@@ -5,6 +5,8 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
+
 
 @Component({
   selector: 'app-buyrequest',
@@ -73,7 +75,7 @@ export class BuyRequestComponent {
   }
 
   private purchasedList(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .get<any>(
@@ -90,7 +92,7 @@ export class BuyRequestComponent {
   }
 
   private sell(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .post<any>(
@@ -115,9 +117,5 @@ export class BuyRequestComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

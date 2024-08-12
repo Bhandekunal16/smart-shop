@@ -6,6 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { options } from '../string';
+import { header } from '../string';
 
 @Component({
   selector: 'app-update-product',
@@ -187,7 +188,7 @@ export class UpdateProductComponent {
   }
 
   private editShopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/product/edit', body, {
         headers,
@@ -200,7 +201,7 @@ export class UpdateProductComponent {
   }
 
   private adjustRate(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(
         'https://smart-shop-api-eta.vercel.app/product/adjust/rate',
@@ -216,7 +217,7 @@ export class UpdateProductComponent {
 
   private Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
         headers,
@@ -230,7 +231,7 @@ export class UpdateProductComponent {
 
   private delete(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/delete/${id}`, {
         headers,
@@ -242,11 +243,7 @@ export class UpdateProductComponent {
       );
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private timekeeper() {
     setTimeout(() => {

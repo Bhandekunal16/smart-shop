@@ -6,6 +6,7 @@ import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-conform-password',
@@ -68,7 +69,7 @@ export class ConformPasswordComponent {
   }
 
   private conformPassword(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .post<any>(
@@ -93,9 +94,5 @@ export class ConformPasswordComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

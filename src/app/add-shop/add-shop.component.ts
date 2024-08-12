@@ -6,7 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
-import { LocalStorageNotFound } from '../string';
+import { LocalStorageNotFound, header } from '../string';
 
 @Component({
   selector: 'app-add-shop',
@@ -165,7 +165,7 @@ export class AddShopComponent {
   }
 
   public create(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/create', body, {
@@ -179,7 +179,7 @@ export class AddShopComponent {
   }
 
   private shopDetails(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .get<any>(
@@ -210,9 +210,5 @@ export class AddShopComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
-import { options, LocalStorageNotFound } from '../string';
+import { options, LocalStorageNotFound, header } from '../string';
 
 @Component({
   selector: 'app-add-product',
@@ -129,7 +129,7 @@ export class AddProductComponent {
   }
 
   private create(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/product/create', body, {
@@ -143,7 +143,7 @@ export class AddProductComponent {
   }
 
   private shopDetails(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .get<any>(
@@ -160,9 +160,5 @@ export class AddProductComponent {
       );
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

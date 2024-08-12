@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
+import { header } from '../string';
 
 interface ApiResponse<T> {
   status: boolean;
@@ -97,7 +98,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
 
   private added(): Observable<ApiResponse<any>> {
     const id = localStorage.getItem('id');
-    const headers = this.header();
+    const headers = header();
     return this.http.get<ApiResponse<any>>(
       `https://smart-shop-api-eta.vercel.app/auth/getAll/shop/subscribed/${id}`,
       { headers }
@@ -105,7 +106,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   }
 
   private shopDetails(): Observable<ApiResponse<any>> {
-    const headers = this.header();
+    const headers = header();
     return this.http.get<ApiResponse<any>>(
       `https://smart-shop-api-eta.vercel.app/shop/shops`,
       {
@@ -144,7 +145,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   }
 
   private Subscribe(id: any): Observable<ApiResponse<any>> {
-    const headers = this.header();
+    const headers = header();
     const CustomerId = localStorage.getItem('id');
     const body = { id, customerId: CustomerId };
     return this.http.post<ApiResponse<any>>(
@@ -155,7 +156,7 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   }
 
   private unsubscribe(id: any): Observable<ApiResponse<any>> {
-    const headers = this.header();
+    const headers = header();
     const CustomerId = localStorage.getItem('id');
     const body = { shopId: id, id: CustomerId };
     return this.http.post<ApiResponse<any>>(
@@ -175,9 +176,5 @@ export class CustomerAddSubscriptionComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

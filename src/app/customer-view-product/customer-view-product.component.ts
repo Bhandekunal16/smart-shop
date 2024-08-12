@@ -7,7 +7,7 @@ import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { options } from '../string';
+import { options, header } from '../string';
 
 @Component({
   selector: 'app-customer-view-product',
@@ -178,7 +178,7 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   private Remove(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
@@ -195,7 +195,7 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   private shopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/customer/get`,
@@ -212,7 +212,7 @@ export class CustomerViewProductComponent implements OnInit {
   }
 
   private Add(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
         headers,
@@ -234,11 +234,7 @@ export class CustomerViewProductComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private edit(): void {
     this.router.navigate(['customer-dashboard/updateRating']);

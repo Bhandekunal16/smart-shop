@@ -5,6 +5,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { Router } from '@angular/router';
+import { header } from '../string';
 
 @Component({
   selector: 'app-feed',
@@ -134,7 +135,7 @@ export class FeedComponent implements OnInit {
   }
 
   private shopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/shop/get/products`,
@@ -151,7 +152,7 @@ export class FeedComponent implements OnInit {
   }
 
   private AddToWishList(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(`https://smart-shop-api-eta.vercel.app/product/wishlist`, id, {
         headers,
@@ -164,7 +165,7 @@ export class FeedComponent implements OnInit {
   }
 
   private RemoveFromWishlist(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>(
         `https://smart-shop-api-eta.vercel.app/product/wishlist/remove`,
@@ -180,9 +181,5 @@ export class FeedComponent implements OnInit {
       );
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

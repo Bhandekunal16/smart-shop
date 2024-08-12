@@ -5,6 +5,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-update-rating',
@@ -87,7 +88,7 @@ export class UpdateRatingComponent implements OnInit {
 
   private Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
         headers,
@@ -100,7 +101,7 @@ export class UpdateRatingComponent implements OnInit {
   }
 
   private editShopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/product/rating', body, {
         headers,
@@ -116,11 +117,7 @@ export class UpdateRatingComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

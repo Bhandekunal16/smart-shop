@@ -7,6 +7,7 @@ import { NetworkStatusService } from '../network-status.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
+import { header } from '../string';
 
 @Component({
   selector: 'app-customer-dashboard',
@@ -192,7 +193,7 @@ export class CustomerDashboardComponent implements OnInit {
   }
 
   public shopDetails(id: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .get<any>(
@@ -206,11 +207,7 @@ export class CustomerDashboardComponent implements OnInit {
       );
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearLog() {
     setInterval(() => {

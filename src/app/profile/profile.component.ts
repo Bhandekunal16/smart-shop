@@ -5,6 +5,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
+import { header } from '../string';
 
 @Component({
   selector: 'app-profile',
@@ -56,7 +57,7 @@ export class ProfileComponent implements OnInit {
   }
 
   private shopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/auth/getUser/${body.id}`,
@@ -75,11 +76,7 @@ export class ProfileComponent implements OnInit {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

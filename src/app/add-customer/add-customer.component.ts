@@ -5,6 +5,7 @@ import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-add-customer',
@@ -96,7 +97,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   private shopDetails(): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .get<any>('https://smart-shop-api-eta.vercel.app/auth/getAll/customers', {
@@ -110,7 +111,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   private Subscribe(id: string): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .post<any>(
@@ -131,7 +132,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
   private customerUnsubscribed(id: string): Observable<any> {
-    const headers = this.header();
+    const headers = header();
 
     return this.http
       .get<any>(
@@ -145,9 +146,5 @@ export class AddCustomerComponent implements OnInit {
       );
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 }

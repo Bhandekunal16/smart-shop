@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { header } from '../string';
 
 @Component({
   selector: 'app-edit-shop',
@@ -167,7 +168,7 @@ export class EditShopComponent {
   }
 
   private activate(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/enable', body, {
         headers,
@@ -180,7 +181,7 @@ export class EditShopComponent {
   }
 
   private deactivated(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/disable', body, {
         headers,
@@ -193,7 +194,7 @@ export class EditShopComponent {
   }
 
   private editShopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/edit', body, {
         headers,
@@ -206,7 +207,7 @@ export class EditShopComponent {
   }
 
   private shopDetails(body: any): Observable<any> {
-    const headers = this.header();
+    const headers = header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/shop/search', body, {
         headers,
@@ -228,11 +229,7 @@ export class EditShopComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
-  private header() {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-  }
+ 
 
   public addShop(): void {
     this.router.navigate(['dashboard/addShop']);
