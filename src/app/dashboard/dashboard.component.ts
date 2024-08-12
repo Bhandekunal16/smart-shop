@@ -54,60 +54,60 @@ export class DashboardComponent {
     this.items = [
       {
         label: 'Dashboard',
-        icon: 'pi pi-fw pi-building-columns',
+        icon: 'pi pi-building-columns',
         command: () => {
           this.initial();
         },
       },
       {
         label: 'feed',
-        icon: 'pi pi-fw pi-box',
+        icon: 'pi pi-box',
         command: () => {
           this.feed();
         },
       },
       {
         label: 'Shop',
-        icon: 'pi pi-fw pi-shop',
+        icon: 'pi pi-shop',
         items: [
           {
             label: 'Edit',
-            icon: 'pi pi-fw pi-user-edit',
+            icon: 'pi pi-user-edit',
             command: () => this.editShop(),
           },
           {
             label: 'View',
-            icon: 'pi pi-fw pi-eye',
+            icon: 'pi pi-eye',
             command: () => this.viewShop(),
           },
           {
             label: 'Add',
-            icon: 'pi pi-fw pi-cart-plus',
+            icon: 'pi pi-cart-plus',
             command: () => this.addShop(),
           },
         ],
       },
       {
         label: 'Product',
-        icon: 'pi pi-fw pi-calendar',
+        icon: 'pi pi-calendar',
         items: [
           {
             label: 'View',
-            icon: 'pi pi-fw pi-eye',
+            icon: 'pi pi-eye',
             command: () => {
               this.viewProduct();
             },
           },
           {
             label: 'New',
-            icon: 'pi pi-fw pi-plus',
+            icon: 'pi pi-plus',
             command: () => {
               this.addProduct();
             },
           },
           {
             label: 'Buy request',
-            icon: 'pi pi-fw pi-indian-rupee',
+            icon: 'pi pi-indian-rupee',
             command: () => {
               this.purchaseReq();
             },
@@ -116,11 +116,11 @@ export class DashboardComponent {
       },
       {
         label: 'Users',
-        icon: 'pi pi-fw pi-user',
+        icon: 'pi pi-user',
         items: [
           {
             label: 'New',
-            icon: 'pi pi-fw pi-user-plus',
+            icon: 'pi pi-user-plus',
             command: () => {
               this.addUser();
             },
@@ -128,7 +128,7 @@ export class DashboardComponent {
 
           {
             label: 'customer-list',
-            icon: 'pi pi-fw pi-list',
+            icon: 'pi pi-list',
             command: () => {
               this.ViewUser();
             },
@@ -138,7 +138,7 @@ export class DashboardComponent {
 
       {
         label: 'Feedback',
-        icon: 'pi pi-fw pi-comment',
+        icon: 'pi pi-comment',
         command: () => {
           this.Feedback();
         },
@@ -148,40 +148,40 @@ export class DashboardComponent {
         items: [
           {
             label: 'Profile',
-            icon: 'pi pi-fw pi-user',
+            icon: 'pi pi-user',
             command: () => {
               this.update();
             },
           },
           {
             label: status ? 'Account Enabled' : 'Account Disabled',
-            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+            icon: status ? 'pi pi-unlock' : 'pi pi-lock',
             iconStyle: status ? { color: 'green' } : { color: 'red' },
           },
           {
             label: this.onlineStatus ? 'Online' : 'Offline',
-            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
+            icon: this.onlineStatus ? 'pi pi-wifi' : 'pi pi-globe',
             iconStyle: this.onlineStatus
               ? { color: 'green' }
               : { color: 'red' },
           },
           {
             label: 'Share',
-            icon: 'pi pi-fw pi-share-alt',
+            icon: 'pi pi-share-alt',
             command: () => {
               this.share();
             },
           },
           {
             label: 'Wishlist',
-            icon: 'pi pi-fw pi-list-check',
+            icon: 'pi pi-list-check',
             command: () => {
               this.wishList();
             },
           },
           {
             label: 'Quit',
-            icon: 'pi pi-fw pi-power-off',
+            icon: 'pi pi-power-off',
             command: () => {
               this.login();
             },

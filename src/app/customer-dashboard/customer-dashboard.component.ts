@@ -53,11 +53,11 @@ export class CustomerDashboardComponent implements OnInit {
     this.items = [
       {
         label: `${localStorage.getItem('username')}`,
-        icon: 'pi pi-fw pi-user',
+        icon: 'pi pi-user',
         items: [
           {
             label: 'View',
-            icon: 'pi pi-fw pi-eye',
+            icon: 'pi pi-eye',
             command: () => {
               this.profile();
             },
@@ -65,26 +65,26 @@ export class CustomerDashboardComponent implements OnInit {
 
           {
             label: status ? 'Account Enabled' : 'Account Disabled',
-            icon: status ? 'pi pi-fw pi-unlock' : 'pi pi-fw pi-lock',
+            icon: status ? 'pi pi-unlock' : 'pi pi-lock',
             iconStyle: status ? { color: 'green' } : { color: 'red' },
           },
           {
             label: this.onlineStatus ? 'Online' : 'Offline',
-            icon: this.onlineStatus ? 'pi pi-fw pi-wifi' : 'pi pi-fw pi-globe',
+            icon: this.onlineStatus ? 'pi pi-wifi' : 'pi pi-globe',
             iconStyle: this.onlineStatus
               ? { color: 'green' }
               : { color: 'red' },
           },
           {
             label: 'Share',
-            icon: 'pi pi-fw pi-share-alt',
+            icon: 'pi pi-share-alt',
             command: () => {
               this.share();
             },
           },
           {
             label: 'Log-out',
-            icon: 'pi pi-fw pi-power-off',
+            icon: 'pi pi-power-off',
             command: () => {
               this.login();
             },
@@ -93,25 +93,25 @@ export class CustomerDashboardComponent implements OnInit {
       },
       {
         label: 'Inventory',
-        icon: 'pi pi-fw pi-pencil',
+        icon: 'pi pi-pencil',
         items: [
           {
             label: 'ProductList',
-            icon: 'pi pi-fw pi-list',
+            icon: 'pi pi-list',
             command: () => {
               this.initial();
             },
           },
           {
             label: 'Wishlist',
-            icon: 'pi pi-fw pi-list-check',
+            icon: 'pi pi-list-check',
             command: () => {
               this.WishList();
             },
           },
           {
             label: 'Purchases',
-            icon: 'pi pi-fw pi-receipt',
+            icon: 'pi pi-receipt',
             command: () => {
               this.list();
             },
@@ -120,18 +120,18 @@ export class CustomerDashboardComponent implements OnInit {
       },
       {
         label: 'Subscriptions',
-        icon: 'pi pi-fw pi-calendar',
+        icon: 'pi pi-calendar',
         items: [
           {
             label: 'View',
-            icon: 'pi pi-fw pi-eye',
+            icon: 'pi pi-eye',
             command: () => {
               this.viewSubscriptionRoute();
             },
           },
           {
             label: 'Add',
-            icon: 'pi pi-fw pi-plus',
+            icon: 'pi pi-plus',
             command: () => {
               this.addSubscription();
             },
@@ -140,7 +140,7 @@ export class CustomerDashboardComponent implements OnInit {
       },
       {
         label: 'Feedback',
-        icon: 'pi pi-fw pi-comment',
+        icon: 'pi pi-comment',
         command: () => {
           this.feedback();
         },
