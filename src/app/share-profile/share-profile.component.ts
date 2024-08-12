@@ -36,10 +36,8 @@ export class ShareProfileComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.id = params.get('id');
-
       this.shopDetails(this.id).subscribe((ele) => {
         const data = this.decrypt.decrypt(ele.response);
-
         this.email = data.data.email;
         this.firstName = data.data.firstName;
         this.lastName = data.data.lastName;
@@ -50,50 +48,31 @@ export class ShareProfileComponent {
         )}`;
         this.lastUpdated = data.data.createdOn;
         this.ID = data.data.id;
-
         this.userPresent =
           localStorage.getItem('id') == undefined ? false : true;
       });
     });
   }
 
-  register() {
+  public register() {
     this.router.navigate(['']);
   }
 
-  subscribe() {
+  public subscribe() {
     this.shopId(this.ID).subscribe((ele) => {
       const data = this.decrypt.decrypt(ele.response);
-
       this.Subscribe(data.data).subscribe((ele) => {
         const data = this.decrypt.decrypt(ele.response);
-
-        if (data.status) {
-          this.msg = [
-            {
-              severity: 'success',
-              summary: 'success',
-              detail: `${data.data}`,
-            },
-          ];
-        } else {
-          this.msg = [
-            {
-              severity: 'error',
-              summary: 'error',
-              detail: `${data.data}`,
-            },
-          ];
-        }
+        data.status
+          ? this.messageHandler('success', `${data.data}`)
+          : this.messageHandler('error', `${data.data}`);
+        this.clearMessagesAfterDelay();
       });
     });
   }
 
-  shopDetails(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private shopDetails(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/auth/getUser/email/${id}`,
@@ -108,11 +87,8 @@ export class ShareProfileComponent {
       );
   }
 
-  shopId(id: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private shopId(id: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/shop/get/shop/id/${id}`,
@@ -127,19 +103,28 @@ export class ShareProfileComponent {
       );
   }
 
-  Subscribe(id: any): Observable<any> {
-    const headers = this.getHeaders();
-    const body = { id: id, customerId: localStorage.getItem('id') };
+  private Subscribe(id: any): Observable<any> {
+    const headers = this.header();
     return this.http.post<any>(
       'https://smart-shop-api-eta.vercel.app/auth/customer/subscribe',
-      body,
+      { id: id, customerId: localStorage.getItem('id') },
       { headers }
     );
   }
 
-  private getHeaders(): HttpHeaders {
+  private messageHandler(severity: string, detail: string, summary?: string) {
+    this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  private header() {
     return new HttpHeaders({
       'Content-Type': 'application/json',
     });
+  }
+
+  private clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.msg = [];
+    }, 1000);
   }
 }
