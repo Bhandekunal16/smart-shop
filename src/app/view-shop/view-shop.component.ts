@@ -29,6 +29,7 @@ export class ViewShopComponent implements OnInit {
   public logo: string | undefined;
   public msg: Message[] | any;
   public flag: boolean = true;
+  public urls: any[] = [];
 
   ngOnInit(): void {
     this.flag = false;
@@ -65,6 +66,10 @@ export class ViewShopComponent implements OnInit {
           setTimeout(() => {
             this.msg = [];
           }, 1000);
+        });
+        this.shopUrl({ id }).subscribe((ele) => {
+          const data = this.decrypt.decrypt(ele.response);
+          this.urls = data.data.split('|');
         });
       } else {
         const id = localStorage.getItem('viewShopId');
@@ -121,6 +126,19 @@ export class ViewShopComponent implements OnInit {
         `https://smart-shop-api-eta.vercel.app/shop/get/shopDetails/${id}`,
         { headers }
       )
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  private shopUrl(id: any): Observable<any> {
+    const headers = header();
+    return this.http
+      .get<any>(`https://smart-shop-api-eta.vercel.app/shop/get/url/${id.id}`, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
