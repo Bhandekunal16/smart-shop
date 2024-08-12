@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 * {
   box-sizing: border-box;
-  font-family: inherit;
 }
 
 @import "primeng/resources/themes/viva-light/theme.css";
@@ -83,7 +82,7 @@
 .loader::before,
 .loader::after {
   content: "";
-  grid-area: 1/1;
+  grid-area: 1/
   background: linear-gradient(currentColor 0 0) center,
     linear-gradient(currentColor 0 0) center;
   background-size: 100% 10px, 10px 100%;
