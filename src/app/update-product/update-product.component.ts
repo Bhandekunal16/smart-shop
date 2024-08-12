@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
+import { options } from '../string';
 
 @Component({
   selector: 'app-update-product',
@@ -20,22 +21,7 @@ export class UpdateProductComponent {
   public flag: boolean = false;
   public products: any[] = [];
   public currentIndex = 0;
-  public options: string[] | any = [
-    'Grocery',
-    'Clothing',
-    'Electronics',
-    'Bookstore',
-    'Pharmacy',
-    'Furniture',
-    'Sports',
-    'Jewelry',
-    'Beauty',
-    'Home Improvement',
-    'Pet Supplies',
-    'Toys',
-    'Automotive',
-    'Other',
-  ];
+  public options: string[] | any = options;
   public myForm: FormGroup | any;
 
   constructor(
@@ -58,7 +44,7 @@ export class UpdateProductComponent {
     this.search();
   }
 
-  search() {
+  private search() {
     this.Details().subscribe((ele) => {
       this.products = [];
       const res = this.decrypt.decrypt(ele.response);
@@ -69,7 +55,7 @@ export class UpdateProductComponent {
     });
   }
 
-  populateForm(index: number) {
+  private populateForm(index: number) {
     const product = this.products[index];
     if (product) {
       this.myForm.patchValue({
@@ -82,32 +68,21 @@ export class UpdateProductComponent {
     }
   }
 
-  next() {
-    if (this.currentIndex < this.products.length - 1) {
-      this.currentIndex++;
-      this.populateForm(this.currentIndex);
+  async onImageSelected(event: any) {
+    try {
+      const [file, maxSize] = [event.target.files[0], 2 * 1024 * 1024];
+      if (file.size > maxSize) {
+        alert('File size exceeds 2MB limit.');
+        event.target.value = '';
+        return;
+      }
+      this.selectedImage = await this.convertToWebPAndBinaryString(file);
+    } catch (error) {
+      console.error('Error processing image:', error);
     }
   }
 
- async onImageSelected(event: any) {
-  const file = event.target.files[0];
-  const maxSize = 2 * 1024 * 1024; // 2MB in bytes
-
-  if (file.size > maxSize) {
-    alert('File size exceeds 2MB limit.');
-    event.target.value = ''; // Clear the input
-    return;
-  }
-
-  try {
-    this.selectedImage = await this.convertToWebPAndBinaryString(file);
-  } catch (error) {
-    console.error('Error processing image:', error);
-  }
-}
-
-
-  convertToWebPAndBinaryString(file: File): Promise<string | null> {
+  private convertToWebPAndBinaryString(file: File): Promise<string | null> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -139,7 +114,7 @@ export class UpdateProductComponent {
                 }
               },
               'image/webp',
-              0.8 // Quality factor for WebP format
+              0.8
             );
           } else {
             reject(new Error('Canvas context is not supported'));
@@ -153,97 +128,66 @@ export class UpdateProductComponent {
     });
   }
 
-  submitForm() {
+  public submitForm() {
     const product = this.products[this.currentIndex];
     if (!product) return;
-
-    const payload = {
+    this.editShopDetails({
       ...product,
       ProductName: this.myForm.value.ProductName,
       ProductDescription: this.myForm.value.ProductDescription,
       productType: this.myForm.value.productType,
       ProductImageBase: this.selectedImage,
       productCost: this.myForm.value.productCost,
-    };
-
-    this.editShopDetails(payload).subscribe((response) => {
-      console.log(response);
-
+    }).subscribe((response) => {
       this.search();
     });
   }
 
-  back(): void {
-    this.router.navigate(['dashboard/viewProduct']);
+  public remove() {
+    this.delete();
+    this.back();
   }
 
-  remove() {
-    this.delete().subscribe((response) => {
-      response;
-      this.back();
-    });
+  public onProductCostInput() {
+    this.myForm.get('productCost')?.value
+      ? this.myForm.get('discount')?.disable()
+      : this.myForm.get('discount')?.enable();
   }
 
-  onProductCostInput() {
-    if (this.myForm.get('productCost')?.value) {
-      this.myForm.get('discount')?.disable();
-    } else {
-      this.myForm.get('discount')?.enable();
-    }
+  public onDiscountInput() {
+    this.myForm.get('discount')?.value
+      ? this.myForm.get('productCost')?.disable()
+      : this.myForm.get('productCost')?.enable();
   }
 
-  onDiscountInput() {
-    if (this.myForm.get('discount')?.value) {
-      this.myForm.get('productCost')?.disable();
-    } else {
-      this.myForm.get('productCost')?.enable();
-    }
-  }
-
-  async adjust() {
+  public async adjust() {
     let originalPrice = this.products[this.currentIndex].productCost;
-    originalPrice;
     const cost =
       this.myForm.get('productCost')?.value == originalPrice
         ? 0
         : this.myForm.get('productCost')?.value;
     const discount = this.myForm.get('discount')?.value;
-
     if (cost > 0) {
-      (' i am here');
       this.myForm.patchValue({ productCost: cost });
-      let payload = {
+      this.adjustRate({
         id: localStorage.getItem('currentObjectId'),
         productCost: cost,
-      };
-      this.adjustRate(payload).subscribe((response) => {
-        const data = this.decrypt.decrypt(response.response);
-        setTimeout(() => {
-          this.search();
-        }, 5000);
+      }).subscribe((response) => {
+        this.timekeeper();
       });
     } else if (discount) {
-      ('i am in else');
-      const productCost = originalPrice - (originalPrice * discount) / 100;
-      await this.myForm.patchValue({ productCost: productCost });
-      let payload = {
+      await this.myForm.patchValue({
+        productCost: originalPrice - (originalPrice * discount) / 100,
+      });
+      this.adjustRate({
         id: localStorage.getItem('currentObjectId'),
-        productCost: productCost,
-      };
-      this.adjustRate(payload).subscribe((response) => {
-        const data = this.decrypt.decrypt(response.response);
-        setTimeout(() => {
-          this.search();
-        }, 5000);
+        productCost: originalPrice - (originalPrice * discount) / 100,
       });
     }
   }
 
-  editShopDetails(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private editShopDetails(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>('https://smart-shop-api-eta.vercel.app/product/edit', body, {
         headers,
@@ -255,11 +199,8 @@ export class UpdateProductComponent {
       );
   }
 
-  adjustRate(body: any): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-
+  private adjustRate(body: any): Observable<any> {
+    const headers = this.header();
     return this.http
       .post<any>(
         'https://smart-shop-api-eta.vercel.app/product/adjust/rate',
@@ -273,11 +214,9 @@ export class UpdateProductComponent {
       );
   }
 
-  Details(): Observable<any> {
+  private Details(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
         headers,
@@ -289,11 +228,9 @@ export class UpdateProductComponent {
       );
   }
 
-  delete(): Observable<any> {
+  private delete(): Observable<any> {
     const id = localStorage.getItem('currentObjectId');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
+    const headers = this.header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/delete/${id}`, {
         headers,
@@ -303,5 +240,21 @@ export class UpdateProductComponent {
           return throwError(error);
         })
       );
+  }
+
+  private header() {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  private timekeeper() {
+    setTimeout(() => {
+      this.search();
+    }, 5000);
+  }
+
+  private back(): void {
+    this.router.navigate(['dashboard/viewProduct']);
   }
 }
