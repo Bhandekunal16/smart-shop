@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, catchError, throwError, timeInterval } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
