@@ -19,7 +19,7 @@
       <p>Shop Status : {{ status }}</p>
 
       @for (url of urls; track url) {
-      <p-chip label="{{ url }}" />
+      <p-chip label="{{ url }}" [removable]="true" />
       }
     </p-card>
   </div>
