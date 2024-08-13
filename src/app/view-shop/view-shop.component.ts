@@ -30,10 +30,12 @@ export class ViewShopComponent implements OnInit {
   public msg: Message[] | any;
   public flag: boolean = true;
   public urls: any[] = [];
+  public screen: string = '250px';
 
   ngOnInit(): void {
     this.flag = false;
     this.details();
+    this.changer();
   }
 
   private details() {
@@ -69,6 +71,7 @@ export class ViewShopComponent implements OnInit {
         });
         this.shopUrl({ id }).subscribe((ele) => {
           const data = this.decrypt.decrypt(ele.response);
+          console.log(data);
           this.urls = data.data.split('|');
         });
       } else {
@@ -104,6 +107,29 @@ export class ViewShopComponent implements OnInit {
 
   public now(input: string) {
     return btoa(input);
+  }
+
+  public callHandler(input: any, type: string) {
+    if (type == 'remove') {
+      this.removeUrl(input);
+    } else {
+      this.handleChipClick(input);
+    }
+  }
+
+  public removeUrl(url: any) {
+    this.removeUrls({ id: localStorage.getItem('id'), url: url }).subscribe(
+      (ele) => {
+        console.log(ele);
+      }
+    );
+  }
+
+  public changer() {
+    const Screen = window.innerWidth;
+    if (Screen < 600) {
+      this.screen = '350px';
+    }
   }
 
   private shopDetails(body: any): Observable<any> {
@@ -146,6 +172,19 @@ export class ViewShopComponent implements OnInit {
       );
   }
 
+  private removeUrls(body: any): Observable<any> {
+    const headers = header();
+    return this.http
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/remove/url', body, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
@@ -158,5 +197,13 @@ export class ViewShopComponent implements OnInit {
 
   public addShop(): void {
     this.router.navigate(['dashboard/addShop']);
+  }
+
+  public manageUrls(): void {
+    this.router.navigate(['dashboard/addUrls']);
+  }
+
+  public handleChipClick(id: string) {
+    window.open(id, '_blank');
   }
 }

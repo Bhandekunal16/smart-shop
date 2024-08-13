@@ -9,7 +9,7 @@
 
   <div class="view-shop-container" *ngIf="email != undefined">
     <div class="shopDetailsLogo">
-      <p-image src="{{ logo }}" alt="Image" width="250"></p-image>
+      <p-image src="{{ logo }}" alt="Image" width="{{ screen }}"></p-image>
     </div>
     <p-card header="Shop details" class="view-shop-container-card">
       <p>name : {{ shopName }}</p>
@@ -18,10 +18,18 @@
       <p>email : {{ email }}</p>
       <p>Shop Status : {{ status }}</p>
 
-      @for (url of urls; track url) {
-      <p-chip label="{{ url }}" [removable]="true" />
-      }
+      <div class="view-shop-container-chip-container">
+        @for (url of urls; track url) {
+        <p-chip
+          label="{{ url }}"
+          [removable]="true"
+          (onRemove)="removeUrl(url)"
+        />
+        }
+      </div>
     </p-card>
+
+    <router-outlet></router-outlet>
   </div>
 
   <div *ngIf="email == undefined">

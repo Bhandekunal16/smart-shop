@@ -27,7 +27,11 @@ export const Merchant: Routes = [
       { path: 'addUser', component: AddCustomerComponent },
       { path: 'deleteUser', component: DeleteCustomerComponent },
       { path: 'addShop', component: AddShopComponent },
-      { path: 'viewShop', component: ViewShopComponent },
+      {
+        path: 'viewShop',
+        component: ViewShopComponent,
+        children: [{ path: '', component: AddUrlComponent }],
+      },
       { path: 'editShop', component: EditShopComponent },
       { path: 'addProduct', component: AddProductComponent },
       { path: 'viewProduct', component: ViewProductComponent },
@@ -46,7 +50,6 @@ export const Merchant: Routes = [
       { path: 'userAddWishList', component: UserAddWishlistComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'purchasedList', component: PurchaseListComponent },
-      { path: 'addUrls', component: AddUrlComponent },
     ],
   },
 ];
