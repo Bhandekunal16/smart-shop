@@ -71,8 +71,11 @@ export class ViewShopComponent implements OnInit {
         });
         this.shopUrl({ id }).subscribe((ele) => {
           const data = this.decrypt.decrypt(ele.response);
-          console.log(data);
-          this.urls = data.data.split('|');
+          if (data.data == '') {
+            this.removeUrls({ id: localStorage.getItem('id'), url: '' });
+          } else {
+            this.urls = data.data.split('|');
+          }
         });
       } else {
         const id = localStorage.getItem('viewShopId');
