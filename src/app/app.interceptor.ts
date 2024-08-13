@@ -13,11 +13,7 @@ import { DecryptService } from '../global/decrypt.service';
 @Injectable()
 export class HTTP_INTERCEPTOR implements HttpInterceptor {
   constructor(private decryptService: DecryptService) {}
-  private excludedEndpoints: string[] = [
-    '/auth/login',
-    '/auth/register',
-    'product/count',
-  ];
+  private excludedEndpoints: string[] = ['/auth/login', '/auth/register'];
 
   intercept(
     req: HttpRequest<any>,
