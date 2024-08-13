@@ -71,10 +71,12 @@ export class ViewShopComponent implements OnInit {
         });
         this.shopUrl({ id }).subscribe((ele) => {
           const data = this.decrypt.decrypt(ele.response);
+          const newArray = data.data.split('|');
+
           if (data.data == '') {
             this.removeUrls({ id: localStorage.getItem('id'), url: '' });
           } else {
-            this.urls = data.data.split('|');
+            this.urls = newArray.filter((char: string) => char !== '');
           }
         });
       } else {
