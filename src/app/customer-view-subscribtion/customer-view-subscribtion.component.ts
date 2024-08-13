@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 import { header } from '../string';
@@ -16,7 +15,7 @@ import { header } from '../string';
 export class CustomerViewSubscriptionComponent implements OnInit {
   public products!: any[];
   public msg: Message[] | any;
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.messageHandler('info', `searching for subscription`);
@@ -53,6 +52,4 @@ export class CustomerViewSubscriptionComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 }

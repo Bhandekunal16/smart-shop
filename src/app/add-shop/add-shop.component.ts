@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { LocalStorageNotFound, header } from '../string';
 
@@ -24,9 +23,7 @@ export class AddShopComponent {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private decrypt: DecryptService
-  ) {
+    private router: Router  ) {
     this.myForm = new FormGroup({
       ShopName: new FormControl('', Validators.required),
       Address: new FormControl('', Validators.required),

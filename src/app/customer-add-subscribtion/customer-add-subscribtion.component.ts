@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
@@ -29,7 +28,6 @@ export class CustomerAddSubscriptionComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private decrypt: DecryptService,
     private router: Router,
     private statusService: StateService
   ) {}
@@ -112,26 +110,22 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   }
 
   public subscribe(id: any): void {
-    this.Subscribe(id).subscribe((ele: ApiResponse<any>) => {
-      const data = this.decrypt.decrypt(ele.response);
+    this.Subscribe(id).subscribe((ele: any) => {
+      ele.status
+        ? this.messageHandler('success', `${ele.data}`)
+        : this.messageHandler('error', `${ele.data}`);
 
-      data.status
-        ? this.messageHandler('success', `${data.data}`)
-        : this.messageHandler('error', `${data.data}`);
-
-      data.status ? this.viewSubscriptionRoute() : 'nothing';
+      ele.status ? this.viewSubscriptionRoute() : 'nothing';
     });
   }
 
   public unSubscribe(id: any): void {
-    this.unsubscribe(id).subscribe((ele: ApiResponse<any>) => {
-      const data = this.decrypt.decrypt(ele.response);
-
-      if (data.status) {
-        this.messageHandler('success', `${data.data}`);
+    this.unsubscribe(id).subscribe((ele: any) => {
+      if (ele.status) {
+        this.messageHandler('success', `${ele.data}`);
         this.search();
       } else {
-        this.messageHandler('error', `${data.data}`);
+        this.messageHandler('error', `${ele.data}`);
       }
     });
   }

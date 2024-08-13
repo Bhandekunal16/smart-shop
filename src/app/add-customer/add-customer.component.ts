@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
@@ -19,11 +18,7 @@ export class AddCustomerComponent implements OnInit {
   public msg: Message[] | any;
   public showButton: boolean = false;
 
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.messageHandler('info', 'searching for your customer...');

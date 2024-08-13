@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
 
@@ -20,11 +19,7 @@ export class ForgetPasswordComponent {
   public msg: Message[] | any;
   public flag: boolean = true;
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private decrypt: DecryptService
-  ) {
+  constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
       email: new FormControl(''),
     });
@@ -62,8 +57,6 @@ export class ForgetPasswordComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private verifyOtp(): void {
     this.router.navigate(['/verify-otp']);

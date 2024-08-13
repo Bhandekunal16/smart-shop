@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -23,7 +22,6 @@ export class PaymentComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private decrypt: DecryptService,
     private fb: FormBuilder
   ) {
     this.myForm = this.fb.group({

@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { NetworkStatusService } from '../network-status.service';
 import { StateService } from '../state.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { header } from '../string';
 
 @Component({
@@ -28,8 +27,7 @@ export class DashboardComponent {
     private router: Router,
     private statusService: StateService,
     private networkStatusService: NetworkStatusService,
-    private http: HttpClient,
-    private decrypt: DecryptService
+    private http: HttpClient
   ) {}
 
   ngOnInit() {

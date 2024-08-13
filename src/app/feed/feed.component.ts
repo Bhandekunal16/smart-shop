@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { Router } from '@angular/router';
@@ -24,11 +23,7 @@ export class FeedComponent implements OnInit {
   public skip: number = 0;
   public limit: number = 10;
 
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.flag = false;

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
@@ -33,7 +32,6 @@ export class CustomerViewProductComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private decrypt: DecryptService,
     private statusService: StateService
   ) {
     this.myForm = new FormGroup({

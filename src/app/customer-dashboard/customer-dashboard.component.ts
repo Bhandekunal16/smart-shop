@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
 import { NetworkStatusService } from '../network-status.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { header } from '../string';
 
 @Component({
@@ -27,8 +26,7 @@ export class CustomerDashboardComponent implements OnInit {
     private router: Router,
     private statusService: StateService,
     private networkStatusService: NetworkStatusService,
-    private http: HttpClient,
-    private decrypt: DecryptService
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -205,8 +203,6 @@ export class CustomerDashboardComponent implements OnInit {
         })
       );
   }
-
- 
 
   private clearLog() {
     setInterval(() => {

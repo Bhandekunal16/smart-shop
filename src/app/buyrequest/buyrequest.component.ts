@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
@@ -22,7 +21,7 @@ export class BuyRequestComponent {
   public mode: any;
   public langFlag: boolean | undefined = false;
   public loader: boolean = false;
-  constructor(private http: HttpClient, private decrypt: DecryptService) {
+  constructor(private http: HttpClient) {
     this.myForm = new FormGroup({
       transactionType: new FormControl('', [Validators.required]),
     });

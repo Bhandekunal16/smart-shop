@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 import { header } from '../string';
@@ -22,7 +21,7 @@ export class ChartProductComponent implements OnInit {
   public flag: boolean = false;
   public msg: Message[] | any;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -38,8 +37,7 @@ export class ChartProductComponent implements OnInit {
 
     this.shopDetails().subscribe(
       (ele) => {
-        const res = this.decrypt.decrypt(ele.response);
-        this.array = res.data;
+        this.array = ele.data;
 
         let value = [];
         let name = [];
@@ -52,7 +50,7 @@ export class ChartProductComponent implements OnInit {
         this.Value = value;
         this.flag = true;
 
-        res.response == null && res.data == undefined
+        ele.response == null && ele.data == undefined
           ? this.messageHandler(
               'warn',
               'you currently not have any product, create shop & add some product',
@@ -146,6 +144,4 @@ export class ChartProductComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 }

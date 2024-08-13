@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
 
@@ -26,7 +25,7 @@ export class ReceptComponent implements OnInit {
   public transactionType: string | undefined;
   public paymentDate: string | undefined;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     const product: any = localStorage.getItem('payment');
@@ -37,11 +36,10 @@ export class ReceptComponent implements OnInit {
     this.brand = parse.brandName;
     this.productId = parse.id;
     this.purchasedList(parse.ownerId).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.officialContactNo = data.data.officialContactNo;
-      this.officialEmail = data.data.officialEmail;
-      this.address = data.data.address;
-      this.logo = data.data.logo;
+      this.officialContactNo = ele.data.officialContactNo;
+      this.officialEmail = ele.data.officialEmail;
+      this.address = ele.data.address;
+      this.logo = ele.data.logo;
     });
     this.TxnList(parse.id).subscribe((ele) => {
       this.transactionType = ele.data.transactionType;

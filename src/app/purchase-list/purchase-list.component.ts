@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
@@ -19,11 +18,7 @@ export class PurchaseListComponent implements OnInit {
   public msg: Message[] | any;
   public totalCost: number | undefined;
 
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private route: Router
-  ) {}
+  constructor(private http: HttpClient, private route: Router) {}
 
   ngOnInit(): void {
     this.messageHandler('info', 'Searching for your purchased products!');

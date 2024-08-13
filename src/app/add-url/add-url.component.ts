@@ -4,7 +4,6 @@ import { Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { header } from '../string';
-import { DecryptService } from '../../global/decrypt.service';
 
 @Component({
   selector: 'app-add-url',
@@ -17,7 +16,7 @@ export class AddUrlComponent {
   public value: string | undefined;
   public msg: Message[] | any;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(private http: HttpClient) {}
 
   get() {
     this.add({ id: localStorage.getItem('id'), url: this.value }).subscribe(

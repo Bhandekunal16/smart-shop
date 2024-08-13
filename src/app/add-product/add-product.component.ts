@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { options, LocalStorageNotFound, header } from '../string';
 
@@ -19,7 +18,7 @@ export class AddProductComponent {
   public options: string[] = options;
   public myForm: FormGroup | any;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {
+  constructor(private http: HttpClient) {
     this.myForm = new FormGroup({
       ProductName: new FormControl('', Validators.required),
       ProductDescription: new FormControl('', Validators.required),

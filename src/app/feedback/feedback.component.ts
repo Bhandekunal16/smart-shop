@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Message } from 'primeng/api';
 import { FormGroup, FormControl } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
 
@@ -19,7 +18,7 @@ export class FeedbackComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {
+  constructor(private http: HttpClient) {
     this.myForm = new FormGroup({
       email: new FormControl(''),
       message: new FormControl(''),

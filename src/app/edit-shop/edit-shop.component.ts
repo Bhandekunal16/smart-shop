@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
 
@@ -24,11 +23,7 @@ export class EditShopComponent {
   public status: any | undefined = 'Enabled';
   public statusFlag: any;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private decrypt: DecryptService
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
       shopName: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
