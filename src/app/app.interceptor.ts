@@ -7,7 +7,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { DecryptService } from '../global/decrypt.service';
 
 @Injectable()
@@ -19,6 +19,8 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log('Before...');
+    const now: number = Date.now();
     console.log('request on :', req.url);
     console.log('method : ', req.method);
 
@@ -47,7 +49,8 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
       catchError((error) => {
         console.error('HTTP Error:', error);
         return throwError(() => error);
-      })
+      }),
+      tap(() => console.log(`responded in... ${Date.now() - now}ms`))
     );
   }
 }
