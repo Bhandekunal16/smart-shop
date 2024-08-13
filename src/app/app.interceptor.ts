@@ -19,7 +19,8 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('HTTP Request:', req);
+    console.log('request on:', req.url);
+    console.log('method : ', req.method);
 
     const shouldExclude = this.excludedEndpoints.some((endpoint) =>
       req.url.includes(endpoint)
@@ -33,13 +34,7 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse && event.body) {
           try {
-            console.log(event.body.response);
             const decrypted = this.decryptService.decrypt(event.body.response);
-            // const decryptedData = this.decryptService.decrypt(
-            //   event.body.response
-            // );
-            console.log('Decrypted Response:', decrypted);
-
             return event.clone({ body: decrypted });
           } catch (error) {
             console.error('Decryption failed:', error);
