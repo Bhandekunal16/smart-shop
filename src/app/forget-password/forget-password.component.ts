@@ -36,9 +36,8 @@ export class ForgetPasswordComponent {
     const email: string = this.myForm.value.email;
     localStorage.setItem('email', email);
     this.sendOtp({ email }).subscribe((data) => {
-      const res = this.decrypt.decrypt(data.response);
       this.flag = true;
-      if (!res.status) {
+      if (!data.status) {
         this.messageHandler('warn', 'something went wrong');
       } else {
         this.messageHandler('success', 'otp send to your email.');

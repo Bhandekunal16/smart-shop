@@ -35,10 +35,9 @@ export class ShareComponent {
      <p>${email}</p>
    `;
     this.sendOtp({ email, message }).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      data.status
-        ? this.messageHandler('success', `${data.data}`)
-        : this.messageHandler('warn', `${data.data}`);
+      ele.status
+        ? this.messageHandler('success', `${ele.data}`)
+        : this.messageHandler('warn', `${ele.data}`);
       this.clearMessagesAfterDelay();
       this.myForm.reset();
     });
@@ -47,14 +46,12 @@ export class ShareComponent {
   public shareProfile() {
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe((res) => {
-      const data = this.decrypt.decrypt(res.response);
       const email = this.myForm.value.email;
-      const message = `https://cyborgcart.vercel.app/in/${data.data.email}`;
+      const message = `https://cyborgcart.vercel.app/in/${res.data.email}`;
       this.sendOtp({ email, message }).subscribe((ele) => {
-        const data = this.decrypt.decrypt(ele.response);
-        data.status
-          ? this.messageHandler('success', `${data.data}`)
-          : this.messageHandler('warn', `${data.data}`);
+        ele.status
+          ? this.messageHandler('success', `${ele.data}`)
+          : this.messageHandler('warn', `${ele.data}`);
         this.clearMessagesAfterDelay();
         this.myForm.reset();
       });
@@ -90,8 +87,6 @@ export class ShareComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

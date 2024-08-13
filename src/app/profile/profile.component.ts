@@ -35,18 +35,18 @@ export class ProfileComponent implements OnInit {
 
   private getDetails() {
     this.shopDetails({ id: localStorage.getItem('id') }).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.email = data.data.email;
-      this.firstName = data.data.firstName;
-      this.lastName = data.data.lastName;
-      this.mobileNo = data.data.mobileNo;
-      this.userType = data.data.userType;
+      // const data = this.decrypt.decrypt(ele.response);
+      this.email = ele.data.email;
+      this.firstName = ele.data.firstName;
+      this.lastName = ele.data.lastName;
+      this.mobileNo = ele.data.mobileNo;
+      this.userType = ele.data.userType;
       this.profileImage = `data:image/webp;base64,${btoa(
-        data.data.profileImage
+        ele.data.profileImage
       )}`;
       this.messageHandler(
-        data.status == true ? 'success' : 'warn',
-        `Welcome ${data.data.firstName} ${data.data.lastName}`
+        ele.status == true ? 'success' : 'warn',
+        `Welcome ${ele.data.firstName} ${ele.data.lastName}`
       );
       this.clearMessagesAfterDelay();
     });
@@ -75,8 +75,6 @@ export class ProfileComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

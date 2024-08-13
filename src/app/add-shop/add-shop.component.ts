@@ -77,10 +77,9 @@ export class AddShopComponent {
       pinCode,
       id: localStorage.getItem('id'),
     }).subscribe((data) => {
-      const res = this.decrypt.decrypt(data.response);
       this.sending = true;
 
-      res.status
+      data.status
         ? this.messageHandler('success', 'shop added successfully.', 'success')
         : this.messageHandler('warn', 'some addition failed.', 'warn');
 
@@ -156,8 +155,7 @@ export class AddShopComponent {
     if (typeof window !== 'undefined' && window.localStorage) {
       const id = localStorage.getItem('id');
       this.shopDetails(id).subscribe((ele) => {
-        const res = this.decrypt.decrypt(ele.response);
-        if (!res.status) {
+        if (!ele.status) {
           this.flag = false;
         }
       });
@@ -209,6 +207,4 @@ export class AddShopComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 }

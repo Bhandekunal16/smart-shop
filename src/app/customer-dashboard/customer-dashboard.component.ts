@@ -45,8 +45,7 @@ export class CustomerDashboardComponent implements OnInit {
 
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe(async (res) => {
-      const data = await this.decrypt.decrypt(res.response);
-      this.profileImage = `data:image/webp;base64,${btoa(data.data)}`;
+      this.profileImage = `data:image/webp;base64,${btoa(res.data)}`;
     });
   }
 

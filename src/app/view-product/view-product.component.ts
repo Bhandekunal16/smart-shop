@@ -31,18 +31,17 @@ export class ViewProductComponent implements OnInit {
     this.messageHandler('info', 'searching product for you!');
     this.flag = false;
     this.shopDetails().subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
       this.messageHandler(
         'success',
         'you currently not have anything in the shop'
       );
 
-      if (res.status) {
-        this.data = res.data;
+      if (ele.status) {
+        this.data = ele.data;
         this.flag = true;
         this.messageHandler(
           'success',
-          `product found for you ${res.data.length}`
+          `product found for you ${ele.data.length}`
         );
         this.clearMessagesAfterDelay();
       }

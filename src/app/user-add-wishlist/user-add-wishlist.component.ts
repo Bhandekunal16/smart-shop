@@ -31,9 +31,7 @@ export class UserAddWishlistComponent implements OnInit {
 
   private search() {
     this.shopDetails().subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-
-      const updatedShops = res.data.map((shop: any) => {
+      const updatedShops = ele.data.map((shop: any) => {
         const updatedProducts = shop.products.map((product: any) => ({
           ...product,
           shopName: shop.shopName,
@@ -75,13 +73,12 @@ export class UserAddWishlistComponent implements OnInit {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-      if (res.status) {
+      if (ele.status) {
         this.messageHandler('success', 'add to wish list');
         this.view();
         this.showButton = false;
       } else {
-        this.messageHandler('warn', res.response);
+        this.messageHandler('warn', ele.response);
         this.showButton = true;
       }
       this.clearMessagesAfterDelay();
@@ -97,8 +94,7 @@ export class UserAddWishlistComponent implements OnInit {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-      if (res.status) {
+      if (ele.status) {
         this.search();
       }
     });
@@ -150,8 +146,6 @@ export class UserAddWishlistComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

@@ -122,8 +122,7 @@ export class AddProductComponent {
       const id = localStorage.getItem('id');
 
       this.shopDetails(id).subscribe((ele) => {
-        const res = this.decrypt.decrypt(ele.response);
-        localStorage.setItem('shopId', res.data);
+        localStorage.setItem('shopId', ele.data);
       });
     } else LocalStorageNotFound();
   }
@@ -159,6 +158,4 @@ export class AddProductComponent {
         })
       );
   }
-
- 
 }

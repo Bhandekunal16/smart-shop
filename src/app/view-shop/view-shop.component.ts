@@ -15,7 +15,7 @@ import { header } from '../string';
   styleUrl: './view-shop.component.scss',
 })
 export class ViewShopComponent implements OnInit {
-margin: any;
+  margin: any;
   constructor(
     private http: HttpClient,
     private decrypt: DecryptService,
@@ -48,21 +48,20 @@ margin: any;
           'Gathering shop information, please wait...'
         );
         this.shopDetails({ id }).subscribe((ele) => {
-          const res = this.decrypt.decrypt(ele.response);
           this.messageHandler(
-            res.status ? 'success' : 'warn',
-            res.status
-              ? `Great news! We found the data for ${res.data.shopName}`
+            ele.status ? 'success' : 'warn',
+            ele.status
+              ? `Great news! We found the data for ${ele.data.shopName}`
               : `Oops! Something went wrong with the data fetch`
           );
           this.flag = true;
-          this.shopName = res.data.shopName;
-          this.shopAddress = res.data.address;
-          this.mobileNumber = res.data.officialContactNo;
-          this.email = res.data.officialEmail;
-          this.logo = `data:image/webp;base64,${btoa(res.data.logo)}`;
+          this.shopName = ele.data.shopName;
+          this.shopAddress = ele.data.address;
+          this.mobileNumber = ele.data.officialContactNo;
+          this.email = ele.data.officialEmail;
+          this.logo = `data:image/webp;base64,${btoa(ele.data.logo)}`;
 
-          res.data.disable == false || res.data.disable == null
+          ele.data.disable == false || ele.data.disable == null
             ? (this.status = 'Active')
             : (this.status = 'Deactivated');
 
@@ -71,8 +70,7 @@ margin: any;
           }, 1000);
         });
         this.shopUrl({ id }).subscribe((ele) => {
-          const data = this.decrypt.decrypt(ele.response);
-          const newArray = data.data.split('|');
+          const newArray = ele.data.split('|');
           this.urls = newArray.filter((char: string) => char !== '');
         });
       } else {
@@ -82,20 +80,22 @@ margin: any;
           'Gathering shop information, please wait...'
         );
         this.shopDetailsNext(id).subscribe((ele) => {
-          const res = this.decrypt.decrypt(ele.response);
+          // const res = this.decrypt.decrypt(ele.response);
+
+          console.log(ele, '.......');
           this.messageHandler(
-            res.status ? 'success' : 'warn',
-            res.status
-              ? `Great news! We found the data for ${res.data.shopName}`
+            ele.status ? 'success' : 'warn',
+            ele.status
+              ? `Great news! We found the data for ${ele.data.shopName}`
               : `Oops! Something went wrong with the data fetch`
           );
           this.flag = true;
-          this.shopName = res.data.shopName;
-          this.shopAddress = res.data.address;
-          this.mobileNumber = res.data.officialContactNo;
-          this.email = res.data.officialEmail;
-          this.logo = `data:image/webp;base64,${btoa(res.data.logo)}`;
-          res.data.disable == false || res.data.disable == null
+          this.shopName = ele.data.shopName;
+          this.shopAddress = ele.data.shopAddress;
+          this.mobileNumber = ele.data.officialContactNo;
+          this.email = ele.data.officialEmail;
+          this.logo = `data:image/webp;base64,${btoa(ele.data.logo)}`;
+          ele.data.disable == false || ele.data.disable == null
             ? (this.status = 'Active')
             : (this.status = 'Deactivated');
           this.clearMessagesAfterDelay();

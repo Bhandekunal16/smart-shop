@@ -48,9 +48,8 @@ export class UpdateProductComponent {
   private search() {
     this.Details().subscribe((ele) => {
       this.products = [];
-      const res = this.decrypt.decrypt(ele.response);
       const array = [];
-      array.push(res.data);
+      array.push(ele.data);
       this.products = array;
       this.populateForm(this.currentIndex);
     });
@@ -242,8 +241,6 @@ export class UpdateProductComponent {
         })
       );
   }
-
- 
 
   private timekeeper() {
     setTimeout(() => {

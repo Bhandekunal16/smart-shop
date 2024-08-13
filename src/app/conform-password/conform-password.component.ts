@@ -43,14 +43,13 @@ export class ConformPasswordComponent {
     this.messageHandler('info', 'Conforming the password...');
 
     this.conformPassword({ password, email }).subscribe((data) => {
-      const res = this.decrypt.decrypt(data.response);
-      localStorage.setItem('id', res.data.id);
+      localStorage.setItem('id', data.data.id);
       this.flag = true;
 
-      if (res.status) {
+      if (data.status) {
         this.messageHandler('success', 'password changed successfully.');
 
-        res.data.userType == 'MERCHANT'
+        data.data.userType == 'MERCHANT'
           ? this.dashboard()
           : this.customerDashboard();
       } else {

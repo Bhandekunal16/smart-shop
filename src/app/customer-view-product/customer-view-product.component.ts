@@ -54,9 +54,8 @@ export class CustomerViewProductComponent implements OnInit {
     this.loader = false;
     this.shopDetails({ skip: this.skip, limit: this.limit }).subscribe(
       (ele) => {
-        const res = this.decrypt.decrypt(ele.response);
         this.loader = true;
-        this.data = res.data;
+        this.data = ele.data;
         this.messageHandler('success', `products found ${this.data.length}`);
         this.clearMessagesAfterDelay();
       }
@@ -70,9 +69,8 @@ export class CustomerViewProductComponent implements OnInit {
       limit: this.limit,
       productType: this.selectedValue,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
       this.loader = true;
-      this.data = res.data;
+      this.data = ele.data;
       this.messageHandler('success', `products found ${this.data.length}`);
       this.clearMessagesAfterDelay();
     });
@@ -85,9 +83,8 @@ export class CustomerViewProductComponent implements OnInit {
       limit: this.limit,
       productType: this.selectedValue,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
       this.loader = true;
-      this.data = res.data;
+      this.data = ele.data;
       this.messageHandler('success', `products found ${this.data.length}`);
       this.clearMessagesAfterDelay();
     });
@@ -103,9 +100,8 @@ export class CustomerViewProductComponent implements OnInit {
       limit: this.limit,
       productType: selectedValue,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
       this.loader = true;
-      this.data = res.data;
+      this.data = ele.data;
       this.messageHandler('success', `products found ${this.data.length}`);
       this.clearMessagesAfterDelay();
     });
@@ -116,8 +112,7 @@ export class CustomerViewProductComponent implements OnInit {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-      if (res.status) {
+      if (ele.status) {
         this.search();
       }
     });
@@ -128,14 +123,13 @@ export class CustomerViewProductComponent implements OnInit {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      let res = this.decrypt.decrypt(ele.response);
-      if (res.status) {
+      if (ele.status) {
         this.messageHandler('success', 'add to wish list');
         this.view();
         this.showButton = false;
         this.clearMessagesAfterDelay();
       } else {
-        this.messageHandler('warn', res.response);
+        this.messageHandler('warn', ele.response);
         this.showButton = true;
         this.clearMessagesAfterDelay();
       }
@@ -233,8 +227,6 @@ export class CustomerViewProductComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private edit(): void {
     this.router.navigate(['customer-dashboard/updateRating']);

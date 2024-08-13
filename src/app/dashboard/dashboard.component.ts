@@ -46,8 +46,7 @@ export class DashboardComponent {
 
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe(async (res) => {
-      const data = await this.decrypt.decrypt(res.response);
-      this.profileImage = `data:image/webp;base64,${btoa(data.data)}`;
+      this.profileImage = `data:image/webp;base64,${btoa(res.data)}`;
     });
   }
 
@@ -278,8 +277,6 @@ export class DashboardComponent {
   private wishList(): void {
     this.router.navigate(['dashboard/userViewWishList']);
   }
-
- 
 
   private LogRester() {
     setInterval(() => {

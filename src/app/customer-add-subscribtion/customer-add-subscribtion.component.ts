@@ -52,25 +52,21 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   private search() {
     const subscribedShop: any[] = [];
 
-    this.added().subscribe((ele: ApiResponse<any>) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.Add = data.data;
-      data.data
-        ? subscribedShop.push(...data.data)
-        : subscribedShop.push(...[]);
+    this.added().subscribe((ele: any) => {
+      this.Add = ele.data;
+      ele.data ? subscribedShop.push(...ele.data) : subscribedShop.push(...[]);
     });
 
-    this.shopDetails().subscribe((ele: ApiResponse<any>) => {
-      const data = this.decrypt.decrypt(ele.response);
-      const firstArray = data.data;
+    this.shopDetails().subscribe((ele: any) => {
+      const firstArray = ele.data;
       if (subscribedShop.length > 0) {
         this.newKey(subscribedShop, firstArray);
       } else {
         let newArray = [];
 
-        for (let index = 0; index < data.data.length; index++) {
-          data.data[index].isSubscribed = false;
-          newArray.push(data.data[index]);
+        for (let index = 0; index < ele.data.length; index++) {
+          ele.data[index].isSubscribed = false;
+          newArray.push(ele.data[index]);
         }
 
         this.products = newArray;
@@ -175,6 +171,4 @@ export class CustomerAddSubscriptionComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 }

@@ -36,9 +36,8 @@ export class UpdateRatingComponent implements OnInit {
 
   private search() {
     this.Details().subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
       let array = [];
-      array.push(res.data);
+      array.push(ele.data);
       this.data = array;
       let rating;
       if (typeof this.myForm.value.rating == 'string') {
@@ -64,7 +63,7 @@ export class UpdateRatingComponent implements OnInit {
 
   public submitForm() {
     this.Details().subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
+      // const res = this.decrypt.decrypt(ele.response);
       let rate;
       if (typeof this.myForm.value.rating == 'string') {
         rate = this.myForm.value.rating;
@@ -76,11 +75,10 @@ export class UpdateRatingComponent implements OnInit {
 
       this.editShopDetails({
         userId: localStorage.getItem('id'),
-        productId: res.data.id,
+        productId: ele.data.id,
         rating: rate,
       }).subscribe((ele) => {
-        const res = this.decrypt.decrypt(ele.response);
-        this.messageHandler('success', res.data);
+        this.messageHandler('success', ele.data);
         this.clearMessagesAfterDelay();
       });
     });
@@ -116,8 +114,6 @@ export class UpdateRatingComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

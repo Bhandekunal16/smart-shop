@@ -22,7 +22,7 @@ export class AddUrlComponent {
   get() {
     this.add({ id: localStorage.getItem('id'), url: this.value }).subscribe(
       (ele) => {
-        const res = this.decrypt.decrypt(ele.response);
+        console.log(ele);
       }
     );
     this.value = '';

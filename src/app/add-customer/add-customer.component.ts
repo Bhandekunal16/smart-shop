@@ -32,12 +32,10 @@ export class AddCustomerComponent implements OnInit {
 
   private shopCreate() {
     this.shopDetails().subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
+      this.products = ele.data;
 
-      this.products = data.data;
-
-      data.status
-        ? this.messageHandler('success', `user found ${data.data.length}`)
+      ele.status
+        ? this.messageHandler('success', `user found ${ele.data.length}`)
         : this.messageHandler('warn', 'something went wrong');
 
       this.clearMessagesAfterDelay();
@@ -56,13 +54,11 @@ export class AddCustomerComponent implements OnInit {
 
   public edit(id: string): void {
     this.Subscribe(id).subscribe((ele) => {
-      const data: any = this.decrypt.decrypt(ele.response);
-
-      if (data.status) {
+      if (ele.status) {
         this.userList();
         this.showButton = true;
       } else {
-        this.messageHandler('warn', data.response, 'warn');
+        this.messageHandler('warn', ele.response, 'warn');
         this.showButton = false;
       }
     });
@@ -70,18 +66,14 @@ export class AddCustomerComponent implements OnInit {
 
   public unsubscribe(id: string): void {
     this.customerUnsubscribed(id).subscribe((ele) => {
-      const data: any = this.decrypt.decrypt(ele.response);
-
-      if (data.status) {
-        this.messageHandler('success', `${data.data}`, 'success');
+      if (ele.status) {
+        this.messageHandler('success', `${ele.data}`, 'success');
 
         this.shopDetails().subscribe((ele) => {
-          const data: any = this.decrypt.decrypt(ele.response);
+          this.products = ele.data;
 
-          this.products = data.data;
-
-          data.status
-            ? this.messageHandler('success', `user found ${data.data.length}`)
+          ele.status
+            ? this.messageHandler('success', `user found ${ele.data.length}`)
             : this.messageHandler('warn', 'something went wrong');
 
           this.clearMessagesAfterDelay();
@@ -145,6 +137,4 @@ export class AddCustomerComponent implements OnInit {
         })
       );
   }
-
- 
 }

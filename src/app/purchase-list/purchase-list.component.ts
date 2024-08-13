@@ -32,9 +32,8 @@ export class PurchaseListComponent implements OnInit {
 
   private list() {
     this.purchasedList({ id: localStorage.getItem('id') }).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.products = data.data;
-      this.totalCost = data.data.reduce(
+      this.products = ele.data;
+      this.totalCost = ele.data.reduce(
         (accumulator: any, currentValue: any) => accumulator + currentValue,
         0
       );
@@ -76,8 +75,6 @@ export class PurchaseListComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

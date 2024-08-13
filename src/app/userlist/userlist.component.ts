@@ -24,10 +24,9 @@ export class UserlistComponent implements OnInit {
       this.messageHandler('info', 'searching for your customer...');
       const id = localStorage.getItem('id');
       this.customerSubscribed(id).subscribe((ele) => {
-        const data = this.decrypt.decrypt(ele.response);
-        this.products = data.data;
-        data.status
-          ? this.messageHandler('success', `user found ${data.data.length}`)
+        this.products = ele.data;
+        ele.status
+          ? this.messageHandler('success', `user found ${ele.data.length}`)
           : this.messageHandler('warn', 'something went wrong');
         this.clearMessagesAfterDelay();
       });
@@ -38,10 +37,9 @@ export class UserlistComponent implements OnInit {
 
   public unsubscribe(id: any) {
     this.customerUnsubscribed(id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      data.status
-        ? this.messageHandler('success', `${data.data}`)
-        : this.messageHandler('warn', `${data.data}`);
+      ele.status
+        ? this.messageHandler('success', `${ele.data}`)
+        : this.messageHandler('warn', `${ele.data}`);
     });
   }
 
@@ -76,8 +74,6 @@ export class UserlistComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

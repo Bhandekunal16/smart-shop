@@ -41,11 +41,10 @@ export class FeedComponent implements OnInit {
     const id: string | null = localStorage.getItem('id');
     this.shopDetails({ id, skip: this.skip, limit: this.limit }).subscribe(
       (res) => {
-        const data: any = this.decrypt.decrypt(res.response);
-        if (data.status) {
-          this.product = data.data;
+        if (res.status) {
+          this.product = res.data;
           this.flag = true;
-          this.messageHandler('success', `product found ${data.data.length}`);
+          this.messageHandler('success', `product found ${res.data.length}`);
           this.clearMessagesAfterDelay();
         }
       }
@@ -78,14 +77,13 @@ export class FeedComponent implements OnInit {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      let res = this.decrypt.decrypt(ele.response);
-      if (res.status) {
+      if (ele.status) {
         this.messageHandler('success', 'add to wish list');
         this.shopDetail();
         this.showButton = false;
         this.clearMessagesAfterDelay();
       } else {
-        this.messageHandler('warn', res.response);
+        this.messageHandler('warn', ele.response);
         this.showButton = true;
         this.clearMessagesAfterDelay();
       }
@@ -97,9 +95,7 @@ export class FeedComponent implements OnInit {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-
-      if (res.status) {
+      if (ele.status) {
         this.shopDetail();
         this.clearMessagesAfterDelay();
       }
@@ -180,6 +176,4 @@ export class FeedComponent implements OnInit {
         })
       );
   }
-
- 
 }

@@ -30,11 +30,10 @@ export class FeedbackComponent {
     const email = this.myForm.value.email;
     const message = this.myForm.value.message;
     this.sendOtp({ email, message }).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
       this.myForm.reset();
-      data.status
-        ? this.messageHandler('success', `${data.data}`)
-        : this.messageHandler('warn', `${data.data}`);
+      ele.status
+        ? this.messageHandler('success', `${ele.data}`)
+        : this.messageHandler('warn', `${ele.data}`);
       this.clearMessagesAfterDelay();
     });
   }
@@ -61,6 +60,4 @@ export class FeedbackComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 }

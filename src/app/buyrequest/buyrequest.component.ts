@@ -7,7 +7,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
 
-
 @Component({
   selector: 'app-buyrequest',
   standalone: true,
@@ -40,16 +39,15 @@ export class BuyRequestComponent {
     this.messageHandler(`info`, 'searching buy request for you');
 
     this.purchasedList(id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.products = data.data;
+      this.products = ele.data;
       this.loader = false;
 
-      if (!data.status) {
+      if (!ele.status) {
         this.langFlag = true;
       }
 
-      data.data.length > 0
-        ? this.messageHandler(`success`, `request found ${data.data.length}`)
+      ele.data.length > 0
+        ? this.messageHandler(`success`, `request found ${ele.data.length}`)
         : this.messageHandler(`warn`, 'currently you do not have any request');
 
       this.clearMessagesAfterDelay();
@@ -116,6 +114,4 @@ export class BuyRequestComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 }

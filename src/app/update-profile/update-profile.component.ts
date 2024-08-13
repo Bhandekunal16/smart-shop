@@ -57,15 +57,15 @@ export class UpdateProfileComponent implements OnInit {
   private getDetails() {
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.myForm.patchValue(data.data);
-      this.obj = data.data;
-      this.Status = data.data.status;
-      localStorage.setItem('status', data.data.status);
-      this.setStatus(data.data.status);
+      // const data = this.decrypt.decrypt(ele.response);
+      this.myForm.patchValue(ele.data);
+      this.obj = ele.data;
+      this.Status = ele.data.status;
+      localStorage.setItem('status', ele.data.status);
+      this.setStatus(ele.data.status);
       this.messageHandler(
-        data.status ? 'success' : 'warn',
-        data.status ? `welcome ${data.data.email}` : 'profile not found'
+        ele.status ? 'success' : 'warn',
+        ele.status ? `welcome ${ele.data.email}` : 'profile not found'
       );
       this.clearMessagesAfterDelay();
     });
@@ -203,8 +203,6 @@ export class UpdateProfileComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

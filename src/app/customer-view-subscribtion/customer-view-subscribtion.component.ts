@@ -21,8 +21,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
   ngOnInit(): void {
     this.messageHandler('info', `searching for subscription`);
     this.shopDetails().subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.products = data.data;
+      this.products = ele.data;
       this.messageHandler('success', `shop found ${this.products.length}`);
       this.clearMessagesAfterDelay();
     });

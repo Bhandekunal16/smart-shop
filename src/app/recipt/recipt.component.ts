@@ -44,10 +44,9 @@ export class ReceptComponent implements OnInit {
       this.logo = data.data.logo;
     });
     this.TxnList(parse.id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.transactionType = data.data.transactionType;
+      this.transactionType = ele.data.transactionType;
       this.paymentDate = new Date(
-        parseInt(data.data.paymentDate)
+        parseInt(ele.data.paymentDate)
       ).toLocaleString();
     });
   }
@@ -83,6 +82,4 @@ export class ReceptComponent implements OnInit {
         })
       );
   }
-
- 
 }

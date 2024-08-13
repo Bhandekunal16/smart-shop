@@ -38,17 +38,16 @@ export class ShareProfileComponent {
     this.route.paramMap.subscribe((params) => {
       this.id = params.get('id');
       this.shopDetails(this.id).subscribe((ele) => {
-        const data = this.decrypt.decrypt(ele.response);
-        this.email = data.data.email;
-        this.firstName = data.data.firstName;
-        this.lastName = data.data.lastName;
-        this.mobileNo = data.data.mobileNo;
-        this.userType = data.data.userType;
+        this.email = ele.data.email;
+        this.firstName = ele.data.firstName;
+        this.lastName = ele.data.lastName;
+        this.mobileNo = ele.data.mobileNo;
+        this.userType = ele.data.userType;
         this.profileImage = `data:image/webp;base64,${btoa(
-          data.data.profileImage
+          ele.data.profileImage
         )}`;
-        this.lastUpdated = data.data.createdOn;
-        this.ID = data.data.id;
+        this.lastUpdated = ele.data.createdOn;
+        this.ID = ele.data.id;
         this.userPresent =
           localStorage.getItem('id') == undefined ? false : true;
       });
@@ -61,12 +60,10 @@ export class ShareProfileComponent {
 
   public subscribe() {
     this.shopId(this.ID).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.Subscribe(data.data).subscribe((ele) => {
-        const data = this.decrypt.decrypt(ele.response);
-        data.status
-          ? this.messageHandler('success', `${data.data}`)
-          : this.messageHandler('error', `${data.data}`);
+      this.Subscribe(ele.data).subscribe((ele) => {
+        ele.status
+          ? this.messageHandler('success', `${ele.data}`)
+          : this.messageHandler('error', `${ele.data}`);
         this.clearMessagesAfterDelay();
       });
     });
@@ -116,8 +113,6 @@ export class ShareProfileComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

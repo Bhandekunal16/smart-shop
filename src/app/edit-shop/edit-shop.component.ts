@@ -75,13 +75,12 @@ export class EditShopComponent {
     try {
       this.readingFlag = false;
       this.shopDetails({ id: localStorage.getItem('id') }).subscribe((ele) => {
-        const res = this.decrypt.decrypt(ele.response);
-        this.obj = res.data;
-        this.myForm.patchValue(res.data);
-        if (res.data.disable) {
+        this.obj = ele.data;
+        this.myForm.patchValue(ele.data);
+        if (ele.data.disable) {
           this.status = 'Disabled';
         }
-        this.statusFlag = res.data.disable;
+        this.statusFlag = ele.data.disable;
         this.readingFlag = true;
         this.clearMessagesAfterDelay();
       });
@@ -228,8 +227,6 @@ export class EditShopComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   public addShop(): void {
     this.router.navigate(['dashboard/addShop']);

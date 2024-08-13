@@ -40,13 +40,12 @@ export class PaymentComponent implements OnInit {
   public view() {
     let array = [];
     this.Details().subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.myForm.patchValue(data.data);
-      array.push(data.data);
+      this.myForm.patchValue(ele.data);
+      array.push(ele.data);
       this.data = array;
       this.messageHandler(
         'success',
-        `purchasing request for ${data.data.ProductName}`
+        `purchasing request for ${ele.data.ProductName}`
       );
       this.clearMessagesAfterDelay();
     });
@@ -61,8 +60,7 @@ export class PaymentComponent implements OnInit {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      let data = this.decrypt.decrypt(ele.response);
-      if (data.status) {
+      if (ele.status) {
         this.list();
       }
     });
@@ -111,8 +109,6 @@ export class PaymentComponent implements OnInit {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

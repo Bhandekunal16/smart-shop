@@ -37,12 +37,11 @@ export class VerifyOtpComponent {
     this.flag = false;
     this.messageHandler('info', 'checking otp!');
     this.verifyOtp({ otp, email }).subscribe((data) => {
-      const res = this.decrypt.decrypt(data.response);
       this.flag = true;
-      if (res.status) {
+      if (data.status) {
         this.messageHandler('success', 'otp-verified');
         this.conformPassword();
-      } else this.messageHandler('warn', `${res.msg}`);
+      } else this.messageHandler('warn', `${data.msg}`);
       this.clearMessagesAfterDelay();
     });
   }
@@ -65,8 +64,6 @@ export class VerifyOtpComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {

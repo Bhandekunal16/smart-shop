@@ -31,8 +31,7 @@ export class UserViewWishlistComponent {
   private details() {
     const id = localStorage.getItem('id');
     this.shopDetails(id).subscribe((ele) => {
-      const data = this.decrypt.decrypt(ele.response);
-      this.products = data.data;
+      this.products = ele.data;
       this.messageHandler(
         'success',
         `found items from your wish list ${this.products.length}`
@@ -46,8 +45,7 @@ export class UserViewWishlistComponent {
       userId: localStorage.getItem('id'),
       productId: id,
     }).subscribe((ele) => {
-      const res = this.decrypt.decrypt(ele.response);
-      if (res.status) {
+      if (ele.status) {
         this.details();
       }
     });
@@ -98,8 +96,6 @@ export class UserViewWishlistComponent {
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
-
- 
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {
