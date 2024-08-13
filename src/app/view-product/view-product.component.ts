@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 import { DatePipe } from '@angular/common';
@@ -21,11 +20,7 @@ export class ViewProductComponent implements OnInit {
   public value!: number;
   public msg: Message[] | any;
   public flag: boolean = true;
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private decrypt: DecryptService
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.messageHandler('info', 'searching product for you!');

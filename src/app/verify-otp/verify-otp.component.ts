@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
 
@@ -23,8 +22,7 @@ export class VerifyOtpComponent {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private decrypt: DecryptService
+    private http: HttpClient
   ) {
     this.myForm = this.formBuilder.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],

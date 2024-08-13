@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
@@ -15,11 +14,7 @@ import { header } from '../string';
   styleUrl: './user-view-wishlist.component.scss',
 })
 export class UserViewWishlistComponent {
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
   products!: any[];
   public msg: Message[] | any;
 

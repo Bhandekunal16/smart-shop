@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { Router } from '@angular/router';
@@ -16,11 +15,7 @@ import { header } from '../string';
 })
 export class ViewShopComponent implements OnInit {
   margin: any;
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public shopName: string | undefined;
   public shopAddress: string | undefined;

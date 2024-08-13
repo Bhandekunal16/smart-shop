@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
@@ -17,7 +16,7 @@ export class UserlistComponent implements OnInit {
   public products!: any[];
   public msg: Message[] | any;
 
-  constructor(private http: HttpClient, private decrypt: DecryptService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     try {

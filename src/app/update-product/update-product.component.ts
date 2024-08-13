@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { options } from '../string';
 import { header } from '../string';
@@ -28,8 +27,7 @@ export class UpdateProductComponent {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private fb: FormBuilder,
-    private decrypt: DecryptService
+    private fb: FormBuilder
   ) {
     this.myForm = this.fb.group({
       ProductName: ['', Validators.required],

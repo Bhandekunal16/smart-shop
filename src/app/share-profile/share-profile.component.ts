@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DecryptService } from '../../global/decrypt.service';
+import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Message } from 'primeng/api';
 import { header } from '../string';
@@ -30,7 +29,6 @@ export class ShareProfileComponent {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private decrypt: DecryptService,
     private router: Router
   ) {}
 

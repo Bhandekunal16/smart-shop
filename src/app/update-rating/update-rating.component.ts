@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
@@ -19,11 +18,7 @@ export class UpdateRatingComponent implements OnInit {
   public msg: Message[] | any;
   public myForm: FormGroup | any;
 
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private fb: FormBuilder
-  ) {
+  constructor(private http: HttpClient, private fb: FormBuilder) {
     this.myForm = this.fb.group({
       rating: [0, Validators.required],
     });

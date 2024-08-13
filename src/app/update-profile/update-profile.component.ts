@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DecryptService } from '../../global/decrypt.service';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
 import { header } from '../string';
@@ -23,11 +22,7 @@ export class UpdateProfileComponent implements OnInit {
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
   public Status: boolean | undefined;
 
-  constructor(
-    private http: HttpClient,
-    private decrypt: DecryptService,
-    private statusService: StateService
-  ) {
+  constructor(private http: HttpClient, private statusService: StateService) {
     this.myForm = new FormGroup({
       firstName: new FormControl('', [
         Validators.required,
