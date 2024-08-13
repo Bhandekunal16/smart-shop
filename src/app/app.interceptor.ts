@@ -19,7 +19,7 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('request on:', req.url);
+    console.log('request on :', req.url);
     console.log('method : ', req.method);
 
     const shouldExclude = this.excludedEndpoints.some((endpoint) =>
