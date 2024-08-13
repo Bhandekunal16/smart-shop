@@ -26,7 +26,6 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
     );
 
     if (shouldExclude) {
-      // If the request URL is excluded, skip decryption and return the original response
       return next.handle(req);
     }
 
