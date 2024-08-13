@@ -15,6 +15,7 @@ import { header } from '../string';
   styleUrl: './view-shop.component.scss',
 })
 export class ViewShopComponent implements OnInit {
+margin: any;
   constructor(
     private http: HttpClient,
     private decrypt: DecryptService,
