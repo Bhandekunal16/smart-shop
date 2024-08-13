@@ -120,7 +120,7 @@ export class ViewShopComponent implements OnInit {
   public removeUrl(url: any) {
     this.removeUrls({ id: localStorage.getItem('id'), url: url }).subscribe(
       (ele) => {
-        console.log(ele);
+        this.details();
       }
     );
   }
@@ -175,9 +175,13 @@ export class ViewShopComponent implements OnInit {
   private removeUrls(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/shop/remove/url', body, {
-        headers,
-      })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/shop/remove/url',
+        body,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
