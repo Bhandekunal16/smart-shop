@@ -37,7 +37,7 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
         if (event instanceof HttpResponse && event.body) {
           try {
             const decrypted = this.decryptService.decrypt(event.body.response);
-            console.log({ responseCode: decrypted.statusCode });
+            console.log({ serverResponse: decrypted.statusCode });
             return event.clone({ body: decrypted });
           } catch (error) {
             console.error('Decryption failed:', error);
