@@ -109,14 +109,6 @@ export class ViewShopComponent implements OnInit {
     return btoa(input);
   }
 
-  public callHandler(input: any, type: string) {
-    if (type == 'remove') {
-      this.removeUrl(input);
-    } else {
-      this.handleChipClick(input);
-    }
-  }
-
   public removeUrl(url: any) {
     this.removeUrls({ id: localStorage.getItem('id'), url: url }).subscribe(
       (ele) => {
