@@ -11,6 +11,8 @@
 
 .view-shop-container-card {
   width: 78vw;
+  max-width: 78vw;
+  overflow: auto;
 }
 
 .shopDetailsLogo {
