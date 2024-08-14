@@ -4,15 +4,14 @@ import {
   provideRouter,
   withPreloading,
 } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { Robotic } from './pipe';
+import { RequestInterceptor } from './pipe';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    Robotic,
+    RequestInterceptor,
     provideClientHydration(),
   ],
 };
