@@ -28,22 +28,25 @@
         />
         }
       </div>
-      <p-button
-        icon="pi pi-pencil"
-        [rounded]="true"
-        [text]="true"
-        [raised]="true"
-        severity="secondary"
-        (click)="edit()"
-      />
-      <p-button
-        icon="pi pi-link"
-        [rounded]="true"
-        [text]="true"
-        [raised]="true"
-        severity="secondary"
-        (click)="manageUrls()"
-      />
+
+      <div class="view-shop-container-button-container">
+        <p-button
+          icon="pi pi-pencil"
+          [rounded]="true"
+          [text]="true"
+          [raised]="true"
+          severity="secondary"
+          (click)="edit()"
+        />
+        <p-button
+          icon="pi pi-link"
+          [rounded]="true"
+          [text]="true"
+          [raised]="true"
+          severity="secondary"
+          (click)="manageUrls()"
+        />
+      </div>
     </p-card>
 
     <div class="view-shop-container-child">
