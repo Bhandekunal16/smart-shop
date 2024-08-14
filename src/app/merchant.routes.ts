@@ -30,10 +30,8 @@ export const MerchantRoutes: Routes = [
       {
         path: 'viewShop',
         component: ViewShopComponent,
-        children: [
-          { path: '', component: AddUrlComponent },
-          { path: 'editShop', component: EditShopComponent },
-        ],
+        loadChildren: () =>
+          import('./shop.routes').then((mod) => mod.shopRoutes),
       },
       { path: 'editShop', component: EditShopComponent },
       { path: 'addProduct', component: AddProductComponent },
