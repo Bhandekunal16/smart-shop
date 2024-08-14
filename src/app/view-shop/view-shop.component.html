@@ -9,7 +9,12 @@
 
   <div class="view-shop-container" *ngIf="email != undefined">
     <div class="shopDetailsLogo">
-      <p-image src="{{ logo }}" alt="Image" width="{{ screen }}"></p-image>
+      <p-image
+        src="{{ logo }}"
+        alt="Image"
+        width="{{ screen }}"
+        loading="lazy"
+      ></p-image>
     </div>
     <div class="view-shop-container-card">
       <h3>Shop details</h3>
