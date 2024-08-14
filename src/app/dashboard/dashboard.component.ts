@@ -69,11 +69,6 @@ export class DashboardComponent {
         icon: 'pi pi-shop',
         items: [
           {
-            label: 'Edit',
-            icon: 'pi pi-user-edit',
-            command: () => this.editShop(),
-          },
-          {
             label: 'View',
             icon: 'pi pi-eye',
             command: () => this.viewShop(),
@@ -226,14 +221,6 @@ export class DashboardComponent {
 
   private viewShop(): void {
     this.router.navigate(['dashboard/viewShop']);
-  }
-
-  private editShop(): void {
-    this.router.navigate(['dashboard/editShop']);
-  }
-
-  private deleteUser(): void {
-    this.router.navigate(['dashboard/deleteUser']);
   }
 
   private addShop(): void {

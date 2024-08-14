@@ -192,10 +192,14 @@ export class ViewShopComponent implements OnInit {
   }
 
   public manageUrls(): void {
-    this.router.navigate(['dashboard/addUrls']);
+    this.router.navigate(['dashboard/viewShop']);
   }
 
   public handleChipClick(id: string) {
     window.open(id, '_blank');
+  }
+
+  public edit(): void {
+    this.router.navigate(['dashboard/viewShop/editShop']);
   }
 }

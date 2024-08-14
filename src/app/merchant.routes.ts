@@ -30,7 +30,10 @@ export const MerchantRoutes: Routes = [
       {
         path: 'viewShop',
         component: ViewShopComponent,
-        children: [{ path: '', component: AddUrlComponent }],
+        children: [
+          { path: '', component: AddUrlComponent },
+          { path: 'editShop', component: EditShopComponent },
+        ],
       },
       { path: 'editShop', component: EditShopComponent },
       { path: 'addProduct', component: AddProductComponent },
