@@ -116,7 +116,7 @@ export class ViewShopComponent implements OnInit {
   public changer() {
     const Screen = window.innerWidth;
     if (Screen < 600) {
-      this.screen = '345px';
+      this.screen = '340px';
     }
   }
 
