@@ -14,7 +14,7 @@ import { header } from '../string';
   styleUrl: './view-shop.component.scss',
 })
 export class ViewShopComponent implements OnInit {
-  margin: any;
+  public margin: any;
   constructor(private http: HttpClient, private router: Router) {}
 
   public shopName: string | undefined;
@@ -27,11 +27,19 @@ export class ViewShopComponent implements OnInit {
   public flag: boolean = true;
   public urls: any[] = [];
   public screen: string = '250px';
+  public typeFlag: boolean = false;
 
   ngOnInit(): void {
     this.flag = false;
     this.details();
     this.changer();
+    this.typeRender();
+  }
+
+  public typeRender() {
+    if (localStorage.getItem('type') == 'CUSTOMER') {
+      this.typeFlag = true;
+    }
   }
 
   private details() {
