@@ -11,7 +11,8 @@
     <div class="shopDetailsLogo">
       <p-image src="{{ logo }}" alt="Image" width="{{ screen }}"></p-image>
     </div>
-    <p-card header="Shop details" class="view-shop-container-card">
+    <div class="view-shop-container-card">
+      <h3>Shop details</h3>
       <p>name : {{ shopName }}</p>
       <p>address : {{ shopAddress }}</p>
       <p>mobile Number : {{ mobileNumber }}</p>
@@ -47,7 +48,7 @@
           (click)="manageUrls()"
         />
       </div>
-    </p-card>
+    </div>
 
     <div class="view-shop-container-child">
       <router-outlet></router-outlet>
