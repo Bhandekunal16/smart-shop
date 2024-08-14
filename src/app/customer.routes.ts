@@ -14,7 +14,7 @@ import { UserAddWishlistComponent } from './user-add-wishlist/user-add-wishlist.
 import { UserViewWishlistComponent } from './user-view-wishlist/user-view-wishlist.component';
 import { ViewShopComponent } from './view-shop/view-shop.component';
 
-export const Customer: Routes = [
+export const CustomerRoutes: Routes = [
   { path: '', component: CustomerViewProductComponent },
   { path: 'addSubscription', component: CustomerAddSubscriptionComponent },
   {

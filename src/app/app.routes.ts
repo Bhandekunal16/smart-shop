@@ -18,12 +18,12 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    loadChildren: () => import('./merchant.routes').then((mod) => mod.Merchant),
+    loadChildren: () => import('./merchant.routes').then((mod) => mod.MerchantRoutes),
   },
   {
     path: 'customer-dashboard',
     component: CustomerDashboardComponent,
-    loadChildren: () => import('./customer.routes').then((mod) => mod.Customer),
+    loadChildren: () => import('./customer.routes').then((mod) => mod.CustomerRoutes),
   },
   { path: '**', redirectTo: '' },
 ];

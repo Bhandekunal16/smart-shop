@@ -20,7 +20,7 @@ import { ViewProductComponent } from './view-product/view-product.component';
 import { ViewShopComponent } from './view-shop/view-shop.component';
 import { AddUrlComponent } from './add-url/add-url.component';
 
-export const Merchant: Routes = [
+export const MerchantRoutes: Routes = [
   {
     path: '',
     children: [
