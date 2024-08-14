@@ -9,21 +9,53 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
 import { ShareProfileComponent } from './share-profile/share-profile.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'forget-password', component: ForgetPasswordComponent },
-  { path: 'verify-otp', component: VerifyOtpComponent },
-  { path: 'conform-password', component: ConformPasswordComponent },
-  { path: 'in/:id', component: ShareProfileComponent },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./register/register.component').then((m) => m.RegisterComponent),
+  },
+  {
+    path: 'forget-password',
+    loadComponent: () =>
+      import('./forget-password/forget-password.component').then(
+        (m) => m.ForgetPasswordComponent
+      ),
+  },
+  {
+    path: 'verify-otp',
+    loadComponent: () =>
+      import('./verify-otp/verify-otp.component').then(
+        (m) => m.VerifyOtpComponent
+      ),
+  },
+  {
+    path: 'conform-password',
+    loadComponent: () =>
+      import('./conform-password/conform-password.component').then(
+        (m) => m.ConformPasswordComponent
+      ),
+  },
+  {
+    path: 'in/:id',
+    loadComponent: () =>
+      import('./share-profile/share-profile.component').then(
+        (m) => m.ShareProfileComponent
+      ),
+  },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    loadChildren: () => import('./merchant.routes').then((mod) => mod.MerchantRoutes),
+    loadChildren: () =>
+      import('./merchant.routes').then((mod) => mod.MerchantRoutes),
   },
   {
     path: 'customer-dashboard',
-    component: CustomerDashboardComponent,
-    loadChildren: () => import('./customer.routes').then((mod) => mod.CustomerRoutes),
+    loadChildren: () =>
+      import('./customer.routes').then((mod) => mod.CustomerRoutes),
   },
   { path: '**', redirectTo: '' },
 ];
