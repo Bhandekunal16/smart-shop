@@ -45,7 +45,6 @@
           *ngFor="let item of data"
           header="{{ item.ProductName }}"
           subheader="{{ item.ProductDescription }}"
-          [style]="{ width: '400px', height: '120vh', overflow: 'auto' }"
         >
           <ng-template pTemplate="header">
             <img

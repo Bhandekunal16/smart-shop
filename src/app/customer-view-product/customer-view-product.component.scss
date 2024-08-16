@@ -57,6 +57,9 @@ select {
 }
 
 .card-grid p-card {
+  width: 400px;
+  height: 120vh;
+  overflow: auto;
   margin-top: 1%;
 }
 
@@ -64,13 +67,17 @@ select {
   .view-product-card-contain {
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 0%;
+    margin: 0%;
+    width: 90vw;
   }
 
   .card-grid p-card {
     margin: 0%;
     padding: 0%;
-    border: #000 1px;
+    border: #000 solid 1px;
+    width: 95vw;
   }
 
   .button-grid {
