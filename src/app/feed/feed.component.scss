@@ -1,7 +1,12 @@
+.view-product-container {
+  height: fit-content;
+  width: 100%;
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 16px;
+  gap: 15px;
   justify-items: center;
 }
 
@@ -26,11 +31,11 @@
 }
 
 .card-grid p-card {
-  width: 400px;
+  width: 360px;
   height: 120vh;
   overflow: auto;
-  margin-top: 1%;
 }
+
 
 @media (max-width: 600px) {
   .view-product-card-contain {
@@ -39,14 +44,14 @@
     align-items: center;
     padding: 0%;
     margin: 0%;
-    width: 90vw;
+    width: 100%;
   }
 
   .card-grid p-card {
     margin: 0%;
     padding: 0%;
     border: #000 solid 1px;
-    width: 95vw;
+    width: 100%;
   }
   .button-grid {
     width: 100%;
@@ -54,15 +59,11 @@
     justify-content: space-evenly;
   }
 
-  .add-product-container-form {
-    width: 95vw;
-  }
-
   .view-product-card-contain-sub {
     margin-top: 1%;
   }
 
   .feed-product-container-form {
-    width: 95vw;
+    width: 100%;
   }
 }

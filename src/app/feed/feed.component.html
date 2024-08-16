@@ -36,67 +36,65 @@
       (click)="add()"
     ></button>
   </div>
-  <div class="view-product-card">
-    <div class="card-grid">
-      <ng-container *ngIf="product.length > 0; else loading">
-        <p-card
-          *ngFor="let item of product"
-          header="{{ item.ProductName }}"
-          subheader="{{ item.ProductDescription }}"
-          [style]="{ width: '360px', height: '100vh', overflow: 'auto' }"
-        >
-          <ng-template pTemplate="header">
-            <img
-              alt="card"
-              [src]="'data:image/webp;base64,' + now(item.ProductImageBase)"
-              loading="lazy"
-            />
-          </ng-template>
-          <p>
-            Uploaded On: {{ item.createdOn | date : "medium" }}
-            <br />
-            Product Type: {{ item.productType }}
-            <br />
-            Price: {{ item.productCost }} ₹
-            <br />
-            Status: {{ getStatusText(item.IsPurchased) }}
-            <br />
-            Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
-          </p>
-          <ng-template pTemplate="footer">
-            <div class="button-grid">
-              <button
-                pButton
-                pRipple
-                class="p-button-secondary"
-                icon="pi pi-heart-fill"
-                (click)="WishList(item.id)"
-                [disabled]="!flag"
-              ></button>
-              <button
-                pButton
-                pRipple
-                class="p-button-secondary"
-                icon="pi pi-receipt"
-                (click)="paymentRoute(item.id)"
-                [disabled]="!flag || item.IsPurchased"
-              ></button>
-              <button
-                pButton
-                pRipple
-                class="p-button-secondary"
-                icon="pi pi-trash"
-                (click)="remove(item.id)"
-                [disabled]="!flag"
-              ></button>
-            </div>
-          </ng-template>
-        </p-card>
-      </ng-container>
-      <ng-template #loading>Loading...</ng-template>
-    </div>
-    <ng-template #loading style="text-align: center">No data Found</ng-template>
+  <div class="card-grid">
+    <ng-container *ngIf="product.length > 0; else loading">
+      <p-card
+        *ngFor="let item of product"
+        header="{{ item.ProductName }}"
+        subheader="{{ item.ProductDescription }}"
+        [style]="{ width: '360px', height: '100vh', overflow: 'auto' }"
+      >
+        <ng-template pTemplate="header">
+          <img
+            alt="card"
+            [src]="'data:image/webp;base64,' + now(item.ProductImageBase)"
+            loading="lazy"
+          />
+        </ng-template>
+        <p>
+          Uploaded On: {{ item.createdOn | date : "medium" }}
+          <br />
+          Product Type: {{ item.productType }}
+          <br />
+          Price: {{ item.productCost }} ₹
+          <br />
+          Status: {{ getStatusText(item.IsPurchased) }}
+          <br />
+          Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="button-grid">
+            <button
+              pButton
+              pRipple
+              class="p-button-secondary"
+              icon="pi pi-heart-fill"
+              (click)="WishList(item.id)"
+              [disabled]="!flag"
+            ></button>
+            <button
+              pButton
+              pRipple
+              class="p-button-secondary"
+              icon="pi pi-receipt"
+              (click)="paymentRoute(item.id)"
+              [disabled]="!flag || item.IsPurchased"
+            ></button>
+            <button
+              pButton
+              pRipple
+              class="p-button-secondary"
+              icon="pi pi-trash"
+              (click)="remove(item.id)"
+              [disabled]="!flag"
+            ></button>
+          </div>
+        </ng-template>
+      </p-card>
+    </ng-container>
+    <ng-template #loading>Loading...</ng-template>
   </div>
+  <ng-template #loading style="text-align: center">No data Found</ng-template>
 </div>
 <div class="loader-container" *ngIf="!flag">
   <div class="loader"></div>
