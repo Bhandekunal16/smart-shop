@@ -3,49 +3,13 @@
   border-radius: 8px;
   height: fit-content;
   width: 100%;
-  // background-color: #;
-}
-
-.view-product-card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.view-product-card-container {
-  width: 100%;
-}
-
-
-p-card {
-  width: 100%;
-  background-color: #f0f0f0;
-  border: solid 0.5px #d1d2d5;
-  border-radius: 8px;
-  height: fit-content;
-  margin-top: 1%;
-}
-
-.view-product-card-contain {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  // padding: 1%;
-  background-color: #f5f5f5de;
-  border: solid 0.5px #d1d2d5;
-}
-
-ng-container {
-  width: 300px;
-  margin: 1%;
 }
 
 .button-grid {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 50vw;
+  width: 100%;
 }
 
 .view-product-card-data {
@@ -83,6 +47,17 @@ ng-container {
 
 select {
   background-color: transparent;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+  justify-items: center;
+}
+
+.card-grid p-card {
+  margin-top: 1%;
 }
 
 @media (max-width: 600px) {
