@@ -52,21 +52,16 @@
 }
 
 @media (max-width: 600px) {
-  p-card {
-    width: 95vw;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .card-image {
-    width: 80vw;
-    height: 80vh;
-    object-fit: cover;
-  }
-
   .view-product-card-contain {
     display: flex;
     flex-direction: column;
+    padding: 0%;
+  }
+
+  .card-grid p-card {
+    margin: 0%;
+    padding: 0%;
+    border: #000 1px;
   }
 
   .button-grid {
