@@ -20,16 +20,14 @@
 }
 
 .add-product-container-form {
-  background-color: #f0f0f0;
   width: 30vw;
   height: fit-content;
-  border: solid #ffffff 0.2px;
   border-radius: 8px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   margin-top: 1%;
-  padding: 1%;
+  margin-bottom: 1px;
 }
 
 select {
@@ -37,6 +35,7 @@ select {
 }
 
 .card-grid {
+  border-top: solid #000 1px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 16px;
@@ -71,7 +70,5 @@ select {
 
   .add-product-container-form {
     width: 100%;
-    margin: 0%;
-    padding: 0%;
   }
 }
