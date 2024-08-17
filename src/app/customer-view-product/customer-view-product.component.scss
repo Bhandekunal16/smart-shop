@@ -43,9 +43,13 @@ select {
 }
 .card-grid p-card {
   width: 340px;
-  height: 120vh;
+  height: 70vh;
   overflow: auto;
+  border: #000 solid 0.3px;
+  margin-top: 1%;
+  border-radius: 8px;
 }
+
 @media (max-width: 600px) {
   .view-product-card-contain {
     display: flex;
