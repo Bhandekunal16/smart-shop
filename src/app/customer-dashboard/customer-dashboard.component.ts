@@ -127,13 +127,6 @@ export class CustomerDashboardComponent implements OnInit {
               this.viewSubscriptionRoute();
             },
           },
-          {
-            label: 'Add',
-            icon: 'pi pi-plus',
-            command: () => {
-              this.addSubscription();
-            },
-          },
         ],
       },
       {
@@ -148,10 +141,6 @@ export class CustomerDashboardComponent implements OnInit {
 
   private login(): void {
     this.router.navigate(['']);
-  }
-
-  private addSubscription(): void {
-    this.router.navigate(['customer-dashboard/addSubscription']);
   }
 
   private initial() {

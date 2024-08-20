@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 import { header } from '../string';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-view-subscribtion',
@@ -15,7 +16,7 @@ import { header } from '../string';
 export class CustomerViewSubscriptionComponent implements OnInit {
   public products!: any[];
   public msg: Message[] | any;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: Router) {}
 
   ngOnInit(): void {
     this.messageHandler('info', `searching for subscription`);
@@ -51,5 +52,9 @@ export class CustomerViewSubscriptionComponent implements OnInit {
 
   private messageHandler(severity: string, detail: string, summary?: string) {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
+  }
+
+  public addSubscription(): void {
+    this.route.navigate(['customer-dashboard/addSubscription']);
   }
 }
