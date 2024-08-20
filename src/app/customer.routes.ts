@@ -29,10 +29,8 @@ export const CustomerRoutes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    children: [
-      { path: '', component: ProfileFaqComponent },
-      { path: 'update', component: UpdateProfileComponent },
-    ],
+    loadChildren: () =>
+      import('./profile.routes').then((mod) => mod.profileRoutes),
   },
   { path: 'updateRating', component: UpdateRatingComponent },
   { path: 'userAddWishList', component: UserAddWishlistComponent },
