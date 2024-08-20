@@ -1,13 +1,11 @@
 .update-profile-container {
-  position: relative;
   width: 100%;
-  height: 90vh;
-  padding-top: 2%;
+  height: fit-content;
 }
 
-.register-container-form {
+.update-profile-container-form {
   background-color: #f0f0f0;
-  width: 40vw;
+  width: 100%;
   height: fit-content;
   border: solid #ffffff 0.2px;
   border-radius: 8px;
@@ -15,7 +13,6 @@
   flex-direction: column;
   align-items: center;
   padding-bottom: 1%;
-  margin-top: 0.3%;
 }
 
 .register-container-form-top {
@@ -62,9 +59,11 @@
 }
 
 @media (max-width: 600px) {
-  .register-container-form {
-    width: 80vw;
+  .update-profile-container-form {
+    width: 100%;
     height: fit-content;
+    margin: 0%;
+    padding: 0%;
   }
 
   .register-container-form-input input {
