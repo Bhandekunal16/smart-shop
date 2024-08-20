@@ -34,10 +34,6 @@ export const CustomerRoutes: Routes = [
       { path: 'update', component: UpdateProfileComponent },
     ],
   },
-  {
-    path: 'updateProfile',
-    component: UpdateProfileComponent,
-  },
   { path: 'updateRating', component: UpdateRatingComponent },
   { path: 'userAddWishList', component: UserAddWishlistComponent },
   { path: 'userViewWishList', component: UserViewWishlistComponent },
