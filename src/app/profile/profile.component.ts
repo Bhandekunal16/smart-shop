@@ -80,4 +80,8 @@ export class ProfileComponent implements OnInit {
   private update(): void {
     this.router.navigate(['/customer-dashboard/profile/update']);
   }
+
+  public info(): void {
+    this.router.navigate(['/customer-dashboard/profile/']);
+  }
 }
