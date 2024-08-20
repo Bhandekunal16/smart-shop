@@ -142,8 +142,9 @@ export class UpdateProductComponent {
   }
 
   public remove() {
-    this.delete();
-    this.back();
+    this.delete().subscribe((ele) => {
+      this.back();
+    });
   }
 
   public onProductCostInput() {
