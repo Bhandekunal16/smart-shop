@@ -8,10 +8,11 @@
   flex-direction: column;
   align-items: center;
   padding-bottom: 1%;
+  color: #000;
 }
 
 .edit-shop-container-form-top {
-  background-color: #1e5d4a;
+  // background-color: #1e5d4a;
   height: 10vh;
   width: 100%;
   border-radius: 8px 8px 0px 0px;
@@ -24,12 +25,7 @@
 }
 
 .edit-shop-container-form-top h1 {
-  color: #f0f0f0;
   text-align: center;
-}
-
-.edit-shop-container h1 {
-  padding: -10%;
 }
 
 .edit-shop-container {
