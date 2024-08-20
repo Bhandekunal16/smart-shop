@@ -78,6 +78,6 @@ export class ProfileComponent implements OnInit {
   }
 
   private update(): void {
-    this.router.navigate(['/customer-dashboard/updateProfile']);
+    this.router.navigate(['/customer-dashboard/profile/update']);
   }
 }

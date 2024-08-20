@@ -13,6 +13,7 @@ import { UpdateRatingComponent } from './update-rating/update-rating.component';
 import { UserAddWishlistComponent } from './user-add-wishlist/user-add-wishlist.component';
 import { UserViewWishlistComponent } from './user-view-wishlist/user-view-wishlist.component';
 import { ViewShopComponent } from './view-shop/view-shop.component';
+import { ProfileFaqComponent } from './profile-faq/profile-faq.component';
 
 export const CustomerRoutes: Routes = [
   { path: '', component: CustomerViewProductComponent },
@@ -28,6 +29,10 @@ export const CustomerRoutes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    children: [
+      { path: '', component: ProfileFaqComponent },
+      { path: 'update', component: UpdateProfileComponent },
+    ],
   },
   {
     path: 'updateProfile',
