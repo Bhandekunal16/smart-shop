@@ -11,16 +11,22 @@
 }
 
 .profile-container p-card {
-  width: 50vw;
+  width: 47vw;
   height: fit-content;
   margin-top: 1%;
 }
 
 .profile-container img {
-  width: 50vw;
+  width: 47vw;
   height: 60vh;
   object-fit: cover;
   margin-top: -1%;
+}
+
+.profile-child {
+  width: 47vw;
+  height: fit-content;
+  margin-top: 1%;
 }
 
 @media (max-width: 600px) {
