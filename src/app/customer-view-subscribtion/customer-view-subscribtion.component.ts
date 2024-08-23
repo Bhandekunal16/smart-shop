@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './customer-view-subscribtion.component.scss',
 })
 export class CustomerViewSubscriptionComponent implements OnInit {
-  public products!: any[];
+  public products: any[] =[];
   public msg: Message[] | any;
   constructor(private http: HttpClient, private route: Router) {}
 
