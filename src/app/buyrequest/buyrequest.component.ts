@@ -14,7 +14,7 @@ import { header } from '../string';
   styleUrl: './buyrequest.component.scss',
 })
 export class BuyRequestComponent {
-  public products!: any[];
+  public products: any[] = [];
   public options: string[] | any = ['CASH'];
   public msg: Message[] | any;
   public myForm: FormGroup | any;
@@ -60,11 +60,17 @@ export class BuyRequestComponent {
   }
 
   public onPay(userId: any, productId: any) {
-    this.sell({
-      custId: userId,
-      productId: productId,
-      transactionType: this.mode,
-    });
+    try {
+      this.sell({
+        custId: userId,
+        productId: productId,
+        transactionType: this.mode,
+      }).subscribe((ele) => {
+        console.log(ele);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   public onselect(mode: any) {
@@ -90,15 +96,13 @@ export class BuyRequestComponent {
 
   private sell(body: any): Observable<any> {
     const headers = header();
+    console.log('i am hitting');
 
     return this.http
-      .post<any>(
-        'https://smart-shop-api-eta.vercel.app/payment/transaction',
-        body,
-        { headers }
-      )
+      .post<any>('http://localhost:3003/payment/transaction', body, { headers })
       .pipe(
         catchError((error) => {
+          console.log(error);
           return throwError(error);
         })
       );

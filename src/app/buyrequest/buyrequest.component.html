@@ -32,7 +32,7 @@
           <td>{{ product.custName }}</td>
           <td>{{ product.custMob }}</td>
           <td>{{ product.custEmail }}</td>
-          <td>
+          <td *ngIf="!product.IsPurchased">
             <select
               formControlName="transactionType"
               (change)="onselect(myForm.controls['transactionType'].value)"
@@ -43,7 +43,10 @@
             </select>
           </td>
           <td>
-            <div class="card flex justify-content-center">
+            <div
+              class="card flex justify-content-center"
+              *ngIf="!product.IsPurchased"
+            >
               <button
                 pButton
                 pRipple
