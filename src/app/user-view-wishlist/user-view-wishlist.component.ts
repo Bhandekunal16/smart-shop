@@ -15,7 +15,7 @@ import { header } from '../string';
 })
 export class UserViewWishlistComponent {
   constructor(private http: HttpClient, private router: Router) {}
-  products!: any[];
+  products: any[] = [];
   public msg: Message[] | any;
 
   ngOnInit(): void {
