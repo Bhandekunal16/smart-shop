@@ -4,6 +4,7 @@
 </div>
 } @else {
 <h1 class="add-customer-table-container-header">User Management</h1>
+
 <div class="add-customer-table-container-outer">
   <div class="add-customer-table-container">
     <div class="message-card">
@@ -32,13 +33,6 @@
           <td>{{ product.lastName }}</td>
           <td>{{ product.userType }}</td>
           <td class="add-customer-table-container-button-grid">
-            @if(!showButton){
-            <p-button
-              icon="pi pi-trash"
-              severity="danger"
-              (click)="unsubscribe(product.id)"
-            ></p-button>
-            } @else{
             <button
               pButton
               pRipple
@@ -46,7 +40,12 @@
               icon="pi pi-user-plus"
               (click)="edit(product.id)"
             ></button>
-            }
+            <p-button
+              *ngIf="!showButton"
+              icon="pi pi-trash"
+              severity="danger"
+              (click)="unsubscribe(product.id)"
+            ></p-button>
           </td>
         </tr>
       </ng-template>
