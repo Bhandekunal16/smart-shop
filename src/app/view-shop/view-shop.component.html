@@ -60,7 +60,8 @@
     </div>
   </div>
 
-  <div *ngIf="email == undefined">
+  @if(email == undefined){
+  <div>
     <p>
       Add Shop First to Proceed To continue with the next steps, please ensure
       that you add a shop first. This is a crucial step in setting up your
@@ -83,6 +84,7 @@
       ></button>
     </div>
   </div>
+  }
 
   <div class="loader-container" *ngIf="!flag">
     <div class="loader"></div>
