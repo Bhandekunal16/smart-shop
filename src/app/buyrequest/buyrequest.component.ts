@@ -96,10 +96,10 @@ export class BuyRequestComponent {
 
   private sell(body: any): Observable<any> {
     const headers = header();
-    console.log('i am hitting');
+    
 
     return this.http
-      .post<any>('http://localhost:3003/payment/transaction', body, { headers })
+      .post<any>('https://smart-shop-api-eta.vercel.app/payment/transaction', body, { headers })
       .pipe(
         catchError((error) => {
           console.log(error);
