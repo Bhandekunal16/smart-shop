@@ -12,9 +12,11 @@
   </p-menubar>
 </div>
 
-<div *ngIf="Log != null" class="pop-up">
+@if(Log != null){
+<div class="pop-up">
   <label>Last Login : {{ Log }}</label>
 </div>
+}
 
 <div class="dashboard-container">
   <router-outlet></router-outlet>
