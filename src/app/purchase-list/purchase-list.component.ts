@@ -14,7 +14,7 @@ import { header } from '../string';
   styleUrl: './purchase-list.component.scss',
 })
 export class PurchaseListComponent implements OnInit {
-  public products!: any[];
+  public products: any[] = [];
   public msg: Message[] | any;
   public totalCost: number | undefined;
 
