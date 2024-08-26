@@ -38,81 +38,87 @@ export class ChartProductComponent implements OnInit {
     this.shopDetails().subscribe(
       (ele) => {
         this.array = ele.data;
+        if (ele.status) {
+          let value = [];
+          let name = [];
+          for (let index = 0; index < this.array.length; index++) {
+            name.push(this.array[index].name.slice(0, 8));
+            value.push(this.array[index].count);
+          }
 
-        let value = [];
-        let name = [];
-        for (let index = 0; index < this.array.length; index++) {
-          name.push(this.array[index].name.slice(0, 8));
-          value.push(this.array[index].count);
+          this.Name = name;
+          this.Value = value;
+
+          ele.response == null && ele.data == undefined
+            ? this.messageHandler(
+                'warn',
+                'you currently not have any product, create shop & add some product',
+                'No Data'
+              )
+            : this.messageHandler('success', 'product found at your shop');
+
+          this.clearMessagesAfterDelay();
+
+          this.basicData = {
+            labels: this.Name,
+            datasets: [
+              {
+                label: 'Sales',
+                data: this.Value,
+                backgroundColor: [
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                ],
+                borderColor: [
+                  'rgb(255, 159, 64)',
+                  'rgb(75, 192, 192)',
+                  'rgb(54, 162, 235)',
+                  'rgb(153, 102, 255)',
+                ],
+                borderWidth: 1,
+              },
+            ],
+          };
+
+          this.basicOptions = {
+            plugins: {
+              legend: {
+                labels: {
+                  color: textColor,
+                },
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: textColorSecondary,
+                },
+                grid: {
+                  color: surfaceBorder,
+                  drawBorder: false,
+                },
+              },
+              x: {
+                ticks: {
+                  color: textColorSecondary,
+                },
+                grid: {
+                  color: surfaceBorder,
+                  drawBorder: false,
+                },
+              },
+            },
+          };
+          this.flag = true;
+          this.clearMessagesAfterDelay();
+        } else {
+          this.flag = true;
+          this.messageHandler('success', 'products not found in your shop');
+          this.clearMessagesAfterDelay();
         }
-
-        this.Name = name;
-        this.Value = value;
-        this.flag = true;
-
-        ele.response == null && ele.data == undefined
-          ? this.messageHandler(
-              'warn',
-              'you currently not have any product, create shop & add some product',
-              'No Data'
-            )
-          : this.messageHandler('success', 'product found at your shop');
-
-        this.clearMessagesAfterDelay();
-
-        this.basicData = {
-          labels: this.Name,
-          datasets: [
-            {
-              label: 'Sales',
-              data: this.Value,
-              backgroundColor: [
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-              ],
-              borderColor: [
-                'rgb(255, 159, 64)',
-                'rgb(75, 192, 192)',
-                'rgb(54, 162, 235)',
-                'rgb(153, 102, 255)',
-              ],
-              borderWidth: 1,
-            },
-          ],
-        };
-
-        this.basicOptions = {
-          plugins: {
-            legend: {
-              labels: {
-                color: textColor,
-              },
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                color: textColorSecondary,
-              },
-              grid: {
-                color: surfaceBorder,
-                drawBorder: false,
-              },
-            },
-            x: {
-              ticks: {
-                color: textColorSecondary,
-              },
-              grid: {
-                color: surfaceBorder,
-                drawBorder: false,
-              },
-            },
-          },
-        };
       },
       (error) => {
         console.error('Error fetching shop details:', error);
