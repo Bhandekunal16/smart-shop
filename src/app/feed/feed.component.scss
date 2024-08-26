@@ -24,8 +24,8 @@
 }
 
 .card-grid {
-  border-top: solid #000 1px;
-  border-bottom: solid #000 1px;
+  border-top: solid #d2d2d2 1px;
+  border-bottom: solid #d2d2d2 1px;
   padding: 1%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -36,7 +36,7 @@
   width: 340px;
   height: 70vh;
   overflow: auto;
-  border: #000 solid 0.3px;
+  border: #d2d2d2 solid 0.3px;
   margin-top: 1%;
   border-radius: 8px;
 }
@@ -60,7 +60,7 @@
   .card-grid p-card {
     margin: 0%;
     padding: 0%;
-    border: #000 solid 1px;
+    border: #d2d2d2 solid 1px;
     width: 100%;
   }
   .button-grid {
