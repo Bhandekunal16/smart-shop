@@ -8,7 +8,7 @@
   </div>
 
   <form class="add-product-container-form" [formGroup]="myForm">
-    <p-badge value="{{ data.length }}" badgeSize="large" severity="warning" />
+    <h2>{{ data.length }}</h2>
 
     <select formControlName="productType" (change)="selectItem($event)">
       <option *ngFor="let option of options" [value]="option">

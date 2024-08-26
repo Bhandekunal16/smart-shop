@@ -36,10 +36,12 @@ select {
 
 .card-grid {
   border-top: solid #000 1px;
+  border-bottom: solid #000 1px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 16px;
   justify-items: center;
+  padding: 1%;
 }
 .card-grid p-card {
   width: 340px;
