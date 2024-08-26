@@ -6,7 +6,7 @@
       [enableService]="false"
     ></p-messages>
   </div>
-  <div class="view-product-card">
+  <div class="card-grid">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
         *ngFor="let item of data"
@@ -17,7 +17,6 @@
           <img
             alt="Card"
             [src]="now(item.ProductImageBase)"
-            [style]=""
             class="card-image"
           />
         </ng-template>
