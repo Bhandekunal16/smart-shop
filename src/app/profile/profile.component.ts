@@ -51,6 +51,11 @@ export class ProfileComponent implements OnInit {
     this.update();
   }
 
+  public LogoutSupport() {
+    localStorage.clear();
+    this.logout();
+  }
+
   private shopDetails(body: any): Observable<any> {
     const headers = header();
     return this.http
@@ -87,5 +92,9 @@ export class ProfileComponent implements OnInit {
 
   public order(): void {
     this.router.navigate(['/customer-dashboard/purchasedList/']);
+  }
+
+  private logout(): void {
+    this.router.navigate(['']);
   }
 }
