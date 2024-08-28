@@ -239,7 +239,7 @@ export class DashboardComponent {
     this.router.navigate(['dashboard']);
   }
 
-  private update(): void {
+  public update(): void {
     this.router.navigate(['dashboard/profile']);
   }
 
