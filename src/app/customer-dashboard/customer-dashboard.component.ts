@@ -151,7 +151,7 @@ export class CustomerDashboardComponent implements OnInit {
     this.router.navigate(['customer-dashboard/userViewWishList']);
   }
 
-  private profile() {
+  public profile() {
     this.router.navigate(['customer-dashboard/profile']);
   }
 
