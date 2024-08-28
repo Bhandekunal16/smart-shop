@@ -30,7 +30,6 @@ export class ProfileComponent implements OnInit {
 
   private getDetails() {
     this.shopDetails({ id: localStorage.getItem('id') }).subscribe((ele) => {
-      // const data = this.decrypt.decrypt(ele.response);
       this.email = ele.data.email;
       this.firstName = ele.data.firstName;
       this.lastName = ele.data.lastName;
