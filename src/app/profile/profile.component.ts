@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  public updatePassword(): void{
-    this.router.navigate(['/forget-password'])
+  public updatePassword(): void {
+    this.router.navigate(['/forget-password']);
   }
 }
