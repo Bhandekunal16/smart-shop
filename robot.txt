@@ -3,4 +3,4 @@ User-agent: *
 Disallow:
 
 # Specify sitemap (if applicable)
-Sitemap: https://your-app.vercel.app/sitemap.xml
+Sitemap: https://cyborgcart.vercel.app/sitemap.xml
