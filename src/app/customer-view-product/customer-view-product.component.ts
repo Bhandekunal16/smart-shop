@@ -28,6 +28,7 @@ export class CustomerViewProductComponent implements OnInit {
   public limit: number = 10;
   public selectedValue: string | undefined;
   public options: string[] | any = options;
+  public Filter: string | undefined;
 
   constructor(
     private http: HttpClient,
@@ -60,12 +61,27 @@ export class CustomerViewProductComponent implements OnInit {
     );
   }
 
+  filter() {
+    this.loader = false;
+    this.shopDetails({
+      skip: this.skip,
+      limit: this.limit,
+      filter: this.Filter,
+    }).subscribe((ele) => {
+      this.loader = true;
+      this.data = ele.data;
+      this.messageHandler('success', `products found ${this.data.length}`);
+      this.clearMessagesAfterDelay();
+    });
+  }
+
   public add() {
     this.skip += 10;
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
       productType: this.selectedValue,
+      filter : this.Filter
     }).subscribe((ele) => {
       this.loader = true;
       this.data = ele.data;
@@ -80,6 +96,7 @@ export class CustomerViewProductComponent implements OnInit {
       skip: this.skip,
       limit: this.limit,
       productType: this.selectedValue,
+      filter : this.Filter
     }).subscribe((ele) => {
       this.loader = true;
       this.data = ele.data;
@@ -160,6 +177,7 @@ export class CustomerViewProductComponent implements OnInit {
   public clearSelection() {
     this.myForm.get('productType')?.setValue('');
     this.selectedValue = '';
+    this.Filter = '';
     this.skip = 0;
     this.search();
   }
@@ -189,13 +207,9 @@ export class CustomerViewProductComponent implements OnInit {
   private shopDetails(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .post<any>(
-        `https://smart-shop-api-eta.vercel.app/product/customer/get`,
-        body,
-        {
-          headers,
-        }
-      )
+      .post<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
