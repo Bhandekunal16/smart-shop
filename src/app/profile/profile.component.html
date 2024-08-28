@@ -16,45 +16,54 @@
     <p>mobileNo: {{ mobileNo }}</p>
     <p>userType: {{ userType }}</p>
     <ng-template pTemplate="footer">
-      <div class="flex gap-3 mt-1">
+      <div class="flex flex-wrap gap-3 mt-1">
         <button
           pButton
           pRipple
           icon="pi pi-pencil"
           label="Edit"
           class="p-button-text"
+          aria-label="Edit"
           (click)="edit()"
         ></button>
+
         <button
           pButton
           pRipple
           icon="pi pi-info-circle"
           label="Info"
           class="p-button-text"
+          aria-label="Info"
           (click)="info()"
         ></button>
+
         <button
           pButton
           pRipple
           icon="pi pi-box"
           label="MY ORDERS"
           class="p-button-text"
+          aria-label="My Orders"
           (click)="order()"
         ></button>
+
         <button
           pButton
           pRipple
           icon="pi pi-power-off"
           label="Logout"
           class="p-button-text"
+          aria-label="Logout"
           (click)="LogoutSupport()"
         ></button>
+
         <button
           pButton
           pRipple
           icon="pi pi-pen-to-square"
           label="Change Password"
           class="p-button-text"
+          aria-label="Change Password"
           (click)="updatePassword()"
         ></button>
       </div>
