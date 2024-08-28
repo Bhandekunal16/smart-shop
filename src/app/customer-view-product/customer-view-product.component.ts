@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, debounceTime, distinctUntilChanged, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
@@ -213,6 +213,8 @@ export class CustomerViewProductComponent implements OnInit {
         }
       )
       .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
         catchError((error) => {
           return throwError(error);
         })
