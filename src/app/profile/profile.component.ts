@@ -84,4 +84,8 @@ export class ProfileComponent implements OnInit {
   public info(): void {
     this.router.navigate(['/customer-dashboard/profile/']);
   }
+
+  public order(): void {
+    this.router.navigate(['/customer-dashboard/purchasedList/']);
+  }
 }
