@@ -22,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { BadgeModule } from 'primeng/badge';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -50,7 +51,8 @@ import { BadgeModule } from 'primeng/badge';
     DialogModule,
     ProgressBarModule,
     MeterGroupModule,
-    BadgeModule
+    BadgeModule,
+    AutoCompleteModule,
   ],
 })
 export class SharedModule {}

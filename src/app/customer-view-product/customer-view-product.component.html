@@ -7,7 +7,13 @@
     ></p-messages>
   </div>
 
-  <input type="text" pInputText [(ngModel)]="Filter" (input)="filter()" />
+  <div class="view-product-container-search">
+    <p-autoComplete
+      [(ngModel)]="Filter"
+      (completeMethod)="filter()"
+      placeholder="search"
+    />
+  </div>
 
   <form class="add-product-container-form" [formGroup]="myForm">
     <h2>{{ data.length }}</h2>
