@@ -102,4 +102,8 @@ export class ProfileComponent implements OnInit {
   private logout(): void {
     this.router.navigate(['']);
   }
+
+  public updatePassword(): void{
+    this.router.navigate(['/forget-password'])
+  }
 }
