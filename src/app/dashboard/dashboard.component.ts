@@ -240,7 +240,7 @@ export class DashboardComponent {
   }
 
   private update(): void {
-    this.router.navigate(['dashboard/updateProfile']);
+    this.router.navigate(['dashboard/profile']);
   }
 
   private ViewUser(): void {

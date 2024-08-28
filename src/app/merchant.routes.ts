@@ -19,6 +19,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { ViewShopComponent } from './view-shop/view-shop.component';
 import { AddUrlComponent } from './add-url/add-url.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const MerchantRoutes: Routes = [
   {
@@ -44,6 +45,12 @@ export const MerchantRoutes: Routes = [
       {
         path: 'updateProfile',
         component: UpdateProfileComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        loadChildren: () =>
+          import('./profile.routes').then((mod) => mod.profileRoutes),
       },
       { path: 'share', component: ShareComponent },
       { path: 'feed', component: FeedComponent },

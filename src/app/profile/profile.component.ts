@@ -83,15 +83,21 @@ export class ProfileComponent implements OnInit {
   }
 
   private update(): void {
-    this.router.navigate(['/customer-dashboard/profile/update']);
+    localStorage.getItem('type') == 'MERCHANT'
+      ? this.router.navigate(['/dashboard/profile/update'])
+      : this.router.navigate(['/customer-dashboard/profile/update']);
   }
 
   public info(): void {
-    this.router.navigate(['/customer-dashboard/profile/']);
+    localStorage.getItem('type') == 'MERCHANT'
+      ? this.router.navigate(['/dashboard/profile/'])
+      : this.router.navigate(['/customer-dashboard/profile/']);
   }
 
   public order(): void {
-    this.router.navigate(['/customer-dashboard/purchasedList/']);
+    localStorage.getItem('type') == 'MERCHANT'
+      ? this.router.navigate(['/dashboard/purchasedList/'])
+      : this.router.navigate(['/customer-dashboard/purchasedList/']);
   }
 
   private logout(): void {
