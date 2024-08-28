@@ -80,7 +80,7 @@ export class CustomerViewProductComponent implements OnInit {
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
-      filter : this.Filter
+      filter: this.Filter,
     }).subscribe((ele) => {
       this.loader = true;
       this.data = ele.data;
@@ -94,7 +94,7 @@ export class CustomerViewProductComponent implements OnInit {
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
-      filter : this.Filter
+      filter: this.Filter,
     }).subscribe((ele) => {
       this.loader = true;
       this.data = ele.data;
@@ -205,7 +205,7 @@ export class CustomerViewProductComponent implements OnInit {
   private shopDetails(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .post<any>(`http://localhost:3003/product/customer/get`, body, {
+      .post<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, body, {
         headers,
       })
       .pipe(
