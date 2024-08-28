@@ -8,9 +8,10 @@
   </div>
 
   <div class="view-product-container-search">
-    <p-autoComplete
+    <input
       [(ngModel)]="Filter"
-      (completeMethod)="filter()"
+      pInputText
+      (input)="filter()"
       placeholder="search"
     />
   </div>
