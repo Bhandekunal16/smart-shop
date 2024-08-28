@@ -80,7 +80,6 @@ export class CustomerViewProductComponent implements OnInit {
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
-      productType: this.selectedValue,
       filter : this.Filter
     }).subscribe((ele) => {
       this.loader = true;
@@ -95,7 +94,6 @@ export class CustomerViewProductComponent implements OnInit {
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
-      productType: this.selectedValue,
       filter : this.Filter
     }).subscribe((ele) => {
       this.loader = true;
@@ -108,12 +106,12 @@ export class CustomerViewProductComponent implements OnInit {
   public selectItem(event: Event) {
     this.loader = false;
     const selectedValue = (event.target as HTMLSelectElement).value;
-    this.selectedValue = selectedValue;
+    this.Filter = selectedValue;
 
     this.shopDetails({
       skip: this.skip,
       limit: this.limit,
-      productType: selectedValue,
+      filter: selectedValue,
     }).subscribe((ele) => {
       this.loader = true;
       this.data = ele.data;
@@ -207,7 +205,7 @@ export class CustomerViewProductComponent implements OnInit {
   private shopDetails(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .post<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, body, {
+      .post<any>(`http://localhost:3003/product/customer/get`, body, {
         headers,
       })
       .pipe(
