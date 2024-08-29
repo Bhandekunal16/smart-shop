@@ -1,0 +1,16 @@
+<div class="message-card">
+  <p-messages
+    [value]="msg"
+    [closable]="true"
+    [enableService]="false"
+  ></p-messages>
+</div>
+
+<div class="dashboard-container-pannel">
+  <div class="dashboard-container-pannel-card">
+    <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+  </div>
+</div>
+<div class="loader-container" *ngIf="!flag">
+  <div class="loader"></div>
+</div>

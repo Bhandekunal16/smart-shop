@@ -18,8 +18,8 @@ import { UserViewWishlistComponent } from './user-view-wishlist/user-view-wishli
 import { UserlistComponent } from './userlist/userlist.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { ViewShopComponent } from './view-shop/view-shop.component';
-import { AddUrlComponent } from './add-url/add-url.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ChartheadComponent } from './charthead/charthead.component';
 
 export const MerchantRoutes: Routes = [
   {
@@ -38,7 +38,7 @@ export const MerchantRoutes: Routes = [
       { path: 'addProduct', component: AddProductComponent },
       { path: 'viewProduct', component: ViewProductComponent },
       { path: 'updateProduct', component: UpdateProductComponent },
-      { path: '', component: ChartProductComponent },
+      { path: '', component: ChartheadComponent },
       { path: 'userList', component: UserlistComponent },
       { path: 'feedback', component: FeedbackComponent },
       { path: 'buyRequest', component: BuyRequestComponent },

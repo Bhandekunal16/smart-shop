@@ -13,12 +13,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: fit-content;
+  height: 100%;
   padding: 1rem;
 }
 
+
 .dashboard-container-pannel-card {
-  width: 90vw;
+  width: 40vw;
   color: #ffffff;
   height: fit-content;
   padding: 1%;
