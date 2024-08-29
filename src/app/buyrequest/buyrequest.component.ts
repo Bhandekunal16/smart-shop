@@ -5,6 +5,7 @@ import { Message } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
+import { Logger } from '../custom.logs';
 
 @Component({
   selector: 'app-buyrequest',
@@ -66,10 +67,10 @@ export class BuyRequestComponent {
         productId: productId,
         transactionType: this.mode,
       }).subscribe((ele) => {
-        console.log(ele);
+        new Logger().log(ele);
       });
     } catch (error) {
-      console.log(error);
+      new Logger().error(error);
     }
   }
 
@@ -96,13 +97,16 @@ export class BuyRequestComponent {
 
   private sell(body: any): Observable<any> {
     const headers = header();
-    
 
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/payment/transaction', body, { headers })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/payment/transaction',
+        body,
+        { headers }
+      )
       .pipe(
         catchError((error) => {
-          console.log(error);
+          new Logger().error(error);
           return throwError(error);
         })
       );

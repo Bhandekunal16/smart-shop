@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Logger } from './custom.logs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class StateService {
     try {
       return localStorage.getItem('status') === 'true';
     } catch (error) {
-      console.log('this is not error ');
+      new Logger().error('this is not error ');
     }
   }
 
@@ -25,7 +26,7 @@ export class StateService {
       localStorage.setItem('status', newStatus.toString());
       this.statusSubject.next(newStatus);
     } catch (error) {
-      console.log('this is error ');
+      new Logger().error('this is error ');
     }
   }
 
@@ -34,7 +35,7 @@ export class StateService {
       localStorage.setItem('status', status.toString());
       this.statusSubject.next(status);
     } catch (error) {
-      console.log('this is not a error ');
+      new Logger().error('this is not a error ');
     }
   }
 }

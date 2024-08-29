@@ -83,9 +83,6 @@ export class ViewShopComponent implements OnInit {
           'Gathering shop information, please wait...'
         );
         this.shopDetailsNext(id).subscribe((ele) => {
-          // const res = this.decrypt.decrypt(ele.response);
-
-          console.log(ele, '.......');
           this.messageHandler(
             ele.status ? 'success' : 'warn',
             ele.status

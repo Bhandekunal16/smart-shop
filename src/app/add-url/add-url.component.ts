@@ -4,6 +4,7 @@ import { Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { header } from '../string';
+import { Logger } from '../custom.logs';
 
 @Component({
   selector: 'app-add-url',
@@ -21,7 +22,7 @@ export class AddUrlComponent {
   get() {
     this.add({ id: localStorage.getItem('id'), url: this.value }).subscribe(
       (ele) => {
-        console.log(ele);
+        new Logger().log(ele);
       }
     );
     this.value = '';

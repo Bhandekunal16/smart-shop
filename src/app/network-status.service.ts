@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Logger } from './custom.logs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class NetworkStatusService {
     try {
       this.onlineStatus.next(navigator.onLine);
     } catch (error) {
-      console.log('this is not error ');
+      new Logger().error('this is not error ');
     }
   }
 

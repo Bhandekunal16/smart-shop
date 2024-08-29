@@ -6,6 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
 import { StateService } from '../state.service';
 import { header } from '../string';
+import { Logger } from '../custom.logs';
 
 @Component({
   selector: 'app-update-profile',
@@ -91,7 +92,7 @@ export class UpdateProfileComponent implements OnInit {
         this.getDetails();
       });
     } catch (error) {
-      console.log(' this is not an error ');
+      new Logger().error(' this is not an error ');
     }
   }
 
