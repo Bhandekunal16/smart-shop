@@ -1,52 +1,67 @@
 .add-customer-table-container {
   position: relative;
   width: 70%;
-  height: fit-content;
   background-color: #f5f5f5;
   color: #1e5d4a;
   margin-top: 1%;
-  border: solid #000 1px;
+  border: 1px solid #000;
+  padding: 1%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .add-customer-table-container th {
   background-color: #1e5d4a;
-  color: black;
+  color: #ffffff;
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 2px solid #f5f5f5;
 }
 
 .add-customer-table-container-button-grid {
   background-color: #f0f0f0;
   display: flex;
   justify-content: space-evenly;
+  padding: 0.5rem;
+  gap: 1rem;
+  border-top: 1px solid #ccc;
 }
 
 .add-customer-table-container-outer {
   display: flex;
   justify-content: space-evenly;
   padding: 1%;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .add-customer-table-container-header {
   margin-left: 1%;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .add-customer-table-container-text {
   width: 25%;
   background-color: #ffffff;
   padding: 1%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 @media (max-width: 600px) {
-  .add-customer-table-container-outer {
-    display: flex;
-    flex-direction: column;
-    padding: 1%;
-  }
-
   .add-customer-table-container {
     width: 100%;
+    padding: 0.5rem;
   }
 
-  .add-customer-table-container-text{
+  .add-customer-table-container-outer {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+
+  .add-customer-table-container-text {
     margin-top: 1%;
     width: 100%;
   }
