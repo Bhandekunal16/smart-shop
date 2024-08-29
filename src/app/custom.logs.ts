@@ -1,12 +1,12 @@
 class Color {
-  black: string;
-  red: string;
-  green: string;
-  yellow: string;
-  blue: string;
-  magenta: string;
-  cyan: string;
-  white: string;
+  public black: string;
+  public red: string;
+  public green: string;
+  public yellow: string;
+  public blue: string;
+  public magenta: string;
+  public cyan: string;
+  public white: string;
 
   constructor() {
     this.black = '\x1b[30m';
@@ -21,9 +21,9 @@ class Color {
 }
 
 class Timestamp {
-  min: number;
-  sec: number;
-  mild: number;
+  private min: number;
+  private sec: number;
+  private mild: number;
 
   constructor() {
     this.min = new Date().getMinutes();
@@ -31,19 +31,19 @@ class Timestamp {
     this.mild = new Date().getMilliseconds();
   }
 
-  main() {
+  public main() {
     return `${this.min}${this.mild}${this.sec}`;
   }
 }
 
 export class Logger {
-  time: any;
+  public time: any;
 
   constructor() {
     this.time = new Timestamp().main();
   }
 
-  new(services: any[]) {
+  public new(services: any[]) {
     services.forEach((service) => {
       console.log(
         `${new Color().green}${new Date().toLocaleDateString()} [NODE] ${
@@ -55,11 +55,11 @@ export class Logger {
     });
   }
 
-  log(message: any) {
+  public log(message: any) {
     console.log(`${new Color().green}[NODE] : ${new Color().white} ${message}`);
   }
 
-  warn(message: any, optionalContain?: any) {
+  public warn(message: any, optionalContain?: any) {
     console.log(
       `${new Color().yellow}[NODE] : WARN ${new Color().white} ${message} ${
         optionalContain ?? ''
@@ -67,13 +67,13 @@ export class Logger {
     );
   }
 
-  error(message: any, optionalContain?: any) {
+  public error(message: any, optionalContain?: any) {
     console.log(
       `${new Color().red}[NODE] : ERROR ${message} ${optionalContain ?? ''}`
     );
   }
 
-  array(array: any[]) {
+  public array(array: any[]) {
     array.forEach((array: string) => {
       console.log(
         `${new Color().green}${new Date().toLocaleDateString()} [NODE] - ${
