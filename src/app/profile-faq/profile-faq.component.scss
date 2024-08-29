@@ -4,12 +4,16 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f5f5f5;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
+
 .faq-container h3 {
   font-size: 24px;
   margin-bottom: 10px;
   background-color: transparent;
 }
+
 .faq-container p {
   font-size: 16px;
   line-height: 1.6;
