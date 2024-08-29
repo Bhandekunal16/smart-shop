@@ -9,6 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { DecryptService } from '../global/decrypt.service';
+import { Logger } from './custom.logs';
 
 @Injectable()
 export class HTTP_INTERCEPTOR implements HttpInterceptor {
@@ -19,10 +20,10 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('Before...');
+    new Logger().log('Before...');
     const now: number = Date.now();
-    console.log('request on :', req.url);
-    console.log('method : ', req.method);
+    new Logger().log('request on :' + req.url);
+    new Logger().log('method : ' + req.method);
 
     const shouldExclude = this.excludedEndpoints.some((endpoint) =>
       req.url.includes(endpoint)
@@ -37,20 +38,20 @@ export class HTTP_INTERCEPTOR implements HttpInterceptor {
         if (event instanceof HttpResponse && event.body) {
           try {
             const decrypted = this.decryptService.decrypt(event.body.response);
-            console.log({ serverResponse: decrypted.statusCode });
+            new Logger().log({ serverResponse: decrypted.statusCode });
             return event.clone({ body: decrypted });
           } catch (error) {
-            console.error('Decryption failed:', error);
+            new Logger().error('Decryption failed:', error);
             return event;
           }
         }
         return event;
       }),
       catchError((error) => {
-        console.error('HTTP Error:', error);
+        new Logger().error('HTTP Error:', error);
         return throwError(() => error);
       }),
-      tap(() => console.log(`responded in... ${Date.now() - now}ms`))
+      tap(() => new Logger().log(`responded in... ${Date.now() - now}ms`))
     );
   }
 }
