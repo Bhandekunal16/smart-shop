@@ -43,10 +43,7 @@ export class ConformPasswordComponent {
 
       if (data.status) {
         this.messageHandler('success', 'password changed successfully.');
-
-        data.data.userType == 'MERCHANT'
-          ? this.dashboard()
-          : this.customerDashboard();
+        this.dashboard();
       } else {
         this.messageHandler('warn', 'something went wrong');
         this.clearMessagesAfterDelay();
@@ -55,11 +52,7 @@ export class ConformPasswordComponent {
   }
 
   private dashboard(): void {
-    this.router.navigate(['/dashboard']);
-  }
-
-  private customerDashboard(): void {
-    this.router.navigate(['/customer-dashboard']);
+    this.router.navigate(['']);
   }
 
   private conformPassword(body: any): Observable<any> {
