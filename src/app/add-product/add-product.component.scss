@@ -4,50 +4,63 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .add-product-container-form {
   background-color: #f0f0f0;
   width: 40vw;
-  height: fit-content;
-  border: solid #ffffff 0.2px;
+  border: 0.2px solid #ffffff;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1%;
+  padding: 1%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .add-product-container-text {
   width: 40vw;
-  height: fit-content;
   margin-top: -25%;
+  font-size: 1rem;
+  color: #333;
 }
 
 .add-product-container-form-top {
-  background-color: #1e5d4a;
   height: 10vh;
   width: 100%;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
 }
 
 .add-product-container-form-top h1 {
-  color: #f0f0f0;
+  color: #000;
   text-align: center;
+  font-size: 1.5rem;
+  margin: 0;
 }
 
 .add-product-container-form-input {
   padding-top: 1%;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  gap: 1rem;
 }
 
-.add-product-container-form-input input {
+.add-product-container-form-input input,
+.add-product-container-form-input select {
   margin-top: 2%;
-  height: 5vh;
+  height: 8vh;
   width: 33vw;
   border-radius: 5px;
-  border: solid #f0f0f0 0.2px;
+  border: 0.2px solid #f0f0f0;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
 .add-product-container-form-button {
@@ -56,45 +69,33 @@
   align-items: center;
   margin-top: 7%;
   width: 100%;
-}
-
-.add-product-container-form-input select {
-  margin-top: 2%;
-  height: 5vh;
-  width: 33vw;
-  border-radius: 5px;
-  background-color: #ffffff;
-  border: solid #f0f0f0 0.2px;
+  gap: 1rem; 
 }
 
 @media (max-width: 600px) {
-  .add-product-container-form {
-    width: 95vw;
-    height: fit-content;
-    margin-left: -1%;
-  }
-
-  .add-product-container-form-top {
-    height: fit-content;
-  }
-
-  .add-product-container-form-input input,
-  select {
-    height: 5vh;
-    width: 70vw;
-  }
-
   .add-product-container {
-    padding: 1%;
-    margin: 1%;
-    display: flex;
     flex-direction: column;
     align-items: center;
   }
 
+  .add-product-container-form {
+    width: 95vw;
+    margin-left: -1%;
+    padding: 1%; 
+  }
+
+  .add-product-container-form-top {
+    height: fit-content;
+    padding: 1rem; 
+  }
+
+  .add-product-container-form-input input,
+  .add-product-container-form-input select {
+    width: 90vw;
+  }
+
   .add-product-container-text {
     width: 95vw;
-    height: fit-content;
     margin-top: 0;
   }
 }
