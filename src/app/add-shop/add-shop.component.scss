@@ -1,49 +1,60 @@
+.add-shop-container {
+  padding: 1%;
+  margin: 1%;
+}
+
 .add-shop-container-form {
   background-color: #f0f0f0;
   width: 40vw;
-  height: fit-content;
-  border: solid #ffffff 0.2px;
+  border: 0.2px solid #ffffff;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-left: 25%;
-  padding-bottom: 1%;
+  padding: 1%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .add-shop-container-form-top {
-  background-color: #1e5d4a;
   height: 10vh;
   width: 100%;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
 }
 
 .add-shop-container-form-top h1 {
-  color: #f0f0f0;
+  color: #000;
   text-align: center;
+  font-size: 1.5rem;
+  margin: 0;
 }
 
 .add-shop-container h1 {
-  padding: -10%;
-}
-
-.add-shop-container {
-  padding: 1%;
-  margin: 1%;
+  padding: 0;
+  font-size: 1.5rem;
+  margin: 1rem 0;
 }
 
 .add-shop-container-form-input {
   padding-top: 1%;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  gap: 1rem;
 }
 
 .add-shop-container-form-input input {
   margin-top: 2%;
-  height: 5vh;
+  height: 8vh;
   width: 33vw;
   border-radius: 5px;
-  border: solid #f0f0f0 0.2px;
+  border: 0.2px solid #f0f0f0;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
 .add-shop-container-form-button {
@@ -52,30 +63,30 @@
   align-items: center;
   margin-top: 10%;
   width: 100%;
+  gap: 1rem;
 }
 
 .add-shop-container-tip {
   background-color: #f0f0f0;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 2%;
 }
-
-
-
- 
 
 @media (max-width: 600px) {
   .add-shop-container-form {
     width: 92vw;
-    height: fit-content;
     margin: 0;
-    padding: 0;
-  }
-
-  .add-shop-container-form-input input {
-    height: 5vh;
-    width: 70vw;
+    padding: 1rem;
   }
 
   .add-shop-container-form-top {
     height: fit-content;
+    padding: 1rem;
+  }
+
+  .add-shop-container-form-input input {
+    width: 70vw;
   }
 }
