@@ -33,7 +33,8 @@
   flex-direction: column;
 }
 
-.register-container-form-input input {
+.register-container-form-input input,
+.register-container-form-input select {
   margin-top: 2%;
   height: 5vh;
   width: 30vw;
@@ -42,12 +43,7 @@
 }
 
 .register-container-form-input select {
-  margin-top: 2%;
-  height: 5vh;
-  width: 30vw;
-  border-radius: 5px;
   background-color: #ffffff;
-  border: solid #f0f0f0 0.2px;
 }
 
 .register-container-form-button {
@@ -62,15 +58,11 @@
   .update-profile-container-form {
     width: 100%;
     height: fit-content;
-    margin: 0%;
-    padding: 0%;
+    margin: 0;
+    padding: 0;
   }
 
-  .register-container-form-input input {
-    height: 5vh;
-    width: 70vw;
-  }
-
+  .register-container-form-input input,
   .register-container-form-input select {
     height: 5vh;
     width: 70vw;
