@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  throwError,
+} from 'rxjs';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
-import { header } from '../string';
+import { header, options } from '../string';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-add-wishlist',
@@ -17,6 +24,13 @@ export class UserAddWishlistComponent implements OnInit {
   public data: any[] = [];
   public value!: number;
   public msg: Message[] | any;
+  public myForm: FormGroup | any;
+  public loader: boolean = true;
+  public skip: number = 0;
+  public limit: number = 10;
+  public selectedValue: string | undefined;
+  public options: string[] | any = options;
+  public Filter: string | undefined;
   public showButton: boolean = false;
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -25,31 +39,63 @@ export class UserAddWishlistComponent implements OnInit {
   }
 
   private search() {
-    this.shopDetails().subscribe((ele) => {
-      const updatedShops = ele.data.map((shop: any) => {
-        const updatedProducts = shop.products.map((product: any) => ({
-          ...product,
-          shopName: shop.shopName,
-        }));
-
-        return {
-          products: updatedProducts,
-        };
-      });
-
-      let array = [];
-      for (let index = 0; index < 1; index++) {
-        const product = updatedShops;
-
-        for (let index = 0; index < product.length; index++) {
-          const element = product[index].products;
-          array.push(element);
-        }
-      }
-
-      const data = array.reduce((acc, arr) => [...acc, ...arr], []);
+    this.shopDetails({ skip: 0, limit: 10 }).subscribe((ele) => {
+      const data = ele.data;
       this.data = data;
     });
+  }
+
+  public add() {
+    this.skip += 10;
+    this.shopDetails({
+      skip: this.skip,
+      limit: this.limit,
+      filter: this.Filter,
+    }).subscribe((ele) => {
+      this.loader = true;
+      this.data = ele.data;
+      this.messageHandler('success', `products found ${this.data.length}`);
+      this.clearMessagesAfterDelay();
+    });
+  }
+
+  public decries() {
+    this.skip == 0 ? 0 : (this.skip -= 10);
+    this.shopDetails({
+      skip: this.skip,
+      limit: this.limit,
+      filter: this.Filter,
+    }).subscribe((ele) => {
+      this.loader = true;
+      this.data = ele.data;
+      this.messageHandler('success', `products found ${this.data.length}`);
+      this.clearMessagesAfterDelay();
+    });
+  }
+
+  public selectItem(event: Event) {
+    this.loader = false;
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.Filter = selectedValue;
+
+    this.shopDetails({
+      skip: this.skip,
+      limit: this.limit,
+      filter: selectedValue,
+    }).subscribe((ele) => {
+      this.loader = true;
+      this.data = ele.data;
+      this.messageHandler('success', `products found ${this.data.length}`);
+      this.clearMessagesAfterDelay();
+    });
+  }
+
+  public clearSelection() {
+    this.myForm.get('productType')?.setValue('');
+    this.selectedValue = '';
+    this.Filter = '';
+    this.skip = 0;
+    this.search();
   }
 
   private view(): void {
@@ -95,13 +141,19 @@ export class UserAddWishlistComponent implements OnInit {
     });
   }
 
-  private shopDetails(): Observable<any> {
+  private shopDetails(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/customer/get`, {
-        headers,
-      })
+      .post<any>(
+        `https://smart-shop-api-eta.vercel.app/product/customer/get`,
+        body,
+        {
+          headers,
+        }
+      )
       .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
         catchError((error) => {
           return throwError(error);
         })

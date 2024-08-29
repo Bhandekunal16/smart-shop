@@ -6,6 +6,37 @@
       [enableService]="false"
     ></p-messages>
   </div>
+
+  <form class="add-product-container-form" [formGroup]="myForm">
+    <h2>{{ data.length }}</h2>
+
+    <select formControlName="productType" (change)="selectItem($event)">
+      <option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </option>
+    </select>
+    <button
+      pButton
+      pRipple
+      class="p-button-secondary"
+      icon="pi pi-trash"
+      (click)="clearSelection()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      class="p-button-secondary"
+      icon="pi pi-caret-left"
+      (click)="decries()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      class="p-button-secondary"
+      icon="pi pi-caret-right"
+      (click)="add()"
+    ></button>
+  </form>
   <div class="view-product-card">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
