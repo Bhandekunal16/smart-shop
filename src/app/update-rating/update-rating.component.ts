@@ -57,8 +57,8 @@ export class UpdateRatingComponent implements OnInit {
   }
 
   public submitForm() {
+    this.messageHandler('info', 'submitting your response');
     this.Details().subscribe((ele) => {
-      // const res = this.decrypt.decrypt(ele.response);
       let rate;
       if (typeof this.myForm.value.rating == 'string') {
         rate = this.myForm.value.rating;
