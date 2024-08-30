@@ -11,7 +11,11 @@
   >
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let head of header" style="width: 20%">
+        <th
+          *ngFor="let head of header"
+          style="width: 20%"
+          pSortableColumn="{{ head }}"
+        >
           {{ head }}
         </th>
       </tr>
