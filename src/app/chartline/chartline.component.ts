@@ -4,7 +4,6 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { header } from '../string';
 import { HttpClient } from '@angular/common/http';
 import { Message } from 'primeng/api';
-import { subscribe } from 'node:diagnostics_channel';
 
 @Component({
   selector: 'app-chartline',
@@ -71,7 +70,6 @@ export class ChartlineComponent {
 
   private getShopId(id: any): Observable<any> {
     const headers = header();
-
     return this.http
       .get<any>(
         `https://smart-shop-api-eta.vercel.app/shop/get/shop/id/${id.id}`,
