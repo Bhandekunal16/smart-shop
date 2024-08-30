@@ -1,30 +1,16 @@
-.view-product-container {
+.update-rating-container {
   color: #f0f0f0;
   border-radius: 8px;
   height: fit-content;
   width: 100%;
 }
 
-.view-product-card {
+.update-rating-container-card {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.view-product-card-container {
-  width: 100%;
-}
-
-p-card {
-  width: 95vw;
-  margin: 1%;
-  background-color: #f0f0f0;
-}
-
-ng-container {
-  width: 300px;
-  margin: 1%;
+  margin-top: 1%;
 }
 
 img {
@@ -37,20 +23,11 @@ img {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 30vw;
-}
-
-.card-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
+  width: 10vw;
 }
 
 @media (max-width: 600px) {
-  p-card {
+  .update-rating-container-card {
     width: 95vw;
     display: flex;
     flex-direction: column;

@@ -1,12 +1,13 @@
-<div class="view-product-container">
-  <div class="message-card">
-    <p-messages
-      [value]="msg"
-      [closable]="true"
-      [enableService]="false"
-    ></p-messages>
-  </div>
-  <div class="view-product-card">
+<div class="message-card">
+  <p-messages
+    [value]="msg"
+    [closable]="true"
+    [enableService]="false"
+  ></p-messages>
+</div>
+
+<div class="update-rating-container">
+  <div class="update-rating-container-card">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
         *ngFor="let item of data"
@@ -14,11 +15,7 @@
         subheader="{{ item.ProductDescription }}"
       >
         <ng-template pTemplate="header">
-          <img
-            alt="Card"
-            [src]="now(item.ProductImageBase)"
-            class="card-image"
-          />
+          <img alt="Card" [src]="now(item.ProductImageBase)" loading="lazy" />
         </ng-template>
         <p>
           Uploaded On: {{ item.createdOn.low * 1000 | date : "medium" }}
@@ -31,15 +28,7 @@
         </p>
 
         <form [formGroup]="myForm" class="update-rating-submit">
-          <p-rating formControlName="rating" />
-          <button
-            type="button"
-            pButton
-            pRipple
-            label="Submit"
-            class="p-button-success"
-            (click)="submitForm()"
-          ></button>
+          <p-rating formControlName="rating" (click)="submitForm()" />
         </form>
       </p-card>
     </ng-container>
