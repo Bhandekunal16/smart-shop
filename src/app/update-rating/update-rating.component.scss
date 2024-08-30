@@ -3,27 +3,21 @@
   border-radius: 8px;
   height: fit-content;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .update-rating-container-card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  width: 40vw;
+  height: 40vh;
   margin-top: 1%;
 }
 
-img {
+.update-rating-container-card img {
   width: 40vw;
   height: 40vh;
   object-fit: cover;
-}
-
-.update-rating-submit {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 10vw;
 }
 
 @media (max-width: 600px) {

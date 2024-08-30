@@ -27,7 +27,7 @@
           Status: {{ getStatusText(item.IsPurchased) }} <br />
         </p>
 
-        <form [formGroup]="myForm" class="update-rating-submit">
+        <form [formGroup]="myForm">
           <p-rating formControlName="rating" (click)="submitForm()" />
         </form>
       </p-card>
