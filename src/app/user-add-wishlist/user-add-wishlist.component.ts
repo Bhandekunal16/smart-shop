@@ -136,7 +136,7 @@ export class UserAddWishlistComponent implements OnInit {
       productId: id,
     }).subscribe((ele) => {
       if (ele.status) {
-        this.search();
+        this.view();
       }
     });
   }
