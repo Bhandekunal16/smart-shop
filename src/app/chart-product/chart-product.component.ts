@@ -63,7 +63,7 @@ export class ChartProductComponent implements OnInit {
             labels: this.Name,
             datasets: [
               {
-                label: 'Sales',
+                label: 'Products',
                 data: this.Value,
                 backgroundColor: [
                   'rgba(255, 159, 64, 0.2)',
