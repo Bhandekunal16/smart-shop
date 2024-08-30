@@ -3,13 +3,36 @@
   justify-content: space-evenly;
   height: 100%;
   width: 100%;
+  gap: 20px;
+  padding: 10px;
+  margin: 0 auto;
+  transition: flex-direction 0.3s ease-in-out;
+  font-size: 1rem;
+}
+
+app-chartline,
+app-chart-product {
+  flex: 1;
+  max-width: 45%;
+}
+
+app-chartline:focus,
+app-chart-product:focus {
+  outline: 2px solid #007bff;
 }
 
 @media (max-width: 600px) {
-    .charthead-main {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 100%;
-      }
+  .charthead-main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  app-chartline,
+  app-chart-product {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
 }
