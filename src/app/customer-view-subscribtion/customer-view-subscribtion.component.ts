@@ -6,7 +6,6 @@ import { Message } from 'primeng/api';
 import { header } from '../string';
 import { Router } from '@angular/router';
 import { TablesComponent } from '../tables/tables.component';
-import { error } from 'console';
 
 @Component({
   selector: 'app-customer-view-subscribtion',
