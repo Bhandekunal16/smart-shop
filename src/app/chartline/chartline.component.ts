@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { header } from '../string';
 import { HttpClient } from '@angular/common/http';
 import { Message } from 'primeng/api';
+import { subscribe } from 'node:diagnostics_channel';
 
 @Component({
   selector: 'app-chartline',
@@ -23,55 +24,78 @@ export class ChartlineComponent {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
-    this.shopDetails().subscribe((ele) => {
+    this.getShopId({ id: localStorage.getItem('id') }).subscribe((ele) => {
+      this.shopDetails({
+        id: ele.data,
+      }).subscribe((ele) => {
+        const data1 = [];
+        const data2 = [];
+        for (let index = 0; index < ele.data.length; index++) {
+          data1.push(ele.data[index].Type);
+          data2.push(ele.data[index].sold);
+        }
+        this.flag = true;
 
-      const data1 = [];
-      const data2 = [];
-      for (let index = 0; index < ele.data.length; index++) {
-        data1.push(ele.data[index].Type);
-        data2.push(ele.data[index].sold);
-      }
-      this.flag = true;
+        this.data = {
+          labels: data1,
+          datasets: [
+            {
+              data: data2,
+              backgroundColor: [
+                documentStyle.getPropertyValue('--blue-500'),
+                documentStyle.getPropertyValue('--yellow-500'),
+                documentStyle.getPropertyValue('--green-500'),
+              ],
+              hoverBackgroundColor: [
+                documentStyle.getPropertyValue('--blue-400'),
+                documentStyle.getPropertyValue('--yellow-400'),
+                documentStyle.getPropertyValue('--green-400'),
+              ],
+            },
+          ],
+        };
 
-      this.data = {
-        labels: data1,
-        datasets: [
-          {
-            data: data2,
-            backgroundColor: [
-              documentStyle.getPropertyValue('--blue-500'),
-              documentStyle.getPropertyValue('--yellow-500'),
-              documentStyle.getPropertyValue('--green-500'),
-            ],
-            hoverBackgroundColor: [
-              documentStyle.getPropertyValue('--blue-400'),
-              documentStyle.getPropertyValue('--yellow-400'),
-              documentStyle.getPropertyValue('--green-400'),
-            ],
-          },
-        ],
-      };
-
-      this.options = {
-        cutout: '60%',
-        plugins: {
-          legend: {
-            labels: {
-              color: textColor,
+        this.options = {
+          cutout: '60%',
+          plugins: {
+            legend: {
+              labels: {
+                color: textColor,
+              },
             },
           },
-        },
-      };
+        };
+      });
     });
   }
 
-  public shopDetails(): Observable<any> {
-    const id = 'b8f993a9-abe9-449e-9662-225d8d6d0259';
+  private getShopId(id: any): Observable<any> {
+    const headers = header();
+
+    return this.http
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/shop/get/shop/id/${id.id}`,
+
+        {
+          headers,
+        }
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  public shopDetails(id: any): Observable<any> {
     const headers = header();
     return this.http
-      .get<any>(`http://localhost:3003/product/get/sell/${id}`, {
-        headers,
-      })
+      .get<any>(
+        `https://smart-shop-api-eta.vercel.app/product/get/sell/${id.id}`,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
