@@ -1,3 +1,10 @@
+<div class="message-card">
+  <p-messages
+    [value]="msg"
+    [closable]="true"
+    [enableService]="false"
+  ></p-messages>
+</div>
 <div class="charthead-main">
   @if (loader) {
   <div class="loader-container">
@@ -9,6 +16,6 @@
     [data1]="type"
     [data2]="sold"
   ></app-chartline>
-  <app-chart-product></app-chart-product>
+  <app-chart-product [data1]="Name" [data2]="Value"></app-chart-product>
   }
 </div>
