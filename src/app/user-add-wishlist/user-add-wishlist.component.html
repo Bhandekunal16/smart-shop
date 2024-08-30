@@ -39,12 +39,10 @@
 <div class="user-add-wishlist-container">
   <div class="user-add-wishlist-container-card">
     <ng-container *ngIf="data.length > 0">
-      <p-card *ngFor="let item of data" header="{{ item.ProductName }}">
+      <p-card *ngFor="let item of data" header="{{ item.ProductName }}" subheader="{{item.brandName}}">
         <ng-template pTemplate="header">
           <img alt="Card" [src]="now(item.ProductImageBase)" loading="lazy" />
         </ng-template>
-
-        <p>{{ item.ProductDescription }}</p>
 
         <div class="user-add-wishlist-container-button-grid">
           <button
