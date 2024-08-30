@@ -18,7 +18,7 @@ export class PurchaseListComponent implements OnInit {
   public products: any[] = [];
   public msg: Message[] | any;
   public totalCost: number | undefined;
-  public header : any
+  public header!: any[];
 
   constructor(private http: HttpClient, private route: Router) {}
 
@@ -37,15 +37,15 @@ export class PurchaseListComponent implements OnInit {
       );
       this.products = ele.data.map((data: any) => {
         return {
-          ProductDescription: data.ProductDescription,
           ProductName: data.ProductName,
           brandName: data.brandName,
           productCost: data.productCost,
           productType: data.productType,
-          IsPurchased: data.IsPurchased,
+          IsPurchased: data.IsPurchased ? 'Sold' : 'Unsold',
+          ProductDescription: data.ProductDescription,
         };
       });
-    
+
       this.header = Object.keys(this.products[0]);
       this.products.length == 0
         ? this.messageHandler('warn', 'you do not purchase anything till now')
