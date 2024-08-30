@@ -1,66 +1,52 @@
-<div class="view-product-container">
-  <div class="message-card">
-    <p-messages
-      [value]="msg"
-      [closable]="true"
-      [enableService]="false"
-    ></p-messages>
-  </div>
+<div class="message-card">
+  <p-messages
+    [value]="msg"
+    [closable]="true"
+    [enableService]="false"
+  ></p-messages>
+</div>
 
-  <form class="add-product-container-form" [formGroup]="myForm">
-    <h2>{{ data.length }}</h2>
+<form class="user-add-wishlist-container-form" [formGroup]="myForm">
+  <h2>{{ data.length }}</h2>
+  <select formControlName="productType" (change)="selectItem($event)">
+    <option *ngFor="let option of options" [value]="option">
+      {{ option }}
+    </option>
+  </select>
+  <button
+    pButton
+    pRipple
+    class="p-button-secondary"
+    icon="pi pi-trash"
+    (click)="clearSelection()"
+  ></button>
+  <button
+    pButton
+    pRipple
+    class="p-button-secondary"
+    icon="pi pi-chevron-left"
+    (click)="decries()"
+  ></button>
+  <button
+    pButton
+    pRipple
+    class="p-button-secondary"
+    icon="pi pi-chevron-right"
+    (click)="add()"
+  ></button>
+</form>
 
-    <select formControlName="productType" (change)="selectItem($event)">
-      <option *ngFor="let option of options" [value]="option">
-        {{ option }}
-      </option>
-    </select>
-    <button
-      pButton
-      pRipple
-      class="p-button-secondary"
-      icon="pi pi-trash"
-      (click)="clearSelection()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      class="p-button-secondary"
-      icon="pi pi-chevron-left"
-      (click)="decries()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      class="p-button-secondary"
-      icon="pi pi-chevron-right"
-      (click)="add()"
-    ></button>
-  </form>
-  <div class="view-product-card">
-    <ng-container *ngIf="data.length > 0; else loading">
-      <p-card
-        *ngFor="let item of data"
-        header="{{ item.ProductName }}"
-        subheader="{{ item.ProductDescription }}"
-      >
+<div class="user-add-wishlist-container">
+  <div class="user-add-wishlist-container-card">
+    <ng-container *ngIf="data.length > 0">
+      <p-card *ngFor="let item of data" header="{{ item.ProductName }}">
         <ng-template pTemplate="header">
-          <img
-            alt="Card"
-            [src]="now(item.ProductImageBase)"
-            class="card-image"
-          />
+          <img alt="Card" [src]="now(item.ProductImageBase)" loading="lazy" />
         </ng-template>
-        <p>
-          Uploaded On: {{ item.createdOn.low * 1000 | date : "medium" }}
-          <br />
-          Product Type: {{ item.productType }}
-          <br />
-          Price: {{ item.productCost }} ₹
-          <br />
-          Status: {{ getStatusText(item.IsPurchased) }}
-        </p>
-        <div class="card flex justify-content-space-evenly">
+
+        <p>{{ item.ProductDescription }}</p>
+
+        <ng-template pTemplate="footer">
           <button
             pButton
             pRipple
@@ -80,12 +66,12 @@
             class="p-button-danger"
             (click)="remove(item.id)"
           ></button>
-        </div>
+        </ng-template>
       </p-card>
     </ng-container>
-    <ng-template #loading>Loading...</ng-template>
   </div>
 </div>
+
 <div class="loader-container" *ngIf="data.length == 0">
   <div class="loader"></div>
 </div>
