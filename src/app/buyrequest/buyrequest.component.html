@@ -10,13 +10,13 @@
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
-          <th>Product Name</th>
-          <th>Product Description</th>
-          <th>Cost</th>
-          <th>status</th>
-          <th>customer name</th>
-          <th>customer contact</th>
-          <th>customer email</th>
+          <th pSortableColumn="ProductName">Product Name</th>
+          <th pSortableColumn="ProductDescription">Product Description</th>
+          <th pSortableColumn="productCost">Cost</th>
+          <th pSortableColumn="IsPurchased">status</th>
+          <th pSortableColumn="custName">customer name</th>
+          <th pSortableColumn="custMob">customer contact</th>
+          <th pSortableColumn="custEmail">customer email</th>
           <th>payment Option</th>
           <th>Action</th>
         </tr>
