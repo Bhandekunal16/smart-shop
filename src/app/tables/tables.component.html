@@ -1,0 +1,27 @@
+<div class="card">
+  <p-table
+    [columns]="header"
+    [value]="data"
+    [scrollable]="true"
+    scrollHeight="400px"
+    [rows]="100"
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="46"
+    [lazy]="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let head of header" style="width: 20%">
+          {{ head }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr style="height: 46px">
+        <td *ngFor="let col of header">
+          {{ rowData[col] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

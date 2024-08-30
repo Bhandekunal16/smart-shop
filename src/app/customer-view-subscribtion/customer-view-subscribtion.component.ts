@@ -5,23 +5,34 @@ import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 import { header } from '../string';
 import { Router } from '@angular/router';
+import { TablesComponent } from '../tables/tables.component';
+import { error } from 'console';
 
 @Component({
   selector: 'app-customer-view-subscribtion',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, TablesComponent],
   templateUrl: './customer-view-subscribtion.component.html',
   styleUrl: './customer-view-subscribtion.component.scss',
 })
 export class CustomerViewSubscriptionComponent implements OnInit {
-  public products: any[] =[];
+  public products!: any[];
   public msg: Message[] | any;
+  public flag: boolean = false;
   constructor(private http: HttpClient, private route: Router) {}
 
   ngOnInit(): void {
     this.messageHandler('info', `searching for subscription`);
     this.shopDetails().subscribe((ele) => {
-      this.products = ele.data;
+      this.products = ele.data.map((data: any) => {
+        return {
+          address: data.address,
+          officialEmail: data.officialEmail,
+          shopName: data.shopName,
+        };
+      });
+      this.flag = true;
+
       this.messageHandler('success', `shop found ${this.products.length}`);
       this.clearMessagesAfterDelay();
     });
@@ -39,6 +50,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
       )
       .pipe(
         catchError((error) => {
+          console.log(error);
           return throwError(error);
         })
       );
