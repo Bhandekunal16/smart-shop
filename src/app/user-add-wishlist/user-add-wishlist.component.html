@@ -16,7 +16,7 @@
   <button
     pButton
     pRipple
-    class="p-button-secondary"
+    class="p-button-danger"
     icon="pi pi-trash"
     (click)="clearSelection()"
   ></button>
@@ -46,13 +46,12 @@
 
         <p>{{ item.ProductDescription }}</p>
 
-        <ng-template pTemplate="footer">
+        <div class="user-add-wishlist-container-button-grid">
           <button
             pButton
             pRipple
             label="Wishlist"
             icon="pi pi-heart"
-            *ngIf="!showButton"
             class="p-button-secondary"
             (click)="setCurrentObjectId(item.id)"
           ></button>
@@ -60,13 +59,11 @@
           <button
             pButton
             pRipple
-            *ngIf="showButton"
-            label="Delete"
             icon="pi pi-trash"
             class="p-button-danger"
             (click)="remove(item.id)"
           ></button>
-        </ng-template>
+        </div>
       </p-card>
     </ng-container>
   </div>

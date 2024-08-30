@@ -50,6 +50,12 @@
   object-fit: cover;
 }
 
+.user-add-wishlist-container-button-grid {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
 @media (max-width: 600px) {
   .user-add-wishlist-container-card {
     width: 100%;
