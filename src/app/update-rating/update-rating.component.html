@@ -8,7 +8,7 @@
 
 <div class="update-rating-container">
   <div class="update-rating-container-card">
-    <ng-container *ngIf="data.length > 0; else loading">
+    <ng-container *ngIf="data.length > 0;">
       <p-card
         *ngFor="let item of data"
         header="{{ item.ProductName }}"
@@ -32,7 +32,6 @@
         </form>
       </p-card>
     </ng-container>
-    <ng-template #loading>Loading...</ng-template>
   </div>
 </div>
 <div class="loader-container" *ngIf="data.length == 0">
