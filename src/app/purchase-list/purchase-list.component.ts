@@ -5,11 +5,12 @@ import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { header } from '../string';
+import { TablesComponent } from '../tables/tables.component';
 
 @Component({
   selector: 'app-purchase-list',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, TablesComponent],
   templateUrl: './purchase-list.component.html',
   styleUrl: './purchase-list.component.scss',
 })
@@ -17,6 +18,7 @@ export class PurchaseListComponent implements OnInit {
   public products: any[] = [];
   public msg: Message[] | any;
   public totalCost: number | undefined;
+  public header : any
 
   constructor(private http: HttpClient, private route: Router) {}
 
@@ -27,11 +29,24 @@ export class PurchaseListComponent implements OnInit {
 
   private list() {
     this.purchasedList({ id: localStorage.getItem('id') }).subscribe((ele) => {
-      this.products = ele.data;
+      console.log(this.products);
       this.totalCost = ele.data.reduce(
-        (accumulator: any, currentValue: any) => accumulator + currentValue,
+        (accumulator: any, currentValue: any) =>
+          accumulator + currentValue.productCost,
         0
       );
+      this.products = ele.data.map((data: any) => {
+        return {
+          ProductDescription: data.ProductDescription,
+          ProductName: data.ProductName,
+          brandName: data.brandName,
+          productCost: data.productCost,
+          productType: data.productType,
+          IsPurchased: data.IsPurchased,
+        };
+      });
+    
+      this.header = Object.keys(this.products[0]);
       this.products.length == 0
         ? this.messageHandler('warn', 'you do not purchase anything till now')
         : this.messageHandler(

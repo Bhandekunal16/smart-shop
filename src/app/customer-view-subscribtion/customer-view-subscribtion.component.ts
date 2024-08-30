@@ -18,6 +18,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
   public products!: any[];
   public msg: Message[] | any;
   public flag: boolean = false;
+  public header!: any[];
   constructor(private http: HttpClient, private route: Router) {}
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
           shopName: data.shopName,
         };
       });
+      this.header = Object.keys(this.products[0]);
       this.flag = true;
 
       this.messageHandler('success', `shop found ${this.products.length}`);

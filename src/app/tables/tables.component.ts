@@ -9,13 +9,6 @@ import { SharedModule } from '../shared/shared.module';
   styleUrl: './tables.component.scss',
 })
 export class TablesComponent {
-  @Input() data!: any[];
-  public header: any[] = [];
-
-  ngOnInit() {
-    console.log(this.data);
-
-    this.header = Object.keys(this.data[0]);
-    console.log(this.header)
-  }
+  @Input() data: any[]=[];
+  @Input() header: any[] = [];
 }
