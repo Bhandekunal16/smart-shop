@@ -1,9 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Input, input, OnInit } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import { Message } from 'primeng/api';
-import { header } from '../string';
 
 @Component({
   selector: 'app-chart-product',
@@ -16,12 +12,9 @@ export class ChartProductComponent implements OnInit {
   public basicData: any;
   public basicOptions: any;
   public array: any[] = [];
-  public msg: Message[] | any;
 
   @Input() data1: any[] | undefined;
   @Input() data2: any[] | undefined;
-
-  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -84,29 +77,5 @@ export class ChartProductComponent implements OnInit {
         },
       },
     };
-  }
-
-  public shopDetails(): Observable<any> {
-    const id = localStorage.getItem('id');
-    const headers = header();
-    return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/count/${id}`, {
-        headers,
-      })
-      .pipe(
-        catchError((error) => {
-          return throwError(error);
-        })
-      );
-  }
-
-  private clearMessagesAfterDelay() {
-    setTimeout(() => {
-      this.msg = [];
-    }, 1000);
-  }
-
-  private messageHandler(severity: string, detail: string, summary?: string) {
-    this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 }
