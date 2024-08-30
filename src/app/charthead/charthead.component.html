@@ -1,4 +1,14 @@
 <div class="charthead-main">
-  <app-chartline></app-chartline>
+  @if (loader) {
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+  } @else {
+  <app-chartline
+    [header]="header"
+    [data1]="type"
+    [data2]="sold"
+  ></app-chartline>
   <app-chart-product></app-chart-product>
+  }
 </div>

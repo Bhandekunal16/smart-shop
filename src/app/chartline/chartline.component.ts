@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { Observable, catchError, throwError } from 'rxjs';
 import { header } from '../string';
@@ -19,85 +19,81 @@ export class ChartlineComponent {
   public msg: Message[] | any;
   public flag: boolean = false;
 
+  @Input() header: undefined | string;
+  @Input() data1: any[] | undefined;
+  @Input() data2: any[] | undefined;
+
   ngOnInit() {
+    this.simulate();
+    this.flag = true;
+  }
+
+  private simulate() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
 
-    this.getShopId({ id: localStorage.getItem('id') }).subscribe((ele) => {
-      this.shopDetails({
-        id: ele.data,
-      }).subscribe((ele) => {
-        const data1 = [];
-        const data2 = [];
-        for (let index = 0; index < ele.data.length; index++) {
-          data1.push(ele.data[index].Type);
-          data2.push(ele.data[index].sold);
-        }
-        this.flag = true;
+    console.log(this.data1, this.data2)
 
-        this.data = {
-          labels: data1,
-          datasets: [
-            {
-              data: data2,
-              backgroundColor: [
-                documentStyle.getPropertyValue('--blue-500'),
-                documentStyle.getPropertyValue('--yellow-500'),
-                documentStyle.getPropertyValue('--green-500'),
-              ],
-              hoverBackgroundColor: [
-                documentStyle.getPropertyValue('--blue-400'),
-                documentStyle.getPropertyValue('--yellow-400'),
-                documentStyle.getPropertyValue('--green-400'),
-              ],
-            },
+    this.data = {
+      labels: this.data1,
+      datasets: [
+        {
+          data: this.data2,
+          backgroundColor: [
+            documentStyle.getPropertyValue('--blue-500'),
+            documentStyle.getPropertyValue('--yellow-500'),
+            documentStyle.getPropertyValue('--green-500'),
           ],
-        };
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue('--blue-400'),
+            documentStyle.getPropertyValue('--yellow-400'),
+            documentStyle.getPropertyValue('--green-400'),
+          ],
+        },
+      ],
+    };
 
-        this.options = {
-          cutout: '60%',
-          plugins: {
-            legend: {
-              labels: {
-                color: textColor,
-              },
-            },
+    this.options = {
+      cutout: '60%',
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
           },
-        };
-      });
-    });
-  }
+        },
+      },
+    };
 
-  private getShopId(id: any): Observable<any> {
-    const headers = header();
-    return this.http
-      .get<any>(
-        `https://smart-shop-api-eta.vercel.app/shop/get/shop/id/${id.id}`,
+    // setTimeout(() => {
+    //   this.data = {
+    //     labels: this.data1,
+    //     datasets: [
+    //       {
+    //         data: this.data2,
+    //         backgroundColor: [
+    //           documentStyle.getPropertyValue('--blue-500'),
+    //           documentStyle.getPropertyValue('--yellow-500'),
+    //           documentStyle.getPropertyValue('--green-500'),
+    //         ],
+    //         hoverBackgroundColor: [
+    //           documentStyle.getPropertyValue('--blue-400'),
+    //           documentStyle.getPropertyValue('--yellow-400'),
+    //           documentStyle.getPropertyValue('--green-400'),
+    //         ],
+    //       },
+    //     ],
+    //   };
 
-        {
-          headers,
-        }
-      )
-      .pipe(
-        catchError((error) => {
-          return throwError(error);
-        })
-      );
-  }
-
-  public shopDetails(id: any): Observable<any> {
-    const headers = header();
-    return this.http
-      .get<any>(
-        `https://smart-shop-api-eta.vercel.app/product/get/sell/${id.id}`,
-        {
-          headers,
-        }
-      )
-      .pipe(
-        catchError((error) => {
-          return throwError(error);
-        })
-      );
+    //   this.options = {
+    //     cutout: '60%',
+    //     plugins: {
+    //       legend: {
+    //         labels: {
+    //           color: textColor,
+    //         },
+    //       },
+    //     },
+    //   };
+    // }, 3000);
   }
 }
