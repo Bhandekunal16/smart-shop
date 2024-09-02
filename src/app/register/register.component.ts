@@ -20,6 +20,7 @@ export class RegisterComponent {
   public msg: Message[] | any;
   public selectedImage: File | any = null;
   public options: string[] | any = ['CUSTOMER', 'MERCHANT'];
+  public visible: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
@@ -166,7 +167,9 @@ export class RegisterComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
- 
+  public showDialog() {
+    this.visible = true;
+  }
 
   private clearMessagesAfterDelay() {
     setTimeout(() => {
