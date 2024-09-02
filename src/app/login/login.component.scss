@@ -24,12 +24,12 @@
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
- 
 }
 
 .login-container-form-top p-image {
   margin-bottom: 10px;
   aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 .login-container-form-top h1 {
