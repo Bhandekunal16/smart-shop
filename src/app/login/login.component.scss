@@ -12,7 +12,7 @@
   transform: translate(-50%, -50%);
   background-color: #f0f0f0;
   width: 30vw;
-  height: 72vh;
+  height: 75vh;
   border: solid #ffffff 0.2px;
   border-radius: 8px;
   display: flex;
@@ -29,6 +29,7 @@
 
 .login-container-form-top p-image {
   margin-bottom: 10px;
+  aspect-ratio: 4 / 3;
 }
 
 .login-container-form-top h1 {
