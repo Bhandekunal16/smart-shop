@@ -8,10 +8,28 @@
   </div>
 
   <div>
-    <p>
-      * If you don't have a account for this number / email - you can create
-      one.
-    </p>
+    <p-button
+      (onClick)="showDialog()"
+      icon="pi pi-info-circle"
+      severity="contrast"
+    />
+
+    <p-dialog
+      header="Help"
+      [modal]="true"
+      [(visible)]="visible"
+      [style]="{ width: '50rem' }"
+      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+      [maximizable]="true"
+    >
+      <p>
+        If you don’t have an account associated with this number or email, you
+        can easily create one by clicking the 'Sign Up' or 'Register' button.
+        You'll need to provide some basic information to set up your new
+        account and if you have account but forget password then use forget
+        password option to change your password
+      </p>
+    </p-dialog>
   </div>
 
   <form class="login-container-form" [formGroup]="myForm">

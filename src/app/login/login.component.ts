@@ -18,6 +18,7 @@ export class LoginComponent {
   public myForm: FormGroup;
   public msg: Message[] | any;
   public flag: boolean = true;
+  public visible: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
@@ -76,12 +77,14 @@ export class LoginComponent {
     this.msg = [{ severity: severity, detail: detail, summary: summary }];
   }
 
- 
-
   private clearMessagesAfterDelay() {
     setTimeout(() => {
       this.msg = [];
     }, 1000);
+  }
+
+  public showDialog() {
+    this.visible = true;
   }
 
   public register(): void {
