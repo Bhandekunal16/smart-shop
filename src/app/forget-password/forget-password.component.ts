@@ -53,7 +53,7 @@ export class ForgetPasswordComponent {
     const email: string | any = localStorage.getItem('email');
     this.flag = false;
     this.messageHandler('info', 'checking otp!');
-    this.verifyOtp2({ otp, email }).subscribe((data) => {
+    this.verifyOtp({ otp, email }).subscribe((data) => {
       this.flag = true;
       if (data.status) {
         this.messageHandler('success', 'otp-verified');
@@ -63,7 +63,7 @@ export class ForgetPasswordComponent {
     });
   }
 
-  private verifyOtp2(body: any): Observable<any> {
+  private verifyOtp(body: any): Observable<any> {
     const headers = header();
     return this.http
       .post<any>(
