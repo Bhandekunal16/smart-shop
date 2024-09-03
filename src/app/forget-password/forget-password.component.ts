@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -19,7 +19,9 @@ export class ForgetPasswordComponent {
   public msg: Message[] | any;
   public flag: boolean = true;
   public visible: boolean = false;
+  public visibleAgain: boolean = false;
   public myForm2: FormGroup;
+  public myForm3: FormGroup;
 
   constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
@@ -28,6 +30,15 @@ export class ForgetPasswordComponent {
 
     this.myForm2 = new FormGroup({
       otp: new FormControl(''),
+    });
+
+    this.myForm3 = new FormGroup({
+      Password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+        ),
+      ]),
     });
   }
 
@@ -57,10 +68,48 @@ export class ForgetPasswordComponent {
       this.flag = true;
       if (data.status) {
         this.messageHandler('success', 'otp-verified');
-        this.conformPassword();
+        // this.conformPassword();
+        this.visibleAgain = true;
       } else this.messageHandler('warn', `${data.msg}`);
       this.clearMessagesAfterDelay();
     });
+  }
+
+  public submitForm3() {
+    const password: string = this.myForm3.value.Password;
+    const email: any = localStorage.getItem('email');
+
+    this.flag = false;
+    this.messageHandler('info', 'Conforming the password...');
+
+    this.conformPassword2({ password, email }).subscribe((data) => {
+      localStorage.setItem('id', data.data.id);
+      this.flag = true;
+
+      if (data.status) {
+        this.messageHandler('success', 'password changed successfully.');
+        this.dashboard();
+      } else {
+        this.messageHandler('warn', 'something went wrong');
+        this.clearMessagesAfterDelay();
+      }
+    });
+  }
+
+  private conformPassword2(body: any): Observable<any> {
+    const headers = header();
+
+    return this.http
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/auth/reset/password',
+        body,
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
   }
 
   private verifyOtp(body: any): Observable<any> {
@@ -107,5 +156,9 @@ export class ForgetPasswordComponent {
 
   public conformPassword(): void {
     this.router.navigate(['/conform-password']);
+  }
+
+  private dashboard(): void {
+    this.router.navigate(['']);
   }
 }
