@@ -5,6 +5,8 @@ import { Message } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { Router } from '@angular/router';
 import { header } from '../string';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Logger } from '../custom.logs';
 
 @Component({
   selector: 'app-view-shop',
@@ -15,8 +17,7 @@ import { header } from '../string';
 })
 export class ViewShopComponent implements OnInit {
   public margin: any;
-  constructor(private http: HttpClient, private router: Router) {}
-
+  public value: string | undefined;
   public shopName: string | undefined;
   public shopAddress: string | undefined;
   public mobileNumber: string | undefined;
@@ -28,6 +29,14 @@ export class ViewShopComponent implements OnInit {
   public urls: any[] = [];
   public screen: string = '250px';
   public typeFlag: boolean = false;
+  public visible: boolean = false;
+  public myForm: FormGroup;
+
+  constructor(private http: HttpClient, private router: Router) {
+    this.myForm = new FormGroup({
+      email: new FormControl(''),
+    });
+  }
 
   ngOnInit(): void {
     this.flag = false;
@@ -125,6 +134,28 @@ export class ViewShopComponent implements OnInit {
     }
   }
 
+  get() {
+    this.add({ id: localStorage.getItem('id'), url: this.value }).subscribe(
+      (ele) => {
+        new Logger().log(ele);
+      }
+    );
+    this.value = '';
+  }
+
+  public add(body: any): Observable<any> {
+    const headers = header();
+    return this.http
+      .post<any>('https://smart-shop-api-eta.vercel.app/shop/add/url', body, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
   private shopDetails(body: any): Observable<any> {
     const headers = header();
     return this.http
@@ -197,7 +228,7 @@ export class ViewShopComponent implements OnInit {
   }
 
   public manageUrls(): void {
-    this.router.navigate(['dashboard/viewShop']);
+    this.visible = true;
   }
 
   public handleChipClick(id: string) {

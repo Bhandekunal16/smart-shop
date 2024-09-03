@@ -7,6 +7,32 @@
     ></p-messages>
   </div>
 
+  <div>
+    <p-dialog
+      header="Conform password"
+      [modal]="true"
+      [(visible)]="visible"
+      [style]="{ width: '40rem' }"
+      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+      [maximizable]="true"
+    >
+      <div class="add-url-container-sub">
+        <p-floatLabel>
+          <input type="text" pInputText [(ngModel)]="value" required />
+          <label for="Url">Add Url</label>
+        </p-floatLabel>
+        <p-button
+          icon="pi pi-plus"
+          [rounded]="true"
+          [text]="true"
+          [raised]="true"
+          (click)="get()"
+          [disabled]="!value"
+        />
+      </div>
+    </p-dialog>
+  </div>
+
   @if(email == undefined){
   <div>
     <p>
