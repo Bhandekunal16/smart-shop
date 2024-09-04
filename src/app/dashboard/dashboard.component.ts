@@ -73,11 +73,6 @@ export class DashboardComponent {
             icon: 'pi pi-eye',
             command: () => this.viewShop(),
           },
-          {
-            label: 'Add',
-            icon: 'pi pi-cart-plus',
-            command: () => this.addShop(),
-          },
         ],
       },
       {
@@ -221,10 +216,6 @@ export class DashboardComponent {
 
   private viewShop(): void {
     this.router.navigate(['dashboard/viewShop']);
-  }
-
-  private addShop(): void {
-    this.router.navigate(['dashboard/addShop']);
   }
 
   private addProduct(): void {
