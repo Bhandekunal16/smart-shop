@@ -6,6 +6,20 @@
       [enableService]="false"
     ></p-messages>
   </div>
+  <div>
+    <p-dialog
+      header="Edit Shop"
+      [modal]="true"
+      [(visible)]="visible"
+      [style]="{ width: '40rem' }"
+      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+      [maximizable]="true"
+    >
+      <div class="add-url-container-sub">
+        <app-update-product></app-update-product>
+      </div>
+    </p-dialog>
+  </div>
   <div class="card-grid">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
@@ -14,7 +28,7 @@
         subheader="{{ item.ProductDescription }}"
       >
         <ng-template pTemplate="header">
-          <img alt="Card" [src]="now(item.ProductImageBase)" loading="lazy"/>
+          <img alt="Card" [src]="now(item.ProductImageBase)" loading="lazy" />
         </ng-template>
         <p>
           Uploaded On: {{ convertTimestampToDate(item.createdOn) }}

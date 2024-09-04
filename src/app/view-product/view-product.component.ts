@@ -6,11 +6,12 @@ import { SharedModule } from '../shared/shared.module';
 import { Message } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { header } from '../string';
+import { UpdateProductComponent } from '../update-product/update-product.component';
 
 @Component({
   selector: 'app-view-product',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, UpdateProductComponent],
   templateUrl: './view-product.component.html',
   styleUrl: './view-product.component.scss',
   providers: [DatePipe],
@@ -20,6 +21,7 @@ export class ViewProductComponent implements OnInit {
   public value!: number;
   public msg: Message[] | any;
   public flag: boolean = true;
+  public visible: boolean = false;
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
@@ -45,7 +47,8 @@ export class ViewProductComponent implements OnInit {
 
   public setCurrentObjectId(id: string) {
     localStorage.setItem('currentObjectId', id);
-    this.edit();
+    // this.edit();
+    this.visible = true;
   }
 
   public convertTimestampToDate(timestamp: any): string {
