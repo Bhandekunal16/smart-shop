@@ -137,7 +137,7 @@ export class ViewShopComponent implements OnInit {
   get() {
     this.add({ id: localStorage.getItem('id'), url: this.value }).subscribe(
       (ele) => {
-        this.details()
+        this.details();
         new Logger().log(ele);
       }
     );
@@ -234,9 +234,5 @@ export class ViewShopComponent implements OnInit {
 
   public handleChipClick(id: string) {
     window.open(id, '_blank');
-  }
-
-  public edit(): void {
-    this.router.navigate(['dashboard/viewShop/editShop']);
   }
 }
