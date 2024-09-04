@@ -137,8 +137,8 @@ export class ViewShopComponent implements OnInit {
   get() {
     this.add({ id: localStorage.getItem('id'), url: this.value }).subscribe(
       (ele) => {
-        new Logger().log(ele);
         this.details()
+        new Logger().log(ele);
       }
     );
     this.value = '';
