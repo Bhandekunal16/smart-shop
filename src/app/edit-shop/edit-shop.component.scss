@@ -2,22 +2,21 @@
   background-color: #f0f0f0;
   width: 40vw;
   height: fit-content;
-  border: 1px solid #ffffff; 
+  border: 1px solid #ffffff;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 1%;
   color: #000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .edit-shop-container-form-top {
   height: 10vh;
   width: 100%;
   border-radius: 8px 8px 0 0;
-  background-color: #1e5d4a; 
-  color: #f0f0f0; 
+  color: #1e5d4a;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +24,7 @@
 
 .edit-shop-container-form-top h1 {
   text-align: center;
-  margin: 0; 
+  margin: 0;
 }
 
 .edit-product-container-text {
@@ -53,9 +52,9 @@
   height: 7vh;
   width: 33vw;
   border-radius: 5px;
-  border: 1px solid #f0f0f0; 
-  padding: 0.5rem; 
-  box-sizing: border-box; 
+  border: 1px solid #f0f0f0;
+  padding: 0.5rem;
+  box-sizing: border-box;
 }
 
 .edit-shop-container-form-button {
