@@ -1,6 +1,5 @@
 # Allow all crawlers access to everything
 User-agent: *
-Disallow:
 
 # Specify sitemap (if applicable)
 Sitemap: https://cyborgcart.vercel.app/sitemap.xml
