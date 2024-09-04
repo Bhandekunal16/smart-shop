@@ -33,6 +33,21 @@
     </p-dialog>
   </div>
 
+  <div>
+    <p-dialog
+      header="Conform password"
+      [modal]="true"
+      [(visible)]="visible2"
+      [style]="{ width: '40rem' }"
+      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+      [maximizable]="true"
+    >
+      <div class="add-url-container-sub">
+        <app-edit-shop></app-edit-shop>
+      </div>
+    </p-dialog>
+  </div>
+
   @if(email == undefined){
   <div>
     <p>
@@ -95,11 +110,16 @@
           severity="secondary"
           (click)="manageUrls()"
         />
-      </div>
-    </div>
 
-    <div class="view-shop-container-child">
-      <app-edit-shop></app-edit-shop>
+        <p-button
+          icon="pi pi-link"
+          [rounded]="true"
+          [text]="true"
+          [raised]="true"
+          severity="secondary"
+          (click)="edit()"
+        />
+      </div>
     </div>
   </div>
 

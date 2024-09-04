@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { header } from '../string';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Logger } from '../custom.logs';
-import { EditShopComponent } from "../edit-shop/edit-shop.component";
+import { EditShopComponent } from '../edit-shop/edit-shop.component';
 
 @Component({
   selector: 'app-view-shop',
@@ -31,6 +31,7 @@ export class ViewShopComponent implements OnInit {
   public screen: string = '250px';
   public typeFlag: boolean = false;
   public visible: boolean = false;
+  public visible2: boolean = false;
   public myForm: FormGroup;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -135,7 +136,7 @@ export class ViewShopComponent implements OnInit {
     }
   }
 
-  get() {
+  public get() {
     this.add({ id: localStorage.getItem('id'), url: this.value }).subscribe(
       (ele) => {
         this.details();
@@ -143,6 +144,10 @@ export class ViewShopComponent implements OnInit {
       }
     );
     this.value = '';
+  }
+
+  public edit() {
+    this.visible2 = true;
   }
 
   public add(body: any): Observable<any> {
