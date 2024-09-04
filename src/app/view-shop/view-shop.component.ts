@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
 import { header } from '../string';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Logger } from '../custom.logs';
+import { EditShopComponent } from "../edit-shop/edit-shop.component";
 
 @Component({
   selector: 'app-view-shop',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, EditShopComponent],
   templateUrl: './view-shop.component.html',
   styleUrl: './view-shop.component.scss',
 })

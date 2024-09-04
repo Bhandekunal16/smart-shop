@@ -3,7 +3,6 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AddShopComponent } from './add-shop/add-shop.component';
 import { BuyRequestComponent } from './buyrequest/buyrequest.component';
-import { ChartProductComponent } from './chart-product/chart-product.component';
 import { DeleteCustomerComponent } from './delete-customer/delete-customer.component';
 import { EditShopComponent } from './edit-shop/edit-shop.component';
 import { FeedComponent } from './feed/feed.component';
@@ -31,8 +30,6 @@ export const MerchantRoutes: Routes = [
       {
         path: 'viewShop',
         component: ViewShopComponent,
-        loadChildren: () =>
-          import('./shop.routes').then((mod) => mod.shopRoutes),
       },
       { path: 'editShop', component: EditShopComponent },
       { path: 'addProduct', component: AddProductComponent },
