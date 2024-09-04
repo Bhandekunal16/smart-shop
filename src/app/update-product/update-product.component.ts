@@ -19,12 +19,12 @@ export class UpdateProductComponent {
   public obj: any;
   public selectedImage: File | any = null;
   public flag: boolean = false;
-  @Input() products: any[] = [];
-  @Output() flagChanged = new EventEmitter<boolean>();
-
   public currentIndex = 0;
   public options: string[] | any = options;
   public myForm: FormGroup | any;
+
+  @Input() products: any[] = [];
+  @Output() flagChanged = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
