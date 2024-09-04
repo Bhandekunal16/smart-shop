@@ -33,8 +33,12 @@ export const MerchantRoutes: Routes = [
       },
       { path: 'editShop', component: EditShopComponent },
       { path: 'addProduct', component: AddProductComponent },
-      { path: 'viewProduct', component: ViewProductComponent },
-      { path: 'updateProduct', component: UpdateProductComponent },
+      {
+        path: 'viewProduct',
+        component: ViewProductComponent,
+        loadChildren: () =>
+          import('./product.routes').then((mod) => mod.ProductRoutes),
+      },
       { path: '', component: ChartheadComponent },
       { path: 'userList', component: UserlistComponent },
       { path: 'feedback', component: FeedbackComponent },

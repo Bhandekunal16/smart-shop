@@ -15,8 +15,11 @@
       [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
       [maximizable]="true"
     >
-      <div class="add-url-container-sub">
-        <app-update-product></app-update-product>
+      <div *ngIf="visible" class="add-url-container-sub">
+        <app-update-product
+          [products]="product"
+          (flagChanged)="onFlagChanged($event)"
+        ></app-update-product>
       </div>
     </p-dialog>
   </div>

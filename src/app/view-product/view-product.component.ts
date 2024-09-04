@@ -22,6 +22,7 @@ export class ViewProductComponent implements OnInit {
   public msg: Message[] | any;
   public flag: boolean = true;
   public visible: boolean = false;
+  public product!: any[];
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
@@ -46,9 +47,35 @@ export class ViewProductComponent implements OnInit {
   }
 
   public setCurrentObjectId(id: string) {
-    localStorage.setItem('currentObjectId', id);
-    // this.edit();
-    this.visible = true;
+    this.Details(id).subscribe((ele) => {
+      this.product = [ele.data];
+      this.visible = true;
+    });
+  }
+
+  onFlagChanged(flag: boolean) {
+    console.log('Flag received from child:', flag);
+
+    if (flag) {
+      this.messageHandler('info', 'searching product for you!');
+      this.flag = false;
+      this.shopDetails().subscribe((ele) => {
+        this.messageHandler(
+          'success',
+          'you currently not have anything in the shop'
+        );
+
+        if (ele.status) {
+          this.data = ele.data;
+          this.flag = true;
+          this.messageHandler(
+            'success',
+            `product found for you ${ele.data.length}`
+          );
+          this.clearMessagesAfterDelay();
+        }
+      });
+    }
   }
 
   public convertTimestampToDate(timestamp: any): string {
@@ -80,6 +107,19 @@ export class ViewProductComponent implements OnInit {
     const headers = header();
     return this.http
       .get<any>(`https://smart-shop-api-eta.vercel.app/product/getall/${id}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  private Details(id: any): Observable<any> {
+    const headers = header();
+    return this.http
+      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
         headers,
       })
       .pipe(

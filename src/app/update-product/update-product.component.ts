@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -19,7 +19,9 @@ export class UpdateProductComponent {
   public obj: any;
   public selectedImage: File | any = null;
   public flag: boolean = false;
-  public products: any[] = [];
+  @Input() products: any[] = [];
+  @Output() flagChanged = new EventEmitter<boolean>();
+
   public currentIndex = 0;
   public options: string[] | any = options;
   public myForm: FormGroup | any;
@@ -42,18 +44,21 @@ export class UpdateProductComponent {
   ngOnInit(): void {
     this.search();
   }
-
   private search() {
-    this.Details().subscribe((ele) => {
-      this.products = [];
-      const array = [];
-      array.push(ele.data);
-      this.products = array;
-      this.populateForm(this.currentIndex);
-    });
+    this.populateForm(this.currentIndex);
+
+    // this.Details().subscribe((ele) => {
+    //   this.products = [];
+    //   const array = [];
+    //   array.push(ele.data);
+    //   this.products = array;
+    //   this.populateForm(this.currentIndex);
+    // });
   }
 
   private populateForm(index: number) {
+    console.log(index, this.products);
+
     const product = this.products[index];
     if (product) {
       this.myForm.patchValue({
@@ -137,7 +142,8 @@ export class UpdateProductComponent {
       ProductImageBase: this.selectedImage,
       productCost: this.myForm.value.productCost,
     }).subscribe((response) => {
-      this.search();
+      // this.search();
+      this.flagChanged.emit(true);
     });
   }
 
