@@ -10,7 +10,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PurchaseListComponent } from './purchase-list/purchase-list.component';
 import { ShareComponent } from './share/share.component';
-import { UpdateProductComponent } from './update-product/update-product.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { UserAddWishlistComponent } from './user-add-wishlist/user-add-wishlist.component';
 import { UserViewWishlistComponent } from './user-view-wishlist/user-view-wishlist.component';
@@ -36,8 +35,6 @@ export const MerchantRoutes: Routes = [
       {
         path: 'viewProduct',
         component: ViewProductComponent,
-        loadChildren: () =>
-          import('./product.routes').then((mod) => mod.ProductRoutes),
       },
       { path: '', component: ChartheadComponent },
       { path: 'userList', component: UserlistComponent },
