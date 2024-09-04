@@ -46,14 +46,6 @@ export class UpdateProductComponent {
   }
   private search() {
     this.populateForm(this.currentIndex);
-
-    // this.Details().subscribe((ele) => {
-    //   this.products = [];
-    //   const array = [];
-    //   array.push(ele.data);
-    //   this.products = array;
-    //   this.populateForm(this.currentIndex);
-    // });
   }
 
   private populateForm(index: number) {
@@ -142,7 +134,6 @@ export class UpdateProductComponent {
       ProductImageBase: this.selectedImage,
       productCost: this.myForm.value.productCost,
     }).subscribe((response) => {
-      // this.search();
       this.flagChanged.emit(true);
     });
   }
@@ -212,20 +203,6 @@ export class UpdateProductComponent {
         body,
         { headers }
       )
-      .pipe(
-        catchError((error) => {
-          return throwError(error);
-        })
-      );
-  }
-
-  private Details(): Observable<any> {
-    const id = localStorage.getItem('currentObjectId');
-    const headers = header();
-    return this.http
-      .get<any>(`https://smart-shop-api-eta.vercel.app/product/get/${id}`, {
-        headers,
-      })
       .pipe(
         catchError((error) => {
           return throwError(error);

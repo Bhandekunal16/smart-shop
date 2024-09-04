@@ -53,7 +53,7 @@ export class ViewProductComponent implements OnInit {
     });
   }
 
-  onFlagChanged(flag: boolean) {
+  public onFlagChanged(flag: boolean) {
     console.log('Flag received from child:', flag);
 
     if (flag) {
@@ -137,9 +137,5 @@ export class ViewProductComponent implements OnInit {
     setTimeout(() => {
       this.msg = [];
     }, 1000);
-  }
-
-  private edit(): void {
-    this.router.navigate(['dashboard/updateProduct']);
   }
 }
