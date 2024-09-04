@@ -79,10 +79,6 @@ export class AddCustomerComponent implements OnInit {
     });
   }
 
-  private userList(): void {
-    this.router.navigate(['/dashboard/userList']);
-  }
-
   private shopDetails(): Observable<any> {
     const headers = header();
 
@@ -131,5 +127,9 @@ export class AddCustomerComponent implements OnInit {
           return throwError(error);
         })
       );
+  }
+
+  private userList(): void {
+    this.router.navigate(['/dashboard/userList']);
   }
 }
