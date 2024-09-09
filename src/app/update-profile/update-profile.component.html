@@ -8,10 +8,10 @@
   </div>
 
   <form class="update-profile-container-form" [formGroup]="myForm">
-    <div class="register-container-form-top">
+    <div class="update-profile-container-form-top">
       <h1>Account Settings</h1>
     </div>
-    <div class="register-container-form-input">
+    <div class="update-profile-container-form-input">
       <label>First name </label>
       <div *ngIf="myForm.get('firstName')?.errors?.['pattern']" class="error">
         Enter valid first name
@@ -72,7 +72,7 @@
       <input type="file" (change)="onImageSelected($event)" accept="image/*" />
     </div>
 
-    <div class="register-container-form-button">
+    <div class="update-profile-container-form-button">
       <button
         type="button"
         pButton
