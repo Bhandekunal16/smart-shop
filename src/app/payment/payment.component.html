@@ -1,4 +1,4 @@
-<div class="view-product-container">
+<div class="payment-container">
   <div class="message-card">
     <p-messages
       [value]="msg"
@@ -6,7 +6,7 @@
       [enableService]="false"
     ></p-messages>
   </div>
-  <div class="view-product-card">
+  <div class="payment-card">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
         *ngFor="let item of data"
