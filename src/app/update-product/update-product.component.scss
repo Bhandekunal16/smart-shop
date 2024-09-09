@@ -9,7 +9,7 @@
 
 .update-product-container-form {
   background-color: #f0f0f0;
-  width: 40vw;
+  width: 40dvw;
   height: fit-content;
   border: solid #ffffff 0.2px;
   border-radius: 8px;
@@ -21,7 +21,7 @@
 
 .update-product-container-form-top {
   color: #1e5d4a;
-  height: 10vh;
+  height: 10dvh;
   width: 100%;
   border-radius: 8px 8px 0px 0px;
 }
@@ -39,8 +39,8 @@
 .update-product-container-form-input input,
 .update-product-container-form-input select {
   margin-top: 2%;
-  height: 5vh;
-  width: 33vw;
+  height: 5dvh;
+  width: 33dvw;
   border-radius: 5px;
   border: solid #f0f0f0 0.2px;
 }
@@ -57,15 +57,15 @@
   width: 100%;
 }
 
-.payment-form {
+.update-product-container-payment-form {
   padding: 1%;
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
 }
 
-.payment-form input {
-  width: 15vw !important;
+.update-product-container-payment-form input {
+  width: 15dvw !important;
   margin-bottom: 1%;
 }
 
@@ -78,7 +78,7 @@
 
   .update-product-container-form-input input,
   .update-product-container-form-input select {
-    height: 5vh;
+    height: 5dvh;
     width: 90%;
   }
 }
