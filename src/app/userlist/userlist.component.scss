@@ -1,4 +1,4 @@
-.add-customer-table-container {
+.userlist-container {
   position: relative;
   width: 65%;
   height: fit-content;
@@ -8,38 +8,38 @@
   border: solid #000 1px;
 }
 
-.add-customer-table-container-header {
+.userlist-header {
   margin: 1%;
 }
 
-.add-customer-table-container th {
+.userlist-container th {
   background-color: #1e5d4a;
   color: black;
 }
 
-.add-customer-table-container-outer {
+.userlist-outer {
   display: flex;
   justify-content: space-evenly;
   padding: 1%;
 }
 
-.add-customer-table-container-text {
+.userlist-text {
   width: 25%;
   background-color: #ffffff;
   padding: 1%;
 }
 
 @media (max-width: 600px) {
-  .add-customer-table-container {
+  .userlist-container {
     width: 100%;
   }
 
-  .add-customer-table-container-outer {
+  .userlist-outer {
     display: flex;
     flex-direction: column;
   }
 
-  .add-customer-table-container-text {
+  .userlist-text {
     margin-top: 1%;
     width: 100%;
   }
