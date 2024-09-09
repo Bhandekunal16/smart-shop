@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0%;
+  padding: 0%;
+}
+
 @import "primeng/resources/themes/viva-light/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
