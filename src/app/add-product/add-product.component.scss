@@ -10,7 +10,7 @@
 
 .add-product-container-form {
   background-color: #f0f0f0;
-  width: 40vw;
+  width: 40dvw;
   border: 0.2px solid #ffffff;
   border-radius: 8px;
   display: flex;
@@ -21,14 +21,14 @@
 }
 
 .add-product-container-text {
-  width: 40vw;
+  width: 40dvw;
   margin-top: -25%;
   font-size: 1rem;
   color: #333;
 }
 
 .add-product-container-form-top {
-  height: 10vh;
+  height: 10dvh;
   width: 100%;
   border-radius: 8px 8px 0 0;
   display: flex;
@@ -55,8 +55,8 @@
 .add-product-container-form-input input,
 .add-product-container-form-input select {
   margin-top: 2%;
-  height: 8vh;
-  width: 33vw;
+  height: 8dvh;
+  width: 33dvw;
   border-radius: 5px;
   border: 0.2px solid #f0f0f0;
   padding: 0.5rem;
@@ -79,7 +79,7 @@
   }
 
   .add-product-container-form {
-    width: 95vw;
+    width: 95dvw;
     margin-left: -1%;
     padding: 1%; 
   }
@@ -91,11 +91,11 @@
 
   .add-product-container-form-input input,
   .add-product-container-form-input select {
-    width: 90vw;
+    width: 90dvw;
   }
 
   .add-product-container-text {
-    width: 95vw;
+    width: 95dvw;
     margin-top: 0;
   }
 }
