@@ -7,7 +7,7 @@ import * as CryptoJS from 'crypto-js';
 export class DecryptService {
   private readonly secretKey = 'robotic';
 
-  encrypt(data: any) {
+  public encrypt(data: any) {
     const encryptedData = CryptoJS.AES.encrypt(
       JSON.stringify(data),
       this.secretKey
@@ -15,7 +15,7 @@ export class DecryptService {
     return { response: encryptedData };
   }
 
-  decrypt(encryptedData: string): any {
+  public decrypt(encryptedData: string): any {
     const decryptedData = CryptoJS.AES.decrypt(
       encryptedData,
       this.secretKey
