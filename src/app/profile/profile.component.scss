@@ -1,41 +1,40 @@
 .profile-container {
   height: fit-content;
-  width: 96vw;
-  margin-top: 1%;
+  width: 100dvw;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
 .profile-container p-card {
-  width: 47vw;
+  width: 47dvw;
   height: fit-content;
   margin-top: 1%;
 }
 
 .profile-container img {
-  width: 47vw;
-  height: 40vh;
+  width: 47dvw;
+  height: 40dvh;
   object-fit: cover;
   margin-top: -1%;
 }
 
 .profile-child {
-  width: 47vw;
+  width: 47dvw;
   height: fit-content;
   margin-top: 1%;
 }
 
 @media (max-width: 600px) {
   .profile-container p-card {
-    width: 97vw;
+    width: 97dvw;
     height: fit-content;
     margin-top: 1%;
   }
 
   .profile-container img {
-    width: 97vw;
-    height: 60vh;
+    width: 97dvw;
+    height: 60dvh;
     object-fit: cover;
   }
 
