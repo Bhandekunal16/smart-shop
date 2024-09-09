@@ -1,4 +1,4 @@
-<div class="view-product-container">
+<div class="customer-view-product-container">
   <div class="message-card">
     <p-messages
       [value]="msg"
@@ -7,7 +7,7 @@
     ></p-messages>
   </div>
 
-  <div class="view-product-container-search">
+  <div class="customer-view-product-container-search">
     <input
       [(ngModel)]="Filter"
       pInputText
@@ -16,7 +16,7 @@
     />
   </div>
 
-  <form class="add-product-container-form" [formGroup]="myForm">
+  <form class="customer-view-product-container-form" [formGroup]="myForm">
     <h2>{{ data.length }}</h2>
 
     <select formControlName="productType" (change)="selectItem($event)">
@@ -47,8 +47,8 @@
     ></button>
   </form>
 
-  <div class="view-product-card">
-    <div class="card-grid">
+  <div class="customer-view-product-container-card">
+    <div class="customer-view-product-container-card-grid">
       <ng-container *ngIf="data.length > 0; else loading">
         <p-card
           *ngFor="let item of data"
@@ -74,7 +74,7 @@
             Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
           </p>
           <ng-template pTemplate="footer">
-            <div class="button-grid">
+            <div class="customer-view-product-container-button-grid">
               <button
                 pButton
                 pRipple
