@@ -9,15 +9,15 @@
 }
 
 .view-shop-container-card {
-  width: 80vw;
-  max-width: 80vw;
+  width: 80dvw;
+  max-width: 80dvw;
   overflow: auto;
   background-color: #fff;
   padding: 1%;
 }
 
-.shopDetailsLogo {
-  width: 20vw;
+.view-shop-container-logo {
+  width: 20dvw;
   height: 100%;
   object-fit: cover;
   padding: 1%;
@@ -33,11 +33,11 @@
 .view-shop-container-button {
   display: flex;
   justify-content: center;
-  width: 20vw;
+  width: 20dvw;
 }
 
 .view-shop-container-chip-container {
-  max-width: 90vw;
+  max-width: 90dvw;
   overflow: auto;
 }
 
@@ -57,7 +57,7 @@
     align-items: center;
   }
 
-  .shopDetailsLogo {
+  .view-shop-container-logo {
     width: 100%;
   }
 

@@ -16,7 +16,7 @@
       [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
       [maximizable]="true"
     >
-      <div class="add-url-container-sub">
+      <div class="view-shop-container-sub">
         <p-floatLabel>
           <input type="text" pInputText [(ngModel)]="value" required />
           <label for="Url">Add Url</label>
@@ -42,7 +42,7 @@
       [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
       [maximizable]="true"
     >
-      <div class="add-url-container-sub">
+      <div class="view-shop-container-sub">
         <app-edit-shop></app-edit-shop>
       </div>
     </p-dialog>
@@ -74,7 +74,7 @@
   </div>
   } @else {
   <div class="view-shop-container">
-    <div class="shopDetailsLogo">
+    <div class="view-shop-container-logo">
       <p-image
         src="{{ logo }}"
         alt="Image"
