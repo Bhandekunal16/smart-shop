@@ -1,4 +1,4 @@
-.dashboard-container {
+.chart-pannel {
   margin-top: 1%;
   padding: 1%;
   height: fit-content;
@@ -8,7 +8,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-container-pannel {
+.chart-pannel-card {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -17,9 +17,8 @@
   padding: 1rem;
 }
 
-
-.dashboard-container-pannel-card {
-  width: 40vw;
+.chart-pannel-card-main {
+  width: 40dvw;
   color: #ffffff;
   height: fit-content;
   padding: 1%;
@@ -30,8 +29,13 @@
 }
 
 @media (max-width: 600px) {
-  .dashboard-container-pannel-card {
-    width: 95vw;
+  .chart-pannel-card-main {
+    width: 87dvw;
+    padding: 0.5rem;
+  }
+
+  .chart-pannel-card {
+    width: 87dvw;
     padding: 0.5rem;
   }
 }
