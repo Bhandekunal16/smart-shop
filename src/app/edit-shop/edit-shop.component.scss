@@ -1,6 +1,6 @@
 .edit-shop-container-form {
   background-color: #f0f0f0;
-  width: 40vw;
+  width: 40dvw;
   height: fit-content;
   border: 1px solid #ffffff;
   border-radius: 8px;
@@ -13,7 +13,7 @@
 }
 
 .edit-shop-container-form-top {
-  height: 10vh;
+  height: 10dvh;
   width: 100%;
   border-radius: 8px 8px 0 0;
   color: #1e5d4a;
@@ -28,7 +28,7 @@
 }
 
 .edit-product-container-text {
-  width: 40vw;
+  width: 40dvw;
   height: fit-content;
   margin-top: -22%;
 }
@@ -49,8 +49,8 @@
 
 .edit-shop-container-form-input input {
   margin-top: 2%;
-  height: 7vh;
-  width: 33vw;
+  height: 7dvh;
+  width: 33dvw;
   border-radius: 5px;
   border: 1px solid #f0f0f0;
   padding: 0.5rem;
@@ -67,15 +67,15 @@
 
 @media (max-width: 600px) {
   .edit-shop-container-form {
-    width: 92vw;
+    width: 92dvw;
     height: fit-content;
     margin: 0;
     padding: 1%;
   }
 
   .edit-shop-container-form-input input {
-    height: 5vh;
-    width: 80vw;
+    height: 5dvh;
+    width: 80dvw;
   }
 
   .edit-shop-container {
@@ -83,7 +83,7 @@
   }
 
   .edit-product-container-text {
-    width: 90vw;
+    width: 90dvw;
     height: fit-content;
     margin: 0;
   }
