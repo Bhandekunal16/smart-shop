@@ -1,4 +1,4 @@
-<div class="forgetPassword-container">
+<div class="feedback-container">
   <div class="message-card">
     <p-messages
       [value]="msg"
@@ -7,18 +7,18 @@
     ></p-messages>
   </div>
 
-  <form class="forgetPassword-container-form" [formGroup]="myForm">
-    <div class="forgetPassword-container-form-top">
+  <form class="feedback-container-form" [formGroup]="myForm">
+    <div class="feedback-container-form-top">
       <h1>Feedback</h1>
     </div>
-    <div class="forgetPassword-container-form-input">
+    <div class="feedback-container-form-input">
       <label>email </label>
       <input type="text" placeholder="email" formControlName="email" />
       <label>Message </label>
       <input type="text" placeholder="message" formControlName="message" />
     </div>
 
-    <div class="forgetPassword-container-form-button">
+    <div class="feedback-container-form-button">
       <button
         pButton
         pRipple
