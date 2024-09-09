@@ -20,7 +20,7 @@ ng-container {
   margin: 1%;
 }
 
-.card-grid {
+.view-product-container-card-grid {
   border-top: solid #d2d2d2 1px;
   border-bottom: solid #d2d2d2 1px;
   display: grid;
@@ -30,7 +30,7 @@ ng-container {
   padding: 1%;
 }
 
-.card-grid p-card {
+.view-product-container-card-grid p-card {
   width: 340px;
   height: 70vh;
   overflow: auto;
@@ -39,12 +39,11 @@ ng-container {
   border-radius: 8px;
 }
 
-.card-grid p-card:hover {
+.view-product-container-card-grid p-card:hover {
   transform: translateY(10px);
   box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 
 @media (max-width: 600px) {
   p-card {

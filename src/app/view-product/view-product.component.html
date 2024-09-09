@@ -15,7 +15,7 @@
       [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
       [maximizable]="true"
     >
-      <div *ngIf="visible" class="add-url-container-sub">
+      <div *ngIf="visible" class="view-product-container-sub">
         <app-update-product
           [products]="product"
           (flagChanged)="onFlagChanged($event)"
@@ -23,7 +23,7 @@
       </div>
     </p-dialog>
   </div>
-  <div class="card-grid">
+  <div class="view-product-container-card-grid">
     <ng-container *ngIf="data.length > 0; else loading">
       <p-card
         *ngFor="let item of data"
