@@ -2,10 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1%;
-  border: #000 solid 1px;
-  border-radius: 8px;
   height: fit-content;
+  border-bottom: #000 solid 1px;
+  border-top: #000 solid 1px;
 }
 
 .view-shop-container-card {
@@ -20,7 +19,6 @@
   width: 20dvw;
   height: 100%;
   object-fit: cover;
-  padding: 1%;
   display: flex;
   justify-content: center;
 }
