@@ -34,7 +34,10 @@ export class LoginComponent {
 
   public submitForm() {
     this.flag = false;
-    this.messageHandler('info', 'searching user with user name!');
+    this.messageHandler(
+      'info',
+      'Searching for a user with the provided username...'
+    );
 
     this.login({
       username: this.myForm.value.Username,
