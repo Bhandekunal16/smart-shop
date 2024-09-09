@@ -1,4 +1,4 @@
-<div class="view-product-container">
+<div class="feed-container">
   <div class="message-card">
     <p-messages
       [value]="msg"
@@ -32,7 +32,7 @@
       (click)="add()"
     ></button>
   </div>
-  <div class="card-grid">
+  <div class="feed-card-grid">
     <ng-container *ngIf="product.length > 0; else loading">
       <p-card
         *ngFor="let item of product"
@@ -58,7 +58,7 @@
           Rating : <p-rating [(ngModel)]="item.rating" [disabled]="true" />
         </p>
         <ng-template pTemplate="footer">
-          <div class="button-grid">
+          <div class="feed-button-grid">
             <button
               pButton
               pRipple
