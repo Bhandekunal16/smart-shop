@@ -93,13 +93,6 @@ export class DashboardComponent {
               this.addProduct();
             },
           },
-          {
-            label: 'Buy request',
-            icon: 'pi pi-indian-rupee',
-            command: () => {
-              this.purchaseReq();
-            },
-          },
         ],
       },
       {
@@ -124,6 +117,13 @@ export class DashboardComponent {
         ],
       },
 
+      {
+        label: 'Buy Orders',
+        icon: 'pi pi-indian-rupee',
+        command: () => {
+          this.purchaseReq();
+        },
+      },
       {
         label: 'Feedback',
         icon: 'pi pi-comment',
