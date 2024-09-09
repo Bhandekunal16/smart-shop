@@ -1,4 +1,4 @@
-.add-customer-table-container {
+.customer-view-subscription-container {
   position: relative;
   width: 100%;
   height: fit-content;
@@ -9,11 +9,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.customer-view-subscription-table {
+.customer-view-subscription-container-table {
   border-top: 1px #000 solid;
 }
 
-.view-wishlist-container-button-grid {
+.customer-view-subscription-container-button-grid {
   display: flex;
   justify-content: space-evenly;
   width: 15vw;
@@ -25,7 +25,7 @@
 }
 
 @media (max-width: 600px) {
-  .view-wishlist-container-button-grid {
+  .customer-view-subscription-container-button-grid {
     width: 50vw;
   }
 }

@@ -1,4 +1,4 @@
-<div class="add-customer-table-container">
+<div class="customer-view-subscription-container">
   <div class="message-card">
     <p-messages
       [value]="msg"
@@ -8,7 +8,7 @@
   </div>
 
   @if(flag){
-  <div class="view-wishlist-container-button-grid">
+  <div class="customer-view-subscription-container-button-grid">
     <p-button severity="secondary"
       ><i class="pi pi-shop text-3xl" pBadge value="{{ products.length }}"></i
     ></p-button>
@@ -18,7 +18,7 @@
       (click)="addSubscription()"
     ></p-button>
   </div>
-  <div class="customer-view-subscription-table">
+  <div class="customer-view-subscription-container-table">
     <app-tables [data]="products" [header]="header"></app-tables>
   </div>
   } @else {
