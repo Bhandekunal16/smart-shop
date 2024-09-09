@@ -10,10 +10,10 @@
   border-top: #000 solid 1px;
 }
 
-.view-wishlist-container-button-grid {
+.purchase-list-container-button-grid {
   display: flex;
   justify-content: space-evenly;
-  width: 15vw;
+  width: 15dvw;
   padding: 1%;
   background-color: #f0f0f0;
   margin: 0.1%;
@@ -21,8 +21,8 @@
 }
 
 @media (max-width: 600px) {
-  .view-wishlist-container-button-grid {
-    width: 50vw;
+  .purchase-list-container-button-grid {
+    width: 50dvw;
     margin: 0; 
   }
 }
