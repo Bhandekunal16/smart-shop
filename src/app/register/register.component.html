@@ -1,3 +1,36 @@
+<div class="register-container-button">
+  <p-button
+    (onClick)="showDialog()"
+    icon="pi pi-info-circle"
+    severity="contrast"
+    aria-label="Show information dialog"
+  />
+
+  <p-dialog
+    header="Help"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [maximizable]="true"
+  >
+    <p>
+      The type of account you choose depends on the role you want to take on. We
+      offer two roles: Merchant and Customer. Think of these as similar to a
+      shopkeeper and a shopper. If you want to sell products, select the
+      Merchant role. If you're here to make purchases, select the Customer role.
+      Please choose your role accordingly to proceed with the appropriate
+      experience.
+    </p>
+    <p>
+      Please note that we have specific guidelines for photo uploads. Ensure
+      that your photo is less than 2MB in size. This helps maintain quick
+      loading times and efficient storage. If your image exceeds this limit,
+      please compress it before uploading.
+    </p>
+  </p-dialog>
+</div>
+
 <div class="register-container">
   <div class="message-card">
     <p-messages
@@ -5,39 +38,6 @@
       [closable]="true"
       [enableService]="false"
     ></p-messages>
-  </div>
-
-  <div>
-    <p-button
-      (onClick)="showDialog()"
-      icon="pi pi-info-circle"
-      severity="contrast"
-      aria-label="Show information dialog"
-    />
-
-    <p-dialog
-      header="Help"
-      [modal]="true"
-      [(visible)]="visible"
-      [style]="{ width: '50rem' }"
-      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-      [maximizable]="true"
-    >
-      <p>
-        The type of account you choose depends on the role you want to take on.
-        We offer two roles: Merchant and Customer. Think of these as similar to
-        a shopkeeper and a shopper. If you want to sell products, select the
-        Merchant role. If you're here to make purchases, select the Customer
-        role. Please choose your role accordingly to proceed with the
-        appropriate experience.
-      </p>
-      <p>
-        Please note that we have specific guidelines for photo uploads. Ensure
-        that your photo is less than 2MB in size. This helps maintain quick
-        loading times and efficient storage. If your image exceeds this limit,
-        please compress it before uploading.
-      </p>
-    </p-dialog>
   </div>
 
   <form class="register-container-form" [formGroup]="myForm">
