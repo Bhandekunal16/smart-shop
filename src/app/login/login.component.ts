@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Message } from 'primeng/api';
 import { Observable, catchError, throwError } from 'rxjs';
 import { SharedModule } from '../shared/shared.module';
@@ -34,6 +34,7 @@ export class LoginComponent {
 
   public submitForm() {
     this.flag = false;
+    this.messageHandler('info', 'searching user with user name!');
 
     this.login({
       username: this.myForm.value.Username,
@@ -55,7 +56,11 @@ export class LoginComponent {
         data.data.userType == 'MERCHANT'
           ? this.dashboard()
           : this.customerDashboard();
-      } else this.messageHandler('warn', 'please check login credential !');
+      } else {
+        this.messageHandler('warn', 'please check login credential !');
+        this.flag = true;
+        this.myForm.reset();
+      }
       this.clearMessagesAfterDelay();
     });
   }
