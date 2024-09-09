@@ -25,7 +25,10 @@ export class ForgetPasswordComponent {
 
   constructor(private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
-      email: new FormControl(''),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+      ]),
     });
 
     this.myForm2 = new FormGroup({
