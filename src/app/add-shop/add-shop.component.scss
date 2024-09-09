@@ -5,7 +5,7 @@
 
 .add-shop-container-form {
   background-color: #f0f0f0;
-  width: 40vw;
+  width: 40dvw;
   border: 0.2px solid #ffffff;
   border-radius: 8px;
   display: flex;
@@ -17,7 +17,7 @@
 }
 
 .add-shop-container-form-top {
-  height: 10vh;
+  height: 10dvh;
   width: 100%;
   border-radius: 8px 8px 0 0;
   display: flex;
@@ -49,8 +49,8 @@
 
 .add-shop-container-form-input input {
   margin-top: 2%;
-  height: 8vh;
-  width: 37vw;
+  height: 8dvh;
+  width: 37dvw;
   border-radius: 5px;
   border: 0.2px solid #f0f0f0;
   padding: 0.5rem;
@@ -76,7 +76,7 @@
 
 @media (max-width: 600px) {
   .add-shop-container-form {
-    width: 92vw;
+    width: 92dvw;
     margin: 0;
     padding: 1rem;
   }
@@ -87,6 +87,6 @@
   }
 
   .add-shop-container-form-input input {
-    width: 80vw;
+    width: 80dvw;
   }
 }
