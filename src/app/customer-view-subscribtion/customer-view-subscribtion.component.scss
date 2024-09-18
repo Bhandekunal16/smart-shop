@@ -14,14 +14,13 @@
 .customer-view-subscription-container-button-grid {
   display: flex;
   justify-content: space-evenly;
-  width: 15vw;
+  width: 15dvw;
   padding: 1%;
   background-color: #f0f0f0;
-  border-radius: 8px;
 }
 
 @media (max-width: 600px) {
   .customer-view-subscription-container-button-grid {
-    width: 50vw;
+    width: 50dvw;
   }
 }
