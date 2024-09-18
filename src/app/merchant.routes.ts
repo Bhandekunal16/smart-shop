@@ -18,6 +18,7 @@ import { ViewProductComponent } from './view-product/view-product.component';
 import { ViewShopComponent } from './view-shop/view-shop.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChartheadComponent } from './charthead/charthead.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 export const MerchantRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ export const MerchantRoutes: Routes = [
       { path: 'addUser', component: AddCustomerComponent },
       { path: 'deleteUser', component: DeleteCustomerComponent },
       { path: 'addShop', component: AddShopComponent },
+      { path: 'about', component: AboutusComponent },
       {
         path: 'viewShop',
         component: ViewShopComponent,
