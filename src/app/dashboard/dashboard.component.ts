@@ -7,11 +7,12 @@ import { StateService } from '../state.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { header } from '../string';
+import { BottomComponent } from "../bottom/bottom.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, BottomComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

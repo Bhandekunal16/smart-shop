@@ -1,0 +1,21 @@
+.bottom-container {
+  background-color: #f5f5f5;
+}
+
+.bottom-container ul {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.5%;
+}
+
+.bottom-container li {
+  list-style: none !important;
+  color: #675d59;
+  padding: 1%;
+}
+
+.bottom-container li:hover {
+  background-color: #fff;
+  border-radius: 5px;
+}
