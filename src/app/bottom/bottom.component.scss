@@ -15,7 +15,19 @@
   padding: 1%;
 }
 
+.bottom-container a {
+  text-decoration: none;
+  color: #675d59;
+}
+
 .bottom-container li:hover {
   background-color: #fff;
   border-radius: 5px;
+}
+
+@media (max-width: 450px) {
+    .bottom-container ul {
+        display: flex;
+        flex-direction: column;
+    }
 }
