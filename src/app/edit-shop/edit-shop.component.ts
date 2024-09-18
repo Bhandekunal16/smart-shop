@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -22,6 +22,7 @@ export class EditShopComponent {
   public readingFlag: boolean = false;
   public status: any | undefined = 'Enabled';
   public statusFlag: any;
+  @Output() flagChanged = new EventEmitter<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
@@ -63,6 +64,7 @@ export class EditShopComponent {
     }).subscribe((ele) => {
       this.messageHandler('success', 'shop edited successfully!');
       this.clearMessagesAfterDelay();
+      this.flagChanged.emit(true);
     });
   }
 

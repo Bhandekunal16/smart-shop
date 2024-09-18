@@ -117,6 +117,16 @@ export class ViewShopComponent implements OnInit {
     }
   }
 
+  public onFlagChanged(flag: boolean) {
+    if (flag) {
+      this.messageHandler('info', 'searching product for you!');
+      this.flag = false;
+      this.details();
+      this.changer();
+      this.typeRender();
+    }
+  }
+
   public now(input: string) {
     return btoa(input);
   }

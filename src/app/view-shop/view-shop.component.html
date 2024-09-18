@@ -43,7 +43,7 @@
       [maximizable]="true"
     >
       <div class="view-shop-container-sub">
-        <app-edit-shop></app-edit-shop>
+        <app-edit-shop (flagChanged)="onFlagChanged($event)"></app-edit-shop>
       </div>
     </p-dialog>
   </div>
