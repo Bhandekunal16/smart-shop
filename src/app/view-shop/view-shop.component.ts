@@ -149,6 +149,8 @@ export class ViewShopComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching Whois info:', error);
+        this.foundTitle = '';
+        this.foundDesc = '';
       }
     );
   }
