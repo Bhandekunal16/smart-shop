@@ -131,6 +131,11 @@ export class ViewShopComponent implements OnInit {
     return btoa(input);
   }
 
+  public route_to_link(input: string) {
+    const url = new URL(input);
+    window.open(url.toString(), '_blank');
+  }
+
   public removeUrl(url: any) {
     this.removeUrls({ id: localStorage.getItem('id'), url: url }).subscribe(
       (ele) => {
