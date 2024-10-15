@@ -96,7 +96,7 @@
           label="{{ url }}"
           [removable]="true"
           (onRemove)="removeUrl(url)"
-          (dblclick)="show_url_help()"
+          (dblclick)="show_url_help(url)"
           [style]="{ 'margin-top': '10px' }"
         />
         <p-dialog
@@ -105,6 +105,8 @@
           [(visible)]="visible3"
           [style]="{ width: '20rem' }"
         >
+          <p>{{ foundTitle }}</p>
+          <p>{{ foundDesc }}</p>
           <button
             type="button"
             pButton

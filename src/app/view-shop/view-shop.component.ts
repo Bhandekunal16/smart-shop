@@ -8,6 +8,7 @@ import { header } from '../string';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Logger } from '../custom.logs';
 import { EditShopComponent } from '../edit-shop/edit-shop.component';
+import { json } from 'stream/consumers';
 
 @Component({
   selector: 'app-view-shop',
@@ -34,6 +35,8 @@ export class ViewShopComponent implements OnInit {
   public visible2: boolean = false;
   public visible3: boolean = false;
   public myForm: FormGroup;
+  public foundTitle: string | undefined;
+  public foundDesc: string | undefined;
 
   constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
@@ -132,13 +135,32 @@ export class ViewShopComponent implements OnInit {
     return btoa(input);
   }
 
+  getWhoisInfo(domain: string) {
+    this.http.get(domain, { responseType: 'text' }).subscribe(
+      (data) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        this.foundTitle =
+          doc.querySelector('title')?.textContent || 'No title found';
+        this.foundDesc =
+          doc
+            .querySelector('meta[name="description"]')
+            ?.getAttribute('content') || 'No description found';
+      },
+      (error) => {
+        console.error('Error fetching Whois info:', error);
+      }
+    );
+  }
+
   public route_to_link(input: string) {
     const url = new URL(input);
     window.open(url.toString(), '_blank');
   }
 
-  public show_url_help() {
+  public show_url_help(input: string) {
     this.visible3 = true;
+    this.getWhoisInfo(input);
   }
 
   public removeUrl(url: any) {
