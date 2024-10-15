@@ -96,9 +96,25 @@
           label="{{ url }}"
           [removable]="true"
           (onRemove)="removeUrl(url)"
-          (dblclick)="route_to_link(url)"
+          (dblclick)="show_url_help()"
           [style]="{ 'margin-top': '10px' }"
         />
+        <p-dialog
+          header="visit urls"
+          [modal]="true"
+          [(visible)]="visible3"
+          [style]="{ width: '20rem' }"
+        >
+          <button
+            type="button"
+            pButton
+            pRipple
+            label="watch"
+            class="p-button-success"
+            icon="pi pi-eye"
+            (click)="route_to_link(url)"
+          ></button>
+        </p-dialog>
         }
       </div>
 

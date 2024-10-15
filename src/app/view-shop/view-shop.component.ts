@@ -32,6 +32,7 @@ export class ViewShopComponent implements OnInit {
   public typeFlag: boolean = false;
   public visible: boolean = false;
   public visible2: boolean = false;
+  public visible3: boolean = false;
   public myForm: FormGroup;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -134,6 +135,10 @@ export class ViewShopComponent implements OnInit {
   public route_to_link(input: string) {
     const url = new URL(input);
     window.open(url.toString(), '_blank');
+  }
+
+  public show_url_help() {
+    this.visible3 = true;
   }
 
   public removeUrl(url: any) {
