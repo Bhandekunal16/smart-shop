@@ -105,8 +105,22 @@
           [(visible)]="visible3"
           [style]="{ width: '20rem' }"
         >
+          <p-image
+            src="{{ foundFavicon }}"
+            alt="Image"
+            width="20"
+            *ngIf="foundFavicon !== ''"
+          />
           <p>{{ foundTitle }}</p>
           <p>{{ foundDesc }}</p>
+          <p>{{ foundArthur }}</p>
+          <p-image
+            src="{{ foundImage }}"
+            alt="Image"
+            width="250"
+            *ngIf="foundImage !== ''"
+          />
+
           <button
             type="button"
             pButton

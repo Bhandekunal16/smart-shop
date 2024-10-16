@@ -8,7 +8,6 @@ import { header } from '../string';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Logger } from '../custom.logs';
 import { EditShopComponent } from '../edit-shop/edit-shop.component';
-import { json } from 'stream/consumers';
 
 @Component({
   selector: 'app-view-shop',
@@ -37,6 +36,9 @@ export class ViewShopComponent implements OnInit {
   public myForm: FormGroup;
   public foundTitle: string | undefined;
   public foundDesc: string | undefined;
+  public foundArthur: string | undefined;
+  public foundImage: string | undefined;
+  public foundFavicon: string | undefined;
 
   constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
@@ -135,28 +137,6 @@ export class ViewShopComponent implements OnInit {
     return btoa(input);
   }
 
-  getWhoisInfo(domain: string) {
-    this.http.get(domain, { responseType: 'text' }).subscribe(
-      (data) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        this.foundTitle =
-          doc.querySelector('title')?.textContent || 'No title found';
-        this.foundDesc =
-          doc
-            .querySelector('meta[name="description"]')
-            ?.getAttribute('content') || 'No description found';
-      },
-      (error) => {
-        if (error.status === 0) {
-          console.error('CORS error or network issue', error);
-        } else {
-          console.error('An error occurred:', error);
-        }
-      }
-    );
-  }
-
   public route_to_link(input: string) {
     const url = new URL(input);
     window.open(url.toString(), '_blank');
@@ -164,7 +144,20 @@ export class ViewShopComponent implements OnInit {
 
   public show_url_help(input: string) {
     this.visible3 = true;
-    this.getWhoisInfo(input);
+    this.url_information({ domain: input }).subscribe(
+      (ele) => {
+        console.log(ele);
+        this.foundTitle = ele.data.title;
+        this.foundDesc = ele.data.description;
+        this.foundArthur = ele.data.author;
+        this.foundImage = ele.data.ogImage;
+        this.foundFavicon = ele.data.favicon
+      },
+      (err) => {
+        this.foundTitle = '';
+        this.foundDesc = '';
+      }
+    );
   }
 
   public removeUrl(url: any) {
@@ -259,6 +252,19 @@ export class ViewShopComponent implements OnInit {
           headers,
         }
       )
+      .pipe(
+        catchError((error) => {
+          return throwError(error);
+        })
+      );
+  }
+
+  private url_information(body: any): Observable<any> {
+    const headers = header();
+    return this.http
+      .post<any>('http://localhost:3003/url/information', body, {
+        headers,
+      })
       .pipe(
         catchError((error) => {
           return throwError(error);
