@@ -91,14 +91,32 @@
       <p>Shop Status : {{ status }}</p>
 
       <div class="view-shop-container-chip-container">
-        @for (url of urls; track url) {
+        @for (url of urls; track url) { @if (url.startsWith('https')) {
         <p-chip
           label="{{ url }}"
           [removable]="true"
           (onRemove)="removeUrl(url)"
           (dblclick)="show_url_help(url)"
-          [style]="{ 'margin-top': '10px' }"
+          [style]="{
+            'margin-top': '10px',
+            'background-color': 'green',
+            color: 'white'
+          }"
         />
+        } @else {
+        <p-chip
+          label="{{ url }}"
+          [removable]="true"
+          (onRemove)="removeUrl(url)"
+          (dblclick)="show_url_help(url)"
+          [style]="{
+            'margin-top': '10px',
+            'background-color': 'orange',
+            color: '#333333'
+          }"
+        />
+        }
+
         <p-dialog
           header="visit urls"
           [modal]="true"
