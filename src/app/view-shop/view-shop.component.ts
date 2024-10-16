@@ -34,11 +34,12 @@ export class ViewShopComponent implements OnInit {
   public visible2: boolean = false;
   public visible3: boolean = false;
   public myForm: FormGroup;
-  public foundTitle: string | undefined;
-  public foundDesc: string | undefined;
-  public foundArthur: string | undefined;
-  public foundImage: string | undefined;
-  public foundFavicon: string | undefined;
+  public foundTitle: string | undefined = '';
+  public foundDesc: string | undefined = '';
+  public foundArthur: string | undefined = '';
+  public foundImage: string | undefined = '';
+  public foundFavicon: string | undefined = '';
+  public safe_unsafe: string | undefined = '';
 
   constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
@@ -144,6 +145,7 @@ export class ViewShopComponent implements OnInit {
 
   public show_url_help(input: string) {
     this.visible3 = true;
+    this.safe_unsafe = input.startsWith('https') ? 'Secure' : 'Not secure';
     this.url_information({ domain: input }).subscribe(
       (ele) => {
         console.log(ele);
@@ -151,7 +153,7 @@ export class ViewShopComponent implements OnInit {
         this.foundDesc = ele.data.description;
         this.foundArthur = ele.data.author;
         this.foundImage = ele.data.ogImage;
-        this.foundFavicon = ele.data.favicon
+        this.foundFavicon = ele.data.favicon;
       },
       (err) => {
         this.foundTitle = '';
@@ -262,9 +264,13 @@ export class ViewShopComponent implements OnInit {
   private url_information(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .post<any>('https://smart-shop-api-eta.vercel.app/url/information', body, {
-        headers,
-      })
+      .post<any>(
+        'https://smart-shop-api-eta.vercel.app/url/information',
+        body,
+        {
+          headers,
+        }
+      )
       .pipe(
         catchError((error) => {
           return throwError(error);
