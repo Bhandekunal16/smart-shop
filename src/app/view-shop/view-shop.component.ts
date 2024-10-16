@@ -40,6 +40,7 @@ export class ViewShopComponent implements OnInit {
   public foundImage: string | undefined = '';
   public foundFavicon: string | undefined = '';
   public safe_unsafe: string | undefined = '';
+  public current_url: string = '';
 
   constructor(private http: HttpClient, private router: Router) {
     this.myForm = new FormGroup({
@@ -139,6 +140,7 @@ export class ViewShopComponent implements OnInit {
   }
 
   public route_to_link(input: string) {
+    console.log(input);
     const url = new URL(input);
     window.open(url.toString(), '_blank');
   }
@@ -146,6 +148,7 @@ export class ViewShopComponent implements OnInit {
   public show_url_help(input: string) {
     this.visible3 = true;
     this.safe_unsafe = input.startsWith('https') ? 'Secure' : 'Not secure';
+    this.current_url = input;
     this.url_information({ domain: input }).subscribe(
       (ele) => {
         console.log(ele);
