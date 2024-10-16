@@ -262,7 +262,7 @@ export class ViewShopComponent implements OnInit {
   private url_information(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .post<any>('http://localhost:3003/url/information', body, {
+      .post<any>('https://smart-shop-api-eta.vercel.app/url/information', body, {
         headers,
       })
       .pipe(
