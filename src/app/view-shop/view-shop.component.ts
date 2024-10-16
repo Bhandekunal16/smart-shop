@@ -148,9 +148,11 @@ export class ViewShopComponent implements OnInit {
             ?.getAttribute('content') || 'No description found';
       },
       (error) => {
-        console.error('Error fetching Whois info:', error);
-        this.foundTitle = '';
-        this.foundDesc = '';
+        if (error.status === 0) {
+          console.error('CORS error or network issue', error);
+        } else {
+          console.error('An error occurred:', error);
+        }
       }
     );
   }
