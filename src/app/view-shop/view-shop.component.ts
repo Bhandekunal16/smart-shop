@@ -151,7 +151,6 @@ export class ViewShopComponent implements OnInit {
     this.current_url = input;
     this.url_information({ domain: input }).subscribe(
       (ele) => {
-        console.log(ele);
         this.foundTitle = ele.data.title;
         this.foundDesc = ele.data.description;
         this.foundArthur = ele.data.author;
