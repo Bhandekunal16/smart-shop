@@ -154,8 +154,14 @@ export class ViewShopComponent implements OnInit {
         this.foundTitle = ele.data.title;
         this.foundDesc = ele.data.description;
         this.foundArthur = ele.data.author;
-        this.foundImage = ele.data.ogImage;
-        this.foundFavicon = ele.data.favicon;
+        this.foundImage =
+          ele.data.ogImage == ''
+            ? '../../assets/6941145.jpg'
+            : ele.data.ogImage;
+        this.foundFavicon =
+          ele.data.favicon == ''
+            ? '../../assets/6941145.jpg'
+            : ele.data.favicon;
       },
       (err) => {
         this.foundTitle = '';
