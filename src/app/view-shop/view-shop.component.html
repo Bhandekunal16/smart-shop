@@ -118,7 +118,7 @@
         }
 
         <p-dialog
-          header={{safe_unsafe}}
+          header="{{ safe_unsafe }}"
           [modal]="true"
           [(visible)]="visible3"
           [style]="{ width: '25rem' }"
@@ -132,12 +132,14 @@
           <p>{{ foundTitle }}</p>
           <p>{{ foundDesc }}</p>
           <p>{{ foundArthur }}</p>
-          <p-image
-            src="{{ foundImage }}"
-            alt="Image"
-            width="250"
-            *ngIf="foundImage !== ''"
-          />
+          <div class="view-shop-container-url-img">
+            <p-image
+              src="{{ foundImage }}"
+              alt="Image"
+              width="250"
+              *ngIf="foundImage !== ''"
+            />
+          </div>
 
           <button
             type="button"
