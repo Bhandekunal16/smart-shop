@@ -23,6 +23,7 @@ export class CustomerViewSubscriptionComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageHandler('info', `searching for subscription`);
+    this.flag = true;
     this.shopDetails().subscribe((ele) => {
       this.products = ele.data.map((data: any) => {
         return {
@@ -32,8 +33,6 @@ export class CustomerViewSubscriptionComponent implements OnInit {
         };
       });
       this.header = Object.keys(this.products[0]);
-      this.flag = true;
-
       this.messageHandler('success', `shop found ${this.products.length}`);
       this.clearMessagesAfterDelay();
     });
