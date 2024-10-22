@@ -35,7 +35,6 @@ export class ViewProductComponent implements OnInit {
       );
 
       if (ele.status) {
-        console.log(ele);
         this.data = ele.data;
         this.flag = true;
         this.messageHandler(
@@ -100,7 +99,6 @@ export class ViewProductComponent implements OnInit {
   }
 
   public now(input: string) {
-    console.log(input)
     return `data:image/webp;base64,${btoa(input)}`;
   }
 
