@@ -85,7 +85,11 @@ export class RegisterComponent {
         data.data.userType == 'MERCHANT'
           ? this.dashboard()
           : this.customerDashboard();
-      } else this.messageHandler('warn', `${data.response}`);
+      } else {
+        this.messageHandler('warn', `${data.response}`);
+        this.myForm.reset();
+        this.flag = true;
+      }
     });
   }
 
@@ -153,7 +157,7 @@ export class RegisterComponent {
   private register(body: any): Observable<any> {
     const headers = header();
     return this.http
-      .post<any>(' https://smart-shop-api-eta.vercel.app/auth/register', body, {
+      .post<any>(' http://localhost:3003/auth/register', body, {
         headers,
       })
       .pipe(
